@@ -1,0 +1,384 @@
+--------- beginning of main
+04-10 13:48:07.193  4784  5762 E Auth    : [GoogleAccountDataServiceImpl] getToken() -> BAD_AUTHENTICATION. Account: <ELLIDED:-1315212284>, App: com.google.android.gms, Service: oauth2:https://www.googleapis.com/auth/contextcontroller
+04-10 13:48:07.193  4784  5762 E Auth    : fbq: Long live credential not available.
+04-10 13:48:07.193  4784  5762 E Auth    : 	at fbr.b(:com.google.android.gms@11975440:10)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at fbr.a(:com.google.android.gms@11975440:50)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at fab.a(:com.google.android.gms@11975440:37)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at gnz.a(:com.google.android.gms@11975440:7)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at gnz.a(:com.google.android.gms@11975440:155)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at gmz.a(:com.google.android.gms@11975440:2)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at gmx.a(:com.google.android.gms@11975440:17)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at gmx.a(:com.google.android.gms@11975440:6)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at cog.a(:com.google.android.gms@11975440:25)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at cog.a(:com.google.android.gms@11975440:80)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at exe.a(:com.google.android.gms@11975440:6)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at exd.a(:com.google.android.gms@11975440:2)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at exd.e(:com.google.android.gms@11975440:6)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at exd.d(:com.google.android.gms@11975440:1)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at exb.b(:com.google.android.gms@11975440:1)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at mqf.a(:com.google.android.gms@11975440:1)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at mos.a(:com.google.android.gms@11975440:3)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at dft.a(:com.google.android.gms@11975440:54)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at dbc.run(:com.google.android.gms@11975440:2)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at dba.handleMessage(:com.google.android.gms@11975440:3)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at muv.run(:com.google.android.gms@11975440:6)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at mvh.run(:com.google.android.gms@11975440:26)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at nap.run(:com.google.android.gms@11975440)
+04-10 13:48:07.193  4784  5762 E Auth    : 	at java.lang.Thread.run(Thread.java:762)
+04-10 13:48:07.194  4784  5762 W Auth    : [GetToken] GetToken failed with status code: BadAuthentication
+--------- beginning of system
+04-10 13:48:07.205  3660  7549 I ActivityManager: Killing 2419:com.google.android.syncadapters.calendar/u0a110 (adj 906): DHA:empty #31
+04-10 13:48:07.207  3660  7549 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:07.207  3660  7549 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:07.207  3660  7549 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:07.225  4784  5762 W Auth    : [GoogleAuthUtil] GoogleAuthUtil
+04-10 13:48:07.225  4784  5762 W AuthSessionAuthenticato: Auth related exception is being ignored: BadAuthentication
+04-10 13:48:07.229  3660  3876 D ActivityManager: cleanUpApplicationRecord -- 2419
+04-10 13:48:07.231  4863  4875 D ForegroundUtils: could not check pending caller
+04-10 13:48:07.233  4784  5762 E ctxmgr  : [BaseServerTask]Server task (WriteInterestRecordTask) got error statusCode=-1.
+04-10 13:48:07.233  4784  5762 E ctxmgr  : com.android.volley.VolleyError: Unable to obtain auth token - is the device online?
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at dft.a(:com.google.android.gms@11975440:62)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at dbc.run(:com.google.android.gms@11975440:2)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at dba.handleMessage(:com.google.android.gms@11975440:3)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at muv.run(:com.google.android.gms@11975440:6)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at mvh.run(:com.google.android.gms@11975440:26)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at nap.run(:com.google.android.gms@11975440)
+04-10 13:48:07.233  4784  5762 E ctxmgr  : 	at java.lang.Thread.run(Thread.java:762)
+04-10 13:48:07.236  4784  5762 E ctxmgr  : [SyncServerInterestRecordsOperation]Failed WriteInterestRecord: network status=-1
+04-10 13:48:07.260  3660  4357 E Watchdog: !@Sync 19953 [2019-04-10 13:48:07.259]
+04-10 13:48:07.625  4973  4973 D SecurityManagerNative: SecurityManagerNative v2.7.2.6 On 64bit PLATFORM With BORINGSSL
+04-10 13:48:07.629  4973  4973 I appproc : Enhanced Zygote ASLR: ENABLED! nice_name = zygote64
+04-10 13:48:07.629  4973  4973 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+04-10 13:48:07.631  4973  4973 D AndroidRuntime: CheckJNI is OFF
+04-10 13:48:07.633  4973  4973 D AndroidRuntime: addProductProperty: start
+04-10 13:48:07.697  4973  4973 I [saiv 1.1]: saiv_OnLoadJNI.cpp(38): _init: Version 1.1 Build # 3532
+04-10 13:48:07.697  4973  4973 I [saiv 1.1]: saiv_OnLoadJNI.cpp(43): _init: _init() was called
+04-10 13:48:07.698  3660  3678 D MountService: getExternalStorageMountMode : 1
+04-10 13:48:07.699  3660  3678 D MountService: getExternalStorageMountMode : 3
+04-10 13:48:07.699  3660  3678 D MountService: getExternalStorageMountMode : final mountMode=1, uid : 1000, packageName : com.trustonic.tuiservice
+04-10 13:48:07.727  4973  4973 I MLDAP   : ================================================
+04-10 13:48:07.727  4973  4973 I MLDAP   :  MLDAP_LIB v1.1.16
+04-10 13:48:07.727  4973  4973 I MLDAP   : ================================================
+04-10 13:48:07.735  4986  4986 E Zygote  : v2
+04-10 13:48:07.736  4986  4986 I libpersona: KNOX_SDCARD checking this for 1000
+04-10 13:48:07.736  4986  4986 I libpersona: KNOX_SDCARD not a persona
+04-10 13:48:07.736  3660  3678 I ActivityManager: Start proc 4986:com.trustonic.tuiservice/1000 for service com.trustonic.tuiservice/.TuiService
+04-10 13:48:07.738  4986  4986 E Zygote  : accessInfo : 0
+04-10 13:48:07.739  4986  4986 W SELinux : SELinux selinux_android_compute_policy_index : Policy Index[2],  Con:u:r:zygote:s0 RAM:SEPF_SECMOBILE_7.0_0010, [-1 -1 -1 -1 0 1]
+04-10 13:48:07.741  4986  4986 I SELinux : SELinux: seapp_context_lookup: seinfo=platform, pkgname=com.trustonic.tuiservice 
+04-10 13:48:07.778  4986  4986 D TimaKeyStoreProvider: TimaKeyStore is not enabled: cannot add TimaSignature Service and generateKeyPair Service
+04-10 13:48:07.782  3660  4900 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:07.782  3660  4900 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:07.782  3660  4900 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:07.782  3660  4900 I ActivityManager: DSS on for com.trustonic.tuiservice and scale is 1.0
+04-10 13:48:07.784  3660  4900 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:07.784  3660  4900 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:07.784  3660  4900 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:07.793  3660  4900 I ActivityManager: Killing 2565:com.samsung.android.calendar/u0a201 (adj 906): DHA:empty #31
+04-10 13:48:07.794  3660  4900 I ActivityManager: Killing 2479:com.android.providers.calendar/u0a32 (adj 906): DHA:empty #31
+04-10 13:48:07.795  3660  4900 I ActivityManager: Killing 2432:com.google.process.gapps/u0a111 (adj 906): DHA:empty #31
+04-10 13:48:07.796  3660  4900 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:07.796  3660  4900 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:07.796  3660  4900 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:07.814  3660  7547 D ActivityManager: cleanUpApplicationRecord -- 2432
+04-10 13:48:07.816  4863  4876 D ForegroundUtils: could not check pending caller
+04-10 13:48:07.816  4973  4973 I TMSDISP : AcsAndroidVirtualDisplayIntfImpl
+04-10 13:48:07.821  3660  4707 D ActivityManager: cleanUpApplicationRecord -- 2565
+04-10 13:48:07.821  4986  4986 I art     : Starting a blocking GC AddRemoveAppImageSpace
+04-10 13:48:07.822  4863  4875 D ForegroundUtils: could not check pending caller
+04-10 13:48:07.837  3660  4930 D ActivityManager: cleanUpApplicationRecord -- 2479
+04-10 13:48:07.842  4863 26515 D ForegroundUtils: could not check pending caller
+04-10 13:48:07.852  4986  4986 I TuiService: onCreate!!
+04-10 13:48:07.854  4986  4986 D TlcTuiJni: JNI_OnLoad
+04-10 13:48:07.855  4986  4986 D TlcTuiJni: JNI_OnLoad: TuiTlcWrapperClass = 0x21
+04-10 13:48:07.855  4986  4986 D TlcTuiJni: JNI_OnLoad: gVm = 0x7982a90080 vm = 0x7982a90080
+04-10 13:48:07.855  4986  4986 D TuiTlcWrapper: TuiService Init!
+04-10 13:48:07.857  4986  4986 D TlcTuiJni: calling tlcLaunch()
+04-10 13:48:07.857  4986  5008 D TlcTui  : mainThread: TlcTui start!
+04-10 13:48:07.859  4986  4986 D TuiService: info=1440x2560, dpi=640
+04-10 13:48:07.860  4986  4986 D TlcTuiJni: calling tlcNotifyDisplayEvent()
+04-10 13:48:07.860  4986  4986 I TlcTui  : tlcNotifyEvent(), TUI_IO_DISPLAY_NOTIFY w=1440, h=2560
+04-10 13:48:07.860  4986  4986 I TuiService: Resolution changed!! 0 to 640
+04-10 13:48:07.860  4973  4973 D ICU     : No timezone override file found: /data/misc/zoneinfo/current/icu/icu_tzdata.dat
+04-10 13:48:07.900  4973  4973 I Radio-JNI: register_android_hardware_Radio DONE
+04-10 13:48:07.910  4973  4973 D ReflectionHelper: loadKlass() : caller=android.app.Activity.<clinit>:7555 <bottom of call stack> 
+04-10 13:48:07.911  4973  4973 D ReflectionHelper: Reflecting method.....  class <onScreenChanged>
+04-10 13:48:07.916  4973  4973 E SemAffinityControl: SemAffinityControl: registerfunction enter
+04-10 13:48:07.932  4973  4973 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+04-10 13:48:07.967  3660  4900 I ActivityManager: START u0 {act=null typ=null flg=0x10000000 cmp=ComponentInfo{com.YourCompany.UEPrototype/com.epicgames.ue4.GameActivity}} from uid 2000 on display 0
+04-10 13:48:07.978  3660  4900 D ActivityManager: ActivityRecord() Constructor : multiScreenAttrs=MultiScreenAttrs{mDisplayId=0, mBaseDisplayId=0, mBaseActivity=false}
+04-10 13:48:07.989  3660  4900 V GearVrManagerService: setupwizard completed! but not hmt not connected! start pending launch!
+04-10 13:48:07.996  3660  4900 W ActivityManager: GearVR not ready: not allowed to start VR Activity. activity=ComponentInfo{com.YourCompany.UEPrototype/com.epicgames.ue4.GameActivity} intent=Intent { flg=0x10000000 cmp=com.YourCompany.UEPrototype/com.epicgames.ue4.GameActivity launchParam=MultiScreenLaunchParams { mDisplayId=0 mFlags=0 } } isVrActivity=true
+04-10 13:48:07.997  4973  4973 D AndroidRuntime: Shutting down VM
+04-10 13:48:08.007  4836  4848 V GearVrManagerServiceExternal: (GearVrManagerServiceExternal.java:318) yTqX [startWaitActivity intent=Intent { act=com.samsung.intent.action.HMT_PENDING_LAUNCH flg=0x10000000 pkg=com.samsung.android.hmt.vrsvc launchParam=MultiScreenLaunchParams { mDisplayId=0 mFlags=0 } (has extras) } userId=0]
+04-10 13:48:08.016  4836  4848 V GearVrManagerServiceExternal: (GearVrManagerServiceExternal.java:324) yTqX [checkSetupWizard...]
+04-10 13:48:08.030  4836  4848 V GearVrManagerServiceExternal: (VRMode.java:86) QdBd [checkSideloadMode failed]
+04-10 13:48:08.035  4973  4973 I TMSDISP : AcsAndroidVirtualDisplayIntfImpl::~AcsAndroidVirtualDisplayIntfImpl - Enter
+04-10 13:48:08.035  4973  4973 I TMSDISP : AcsAndroidVirtualDisplayIntfImpl::~AcsAndroidVirtualDisplayIntfImpl - Enter2
+04-10 13:48:08.035  4973  4973 I TMSDISP : AcsAndroidVirtualDisplayIntfImpl::~AcsAndroidVirtualDisplayIntfImpl - mSource2
+04-10 13:48:08.035  4973  4973 I TMSDISP : AcsAndroidVirtualDisplayIntfImpl::~AcsAndroidVirtualDisplayIntfImpl - Exit
+04-10 13:48:08.038  3660  3686 D MountService: getExternalStorageMountMode : 1
+04-10 13:48:08.038  3660  3686 D MountService: getExternalStorageMountMode : 3
+04-10 13:48:08.038  3660  3686 D MountService: getExternalStorageMountMode : final mountMode=1, uid : 1000, packageName : com.samsung.android.hmt.vrsvc
+04-10 13:48:08.057  5018  5018 E Zygote  : v2
+04-10 13:48:08.057  5018  5018 I libpersona: KNOX_SDCARD checking this for 1000
+04-10 13:48:08.057  5018  5018 I libpersona: KNOX_SDCARD not a persona
+04-10 13:48:08.057  3660  3686 I ActivityManager: Start proc 5018:com.samsung.android.hmt.vrsvc/1000 for content provider com.samsung.android.hmt.vrsvc/.provider.VRProvider
+04-10 13:48:08.058  5018  5018 E Zygote  : accessInfo : 0
+04-10 13:48:08.059  5018  5018 W SELinux : SELinux selinux_android_compute_policy_index : Policy Index[2],  Con:u:r:zygote:s0 RAM:SEPF_SECMOBILE_7.0_0010, [-1 -1 -1 -1 0 1]
+04-10 13:48:08.060  5018  5018 I SELinux : SELinux: seapp_context_lookup: seinfo=platform, pkgname=com.samsung.android.hmt.vrsvc 
+04-10 13:48:08.088  5018  5018 D TimaKeyStoreProvider: TimaKeyStore is not enabled: cannot add TimaSignature Service and generateKeyPair Service
+04-10 13:48:08.092  3660  4899 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:08.092  3660  4899 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:08.092  3660  4899 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:08.092  3660  4899 I ActivityManager: DSS on for com.samsung.android.hmt.vrsvc and scale is 1.0
+04-10 13:48:08.094  3660  4899 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:08.094  3660  4899 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:08.094  3660  4899 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:08.130  5018  5018 I art     : Starting a blocking GC AddRemoveAppImageSpace
+04-10 13:48:08.184  5018  5018 V VRSVC   : (VRServiceApplication.java:16) onCreate [onCreate() elapsedTime=2]
+04-10 13:48:08.334  4836  4848 E GearVrManagerServiceExternal: (ActivityManagerCompat.java:15) yTqX [Exception in getDeclaredMethod() java.lang.NoSuchMethodException: getService [] class:class android.app.ActivityManager parameterTypes:[]]
+04-10 13:48:08.335  4836  4848 E GearVrManagerServiceExternal: (ActivityManagerCompat.java:15) yTqX [Exception in getMethod() java.lang.NoSuchMethodException: getService [] class:class android.app.ActivityManager parameterTypes:[]]
+04-10 13:48:08.338  4836  4848 V GearVrManagerServiceExternal: (SetupChecker.java:127) yTqX [checkOculusSetup oculusState=1 currentUserId=0]
+04-10 13:48:08.391  4836  4848 V GearVrManagerServiceExternal: (SetupChecker.java:256) wtkw [scenario=1(1)]
+04-10 13:48:08.414  4836  4848 V GearVrManagerServiceExternal: (SetupChecker.java:266) wtkw [isScenarioChanged prevMCC=450 currentMCC=450 isForce=false]
+04-10 13:48:08.442  4836  4848 I GearVrManagerServiceExternal: (SetupChecker.java:282) wtkw [scenario not changed]
+04-10 13:48:08.581  3660  6566 D SSRM:t  : SIOP:: AP = 310, PST = 294 (W:10), CP = 242, CUR = -42, LCD = 0
+04-10 13:48:08.592  4836  4848 V GearVrManagerServiceExternal: (SetupChecker.java:235) yTqX [newOculusState=1 oculusState=1 elapsedTime=253]
+04-10 13:48:08.593  4836  4848 D GearVrManagerServiceExternal: (VRIntentFactory.java:367) yTqX [reason=hmt setupWizardComplete=1]
+04-10 13:48:08.597  4836  4848 V GearVrManagerServiceExternal: (VRIntentFactory.java:414) yTqX [showInsertHMTPopup intent=Intent { flg=0x10000000 cmp=com.YourCompany.UEPrototype/com.epicgames.ue4.GameActivity launchParam=MultiScreenLaunchParams { mDisplayId=0 mFlags=0 } } pendingIntent=PendingIntent{9106f7a: android.os.BinderProxy@52d32b}]
+04-10 13:48:08.627  4836  4848 I GearVrManagerServiceExternal: (VRIntentFactory.java:453) yTqX [start WaitActivity topAfctivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}]
+04-10 13:48:08.659  4836  4848 V GearVrManagerServiceExternal: (Util.java:1593) uWFZ [widthPixel=2560 heightPixel=1440]
+04-10 13:48:08.670  3660  3686 I ActivityManager: START u0 {act=null typ=null flg=0x10000000 cmp=ComponentInfo{com.samsung.android.hmt.vrsvc/com.samsung.android.hmt.vrsvc.WaitActivity}} from uid 1000 on display 0
+04-10 13:48:08.681  3660  3686 D ActivityManager: ActivityRecord() Constructor : multiScreenAttrs=MultiScreenAttrs{mDisplayId=0, mBaseDisplayId=0, mBaseActivity=false}
+04-10 13:48:08.683  3660  3686 D ActivityManager: computeStackFocus: stackId=1
+04-10 13:48:08.683  3660  3686 D ActivityManager: computeStackFocus: New stack r=ActivityRecord{977bfb6d0 u0 com.samsung.android.hmt.vrsvc/.WaitActivity t-1} stackId=1
+04-10 13:48:08.685  3660  3686 D ActivityTrigger: Activity is Triggerred in full screen 
+04-10 13:48:08.692  3660  3686 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:08.692  3660  3686 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:08.692  3660  3686 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:08.693  3660  3686 D ActivityManager: moveToFront() : reason=startedActivity setFocusedActivity isAttached=true TaskRecord{1b82142d0 #387 A=com.samsung.android.hmt.vrsvc.wait U=0 StackId=1 sz=1}
+04-10 13:48:08.703  3660  3686 D ActivityManager: setFocusStackUnchecked: reason=startedActivity setFocusedActivity focusCandidate=ActivityStack{e10ffc2d0 stackId=1, 2 tasks} caller=com.android.server.am.ActivityStack.moveToFront:877 com.android.server.am.ActivityStackSupervisor.moveActivityStackToFront:2006 
+04-10 13:48:08.712  3660  3686 D InputDispatcher: Focused application set to: xxxx
+04-10 13:48:08.715  3660  3686 D InputDispatcher: Focus left window: 5072
+04-10 13:48:08.718  3660  3686 D ActivityManager: resumeTopActivityInnerLocked() : #1 prevTask=TaskRecord{1b82142d0 #387 A=com.samsung.android.hmt.vrsvc.wait U=0 StackId=1 sz=1} next=ActivityRecord{977bfb6d0 u0 com.samsung.android.hmt.vrsvc/.WaitActivity t387} mFocusedStack=ActivityStack{e10ffc2d0 stackId=1, 2 tasks}
+04-10 13:48:08.719  3660  3686 D ActivityManager: applyOptionsLocked(), pendingOptions : null
+04-10 13:48:08.721  5072  5072 D ViewRootImpl@bb1f93b[LauncherActivity]: MSG_WINDOW_FOCUS_CHANGED 0
+04-10 13:48:08.727  5072  5072 D SEM_CLIP_SemClipboardManager: isCocktailBarDisplayed : false
+04-10 13:48:08.733  3660  3686 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:08.733  3660  3686 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:08.733  3660  3686 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:08.736  3660  3686 D GameManagerService: there is not sem_perfomance_mode on setting
+04-10 13:48:08.737  3660  3660 D GameManagerService: NotifyRunnable. pkg: com.samsung.android.hmt.vrsvc, type: 4, isMinimized: false, isTunableApp: false
+04-10 13:48:08.737  3660  3660 D GameManagerService: unexpected mPrevNotiType: -1
+04-10 13:48:08.741  3660  3686 D ActivityTrigger: ActivityTrigger activityPauseTrigger 
+04-10 13:48:08.742  3660  3686 D GameManagerService: there is not sem_perfomance_mode on setting
+04-10 13:48:08.760  3660  6566 D GamePkgDataHelper: getGamePkgData(). com.samsung.android.hmt.vrsvc
+04-10 13:48:08.761  3660  6566 D GameManagerService: identifyGamePackage. com.samsung.android.hmt.vrsvc
+04-10 13:48:08.766  4863 26515 D ForegroundUtils: could not check pending caller
+04-10 13:48:08.767  4863  4875 D ForegroundUtils: could not check pending caller
+04-10 13:48:08.769  3660  6566 D GameManagerService: identifyGamePackage. com.samsung.android.hmt.vrsvc
+04-10 13:48:08.770  5072  5072 D Launcher: onTrimMemory. Level: 20
+04-10 13:48:08.774  3660  6566 D TelephonyManager: getAllCellInfo : Caller (PID / UID / TID): 3660 / 1000 / 6566
+04-10 13:48:08.802  5018  5018 V VRSVC   : (WaitActivity.java:108) onCreate [onCreate() hash=27996975]
+04-10 13:48:08.805  5072  5072 D ViewRootImpl@bb1f93b[LauncherActivity]: mHardwareRenderer.destroy()#1
+04-10 13:48:08.809  3660  4768 V WindowManager: Relayout Window{9869a75d0 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}: viewVisibility=8 req=1440x2560 WM.LayoutParams{(0,0)(fillxfill) sim=#130 ty=1 fl=#81910d02 pfl=0x20000 fmt=-2 wanim=0x103038a vsysui=0x600 needsMenuKey=2 dimDuration=0 naviIconColor=0 sfl=0x40}
+04-10 13:48:08.810  3660  4768 I WindowManager_SurfaceController: Destroying surface Surface(name=com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity) called by com.android.server.wm.WindowStateAnimator.destroySurface:2907 com.android.server.wm.WindowStateAnimator.destroySurfaceLocked:1120 com.android.server.wm.WindowState.destroyOrSaveSurface:2692 com.android.server.wm.WindowManagerService.tryStartExitingAnimation:3577 com.android.server.wm.WindowManagerService.relayoutWindow:3433 com.android.server.wm.Session.relayout:240 android.view.IWindowSession$Stub.onTransact:288 com.android.server.wm.Session.onTransact:161 
+04-10 13:48:08.810  3111  3963 I SurfaceFlinger: id=369 Removed MauncherAct (1/15)
+04-10 13:48:08.813  3111  2901 I SurfaceFlinger: id=369 Removed MauncherAct (-2/15)
+04-10 13:48:08.832  3660  6566 D GameManagerService: identifyGamePackage. com.samsung.android.hmt.vrsvc
+04-10 13:48:08.835  5072  5072 D ViewRootImpl@bb1f93b[LauncherActivity]: Relayout returned: oldFrame=[0,0][1440,2560] newFrame=[0,0][1440,2560] result=0x5 surface={isValid=false 0} surfaceGenerationChanged=true
+04-10 13:48:08.901  3660  3926 D MdnieScenarioControlService:  packageName : com.samsung.android.hmt.vrsvc    className : com.samsung.android.hmt.vrsvc.WaitActivity
+04-10 13:48:08.907  5018  5018 V VRSVC   : (WaitActivity.java:123) onCreate [pending_intent intent=Intent { flg=0x10000000 cmp=com.YourCompany.UEPrototype/com.epicgames.ue4.GameActivity launchParam=MultiScreenLaunchParams { mDisplayId=0 mFlags=0 } } pendingIntents=[PendingIntent{cfed472: android.os.BinderProxy@f6760c3}]]
+04-10 13:48:08.908  5018  5018 V VRSVC   : (WaitActivity.java:132) onCreate [topActivity=ComponentInfo{com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}]
+04-10 13:48:08.923  5018  5018 V VRSVC   : (WaitActivity.java:300) onResume [onResume() isDestroyed=false isFinishing=false hash=27996975]
+04-10 13:48:08.950  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: ThreadedRenderer.create() translucent=false
+04-10 13:48:08.952  3660  4959 D WindowManager: addWindow: android.view.IWindow$Stub$Proxy@fab0f8e displayId=0
+04-10 13:48:08.953  3660  4959 D InputTransport: Input channel constructed: fd=454
+04-10 13:48:08.953  3660  4959 D InputTransport: Input channel constructed: fd=455
+04-10 13:48:08.953  3660  4959 D WindowManager: openInputChannel mInputChannel: c3ce3bc com.samsung.android.hmt.vrsvc/com.samsung.android.hmt.vrsvc.WaitActivity (server)
+04-10 13:48:08.955  3660  4959 D InputTransport: Input channel destroyed: fd=455
+04-10 13:48:08.956  5018  5018 D InputTransport: Input channel constructed: fd=54
+04-10 13:48:08.958  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: setView = DecorView@561c5be[WaitActivity] touchMode=true
+04-10 13:48:08.958  3660  4768 D ActivityManager: post active user change for 0 fullscreen true isHomeActivity() false
+04-10 13:48:08.959  3660  4768 D KnoxTimeoutHandler: postActiveUserChange [MsgParam] userId: 0 fullscreen is true showWhenlocked is false isMutiwindowRecord is false multiwindowstyle is 0
+04-10 13:48:08.959  3660  3660 D KnoxTimeoutHandler: handleActiveUserChange [MsgParam] userId: 0 fullscreen is true showWhenlocked is false isMutiwindowRecord is false multiwindowstyle is 0
+04-10 13:48:08.960  5018  5018 V VRSVC   : (WaitActivity.java:365) onPause [onPause() isDestroyed=false isFinishing=false hash=27996975]
+04-10 13:48:08.961  3660  7547 D ActivityManager: setAppIconInfo(), x : 0, y : 0, width : 0, height : 0, isHomeItem : false
+04-10 13:48:08.961  3660  3660 I KnoxTimeoutHandler: Shared devices show user statefalse
+04-10 13:48:08.962  3660  3678 D ActivityTrigger: ActivityTrigger activityStopTrigger 
+04-10 13:48:08.968  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: dispatchAttachedToWindow
+04-10 13:48:09.006  3660  3674 V WindowManager: Relayout Window{c3ce3bcd0 u0 com.samsung.android.hmt.vrsvc/com.samsung.android.hmt.vrsvc.WaitActivity}: viewVisibility=0 req=1440x2464 WM.LayoutParams{(0,0)(fillxfill) sim=#120 ty=1 fl=#81810100 pfl=0x20000 wanim=0x103038a vsysui=0x700 needsMenuKey=2 naviIconColor=0}
+04-10 13:48:09.008  3111  3111 I SurfaceFlinger: id=372 createSurf (1x1),1 flag=404, XaitActivit
+04-10 13:48:09.011  3660  3679 D WindowManager: set systemUiVisibility of statusbar : vis= 0x708
+04-10 13:48:09.035  3660  3674 D InputDispatcher: Focus entered window: 5018
+04-10 13:48:09.042  3660  4870 D WindowManager: adjustSystemUiVisibilityLw : vis= 0x708
+04-10 13:48:09.044  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: Relayout returned: oldFrame=[0,0][0,0] newFrame=[0,0][1440,2560] result=0x27 surface={isValid=true 521590272000} surfaceGenerationChanged=true
+04-10 13:48:09.045  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: mHardwareRenderer.initialize() mSurface={isValid=true 521590272000} hwInitialized=true
+04-10 13:48:09.079  5018  5018 V VRSVC   : (WaitActivity.java:329) onSaveInstanceState [onSaveInstanceState()]
+04-10 13:48:09.082  5018  5054 D libEGL  : loaded /vendor/lib64/egl/libGLES_mali.so
+04-10 13:48:09.121  5018  5054 I OpenGLRenderer: Initialized EGL, version 1.4
+04-10 13:48:09.121  5018  5054 D OpenGLRenderer: Swap behavior 1
+04-10 13:48:09.129  5018  5054 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000,  [1440x2560]-format:1
+04-10 13:48:09.130  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: MSG_RESIZED_REPORT: ci=Rect(0, 96 - 0, 0) vi=Rect(0, 96 - 0, 0) or=1
+04-10 13:48:09.130  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: MSG_WINDOW_FOCUS_CHANGED 1
+04-10 13:48:09.131  5018  5018 D ViewRootImpl@6de1479[WaitActivity]: mHardwareRenderer.initializeIfNeeded()#2 mSurface={isValid=true 521590272000}
+04-10 13:48:09.132  5018  5018 V InputMethodManager: Starting input: tba=android.view.inputmethod.EditorInfo@3d60034 nm : com.samsung.android.hmt.vrsvc ic=null
+04-10 13:48:09.132  5018  5018 I InputMethodManager: [IMM] startInputInner - mService.startInputOrWindowGainedFocus
+04-10 13:48:09.132  3660  7546 D InputMethodManagerService: windowGainedFocus mCurrentFocusedUserId - 0 and mSecureKeypadEnabled-false
+04-10 13:48:09.133  3660  7546 V InputMethodManagerService: windowGainedFocus: reason=WINDOW_FOCUS_GAIN client=android.os.BinderProxy@3da2389 inputContext=null missingMethods= attribute=android.view.inputmethod.EditorInfo@2b86f45 nm = com.samsung.android.hmt.vrsvc controlFlags=#104 softInputMode=#120 windowFlags=#81810100
+04-10 13:48:09.133  3660  7546 V InputMethodManagerService: Unspecified window will hide input
+04-10 13:48:09.133  3660  7546 D InputMethodManagerService: mDesktopModeManager null!
+04-10 13:48:09.133  3660  7546 V InputMethodManagerService: hideCurrentInputLocked - !shouldHideSoftInput
+04-10 13:48:09.134  3660  7546 V InputMethodManagerService: Creating new session for client ClientState{ecc969a uid 1000 pid 5018}
+04-10 13:48:09.135  5072  5072 D InputTransport: Input channel destroyed: fd=76
+04-10 13:48:09.135  3660  7546 D InputTransport: Input channel constructed: fd=455
+04-10 13:48:09.136  3660  7546 D InputTransport: Input channel constructed: fd=460
+04-10 13:48:09.136  3660  7546 D InputTransport: Input channel destroyed: fd=460
+04-10 13:48:09.137  4557 23260 D InputTransport: Input channel constructed: fd=57
+04-10 13:48:09.141  3660  3934 D InputTransport: Input channel constructed: fd=460
+04-10 13:48:09.141  3660  3934 D InputTransport: Input channel destroyed: fd=460
+04-10 13:48:09.142  5018  5030 D InputTransport: Input channel constructed: fd=62
+04-10 13:48:09.144  4557  4557 D SKBD    : IMPL finishInput
+04-10 13:48:09.228  3660  3675 D WindowManager: finishDrawingWindow: Window{c3ce3bcd0 u0 com.samsung.android.hmt.vrsvc/com.samsung.android.hmt.vrsvc.WaitActivity} mDrawState=DRAW_PENDING
+04-10 13:48:09.231  5018  5018 V InputMethodManager: Starting input: tba=android.view.inputmethod.EditorInfo@2661e5d nm : com.samsung.android.hmt.vrsvc ic=null
+04-10 13:48:09.231  5018  5018 W IInputConnectionWrapper: reportFullscreenMode on inexistent InputConnection
+04-10 13:48:09.248  3660  3688 D KnoxTimeoutHandler: notifyActivityDrawn [MsgParam] userId: 0 fullscreen is true showWhenlocked is false isMutiwindowRecord is false multiwindowstyle is 1
+04-10 13:48:09.249  3660  3660 D KnoxTimeoutHandler: activityDrawn [MsgParam] userId: 0 fullscreen is true showWhenlocked is false isMutiwindowRecord is false multiwindowstyle is 1
+04-10 13:48:09.251  3660  3660 I KnoxTimeoutHandler: SD activityfalse
+04-10 13:48:09.251  3660  3660 I KnoxTimeoutHandler: Fullscreen and mCurrent is not KNOX user. Hence hide keyguard
+04-10 13:48:09.255  3660  3688 I ActivityManager: Displayed com.samsung.android.hmt.vrsvc/.WaitActivity: +509ms (total +535ms)
+04-10 13:48:09.697  4589  4589 D io_stats: !@   8,0 r 352798 15546552 w 984818 13652652 d 78244 13071344 f 360705 360686 iot 1304070 562133 th 61440 0 0 pt 0 inp 0 0 599076.355
+04-10 13:48:09.993  4784 30169 E Auth    : [GoogleAccountDataServiceImpl] getToken() -> BAD_AUTHENTICATION. Account: <ELLIDED:-1315212284>, App: com.google.android.gms, Service: oauth2:https://www.googleapis.com/auth/contextcontroller
+04-10 13:48:09.993  4784 30169 E Auth    : fbq: Long live credential not available.
+04-10 13:48:09.993  4784 30169 E Auth    : 	at fbr.b(:com.google.android.gms@11975440:10)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at fbr.a(:com.google.android.gms@11975440:50)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at fab.a(:com.google.android.gms@11975440:37)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at gnz.a(:com.google.android.gms@11975440:7)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at gnz.a(:com.google.android.gms@11975440:155)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at gmz.a(:com.google.android.gms@11975440:2)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at gmx.a(:com.google.android.gms@11975440:17)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at gmx.a(:com.google.android.gms@11975440:6)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at cog.a(:com.google.android.gms@11975440:25)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at cog.a(:com.google.android.gms@11975440:80)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at exe.a(:com.google.android.gms@11975440:6)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at exd.a(:com.google.android.gms@11975440:2)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at exd.e(:com.google.android.gms@11975440:6)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at exd.d(:com.google.android.gms@11975440:1)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at exb.b(:com.google.android.gms@11975440:1)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at mqf.a(:com.google.android.gms@11975440:1)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at mos.a(:com.google.android.gms@11975440:3)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at dft.a(:com.google.android.gms@11975440:54)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at dbc.run(:com.google.android.gms@11975440:2)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at dba.handleMessage(:com.google.android.gms@11975440:3)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at muv.run(:com.google.android.gms@11975440:6)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at mvh.run(:com.google.android.gms@11975440:26)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at nap.run(:com.google.android.gms@11975440)
+04-10 13:48:09.993  4784 30169 E Auth    : 	at java.lang.Thread.run(Thread.java:762)
+04-10 13:48:09.994  4784 30169 W Auth    : [GetToken] GetToken failed with status code: BadAuthentication
+04-10 13:48:10.004  3660  3675 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:10.004  3660  3675 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:10.004  3660  3675 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:10.022  3660  3660 D TelephonyManager: getCellLocation : Caller (PID / UID / TID): 3660 / 1000 / 3660
+04-10 13:48:10.023  3998  4240 D NetworkController.MobileSignalController(0/10): onSignalStrengthsChanged signalStrength=SignalStrength: 99 99 -120 -160 -120 -1 -1 31 -101 -12 50 6 2147483647 0x4000 gsm|lte level=4
+04-10 13:48:10.024  3998  4240 D NetworkController.MobileSignalController(0/10): getMobileIconGroup(): 13
+04-10 13:48:10.024  3998  4240 D NetworkController.MobileSignalController(0/10): updateKTTMobileIconGroup(): 13
+04-10 13:48:10.024  4784 30169 W Auth    : [GoogleAuthUtil] GoogleAuthUtil
+04-10 13:48:10.026  4784 30169 W AuthSessionAuthenticato: Auth related exception is being ignored: BadAuthentication
+04-10 13:48:10.030  3998  4240 D PhoneStatusBar: setIsNetworkAvailable = true
+04-10 13:48:10.031  3998  4240 D PhoneStatusBar: isSIMandOperatorMatched  simNumeric = 45008 currentLocation = domestic
+04-10 13:48:10.034  3998  3998 V PhoneStatusBar: onReceive: Intent { act=com.android.systemui.statusbar.OPERATOR_LOGO_UPDATE flg=0x10 launchParam=MultiScreenLaunchParams { mDisplayId=0 mFlags=0 } bqHint=1 (has extras) }
+04-10 13:48:10.035  3998  3998 D PhoneStatusBar: isSIMandOperatorMatched  simNumeric = 45008 currentLocation = domestic
+04-10 13:48:10.035  4784 30169 E ctxmgr  : [BaseServerTask]Server task (WriteInterestRecordTask) got error statusCode=-1.
+04-10 13:48:10.035  4784 30169 E ctxmgr  : com.android.volley.VolleyError: Unable to obtain auth token - is the device online?
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at dft.a(:com.google.android.gms@11975440:62)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at dbc.run(:com.google.android.gms@11975440:2)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at dba.handleMessage(:com.google.android.gms@11975440:3)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at muv.run(:com.google.android.gms@11975440:6)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at mvh.run(:com.google.android.gms@11975440:26)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at nap.run(:com.google.android.gms@11975440)
+04-10 13:48:10.035  4784 30169 E ctxmgr  : 	at java.lang.Thread.run(Thread.java:762)
+04-10 13:48:10.036  4784 30169 E ctxmgr  : [SyncServerInterestRecordsOperation]Failed WriteInterestRecord: network status=-1
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.155  3660  7550 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.173  3660  5000 W NetworkIdentity: Active mobile network without subscriber!
+04-10 13:48:10.682  3660  3772 D SamsungAlarmManager: Expired : 4
+04-10 13:48:10.682  3660  3772 I SamsungAlarmManager: setLocked to kernel - T:2 / 20190410T134817, SetElapsed=861875911, nowELAPSED=861868950
+04-10 13:48:10.682  3660  3772 V SamsungAlarmManager: Sending to uid : 1000 listener=android.app.AlarmManager$ListenerWrapper@d851ca9 alarm=Alarm{44d8266 type 2 when 861868950 android}
+04-10 13:48:10.686  3660  3660 D SamsungAlarmManager: setInexact Listener (T:2/F:0/AC:false) 20190410T134829 - CU:1000/CP:3660
+04-10 13:48:10.786  3660  3675 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:10.786  3660  3675 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:10.786  3660  3675 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:10.817  3660  4769 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:10.817  3660  4769 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:10.817  3660  4769 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:10.832  4784 30169 E Auth    : [GoogleAccountDataServiceImpl] getToken() -> BAD_AUTHENTICATION. Account: <ELLIDED:-1315212284>, App: com.google.android.gms, Service: oauth2:https://www.googleapis.com/auth/contextcontroller
+04-10 13:48:10.832  4784 30169 E Auth    : fbq: Long live credential not available.
+04-10 13:48:10.832  4784 30169 E Auth    : 	at fbr.b(:com.google.android.gms@11975440:10)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at fbr.a(:com.google.android.gms@11975440:50)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at fab.a(:com.google.android.gms@11975440:37)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at gnz.a(:com.google.android.gms@11975440:7)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at gnz.a(:com.google.android.gms@11975440:155)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at gmz.a(:com.google.android.gms@11975440:2)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at gmx.a(:com.google.android.gms@11975440:17)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at gmx.a(:com.google.android.gms@11975440:6)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at cog.a(:com.google.android.gms@11975440:25)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at cog.a(:com.google.android.gms@11975440:80)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at exe.a(:com.google.android.gms@11975440:6)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at exd.a(:com.google.android.gms@11975440:2)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at exd.e(:com.google.android.gms@11975440:6)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at exd.d(:com.google.android.gms@11975440:1)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at exb.b(:com.google.android.gms@11975440:1)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at mqf.a(:com.google.android.gms@11975440:1)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at mos.a(:com.google.android.gms@11975440:3)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at dft.a(:com.google.android.gms@11975440:54)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at dbc.run(:com.google.android.gms@11975440:2)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at dba.handleMessage(:com.google.android.gms@11975440:3)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at muv.run(:com.google.android.gms@11975440:6)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at mvh.run(:com.google.android.gms@11975440:26)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at nap.run(:com.google.android.gms@11975440)
+04-10 13:48:10.832  4784 30169 E Auth    : 	at java.lang.Thread.run(Thread.java:762)
+04-10 13:48:10.833  4784 30169 W Auth    : [GetToken] GetToken failed with status code: BadAuthentication
+04-10 13:48:10.842  3660  7547 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:10.842  3660  7547 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:10.842  3660  7547 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:10.859  4784 30169 W Auth    : [GoogleAuthUtil] GoogleAuthUtil
+04-10 13:48:10.860  4784 30169 W AuthSessionAuthenticato: Auth related exception is being ignored: BadAuthentication
+04-10 13:48:10.866  3660  4930 D CompatibilityInfo: mCompatibilityFlags - 0
+04-10 13:48:10.866  3660  4930 D CompatibilityInfo: applicationDensity - 640
+04-10 13:48:10.866  3660  4930 D CompatibilityInfo: applicationScale - 1.0
+04-10 13:48:10.879  4784 30169 E ctxmgr  : [BaseServerTask]Server task (WriteInterestRecordTask) got error statusCode=-1.
+04-10 13:48:10.879  4784 30169 E ctxmgr  : com.android.volley.VolleyError: Unable to obtain auth token - is the device online?
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at dft.a(:com.google.android.gms@11975440:62)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at dbc.run(:com.google.android.gms@11975440:2)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at dba.handleMessage(:com.google.android.gms@11975440:3)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at muv.run(:com.google.android.gms@11975440:6)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at mvh.run(:com.google.android.gms@11975440:26)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1133)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:607)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at nap.run(:com.google.android.gms@11975440)
+04-10 13:48:10.879  4784 30169 E ctxmgr  : 	at java.lang.Thread.run(Thread.java:762)
+04-10 13:48:10.881  4784 30169 E ctxmgr  : [SyncServerInterestRecordsOperation]Failed WriteInterestRecord: network status=-1

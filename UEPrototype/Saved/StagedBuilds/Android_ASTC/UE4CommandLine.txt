@@ -1,0 +1,1 @@
+../../../UEPrototype/UEPrototype.uproject  /Game/MobileStarterContent/Maps/Minimal_Default -Messaging -SessionId=0748538D4538EF5DF7933BBE77AEE1A8 -SessionOwner="Utsuho" -SessionName="Launch On Device" -iterative

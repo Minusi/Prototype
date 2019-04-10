@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\UEPrototype.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{A6AF4E1D-23B4-46F1-9A00-B4BBE06DC6B3}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UEPrototype.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\UEPrototypeEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{75DAC767-9736-4044-9907-D2AECE77CCAC}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\UEPrototype">
+      <UniqueIdentifier>{8157C280-7D31-41B2-8D8E-4864D3124FC7}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs">
+      <Filter>Source\UEPrototype</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\UEPrototype\UEPrototype.cpp">
+      <Filter>Source\UEPrototype</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UEPrototype\UEPrototype.h">
+      <Filter>Source\UEPrototype</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UEPrototype\UEPrototypeGameModeBase.cpp">
+      <Filter>Source\UEPrototype</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UEPrototype\UEPrototypeGameModeBase.h">
+      <Filter>Source\UEPrototype</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

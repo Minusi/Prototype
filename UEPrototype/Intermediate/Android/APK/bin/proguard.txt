@@ -1,0 +1,21 @@
+# view AndroidManifest.xml #generated:32
+-keep class com.YourCompany.UEPrototype.AlarmReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:11
+-keep class com.YourCompany.UEPrototype.DownloaderActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:31
+-keep class com.YourCompany.UEPrototype.OBBDownloaderService { <init>(...); }
+
+# view AndroidManifest.xml #generated:4
+-keep class com.epicgames.ue4.GameActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:33
+-keep class com.epicgames.ue4.LocalNotificationReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:34
+-keep class com.epicgames.ue4.MulticastBroadcastReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:30
+-keep class com.google.android.gms.ads.AdActivity { <init>(...); }
+
