@@ -82,3 +82,8 @@ DerivedDataCache/*
 
 # All of apk
 *.apk
+
+# DCT Contents
+UEPBox/*
+UEPBox/Texture/T_BinaryGrid.png
+UEPBox/ToolSave/GIMP/GMP_GridTexture.xcf
