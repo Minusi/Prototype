@@ -1,0 +1,6 @@
+﻿  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\Utsuho\Desktop\General\Project\Prototype).
+  Building 1 action with 8 processes...
+    [1/1] UE4Editor-UEPrototype.dll
+       C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype.suppressed.lib 라이브러리 및 C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype.suppressed.exp 개체를 생성하고 있습니다.
+  Deploying UEPrototypeEditor Win64 Development...
+  Total build time: 20.24 seconds (Parallel executor: 1.26 seconds)

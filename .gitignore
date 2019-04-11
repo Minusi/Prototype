@@ -82,3 +82,6 @@ DerivedDataCache/*
 
 # All of apk
 *.apk
+
+# DCT Contents Directory
+UEPBox/

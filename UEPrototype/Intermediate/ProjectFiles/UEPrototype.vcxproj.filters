@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\UEPrototype.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{A6AF4E1D-23B4-46F1-9A00-B4BBE06DC6B3}</UniqueIdentifier>
+      <UniqueIdentifier>{83DB3777-7811-4EE9-A88C-77D74FF78BAB}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{75DAC767-9736-4044-9907-D2AECE77CCAC}</UniqueIdentifier>
+      <UniqueIdentifier>{441396D9-BB6A-4ED4-B58C-9689D3FCAA51}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -24,7 +24,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\UEPrototype">
-      <UniqueIdentifier>{8157C280-7D31-41B2-8D8E-4864D3124FC7}</UniqueIdentifier>
+      <UniqueIdentifier>{828F0DA2-D455-45F6-B428-11A276700938}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs">
       <Filter>Source\UEPrototype</Filter>
@@ -40,6 +40,42 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\UEPrototype\UEPrototypeGameModeBase.h">
       <Filter>Source\UEPrototype</Filter>
+    </ClInclude>
+    <Filter Include="Source\UEPrototype\Private">
+      <UniqueIdentifier>{01891357-C6F7-4DA6-B7F1-CC4EBAC6D204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Private\BuiltIn">
+      <UniqueIdentifier>{EE60277F-3C63-45C1-B32F-60F1978D9E30}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\GridLayout.cpp">
+      <Filter>Source\UEPrototype\Private\BuiltIn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\GridManager.cpp">
+      <Filter>Source\UEPrototype\Private\BuiltIn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\GridMeshPool.cpp">
+      <Filter>Source\UEPrototype\Private\BuiltIn</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\GridViewer.cpp">
+      <Filter>Source\UEPrototype\Private\BuiltIn</Filter>
+    </ClCompile>
+    <Filter Include="Source\UEPrototype\Public">
+      <UniqueIdentifier>{F5CD3121-EBD2-490A-AC8F-DB506391FFE7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Public\BuiltIn">
+      <UniqueIdentifier>{3DD3B994-A75F-4396-8500-915BAD116050}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\GridLayout.h">
+      <Filter>Source\UEPrototype\Public\BuiltIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\GridManager.h">
+      <Filter>Source\UEPrototype\Public\BuiltIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\GridMeshPool.h">
+      <Filter>Source\UEPrototype\Public\BuiltIn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\GridViewer.h">
+      <Filter>Source\UEPrototype\Public\BuiltIn</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
