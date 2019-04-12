@@ -418,6 +418,8 @@
 /I C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Public
 /I C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype
 /I C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Public\BuiltIn
+/I C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Public\BuiltIn\Grid
+/I C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Public\Utility
 /I "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.13.26128\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt"
@@ -427,7 +429,7 @@
 /FI"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UEPrototypeEditor\Development\Engine\SharedPCH.Engine.h"
 /Yu"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UEPrototypeEditor\Development\Engine\SharedPCH.Engine.h"
 /Fp"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UEPrototypeEditor\Development\Engine\SharedPCH.Engine.h.pch"
-"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Private\BuiltIn\GridLayout.cpp"
+"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Private\BuiltIn\Grid\GridLayout.cpp"
 /FI"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\Definitions.UEPrototype.h"
 /Fo"C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\GridLayout.cpp.obj"
 /TP

@@ -1,4 +1,4 @@
-﻿Log file open, 04/11/19 21:48:20
+﻿Log file open, 04/12/19 20:53:38
 LogWindows: Failed to load 'aqProf.dll' (GetLastError=126)
 LogWindows: File 'aqProf.dll' does not exist
 LogWindows: Failed to load 'VtuneApi.dll' (GetLastError=126)
@@ -10,7 +10,7 @@ LogInit: Display: Running engine for game: UEPrototype
 LogPakFile: Registered encryption key '00000000000000000000000000000000': 0 pak files mounted, 0 remain pending
 LogPlatformFile: Not using cached read wrapper
 LogTaskGraph: Started task graph with 5 named threads and 23 total threads with 3 sets of task threads.
-LogStats: Stats thread started at 0.545358
+LogStats: Stats thread started at 0.343901
 LogD3D11RHI: Loaded GFSDK_Aftermath_Lib.x64.dll
 LogICUInternationalization: ICU TimeZone Detection - Raw Offset: +9:00, Platform Override: ''
 LogPluginManager: Mounting plugin Paper2D
@@ -94,9 +94,58 @@ LogPluginManager: Mounting plugin RuntimePhysXCooking
 LogPluginManager: Mounting plugin SteamVR
 LogPluginManager: Mounting plugin WebMMoviePlayer
 LogPluginManager: Mounting plugin WindowsMoviePlayer
-LogStreaming: Display: Took  0.242s to configure plugins.
+LogStreaming: Display: Took  0.252s to configure plugins.
 LogInit: Warning: Incompatible or missing module: UEPrototype
+Running C:/Program Files (x86)/~Game/Epic Games/UE_4.21/Engine/Binaries/DotNET/UnrealBuildTool.exe Development Win64 -Project="C:/Users/Utsuho/Desktop/General/Project/Prototype/UEPrototype/UEPrototype.uproject" -TargetType=Editor -Progress -NoHotReloadFromIDE
+Using 'git status' to determine working set for adaptive non-unity build (C:\Users\Utsuho\Desktop\General\Project\Prototype).
+Creating makefile for UEPrototypeEditor (no existing makefile)
+Performing full C++ include scan (no include cache file)
+Using Visual Studio 2017 14.13.26128 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.13.26128) and Windows 10.0.16299.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+@progress push 5%
+Parsing headers for UEPrototypeEditor
+  Running UnrealHeaderTool "C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\UEPrototype.uproject" "C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UEPrototypeEditor\Development\UEPrototypeEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
+Reflection code generated for UEPrototypeEditor in 15.8791868 seconds
+@progress pop
+Building 16 actions with 8 processes...
+  @progress 'Compiling C++ source code...' 0%
+  @progress 'Compiling C++ source code...' 6%
+  [1/16] PCLaunch.rc
+  @progress 'Compiling C++ source code...' 12%
+  [2/16] SharedPCH.Engine.cpp
+  @progress 'Compiling C++ source code...' 19%
+  [3/16] GridManager.cpp
+  C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Public\BuiltIn\GridManager.h(8): fatal error C1083: ???? ?????? ?? ?? ?????ϴ?. 'GridMeshPool.h': No such file or directory
+  @progress 'Compiling C++ source code...' 25%
+  [4/16] GridManager.gen.cpp
+  C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype/Public/BuiltIn/GridManager.h(8): fatal error C1083: ???? ?????? ?? ?? ?????ϴ?. 'GridMeshPool.h': No such file or directory
+  @progress 'Compiling C++ source code...' 31%
+  [5/16] GridLayout.cpp
+  C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\Public\BuiltIn\GridLayout.h(7): fatal error C1083: ???? ?????? ?? ?? ?????ϴ?. 'GridMeshPool.h': No such file or directory
+  @progress 'Compiling C++ source code...' 38%
+  [6/16] VPGameInstance.cpp
+  @progress 'Compiling C++ source code...' 44%
+  [7/16] GridLayout.gen.cpp
+  C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype/Public/BuiltIn/GridLayout.h(7): fatal error C1083: ???? ?????? ?? ?? ?????ϴ?. 'GridMeshPool.h': No such file or directory
+  @progress 'Compiling C++ source code...' 50%
+  [8/16] GridViewer.cpp
+  @progress 'Compiling C++ source code...' 56%
+  [9/16] UEPrototypeGameModeBase.cpp
+  @progress 'Compiling C++ source code...' 62%
+  [10/16] GridViewer.gen.cpp
+  @progress 'Compiling C++ source code...' 69%
+  [11/16] UEPrototype.init.gen.cpp
+  @progress 'Compiling C++ source code...' 75%
+  [12/16] UEPrototype.cpp
+  @progress 'Compiling C++ source code...' 81%
+  [13/16] VPGameInstance.gen.cpp
+  @progress 'Compiling C++ source code...' 88%
+  [14/16] UEPrototypeGameModeBase.gen.cpp
+ERROR: UBT ERROR: Failed to produce item: C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Binaries\Win64\UE4Editor-UEPrototype.dll
+       (see ../Programs/UnrealBuildTool/Log.txt for full exception trace)
+Total build time: 186.66 seconds (Parallel executor: 0.00 seconds)
+LogInit: Warning: Still incompatible or missing module: UEPrototype
 LogExit: Preparing to exit.
+LogModuleManager: Shutting down and abandoning module DesktopPlatform (38)
 LogModuleManager: Shutting down and abandoning module AnimationModifiers (36)
 LogModuleManager: Shutting down and abandoning module PropertyEditor (35)
 LogModuleManager: Shutting down and abandoning module AudioEditor (32)
@@ -116,4 +165,4 @@ LogModuleManager: Shutting down and abandoning module StreamingFile (6)
 LogModuleManager: Shutting down and abandoning module SandboxFile (4)
 LogModuleManager: Shutting down and abandoning module PakFile (2)
 LogExit: Exiting.
-Log file closed, 04/11/19 21:48:22
+Log file closed, 04/12/19 20:57:00
