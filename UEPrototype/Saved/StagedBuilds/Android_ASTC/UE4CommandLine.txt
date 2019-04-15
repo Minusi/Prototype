@@ -1,1 +1,0 @@
-../../../UEPrototype/UEPrototype.uproject  /Game/Map/Map_MainMenu -Messaging -SessionId=82F554984BFE9CE33EE05D8343CC8E45 -SessionOwner="Utsuho" -SessionName="Launch On Device" -iterative

@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\UEPrototype.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{D0B418BB-B5FC-48ED-B0F2-48D9C1BE0051}</UniqueIdentifier>
+      <UniqueIdentifier>{C12C55A5-8D76-45C1-B30E-F2334A797706}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{D7EAA365-D9B4-4627-857B-A5FB5E1D53CE}</UniqueIdentifier>
+      <UniqueIdentifier>{EF480B1B-53A1-4486-99D0-ED3F491DBA98}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -27,7 +27,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\UEPrototype">
-      <UniqueIdentifier>{493E1521-4AA6-41D3-BC96-31EE75431DE1}</UniqueIdentifier>
+      <UniqueIdentifier>{9A4FD563-C8EE-4B42-A6DB-13141E9090E1}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs">
       <Filter>Source\UEPrototype</Filter>
@@ -45,28 +45,22 @@
       <Filter>Source\UEPrototype</Filter>
     </ClInclude>
     <Filter Include="Source\UEPrototype\Private">
-      <UniqueIdentifier>{28EAD30F-EBA3-4662-8D7A-DFC150B4673C}</UniqueIdentifier>
+      <UniqueIdentifier>{A0050F26-3F67-47A5-9705-DDEA203A0E17}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Private\BuiltIn">
-      <UniqueIdentifier>{BC1A7D97-D5C1-4EA4-B2C2-951AEA8B68CD}</UniqueIdentifier>
+      <UniqueIdentifier>{D479E2FE-142D-4D4F-87CF-8A582AB535DF}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Private\BuiltIn\Grid">
-      <UniqueIdentifier>{3721D239-8D5C-4F49-8FCB-DD034C4708B2}</UniqueIdentifier>
+      <UniqueIdentifier>{7B188D52-F16F-44CA-923B-E1F8CA5C886F}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\Grid\AGridManager.cpp">
-      <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\Grid\GridLayout.cpp">
-      <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\Grid\GridObjectPool.cpp">
       <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\Grid\GridVisualizer.cpp">
       <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
     </ClCompile>
     <Filter Include="Source\UEPrototype\Private\Core">
-      <UniqueIdentifier>{3F0222AC-5177-491D-86FA-4A22F0CED369}</UniqueIdentifier>
+      <UniqueIdentifier>{08E40023-ABDB-47E6-A284-59393782C75F}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPDirectorPawn.cpp">
       <Filter>Source\UEPrototype\Private\Core</Filter>
@@ -74,35 +68,35 @@
     <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPPlayerController.cpp">
       <Filter>Source\UEPrototype\Private\Core</Filter>
     </ClCompile>
+    <Filter Include="Source\UEPrototype\Private\Edit">
+      <UniqueIdentifier>{C04A0D8A-FC78-4E01-9304-7D0D97BA4A4D}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Edit\TestProceduralActor.cpp">
+      <Filter>Source\UEPrototype\Private\Edit</Filter>
+    </ClCompile>
     <Filter Include="Source\UEPrototype\Private\Utility">
-      <UniqueIdentifier>{96E87700-2B2A-49CB-B961-FBBD6D1F0169}</UniqueIdentifier>
+      <UniqueIdentifier>{17BC3F9E-22E9-4483-BA43-FDA36353E4E3}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UEPrototype\Private\Utility\UtilityLibrary.cpp">
       <Filter>Source\UEPrototype\Private\Utility</Filter>
     </ClCompile>
     <Filter Include="Source\UEPrototype\Public">
-      <UniqueIdentifier>{78FD6BF5-6A0B-4E34-8E77-DAB94E96912E}</UniqueIdentifier>
+      <UniqueIdentifier>{E53CB0F0-DD16-400E-BB7B-D1BF86820B19}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Public\BuiltIn">
-      <UniqueIdentifier>{46D7A046-D979-4A90-B302-93434DC45762}</UniqueIdentifier>
+      <UniqueIdentifier>{97B70ED2-D022-4970-98AB-56595AF95C68}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Public\BuiltIn\Grid">
-      <UniqueIdentifier>{5D5B77F1-4CBE-41EB-8276-BCA0E235F94A}</UniqueIdentifier>
+      <UniqueIdentifier>{51C7C6BB-14C7-486F-80C9-198B9E334970}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\Grid\AGridManager.h">
-      <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\Grid\GridLayout.h">
-      <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\Grid\GridObjectPool.h">
       <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\Grid\GridVisualizer.h">
       <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
     </ClInclude>
     <Filter Include="Source\UEPrototype\Public\Core">
-      <UniqueIdentifier>{2154460A-E8BC-4143-9480-916FE7339DEB}</UniqueIdentifier>
+      <UniqueIdentifier>{D4220392-7D6E-4AD5-BA62-CBC55BDD2E81}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPDirectorPawn.h">
       <Filter>Source\UEPrototype\Public\Core</Filter>
@@ -110,8 +104,14 @@
     <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPPlayerController.h">
       <Filter>Source\UEPrototype\Public\Core</Filter>
     </ClInclude>
+    <Filter Include="Source\UEPrototype\Public\Edit">
+      <UniqueIdentifier>{1DD0C3D3-DCEE-45AC-860A-8C02703E1F0A}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\Edit\TestProceduralActor.h">
+      <Filter>Source\UEPrototype\Public\Edit</Filter>
+    </ClInclude>
     <Filter Include="Source\UEPrototype\Public\Utility">
-      <UniqueIdentifier>{A99A106C-26CA-48C5-BB09-A52757DB3270}</UniqueIdentifier>
+      <UniqueIdentifier>{C00A9B7E-E47B-4F2E-BF95-6A38540C7193}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Utility\UtilityLibrary.h">
       <Filter>Source\UEPrototype\Public\Utility</Filter>
