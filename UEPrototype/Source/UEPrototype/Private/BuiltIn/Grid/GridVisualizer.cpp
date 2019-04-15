@@ -2,7 +2,7 @@
 
 #include "GridVisualizer.h"
 
-TCHAR const * AGridVisualizer::DefaultMesh = TEXT("/Game/Import/MobileStarterContent/Shapes/Shape_Plane.Shape_Plane");
+TCHAR const * AGridVisualizer::DefaultMesh = TEXT("/Game/Import/CoreTemplate/Shapes/Shape_Plane.Shape_Plane");
 TCHAR const * AGridVisualizer::DefaultMaterialInstance = TEXT("/Game/Material/MI_WorldGrid_Inst.MI_WorldGrid_Inst");
 
 // Sets default values
@@ -18,6 +18,9 @@ AGridVisualizer::AGridVisualizer()
 	InitializeTemplate();
 	PostInitializeTemplate();
 
+	bVisualizeGrid = false;
+	bGridTracing = false;
+	TraceTimerInterval = 5.f;
 }
 
 void AGridVisualizer::InitializeTemplate()
@@ -59,12 +62,13 @@ void AGridVisualizer::PostInitializeTemplate()
 		return;
 	}
 
-	CacheMID = UMaterialInstanceDynamic::Create(MITemplate, this);
-	checkf(CacheMID != nullptr,
+	MIDTemplate = UMaterialInstanceDynamic::Create(MITemplate, nullptr);
+	checkf(MIDTemplate != nullptr,
 		TEXT("%s 머티리얼로부터 동적 머티리얼 인스턴스를 생성하지 못했습니다"), *VP_LOG_CALLINFO);
-	CacheMID->SetFlags(RF_Transient);
-	GridComp->SetMaterial(0, CacheMID);
-	
+//	MIDTemplate->SetFlags(RF_Transient);
+
+	GridComp->SetMaterial(0, MIDTemplate);
+
 }
 
 
@@ -76,13 +80,12 @@ void AGridVisualizer::BeginPlay()
 {
 	Super::BeginPlay();
 
-}
+	CachedPlayer = GetWorld()->GetFirstPlayerController();
 
-// Called every frame
-void AGridVisualizer::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
+	GetWorldTimerManager().SetTimer
+	(
+		TraceTimerHandle, this, &AGridVisualizer::BeginGridTracing, TraceTimerInterval, true
+	);
 }
 
 
@@ -93,15 +96,32 @@ void AGridVisualizer::ChangeGridColor(FLinearColor const InColor, int const InGr
 {
 	FString ParamString = FString::FromInt(InGridIndex) + TEXT("LevelTint");
 	FName ParamName(*ParamString);
-	CacheMID->SetVectorParameterValue(ParamName, InColor);
+	MIDTemplate->SetVectorParameterValue(ParamName, InColor);
 }
 
 void AGridVisualizer::ConfigureGridScale(float const InGridScale)
 {
-	CacheMID->SetScalarParameterValue(TEXT("GridScale"), InGridScale);
+	MIDTemplate->SetScalarParameterValue(TEXT("GridScale"), InGridScale);
 }
 
-void AGridVisualizer::ConfigureGridFadeLength(float const InFadeLength)
+void AGridVisualizer::ConfigureGridFadeDistance(float const InFadeDistance)
 {
-	CacheMID->SetScalarParameterValue(TEXT("FadeLength"), InFadeLength);
+	MIDTemplate->SetScalarParameterValue(TEXT("FadeDistance"), InFadeDistance);
+}
+
+void AGridVisualizer::ConfigureGridOpacity(float const InGridOpacity)
+{
+	MIDTemplate->SetScalarParameterValue(TEXT("GridOpacity"), InGridOpacity);
+}
+
+void AGridVisualizer::BeginGridTracing()
+{
+	if (CachedPlayer == nullptr)
+	{
+		VP_LOG(Warning, TEXT("플레이어 컨트롤러가 참조되지 않습니다"));
+		return;
+	}
+	FVector LocalPlayerLoc = CachedPlayer->GetPawn()->GetActorLocation();
+	LocalPlayerLoc.Z = 0;
+	SetActorLocation(LocalPlayerLoc);
 }

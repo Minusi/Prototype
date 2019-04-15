@@ -2,7 +2,7 @@
 
 #include "GridObjectPool.h"
 
-TCHAR const * UGridObjectPool::DefaultMeshPath = TEXT("/Game/Import/MobileStarterContent/Shapes/Shape_Plane.Shape_Plane");
+TCHAR const * UGridObjectPool::DefaultMeshPath = TEXT("/Game/Import/CoreTemplate/Shapes/Shape_Plane.Shape_Plane");
 TCHAR const * UGridObjectPool::DefaultMaterialPath = TEXT("/Game/Material/MI_WorldGrid_Inst.MI_WorldGrid_Inst");
 
 int32 UGridObjectPool::ObjectIndexNumber = 0;

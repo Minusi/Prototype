@@ -1,0 +1,7 @@
+Engine/Content/EditorMeshes/Axis_Guide.uasset
+Engine/Content/EditorMeshes/Axis_Guide.uexp
+UEPrototype/Content/Import/MobileStarterContent/Architecture/Floor_400x400.uasset
+UEPrototype/Content/Import/MobileStarterContent/Architecture/Floor_400x400.uexp
+UEPrototype/Content/Import/MobileStarterContent/Materials/M_Basic_Floor.uasset
+UEPrototype/Content/Import/MobileStarterContent/Materials/M_Basic_Floor.uexp
+UEPrototype/Saved/Logs/UEPrototype-backup-0001.01.01-00.00.00.log

@@ -12,7 +12,12 @@ public class UEPrototype : ModuleRules
         MinFilesUsingPrecompiledHeaderOverride = 1;
         bFasterWithoutUnity = true;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+        PublicDependencyModuleNames.AddRange(
+            new string[] 
+            {
+                "Core", "CoreUObject", "Engine", "InputCore",
+                "ProceduralMeshComponent", "HeadMountedDisplay"
+            });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
