@@ -1,12 +1,28 @@
 ﻿  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\Utsuho\Desktop\General\Project\Prototype).
-  Creating makefile for hot reloading UEPrototypeEditor (source directory changed)
-  Compiling game modules for hot reload
+  Creating makefile for UEPrototypeEditor (game project files are newer)
   Using Visual Studio 2017 14.13.26128 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.13.26128) and Windows 10.0.16299.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-  Building 3 actions with 8 processes...
-    [1/3] VPDirectorPawn.cpp
-    [2/3] UE4Editor-UEPrototype-7669.lib
-       C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype-7669.lib 라이브러리 및 C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype-7669.exp 개체를 생성하고 있습니다.
-    [3/3] UE4Editor-UEPrototype-7669.dll
-       C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype-7669.suppressed.lib 라이브러리 및 C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype-7669.suppressed.exp 개체를 생성하고 있습니다.
+  Parsing headers for UEPrototypeEditor
+    Running UnrealHeaderTool "C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\UEPrototype.uproject" "C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UEPrototypeEditor\Development\UEPrototypeEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
+  Reflection code generated for UEPrototypeEditor in 44.27999 seconds
+  Building 17 actions with 8 processes...
+    [1/17] GridVisualizer.gen.cpp
+    [2/17] VPPlayerController.gen.cpp
+    [3/17] UtilityLibrary.gen.cpp
+    [4/17] UEPrototype.init.gen.cpp
+    [5/17] AGridManager.gen.cpp
+    [6/17] InteractionState.gen.cpp
+    [7/17] SettingState.gen.cpp
+    [8/17] AGridManager.cpp
+    [9/17] InteractionState.cpp
+    [10/17] VPPlayerController.cpp
+    [11/17] UtilityLibrary.cpp
+    [12/17] SettingState.cpp
+    [13/17] GridVisualizer.cpp
+    [14/17] VPDirectorPawn.gen.cpp
+    [15/17] VPDirectorPawn.cpp
+    [16/17] UE4Editor-UEPrototype.lib
+       C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype.lib 라이브러리 및 C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype.exp 개체를 생성하고 있습니다.
+    [17/17] UE4Editor-UEPrototype.dll
+       C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype.suppressed.lib 라이브러리 및 C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\Win64\UE4Editor\Development\UEPrototype\UE4Editor-UEPrototype.suppressed.exp 개체를 생성하고 있습니다.
   Deploying UEPrototypeEditor Win64 Development...
-  Total build time: 190.11 seconds (Parallel executor: 35.63 seconds)
+  Total build time: 298.18 seconds (Parallel executor: 55.09 seconds)
