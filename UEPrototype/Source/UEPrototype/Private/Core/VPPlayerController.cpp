@@ -7,3 +7,4 @@ AVPPlayerController::AVPPlayerController()
 {
 	VP_CTOR;
 }
+
