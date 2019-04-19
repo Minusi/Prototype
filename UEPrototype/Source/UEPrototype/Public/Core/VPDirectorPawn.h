@@ -17,6 +17,11 @@
 #include "Core/VPPlayerController.h"
 #include "VPDirectorPawn.generated.h"
 
+
+UENUM(BlueprintType)
+enum class E
+
+
 /* 
  *	폰의 이동 기준 축을 지정해주는 열거형 클래스입니다.
  */
@@ -92,7 +97,7 @@ private:
 
 private:
 	// 플레이어 콜리전
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Director", meta=(AllowPrivateAccess="true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Director", meta= ( AllowPrivateAccess = "true"))
 	class UCapsuleComponent * RootCollision;
 
 	// 플레이어 VR 루트 트랜스폼
