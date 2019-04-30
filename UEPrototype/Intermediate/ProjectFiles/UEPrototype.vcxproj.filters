@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\UEPrototype.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{A68694D4-3502-443C-9239-701029BA0C66}</UniqueIdentifier>
+      <UniqueIdentifier>{0BA95FA0-FFA2-4F17-8416-00B74D6DBA66}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{87F477D3-C450-4525-8EBE-DC2FA7E9BB6D}</UniqueIdentifier>
+      <UniqueIdentifier>{7C81FFD5-DA1F-4B43-9294-AE92DAE54FEB}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -27,7 +27,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\UEPrototype">
-      <UniqueIdentifier>{D3ECA47F-1AA9-4DC5-B68D-22DC34FCC898}</UniqueIdentifier>
+      <UniqueIdentifier>{03E0B7FD-CFC4-4DF8-B5B8-9C34739B0359}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs">
       <Filter>Source\UEPrototype</Filter>
@@ -45,13 +45,13 @@
       <Filter>Source\UEPrototype</Filter>
     </ClInclude>
     <Filter Include="Source\UEPrototype\Private">
-      <UniqueIdentifier>{0A9E96B5-F8F1-46D4-8404-1E05963B9274}</UniqueIdentifier>
+      <UniqueIdentifier>{359729E0-9DF2-4D59-8201-2EC0422F50FA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Private\BuiltIn">
-      <UniqueIdentifier>{558E819E-520B-44FF-824A-8097B4E12E38}</UniqueIdentifier>
+      <UniqueIdentifier>{B74F479C-8A87-4162-8AFA-31796F789C11}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Private\BuiltIn\Grid">
-      <UniqueIdentifier>{6CC057FC-E321-46CF-AA43-69EBA59128A2}</UniqueIdentifier>
+      <UniqueIdentifier>{EE5E2F5B-7A73-4845-9F14-3CEFECEAA054}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\Grid\AGridManager.cpp">
       <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
@@ -60,34 +60,22 @@
       <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
     </ClCompile>
     <Filter Include="Source\UEPrototype\Private\Core">
-      <UniqueIdentifier>{249E4AB1-7362-482E-A2D6-195299910330}</UniqueIdentifier>
+      <UniqueIdentifier>{29814981-8ACF-483D-A446-7C6C16BC35CC}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\Core\InteractionState.cpp">
-      <Filter>Source\UEPrototype\Private\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\Core\SettingState.cpp">
-      <Filter>Source\UEPrototype\Private\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPDirectorPawn.cpp">
       <Filter>Source\UEPrototype\Private\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPPlayerController.cpp">
       <Filter>Source\UEPrototype\Private\Core</Filter>
     </ClCompile>
-    <Filter Include="Source\UEPrototype\Private\Utility">
-      <UniqueIdentifier>{BB9DF6A9-21B7-4E98-912E-95522B971C77}</UniqueIdentifier>
-    </Filter>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\Utility\UtilityLibrary.cpp">
-      <Filter>Source\UEPrototype\Private\Utility</Filter>
-    </ClCompile>
     <Filter Include="Source\UEPrototype\Public">
-      <UniqueIdentifier>{AFC3F7EF-BE30-40E7-9B1F-8E03343C7CC7}</UniqueIdentifier>
+      <UniqueIdentifier>{4C3445DF-6DC2-44B0-87A4-8918C236C35B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Public\BuiltIn">
-      <UniqueIdentifier>{310E49C4-ADC2-442C-A3AC-929970A02649}</UniqueIdentifier>
+      <UniqueIdentifier>{CD1F7E73-536F-458B-90B4-A5FDD6DC828C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Public\BuiltIn\Grid">
-      <UniqueIdentifier>{04B85B0A-72DE-493C-90F6-6B753F02C7AE}</UniqueIdentifier>
+      <UniqueIdentifier>{2D5DE885-F9E4-4A01-8F13-D6434185AD1C}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\Grid\AGridManager.h">
       <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
@@ -96,35 +84,49 @@
       <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
     </ClInclude>
     <Filter Include="Source\UEPrototype\Public\Core">
-      <UniqueIdentifier>{0BFFA29D-22AB-44A1-AA6C-7AF97E508C15}</UniqueIdentifier>
+      <UniqueIdentifier>{ECE7B603-DAFD-4332-AF57-DC8ABC589E77}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\UEPrototype\Public\Core\InteractionState.h">
-      <Filter>Source\UEPrototype\Public\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\UEPrototype\Public\Core\SettingState.h">
-      <Filter>Source\UEPrototype\Public\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPDirectorPawn.h">
       <Filter>Source\UEPrototype\Public\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPPlayerController.h">
       <Filter>Source\UEPrototype\Public\Core</Filter>
     </ClInclude>
-    <Filter Include="Source\UEPrototype\Public\Utility">
-      <UniqueIdentifier>{72D62321-A7FC-41D1-A14D-643F33F29A7D}</UniqueIdentifier>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\UEPrototype\Public\Module">
+      <UniqueIdentifier>{962b630d-cc3e-4e01-8d17-f626da4f7bd3}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\UEPrototype\Public\Utility\UtilityLibrary.h">
+    <Filter Include="Source\UEPrototype\Public\Module\Init">
+      <UniqueIdentifier>{ccc599d4-2b9a-4c13-8b7c-e16fe67d21d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Private\Module">
+      <UniqueIdentifier>{7109f2c8-9060-4e97-9083-39afda8afc55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Private\Module\Init">
+      <UniqueIdentifier>{68a9ae6f-ddb8-4a6b-86ce-d95209dfeed1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Public\Utility">
+      <UniqueIdentifier>{cbf0faa3-3a8e-494b-adfb-d0919cda65f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Private\Utility">
+      <UniqueIdentifier>{d4550c7b-fd82-4e93-89f9-5c68be4887a7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\Module\Init\InitManager.h">
+      <Filter>Source\UEPrototype\Public\Module\Init</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\Utility\MinusiFrameworkLibrary.h">
       <Filter>Source\UEPrototype\Public\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPGeneratorPawn.h">
-      <Filter>Source\UEPrototype\Public\Core</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPGeneratorPawn.cpp">
-      <Filter>Source\UEPrototype\Private\Core</Filter>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Module\Init\InitManager.cpp">
+      <Filter>Source\UEPrototype\Private\Module\Init</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Utility\MinusiFrameworkLibrary.cpp">
+      <Filter>Source\UEPrototype\Private\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

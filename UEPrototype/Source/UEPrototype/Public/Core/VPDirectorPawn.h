@@ -18,8 +18,7 @@
 #include "VPDirectorPawn.generated.h"
 
 
-UENUM(BlueprintType)
-enum class E
+
 
 
 /* 

@@ -15,7 +15,7 @@ enum class EMoveType : uint8;
 #endif
 #define UEPROTOTYPE_VPDirectorPawn_generated_h
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_RPC_WRAPPERS \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execMoveOrbitAxis) \
 	{ \
@@ -76,7 +76,7 @@ enum class EMoveType : uint8;
 	}
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_RPC_WRAPPERS_NO_PURE_DECLS \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execMoveOrbitAxis) \
 	{ \
@@ -137,7 +137,7 @@ enum class EMoveType : uint8;
 	}
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_INCLASS_NO_PURE_DECLS \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAVPDirectorPawn(); \
 	friend struct Z_Construct_UClass_AVPDirectorPawn_Statics; \
@@ -146,7 +146,7 @@ public: \
 	DECLARE_SERIALIZER(AVPDirectorPawn)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_INCLASS \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_INCLASS \
 private: \
 	static void StaticRegisterNativesAVPDirectorPawn(); \
 	friend struct Z_Construct_UClass_AVPDirectorPawn_Statics; \
@@ -155,7 +155,7 @@ public: \
 	DECLARE_SERIALIZER(AVPDirectorPawn)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_STANDARD_CONSTRUCTORS \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AVPDirectorPawn(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AVPDirectorPawn) \
@@ -168,7 +168,7 @@ private: \
 public:
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_ENHANCED_CONSTRUCTORS \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AVPDirectorPawn(AVPDirectorPawn&&); \
@@ -179,7 +179,7 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AVPDirectorPawn); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AVPDirectorPawn)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_PRIVATE_PROPERTY_OFFSET \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__RootCollision() { return STRUCT_OFFSET(AVPDirectorPawn, RootCollision); } \
 	FORCEINLINE static uint32 __PPO__VRRootTransform() { return STRUCT_OFFSET(AVPDirectorPawn, VRRootTransform); } \
 	FORCEINLINE static uint32 __PPO__VRCamera() { return STRUCT_OFFSET(AVPDirectorPawn, VRCamera); } \
@@ -190,25 +190,25 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AVPDirectorPawn); \
 	FORCEINLINE static uint32 __PPO__FixedAxis() { return STRUCT_OFFSET(AVPDirectorPawn, FixedAxis); }
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_46_PROLOG
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_GENERATED_BODY_LEGACY \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_50_PROLOG
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_RPC_WRAPPERS \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_INCLASS \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_STANDARD_CONSTRUCTORS \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_RPC_WRAPPERS \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_INCLASS \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_GENERATED_BODY \
+#define UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_RPC_WRAPPERS_NO_PURE_DECLS \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_INCLASS_NO_PURE_DECLS \
-	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_49_ENHANCED_CONSTRUCTORS \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_RPC_WRAPPERS_NO_PURE_DECLS \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_INCLASS_NO_PURE_DECLS \
+	UEPrototype_Source_UEPrototype_Public_Core_VPDirectorPawn_h_53_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
