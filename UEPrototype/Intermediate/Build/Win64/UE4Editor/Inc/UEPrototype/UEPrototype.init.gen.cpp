@@ -25,8 +25,8 @@ void EmptyLinkFunctionForGeneratedCodeUEPrototype_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/UEPrototype",
 				PKG_CompiledIn | 0x00000000,
-				0x0EA89A6E,
-				0xEA874306,
+				0x6C504994,
+				0xCE0BF147,
 				SingletonFuncArray, ARRAY_COUNT(SingletonFuncArray),
 				METADATA_PARAMS(nullptr, 0)
 			};

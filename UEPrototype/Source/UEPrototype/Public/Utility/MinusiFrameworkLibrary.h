@@ -30,6 +30,7 @@ class UEPROTOTYPE_API UMinusiFrameworkLibrary : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 	
 public:
+
 	// 대상 액터와 UClass를 비교한 결과를 반환합니다.
 	UFUNCTION(BlueprintPure, BlueprintCallable, Category = "Minusi", meta = (DisplayName = "IsTypeofActor", Keywords = "==Actor"))
 	static bool IsTypeofActor(AActor const * Actor, AActor const * Compare);
@@ -55,6 +56,9 @@ public:
 	static void IsTypeofClass_Exec(UObject const * Object, TSubclassOf<UObject> const Compare, EBoolean& Execs);
 
 	
+
+
+
 	// Print String의 간소화된 로그 버전입니다. 2초간 지속됩니다.
 	UFUNCTION(BlueprintCallable, Category="Minusi", meta = (Keywords = "SLog"))
 	static void ScreenShortLog(FString const Message, FColor const Color = FColor(243,156,18));
@@ -68,6 +72,9 @@ public:
 	static void ScreenLongLog(FString const Message, FColor const Color = FColor(243, 156, 18));
 
 	
+
+
+
 	// 특정 타입의 첫 번째 액터를 반환합니다. 이후 형변환을 수행하여 특정 타입으로 변환할 수 있습니다.
 	UFUNCTION(BlueprintCallable, Category="Minusi", meta=(WorldContext="WorldContextObject", Keywords = "GetTag", DeterminesOutputType = "ActorToFind"))
 	static AActor* GetSpecificFirstActorWithTag(const UObject* WorldContextObject, FName Tag, TSubclassOf<AActor> ActorToFind);
@@ -75,4 +82,10 @@ public:
 	// 특정 타입의 모든 액터를 반환합니다. 이후 형변환을 수행하여 특정 타입으로 변환할 수 있습니다.
 	UFUNCTION(BlueprintCallable, Category="Minusi", meta=(WorldContext="WorldContextObject", Keywords = "GetTag", DeterminesOutputType = "ActorToFind"))
 	static TArray<AActor*> GetSpecificAllActorWithTag(const UObject* WorldContextObject, FName Tag, TSubclassOf<AActor> ActorToFind);
+
+
+
+
+
+	//
 };

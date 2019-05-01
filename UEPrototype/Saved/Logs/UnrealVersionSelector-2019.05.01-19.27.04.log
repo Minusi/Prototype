@@ -1,0 +1,5 @@
+UnrealBuildTool.GuardedMain: Command line: "C:/Program Files (x86)/~Game/Epic Games/UE_4.21/Engine/Binaries/DotNET/UnrealBuildTool.exe"  -projectfiles -project="C:/Users/Utsuho/Desktop/General/Project/Prototype/UEPrototype/UEPrototype.uproject" -game -rocket -progress -log="C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype/Saved/Logs/UnrealVersionSelector-2019.05.01-19.27.04.log"
+ProjectFileGenerator.GenerateProjectFiles: Discovering modules, targets and source code for project...
+DynamicCompilation.CompileAssembly: While compiling C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Intermediate\Build\BuildRules\UEPrototypeModuleRules.dll:
+DynamicCompilation.CompileAssembly: c:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\UEPrototype.Build.cs(5,14) : error CS0101: '<전역 네임스페이스>' 네임스페이스에 이미 'UEPrototype'에 대한 정의가 들어 있습니다.
+UnrealBuildTool.GuardedMain: ERROR: UnrealBuildTool Exception: Unable to compile source files.

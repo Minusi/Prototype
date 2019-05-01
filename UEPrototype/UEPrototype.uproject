@@ -12,6 +12,10 @@
 				"Engine",
 				"CoreUObject"
 			]
+		},
+		{
+			"Name": "AssetImporter",
+			"Type": "Runtime"
 		}
 	]
 }

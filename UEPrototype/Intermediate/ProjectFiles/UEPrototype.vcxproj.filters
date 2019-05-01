@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\UEPrototype.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{0BA95FA0-FFA2-4F17-8416-00B74D6DBA66}</UniqueIdentifier>
+      <UniqueIdentifier>{A8EBC3D6-F235-4362-B53F-BAADC4FE1BFA}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{7C81FFD5-DA1F-4B43-9294-AE92DAE54FEB}</UniqueIdentifier>
+      <UniqueIdentifier>{44039179-9790-4ECF-8E79-9004A6F46494}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -26,8 +26,20 @@
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
+    <Filter Include="Source\AssetImporter">
+      <UniqueIdentifier>{00EBDA66-3317-4B0C-B2B5-625A55E76673}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\AssetImporter\AssetImporter.Build.cs">
+      <Filter>Source\AssetImporter</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\AssetImporter\AssetImporter.cpp">
+      <Filter>Source\AssetImporter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\AssetImporter\AssetImporter.h">
+      <Filter>Source\AssetImporter</Filter>
+    </ClInclude>
     <Filter Include="Source\UEPrototype">
-      <UniqueIdentifier>{03E0B7FD-CFC4-4DF8-B5B8-9C34739B0359}</UniqueIdentifier>
+      <UniqueIdentifier>{6F2A65F5-7E8D-4CD0-8507-25C4021F4B67}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs">
       <Filter>Source\UEPrototype</Filter>
@@ -45,13 +57,13 @@
       <Filter>Source\UEPrototype</Filter>
     </ClInclude>
     <Filter Include="Source\UEPrototype\Private">
-      <UniqueIdentifier>{359729E0-9DF2-4D59-8201-2EC0422F50FA}</UniqueIdentifier>
+      <UniqueIdentifier>{91767DF1-0134-4F83-A6FB-F34A32D8C0D7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Private\BuiltIn">
-      <UniqueIdentifier>{B74F479C-8A87-4162-8AFA-31796F789C11}</UniqueIdentifier>
+      <UniqueIdentifier>{EFE7A0DB-FA62-4B44-825E-0EC3DC238B8A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Private\BuiltIn\Grid">
-      <UniqueIdentifier>{EE5E2F5B-7A73-4845-9F14-3CEFECEAA054}</UniqueIdentifier>
+      <UniqueIdentifier>{857C77A2-B6BE-4568-BA30-3DC4A4D41E9B}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UEPrototype\Private\BuiltIn\Grid\AGridManager.cpp">
       <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
@@ -60,7 +72,7 @@
       <Filter>Source\UEPrototype\Private\BuiltIn\Grid</Filter>
     </ClCompile>
     <Filter Include="Source\UEPrototype\Private\Core">
-      <UniqueIdentifier>{29814981-8ACF-483D-A446-7C6C16BC35CC}</UniqueIdentifier>
+      <UniqueIdentifier>{8753294A-80EF-4E6D-B64A-BC8DAC437B18}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPDirectorPawn.cpp">
       <Filter>Source\UEPrototype\Private\Core</Filter>
@@ -68,14 +80,41 @@
     <ClCompile Include="..\..\Source\UEPrototype\Private\Core\VPPlayerController.cpp">
       <Filter>Source\UEPrototype\Private\Core</Filter>
     </ClCompile>
+    <Filter Include="Source\UEPrototype\Private\Module">
+      <UniqueIdentifier>{475C6CF3-A54C-4D5A-824E-3E60583CFF78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UEPrototype\Private\Module\Edit">
+      <UniqueIdentifier>{79D2E560-A7FE-4AA8-87E5-3145A90C09DD}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Module\Edit\EditManager.cpp">
+      <Filter>Source\UEPrototype\Private\Module\Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Module\Edit\MeshFactory.cpp">
+      <Filter>Source\UEPrototype\Private\Module\Edit</Filter>
+    </ClCompile>
+    <Filter Include="Source\UEPrototype\Private\Module\Init">
+      <UniqueIdentifier>{0CE2C9D9-8AB4-4481-A9B5-B4829AFC3715}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Module\Init\InitManager.cpp">
+      <Filter>Source\UEPrototype\Private\Module\Init</Filter>
+    </ClCompile>
+    <Filter Include="Source\UEPrototype\Private\Utility">
+      <UniqueIdentifier>{72F06E94-9ED1-4487-A19F-D6F8415E8B21}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Utility\MinusiFrameworkLibrary.cpp">
+      <Filter>Source\UEPrototype\Private\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UEPrototype\Private\Utility\VPFrameworkLibrary.cpp">
+      <Filter>Source\UEPrototype\Private\Utility</Filter>
+    </ClCompile>
     <Filter Include="Source\UEPrototype\Public">
-      <UniqueIdentifier>{4C3445DF-6DC2-44B0-87A4-8918C236C35B}</UniqueIdentifier>
+      <UniqueIdentifier>{90563188-AF9E-47FF-BBDC-0766532BFF78}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Public\BuiltIn">
-      <UniqueIdentifier>{CD1F7E73-536F-458B-90B4-A5FDD6DC828C}</UniqueIdentifier>
+      <UniqueIdentifier>{190627C2-DBB5-4A99-A3E7-5FEFD2FA9FD5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\UEPrototype\Public\BuiltIn\Grid">
-      <UniqueIdentifier>{2D5DE885-F9E4-4A01-8F13-D6434185AD1C}</UniqueIdentifier>
+      <UniqueIdentifier>{48D39CC8-BF94-49E1-B5E7-39B509B13DDD}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\BuiltIn\Grid\AGridManager.h">
       <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
@@ -84,7 +123,7 @@
       <Filter>Source\UEPrototype\Public\BuiltIn\Grid</Filter>
     </ClInclude>
     <Filter Include="Source\UEPrototype\Public\Core">
-      <UniqueIdentifier>{ECE7B603-DAFD-4332-AF57-DC8ABC589E77}</UniqueIdentifier>
+      <UniqueIdentifier>{A4634540-8357-487B-A603-F226F016BAAC}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPDirectorPawn.h">
       <Filter>Source\UEPrototype\Public\Core</Filter>
@@ -92,41 +131,32 @@
     <ClInclude Include="..\..\Source\UEPrototype\Public\Core\VPPlayerController.h">
       <Filter>Source\UEPrototype\Public\Core</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Source\UEPrototype\Public\Module">
-      <UniqueIdentifier>{962b630d-cc3e-4e01-8d17-f626da4f7bd3}</UniqueIdentifier>
+      <UniqueIdentifier>{FB56FC3D-A40D-4566-8411-FA198F100ACB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\UEPrototype\Public\Module\Edit">
+      <UniqueIdentifier>{14CF019D-EF67-40DC-B217-E1144EA62A0C}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\Module\Edit\EditManager.h">
+      <Filter>Source\UEPrototype\Public\Module\Edit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\Module\Edit\MeshFactory.h">
+      <Filter>Source\UEPrototype\Public\Module\Edit</Filter>
+    </ClInclude>
     <Filter Include="Source\UEPrototype\Public\Module\Init">
-      <UniqueIdentifier>{ccc599d4-2b9a-4c13-8b7c-e16fe67d21d3}</UniqueIdentifier>
+      <UniqueIdentifier>{529D3D19-C31B-4029-999D-F8202807B469}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\UEPrototype\Private\Module">
-      <UniqueIdentifier>{7109f2c8-9060-4e97-9083-39afda8afc55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\UEPrototype\Private\Module\Init">
-      <UniqueIdentifier>{68a9ae6f-ddb8-4a6b-86ce-d95209dfeed1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\UEPrototype\Public\Utility">
-      <UniqueIdentifier>{cbf0faa3-3a8e-494b-adfb-d0919cda65f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\UEPrototype\Private\Utility">
-      <UniqueIdentifier>{d4550c7b-fd82-4e93-89f9-5c68be4887a7}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Module\Init\InitManager.h">
       <Filter>Source\UEPrototype\Public\Module\Init</Filter>
     </ClInclude>
+    <Filter Include="Source\UEPrototype\Public\Utility">
+      <UniqueIdentifier>{5B8A7FCB-D198-4172-975A-81641632C257}</UniqueIdentifier>
+    </Filter>
     <ClInclude Include="..\..\Source\UEPrototype\Public\Utility\MinusiFrameworkLibrary.h">
       <Filter>Source\UEPrototype\Public\Utility</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\Module\Init\InitManager.cpp">
-      <Filter>Source\UEPrototype\Private\Module\Init</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\UEPrototype\Private\Utility\MinusiFrameworkLibrary.cpp">
-      <Filter>Source\UEPrototype\Private\Utility</Filter>
-    </ClCompile>
+    <ClInclude Include="..\..\Source\UEPrototype\Public\Utility\VPFrameworkLibrary.h">
+      <Filter>Source\UEPrototype\Public\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
