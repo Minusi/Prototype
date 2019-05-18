@@ -1,0 +1,9 @@
+Info,  T6220: Test
+Info,  T6220: Load C:/Users/Utsuho/Desktop/untitled12.fbx
+Info,  T6220: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T6220: Import root directory is 'C:/Users/Utsuho/Desktop\'
+Error, T6220: FBX: no material assigned to mesh, setting default material
+Info,  T6220: Entering post processing pipeline
+Info,  T6220: TriangulateProcess finished. All polygons have been triangulated.
+Error, T6220: Failed to compute tangents; need UV data in channel0
+Info,  T6220: Leaving post processing pipeline
