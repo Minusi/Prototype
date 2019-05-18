@@ -14,8 +14,12 @@
 			]
 		},
 		{
-			"Name": "AssetImporter",
-			"Type": "Runtime"
+			"Name": "AssetImport",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject"
+			]
 		}
 	]
 }

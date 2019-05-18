@@ -1,0 +1,3 @@
+Info,  T103676: Test
+Info,  T103676: Load C:/Users/Utsuho/Desktop/untitled2.fbx
+Error, T103676: Unable to open file "C:/Users/Utsuho/Desktop/untitled2.fbx".

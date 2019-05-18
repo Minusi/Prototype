@@ -9,6 +9,6 @@ public class UEPrototypeTarget : TargetRules
 	{
 		Type = TargetType.Game;
 
-		ExtraModuleNames.AddRange( new string[] { "UEPrototype", "AssetImporter" } );
+		ExtraModuleNames.AddRange( new string[] { "UEPrototype", "AssetImport" } );
 	}
 }

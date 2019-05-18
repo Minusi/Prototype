@@ -17,7 +17,7 @@ public class UEPrototype : ModuleRules
             {
                 "Core", "CoreUObject", "Engine", "InputCore",
                 "ProceduralMeshComponent", "HeadMountedDisplay",
-                "UMG"
+                "UMG", "AssetImport"
             });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

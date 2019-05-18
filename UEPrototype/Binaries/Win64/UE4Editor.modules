@@ -2,6 +2,7 @@
 	"BuildId": "4541578",
 	"Modules": 
 	{
-		"UEPrototype": "UE4Editor-UEPrototype.dll"
+		"AssetImport": "UE4Editor-AssetImport-4013.dll",
+		"UEPrototype": "UE4Editor-UEPrototype-4013.dll"
 	}
 }

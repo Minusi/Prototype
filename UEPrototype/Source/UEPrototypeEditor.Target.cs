@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 using UnrealBuildTool;
 using System.Collections.Generic;
@@ -9,6 +9,6 @@ public class UEPrototypeEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 
-		ExtraModuleNames.AddRange( new string[] { "UEPrototype" } );
+		ExtraModuleNames.AddRange( new string[] { "UEPrototype", "AssetImport" } );
 	}
 }

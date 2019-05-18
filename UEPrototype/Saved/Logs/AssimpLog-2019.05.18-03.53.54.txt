@@ -1,0 +1,9 @@
+Info,  T52896: Test
+Info,  T52896: Load C:/Users/Utsuho/Desktop/untitled.fbx
+Info,  T52896: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T52896: Import root directory is 'C:/Users/Utsuho/Desktop\'
+Error, T52896: FBX: no material assigned to mesh, setting default material
+Info,  T52896: Entering post processing pipeline
+Info,  T52896: TriangulateProcess finished. All polygons have been triangulated.
+Error, T52896: Failed to compute tangents; need UV data in channel0
+Info,  T52896: Leaving post processing pipeline
