@@ -801,11 +801,13 @@
     <ClCompile Include="..\..\Source\AssetImport\Private\AssetMesh.cpp" />
     <ClCompile Include="..\..\Source\AssetImport\Private\AssetModel.cpp" />
     <ClCompile Include="..\..\Source\AssetImport\Private\AssimpInterface.cpp" />
+    <ClCompile Include="..\..\Source\AssetImport\Private\ImageLoader.cpp" />
     <ClCompile Include="..\..\Source\AssetImport\Private\ImporterAdapter.cpp" />
     <ClInclude Include="..\..\Source\AssetImport\Public\AssetImporter.h" />
     <ClInclude Include="..\..\Source\AssetImport\Public\AssetMesh.h" />
     <ClInclude Include="..\..\Source\AssetImport\Public\AssetModel.h" />
     <ClInclude Include="..\..\Source\AssetImport\Public\AssimpInterface.h" />
+    <ClInclude Include="..\..\Source\AssetImport\Public\ImageLoader.h" />
     <ClInclude Include="..\..\Source\AssetImport\Public\ImporterAdapter.h" />
     <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs" />
     <ClCompile Include="..\..\Source\UEPrototype\Private\PrototypeCodedActor.cpp" />

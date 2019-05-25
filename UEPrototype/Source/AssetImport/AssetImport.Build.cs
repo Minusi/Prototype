@@ -23,7 +23,8 @@ public class AssetImport : ModuleRules
             new string[] 
             {
                 "Core", "CoreUObject", "Engine",
-                "ProceduralMeshComponent"
+                "ProceduralMeshComponent",          // 런타임 메시 구성
+                "ImageWrapper", "RenderCore"        // 런타임 이미지 & 텍스처 로드
             });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

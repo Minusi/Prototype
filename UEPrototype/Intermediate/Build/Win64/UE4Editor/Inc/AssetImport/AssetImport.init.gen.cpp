@@ -11,17 +11,21 @@
 #endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeAssetImport_init() {}
+	ASSETIMPORT_API UFunction* Z_Construct_UDelegateFunction_UImageLoader_OnImageLoadCompleted__DelegateSignature();
 	UPackage* Z_Construct_UPackage__Script_AssetImport()
 	{
 		static UPackage* ReturnPackage = nullptr;
 		if (!ReturnPackage)
 		{
+			static UObject* (*const SingletonFuncArray[])() = {
+				(UObject* (*)())Z_Construct_UDelegateFunction_UImageLoader_OnImageLoadCompleted__DelegateSignature,
+			};
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/AssetImport",
 				PKG_CompiledIn | 0x00000000,
-				0xC0AE01B0,
-				0x2D5C1BDD,
-				nullptr, 0,
+				0x0CB853DD,
+				0x62954604,
+				SingletonFuncArray, ARRAY_COUNT(SingletonFuncArray),
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

@@ -14,7 +14,7 @@ class UAssetModel;
 #endif
 #define ASSETIMPORT_AssimpInterface_generated_h
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_RPC_WRAPPERS \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execLoadModel) \
 	{ \
@@ -27,7 +27,7 @@ class UAssetModel;
 	}
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execLoadModel) \
 	{ \
@@ -40,7 +40,7 @@ class UAssetModel;
 	}
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_INCLASS_NO_PURE_DECLS \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAssimpInterface(); \
 	friend struct Z_Construct_UClass_UAssimpInterface_Statics; \
@@ -49,7 +49,7 @@ public: \
 	DECLARE_SERIALIZER(UAssimpInterface)
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_INCLASS \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_INCLASS \
 private: \
 	static void StaticRegisterNativesUAssimpInterface(); \
 	friend struct Z_Construct_UClass_UAssimpInterface_Statics; \
@@ -58,7 +58,7 @@ public: \
 	DECLARE_SERIALIZER(UAssimpInterface)
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_STANDARD_CONSTRUCTORS \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UAssimpInterface(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAssimpInterface) \
@@ -71,7 +71,7 @@ private: \
 public:
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_ENHANCED_CONSTRUCTORS \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UAssimpInterface(UAssimpInterface&&); \
@@ -82,31 +82,31 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAssimpInterface); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UAssimpInterface)
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_PRIVATE_PROPERTY_OFFSET \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__MeshCurrentlyProcessed() { return STRUCT_OFFSET(UAssimpInterface, MeshCurrentlyProcessed); } \
 	FORCEINLINE static uint32 __PPO__Importer() { return STRUCT_OFFSET(UAssimpInterface, Importer); } \
 	FORCEINLINE static uint32 __PPO__cModel() { return STRUCT_OFFSET(UAssimpInterface, cModel); }
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_24_PROLOG
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_GENERATED_BODY_LEGACY \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_29_PROLOG
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_RPC_WRAPPERS \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_INCLASS \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_STANDARD_CONSTRUCTORS \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_RPC_WRAPPERS \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_INCLASS \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_GENERATED_BODY \
+#define UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_RPC_WRAPPERS_NO_PURE_DECLS \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_INCLASS_NO_PURE_DECLS \
-	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_27_ENHANCED_CONSTRUCTORS \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_RPC_WRAPPERS_NO_PURE_DECLS \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_INCLASS_NO_PURE_DECLS \
+	UEPrototype_Source_AssetImport_Public_AssimpInterface_h_32_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

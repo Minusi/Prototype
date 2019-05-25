@@ -18,19 +18,19 @@
 	"Launch": "$(EngineDir)/Binaries/Win64/UE4Editor.exe",
 	"BuildProducts": [
 		{
-			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-UEPrototype-4013.dll",
+			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-UEPrototype-3807.dll",
 			"Type": "DynamicLibrary"
 		},
 		{
-			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-UEPrototype-4013.pdb",
+			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-UEPrototype-3807.pdb",
 			"Type": "SymbolFile"
 		},
 		{
-			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-AssetImport-4013.dll",
+			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-AssetImport-1247.dll",
 			"Type": "DynamicLibrary"
 		},
 		{
-			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-AssetImport-4013.pdb",
+			"Path": "$(ProjectDir)/Binaries/Win64/UE4Editor-AssetImport-1247.pdb",
 			"Type": "SymbolFile"
 		},
 		{
