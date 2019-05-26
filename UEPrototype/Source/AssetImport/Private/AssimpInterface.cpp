@@ -9,57 +9,83 @@
 #include "assimp/postprocess.h"
 
 #include "Misc/DateTime.h"
+#include "Misc/Paths.h"
 
 
 
-
-UAssimpInterface::UAssimpInterface()
+UAssimpInterface * UAssimpInterface::LoadModelFromDiskAsync(FString const & ModelPath, UObject * Outer)
 {
-	AI_CTOR;
-	MeshCurrentlyProcessed = 0;
+	if (!IsValid(Outer))
+	{
+		Outer = Cast<UObject>(GetTransientPackage());
+	}
+
+	UAssimpInterface* AssimpInterface = NewObject<UAssimpInterface>(Outer);
+	AssimpInterface->LoadModelAsyncAndReturn(Outer, ModelPath);
+	return AssimpInterface;
 }
 
-
-
-
-
-UAssetModel* UAssimpInterface::LoadModel(FString FilePath, FString ErrorString)
+void UAssimpInterface::LoadModelAsyncAndReturn(UObject* Outer, FString const & ModelPath)
 {
-	// 로그 파일 이름에 필요한 시스템 시간을 불러옵니다.
-	FDateTime Now = FDateTime::Now();
-	
+	Future = Async<UAssetModel*>
+	(
+		EAsyncExecution::ThreadPool,
+		// 시작할 비동기 작업입니다.
+		[=]()
+		{
+			return LoadModelFromDisk(ModelPath, Outer);
+		},
+		// 비동기 작업 완료 후 호출되는 콜백 람다입니다.
+		[this]()
+		{
+			if (Future.IsValid())
+			{
+				// 게임 스레드에서 로드된 모델에 대한 리스너들에게 노티파이합니다.
+				AsyncTask
+				(
+					ENamedThreads::GameThread, 
+					[this]()
+					{
+						if (OnModelLoadCompleted().IsBound())
+						{
+							LoadCompleted.Broadcast(Future.Get());
+						}
+					}
+				);
+			}
+		}
+	);
+
+
+}
+
+UAssetModel* UAssimpInterface::LoadModelFromDisk(FString const & FilePath, UObject* Outer)
+{
+	AI_LOG(Log, TEXT("*****LoadModelFromDisk 진입점"));
+	if (!IsValid(Outer))
+	{
+		Outer = Cast<UObject>(GetTransientPackage());
+	}
+
 	// 로그 파일 이름을 생성하기 위한 문자열을 정의합니다.
-	FString FileOrientName = TEXT("C:/Users/Utsuho/Desktop/General/Project/Prototype/UEPrototype/Saved/Logs/AssimpLog-");
-	FString Date = Now.ToString();
+	FString LogDir = FPaths::ProjectLogDir();
+	FString AssimpLog = TEXT("AssimpLog-");
+
+	// 로그 파일 이름에 필요한 시스템 시간을 불러옵니다.
+	FString Now = FDateTime::Now().ToString();
 	FString FileExtension = TEXT(".txt");
-	FString FullName = FileOrientName + Date + FileExtension;
+
+	FString AssimpLogFile = LogDir + AssimpLog + Now + FileExtension;
 
 	// Assimp 로거가 없으면 생성합니다.
 	if (Assimp::DefaultLogger::isNullLogger())
 	{
-		Assimp::DefaultLogger::create(TCHAR_TO_ANSI(*FullName));
-		Assimp::DefaultLogger::get()->info("Test");
+		Assimp::DefaultLogger::create(TCHAR_TO_ANSI(*AssimpLogFile));
 	}
 
 
 
-	UAssetModel* Model = OpenAssetFile(FilePath, ErrorString);
-	
-	Assimp::DefaultLogger::kill();
-	return Model;
-}
-
-UAssetModel* UAssimpInterface::OpenAssetFile(FString FilePath, FString ErrorString)
-{
-	AI_LOG(Log, TEXT("*****OpenAssetFile 진입점"));
-
-	// 애셋 임포터가 유효하지 않으면 동적으로 생성합니다.
-	if (IsValid(Importer) == false)
-	{
-		Importer = NewObject<UAssetImporter>();
-	}
-
-
+	UAssetImporter* Importer = NewObject<UAssetImporter>();
 	aiScene const * Scene = Importer->ReadFile
 	(
 		FilePath, 
@@ -73,34 +99,30 @@ UAssetModel* UAssimpInterface::OpenAssetFile(FString FilePath, FString ErrorStri
 	);
 	if (Scene == nullptr)
 	{
-		ErrorString = Importer->GetErrorString();
-		AI_LOG(Warning, TEXT("다음과 같은 문제로 성공하지 못했습니다 : %s"), *ErrorString);
+		AI_LOG(Error, TEXT("파일을 로드하는데 실패했습니다 : %s"), *FilePath);
 		return nullptr;
 	}
 
-	AI_LOG(Log, TEXT("*****Critical Test 진입점"));
 
 
-	// 빈 애셋 모델을 생성합니다.
-	cModel = UAssetModel::MAKE(FilePath, Scene);
-	if (IsValid(cModel) == false)
+	UAssetModel* AssetModel = UAssetModel::MAKE(FilePath, Scene->mNumMeshes, Outer);
+	if (IsValid(AssetModel) == false)
 	{
-		AI_LOG(Warning, TEXT("UAssetModel 생성에 실패하였습니다."));
+		AI_LOG(Error, TEXT("AssetModel이 유효하지 않습니다 : %S"), *FilePath);
 		return nullptr;
 	}
+	AI_LOG(Warning, TEXT("AssetModel Outer : %s"), *(AssetModel->GetOuter()->GetName()));
 
-	ProcessNode(cModel->GetRootNode(), cModel->GetScene());
+	UAssimpInterface::ProcessNode((UObject*)AssetModel, Scene->mRootNode, Scene, AssetModel);
 
-	AI_LOG(Log, TEXT("*****OpenAssetFile 종료점"));
-	return cModel;
+	AI_LOG(Log, TEXT("*****LoadModelFromDisk 종료점"));
+
+	Assimp::DefaultLogger::kill();
+	return AssetModel;
 }
 
-// 이 함수는 재귀 함수와 하위 함수로 인해서 캐시 모델을 통한 접근에 제한이 있습니다.
-// 캐시 모델을 아규먼트로 전달함에 있어 기술적으로 캐시를 통한 전달이 어려우므로
-// cModel을 이 함수에서 가급적 사용하지 말기를 권장합니다.
-void UAssimpInterface::ProcessNode(aiNode const * Node, aiScene const * Scene)
+void UAssimpInterface::ProcessNode(UObject* Outer, aiNode const * Node, aiScene const * Scene, UAssetModel* IOModel)
 {
-
 	AI_LOG(Log, TEXT("*****ProcessNode 진입점"));
 	if (Scene == nullptr)
 	{
@@ -109,6 +131,9 @@ void UAssimpInterface::ProcessNode(aiNode const * Node, aiScene const * Scene)
 
 	// 노드의 모든 메시에 대한 정보를 AssetMesh에 저장합니다.
 	aiMesh* Mesh;
+	UAssetMesh* AssetMesh;
+	int ProcessNum = 0;
+
 	for (uint32 index = 0; index < Node->mNumMeshes; ++index)
 	{
 		/* Tips :
@@ -118,26 +143,31 @@ void UAssimpInterface::ProcessNode(aiNode const * Node, aiScene const * Scene)
 		 */
 		Mesh = Scene->mMeshes[Node->mMeshes[index]];
 
-		ProcessMesh(Mesh);
-		++MeshCurrentlyProcessed;
+		AssetMesh = UAssimpInterface::ProcessMesh(Outer, Mesh);
+		AI_LOG(Log, TEXT("*****SetMesh Critical Start"));
+		AI_LOG(Warning, TEXT("AssetMesh Outer : %s"), *(AssetMesh->GetOuter()->GetName()));
+		IOModel->SetMeshAt(AssetMesh, ProcessNum);
+		AI_LOG(Log, TEXT("*****SetMesh Critical End"));
+		++ProcessNum;
 	}
 
+	AI_LOG(Log, TEXT("*****ProcessNode Recursion 시작점"));
 	// RootNode에서 자손 노드 순으로 순차 재귀 실행
 	// 말단 노드에서 최종적으로 실행을 종료하게 됩니다.
 	for (uint32 index = 0; index < Node->mNumChildren; ++index)
 	{
-		ProcessNode(Node->mChildren[index], Scene);
+		UAssimpInterface::ProcessNode(Outer, Node->mChildren[index], Scene, IOModel);
 	}
 
 	AI_LOG(Log, TEXT("*****ProcessNode 종료점"));
 }
 
-void UAssimpInterface::ProcessMesh(aiMesh const * Mesh)
+UAssetMesh* UAssimpInterface::ProcessMesh(UObject* Outer, aiMesh const * Mesh)
 {
 	AI_LOG(Log, TEXT("*****ProcessMesh 진입점"));
 
-	// cModel이 비어있는 상태이므로 Mesh에 빈 배열을 추가합니다.
-	UAssetMesh* AssetMesh = NewObject<UAssetMesh>();
+	// 정점 정보를 담기 위한 메시를 생성합니다.
+	UAssetMesh* AssetMesh = NewObject<UAssetMesh>(Outer);
 
 	FVector Vertex, Normal, Tangent;
 	TArray<FLinearColor> VertexColor;
@@ -244,7 +274,7 @@ void UAssimpInterface::ProcessMesh(aiMesh const * Mesh)
 		else
 		{
 			AI_LOG(Fatal, TEXT("유효하지 않은 값으로 플로우를 수행하고 있습니다. MeshElementValidity를 참조하시기 바랍니다"));
-			return;
+			return nullptr;
 		}
 		AI_LOG(Log, TEXT("*****Vertex Process 종료 : %f %f %f"), Vertex.X, Vertex.Y, Vertex.Z);
 
@@ -258,7 +288,7 @@ void UAssimpInterface::ProcessMesh(aiMesh const * Mesh)
 		else
 		{
 			AI_LOG(Fatal, TEXT("유효하지 않은 값으로 플로우를 수행하고 있습니다. MeshElementValidity를 참조하시기 바랍니다"));
-			return;
+			return nullptr;
 		}
 		AI_LOG(Log, TEXT("*****Normal Process 종료 : %f %f %f"), Normal.X, Normal.Y, Normal.Z);
 
@@ -355,17 +385,5 @@ void UAssimpInterface::ProcessMesh(aiMesh const * Mesh)
 	}
 	AI_LOG(Log, TEXT("*****Vertex Index Process 종료"));
 
-	cModel->SetMeshAt(AssetMesh, MeshCurrentlyProcessed);
-
-	AI_LOG(Log, TEXT("*****ProcessMesh 종료점"));
-}
-
-
-
-
-
-void UAssimpInterface::Clear()
-{
-	cModel = nullptr;
-	MeshCurrentlyProcessed = 0;
+	return AssetMesh;
 }

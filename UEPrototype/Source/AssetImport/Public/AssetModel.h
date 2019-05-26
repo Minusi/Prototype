@@ -15,7 +15,6 @@
 #include "AssetModel.generated.h"
 
 class UAssetMesh;
-class UAssetModel;
 struct aiScene;
 struct aiNode;
 
@@ -31,14 +30,14 @@ class ASSETIMPORT_API UAssetModel : public UObject
 	
 public:
 	// 커스텀 생성 및 초기화를 수행합니다.
-	static UAssetModel* MAKE(FString FilePath, aiScene const * AIScene, UObject* Outer = (UObject*)GetTransientPackage());
+	static UAssetModel* MAKE(FString FilePath, int32 NumInit, UObject* Outer = (UObject*)GetTransientPackage());
 
 private:
 	// 주어진 인자들로 AssetModel의 프로퍼티들을 초기화합니다.
-	void ConfigureModelInfo(FString FilePath, aiScene const * InAIScene);
+	void ConfigureModelInfo(FString FilePath);
 
-	// 메시를 빈 배열로 초기화합니다. 생성할 때 사용되어야 합니다.
-	void InitEmpty(int32 Count);
+	// 인자로 받은 수만큼 배열을 추가합니다.
+	void InitMeshArray(int32 NumInit);
 
 
 
@@ -57,27 +56,6 @@ public:
 
 
 
-public:
-	// aiScene을 반환합니다.(읽기 전용) 
-	FORCEINLINE aiScene const * GetScene() const
-	{
-		return AIScene;
-	}
-
-	// RootNode를 반환합니다.(읽기 전용)
-	FORCEINLINE aiNode const * GetRootNode() const
-	{
-		return AIScene->mRootNode;
-	}
-
-
-
-public:
-#if WITH_EDITOR
-	void DisplayModel() const;
-#endif
-
-
 
 
 
@@ -93,9 +71,4 @@ private:
 	// 모델 파일의 이름과 확장자를 포함합니다.
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Assimp", meta=(AllowPrivateAccess="true"))
 	FString FileName;
-
-
-
-	// 모델이 참조하는 assimp의 Scene 객체입니다.
-	aiScene const * AIScene;
 };

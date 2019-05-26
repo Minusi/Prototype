@@ -20,8 +20,10 @@ static IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleCheck
 
 UTexture2D * UImageLoader::LoadImageFromDisk(UObject * Outer, FString const & ImagePath)
 {
+	AI_LOG(Log, TEXT("Test"));
+
 	// 먼저 파일이 존재하는 지 확인합니다.
-	if (FPaths::FileExists(ImagePath))
+	if (FPaths::FileExists(ImagePath) == false)
 	{
 		AI_LOG(Error, TEXT("파일을 찾을 수 없습니다 : %s"), *ImagePath);
 		return nullptr;
@@ -44,8 +46,8 @@ UTexture2D * UImageLoader::LoadImageFromDisk(UObject * Outer, FString const & Im
 	}
 
 	// 발견된 이미지 포맷에 대해 ImageWrapper를 생성합니다.
-	IImageWrapperPtr ImageWrapper = ImageWrapperModule.CreateImageWrapper(ImageFormat);
-	if (!ImageWrapper.IsValid())
+	TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(ImageFormat);
+	if (ImageWrapper.IsValid() == false)
 	{
 		AI_LOG(Error, TEXT("파일의 이미지 래퍼를 생성하는 것에 실패했습니다 : %s"), *ImagePath);
 		return nullptr;
@@ -85,7 +87,8 @@ void UImageLoader::LoadImageAsync(UObject * Outer, FString const & ImagePath)
 			// 게임 스레드에서 로드된 텍스처에 대한 리스너들에게 노티파이합니다.
 			AsyncTask(ENamedThreads::GameThread, [this]()
 			{
-				LoadCompleted.Broadcast(Future.Get());
+				if(OnLoadCompleted().IsBound())
+					LoadCompleted.Broadcast(Future.Get());
 			});
 		}
 	});
@@ -93,10 +96,12 @@ void UImageLoader::LoadImageAsync(UObject * Outer, FString const & ImagePath)
 
 TFuture<UTexture2D*> UImageLoader::LoadImageFromDiskAsync(UObject * Outer, FString const & ImagePath, TFunction<void()> CompletionCallback)
 {
-	return Async<UTexture2D*>(EAsyncExecution::ThreadPool, [=]()
-	{
-		return LoadImageFromDisk(Outer, ImagePath);
-	}, CompletionCallback);
+	return Async<UTexture2D*>(
+		EAsyncExecution::ThreadPool, [=]()
+		{
+			return LoadImageFromDisk(Outer, ImagePath);
+		}, 
+		CompletionCallback);
 }
 
 
@@ -133,6 +138,7 @@ UTexture2D * UImageLoader::CreateTexture(UObject * Outer, TArray<uint8> const & 
 
 	Mip->BulkData.Lock(LOCK_READ_WRITE);
 	void* TextureData = Mip->BulkData.Realloc(NumBlocksX * NumBlocksY * GPixelFormats[InFormat].BlockBytes);
+	FMemory::Memcpy(TextureData, PixelData.GetData(), PixelData.Num());
 	Mip->BulkData.Unlock();
 
 	NewTexture->UpdateResource();
