@@ -41,7 +41,7 @@ public class AssetImport : ModuleRules
         // See as https://wiki.unrealengine.com/Assimp_for_Unreal
         if ((Target.Platform == UnrealTargetPlatform.Win64) || (Target.Platform == UnrealTargetPlatform.Win32))
         {
-            string PathToProject = "C:\\Users\\Utsuho\\Desktop\\General\\Project\\Prototype\\UEPrototype";
+            string PathToProject = Directory.GetParent(Directory.GetParent(ModuleDirectory).ToString()).ToString();
             PublicIncludePaths.Add(Path.Combine(PathToProject, "Source\\ThirdParty"));
             string PlatformString = (Target.Platform == UnrealTargetPlatform.Win64) ? "Win64" : "Win32";
             string LibrariesPath = Path.Combine(PathToProject, "Binaries", PlatformString);

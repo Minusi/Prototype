@@ -1,9 +1,0 @@
-Info,  T86588: Test
-Info,  T86588: Load C:/Users/Utsuho/Desktop/untitled1.fbx
-Info,  T86588: Found a matching importer for this file format: Autodesk FBX Importer.
-Info,  T86588: Import root directory is 'C:/Users/Utsuho/Desktop\'
-Error, T86588: FBX: no material assigned to mesh, setting default material
-Info,  T86588: Entering post processing pipeline
-Info,  T86588: TriangulateProcess finished. All polygons have been triangulated.
-Error, T86588: Failed to compute tangents; need UV data in channel0
-Info,  T86588: Leaving post processing pipeline

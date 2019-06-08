@@ -1,4 +1,0 @@
-C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\AssetImport\AssetImport.Build.cs
-C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype\UEPrototype.Build.cs
-C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototype.Target.cs
-C:\Users\Utsuho\Desktop\General\Project\Prototype\UEPrototype\Source\UEPrototypeEditor.Target.cs
