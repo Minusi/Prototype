@@ -84,4 +84,5 @@ private:
 
 	/** 비동기 로딩 연산 이후 값이 저장되는 Future 객체입니다. */
 	TFuture<UTexture2D*> Future;
+
 };

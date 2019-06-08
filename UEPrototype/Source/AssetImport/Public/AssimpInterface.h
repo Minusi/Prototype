@@ -43,7 +43,7 @@ public:
 	/**	지정된 경로에서 모델링 파일을 불러옵니다.
 		모델이 비동기식으로 로드되므로, 로드가 완료되었을 때 이벤트를 통해 필요로 하는 모든 객체에게 노티파이합니다.
 		@return 모델이 로드되었음을 알리는 이벤트에 등록할 수 있는 UAssimpInterface를 반환합니다. */
-	UFUNCTION(BlueprintCallable, Category = Assimp)
+	UFUNCTION(BlueprintCallable, Category = "Assimp")
 	static UAssimpInterface* LoadModelFromDiskAsync(FString const & ModelPath, UObject* Outer);
 
 	/** 지정된 경로에서 모델링 파일을 불러옵니다.

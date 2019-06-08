@@ -810,8 +810,10 @@
     <ClInclude Include="..\..\Source\AssetImport\Public\ImageLoader.h" />
     <ClInclude Include="..\..\Source\AssetImport\Public\ImporterAdapter.h" />
     <None Include="..\..\Source\UEPrototype\UEPrototype.Build.cs" />
+    <ClCompile Include="..\..\Source\AssetImport\Private\StaticMeshLoader.cpp" />
     <ClCompile Include="..\..\Source\UEPrototype\Private\PrototypeCodedActor.cpp" />
     <ClCompile Include="..\..\Source\UEPrototype\UEPrototype.cpp" />
+    <ClInclude Include="..\..\Source\AssetImport\Public\StaticMeshLoader.h" />
     <ClInclude Include="..\..\Source\UEPrototype\Public\PrototypeCodedActor.h" />
     <ClInclude Include="..\..\Source\UEPrototype\UEPrototype.h" />
     <ClCompile Include="..\..\Source\UEPrototype\UEPrototypeGameModeBase.cpp" />

@@ -11,7 +11,7 @@
 #include "Misc/DateTime.h"
 #include "Misc/Paths.h"
 
-
+#include "ProceduralMeshComponent.h"
 
 UAssimpInterface * UAssimpInterface::LoadModelFromDiskAsync(FString const & ModelPath, UObject * Outer)
 {

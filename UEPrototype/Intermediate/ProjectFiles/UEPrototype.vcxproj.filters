@@ -202,12 +202,18 @@
     <ClInclude Include="..\..\Source\AssetImport\Public\ImageLoader.h">
       <Filter>Source\AssetImport\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\AssetImport\Public\StaticMeshLoader.h">
+      <Filter>Source\AssetImport\Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\UEPrototype\Private\PrototypeCodedActor.cpp">
       <Filter>Source\UEPrototype\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AssetImport\Private\ImageLoader.cpp">
+      <Filter>Source\AssetImport\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AssetImport\Private\StaticMeshLoader.cpp">
       <Filter>Source\AssetImport\Private</Filter>
     </ClCompile>
   </ItemGroup>

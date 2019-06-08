@@ -13,14 +13,11 @@
 
 
 
-// 모듈 로딩이 메인 스레드의 외부에서 허용되지 않으므로, 미리 ImageWrapper 모듈을 로드합니다.
-static IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
-
-
-
 UTexture2D * UImageLoader::LoadImageFromDisk(UObject * Outer, FString const & ImagePath)
 {
-	AI_LOG(Log, TEXT("Test"));
+	// TODO : 이 모듈이 항상 메인 스레드에서 로드되는 지에 대한 의문을 가지고 있습니다.
+	// 런타임 어서트가 발생한다면 이 모듈의 로드가 제대로 되었는 지에 대해서 의심할 필요가 있습니다.
+	IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
 
 	// 먼저 파일이 존재하는 지 확인합니다.
 	if (FPaths::FileExists(ImagePath) == false)
@@ -34,6 +31,20 @@ UTexture2D * UImageLoader::LoadImageFromDisk(UObject * Outer, FString const & Im
 	if (!FFileHelper::LoadFileToArray(FileData, *ImagePath))
 	{
 		AI_LOG(Error, TEXT("파일을 로드하는데 실패하였습니다 : %s"), *ImagePath);
+		return nullptr;
+	}
+
+	if (FileData.GetData() == nullptr)
+	{
+		AI_LOG(Error, TEXT("컨테이너에 데이터가 존재하지 않습니다 : %s"), *ImagePath);
+		return nullptr;
+	}
+
+	ImageWrapperModule.IsGameModule();
+
+	if (FModuleManager::Get().IsModuleLoaded(TEXT("ImageWrapper")) == false)
+	{
+		AI_LOG(Error, TEXT("ImageWrapper 모듈이 로드되지 않았습니다."));
 		return nullptr;
 	}
 
@@ -67,7 +78,12 @@ UTexture2D * UImageLoader::LoadImageFromDisk(UObject * Outer, FString const & Im
 	FString TextureBaseName = TEXT("Tex_") + FPaths::GetBaseFilename(ImagePath);
 	return CreateTexture(Outer, *RawData, ImageWrapper->GetWidth(), ImageWrapper->GetHeight(),
 		EPixelFormat::PF_B8G8R8A8, FName(*TextureBaseName));
+
 }
+
+
+
+
 
 UImageLoader* UImageLoader::LoadImageFromDiskAsync(UObject* Outer, FString const & ImagePath)
 {

@@ -25,8 +25,8 @@ void EmptyLinkFunctionForGeneratedCodeAssetImport_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/AssetImport",
 				PKG_CompiledIn | 0x00000000,
-				0x03F25074,
-				0x6395E778,
+				0xCAD60F78,
+				0x5D9B009F,
 				SingletonFuncArray, ARRAY_COUNT(SingletonFuncArray),
 				METADATA_PARAMS(nullptr, 0)
 			};
