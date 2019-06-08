@@ -50,8 +50,8 @@ UEPrototype/SourceArt/**/*.png
 UEPrototype/SourceArt/**/*.tga
 
 # Binary Files
-UEPrototype/Binaries/*/**
-UEPrototype/Plugins/*/Binaries/*
+UEPrototype/Binaries/**/*
+UEPrototype/Plugins/*/Binaries/**/*
 
 # Builds
 UEPrototype/Build/*
@@ -71,8 +71,8 @@ UEPrototype/!Build/**/*.ico
 UEPrototype/Saved/*
 
 # Compiled source files for the engine to use
-UEPrototype/Intermediate/*/**
-UEPrototype/Plugins/*/Intermediate/*/**
+UEPrototype/Intermediate/**/*
+UEPrototype/Plugins/*/Intermediate/**/*
 
 # Cache files for the editor to use
 UEPrototype/DerivedDataCache/*
