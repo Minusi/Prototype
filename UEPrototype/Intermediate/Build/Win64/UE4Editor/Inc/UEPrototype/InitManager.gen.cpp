@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "UEPrototype/Public/Module/Init/InitManager.h"
+#include "UEPrototype/Public/Init/InitManager.h"
 #ifdef _MSC_VER
 #pragma warning (push)
 #pragma warning (disable : 4883)
@@ -32,7 +32,7 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature_Statics::Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_UEPrototype, "ReferenceDelegate__DelegateSignature", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x00120000, 0, nullptr, 0, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature_Statics::Function_MetaDataParams)) };
@@ -54,7 +54,7 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature_Statics::Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature_Statics::FuncParams = { (UObject*(*)())Z_Construct_UPackage__Script_UEPrototype, "InitEventDispatcher__DelegateSignature", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x00130000, 0, nullptr, 0, 0, 0, METADATA_PARAMS(Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature_Statics::Function_MetaDataParams)) };
@@ -87,8 +87,8 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AInitManager_InitializeUniques_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Prototpe|Init" },
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
-		{ "ToolTip", "\xeb\x8b\xa8 \xed\x95\x9c \xea\xb0\x9c\xeb\xa7\x8c \xec\x83\x9d\xec\x84\xb1\xeb\x90\x98\xec\x96\xb4\xec\x95\xbc \xed\x95\xa0 \xea\xb2\x83\xeb\x93\xa4\xec\x9d\x84 \xeb\xaa\xa8\xeb\x91\x90 \xec\xb4\x88\xea\xb8\xb0\xed\x99\x94(\xec\x8a\xa4\xed\x8f\xb0)\xed\x95\xa9\xeb\x8b\x88\xeb\x8b\xa4." },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
+		{ "ToolTip", "?? ?? ???? ?????\xc7\xbe??? ?? ?\xcd\xb5??? ???? ?\xca\xb1?\xc8\xad(????)?\xd5\xb4\xcf\xb4?." },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AInitManager_InitializeUniques_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AInitManager, "InitializeUniques", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x04020401, 0, nullptr, 0, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AInitManager_InitializeUniques_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_AInitManager_InitializeUniques_Statics::Function_MetaDataParams)) };
@@ -112,8 +112,8 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AInitManager_OnEndInitEvent_Statics::Function_MetaDataParams[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Prototype|Init" },
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
-		{ "ToolTip", "InitManager\xea\xb0\x80 \xec\x9c\xa0\xed\x82\xa4\xeb\x93\x9c \xec\xb4\x88\xea\xb8\xb0\xed\x99\x94\xeb\xa5\xbc \xec\xa0\x84\xeb\xb6\x80 \xec\x88\x98\xed\x96\x89\xed\x96\x88\xec\x9d\x84 \xeb\x95\x8c \xeb\xb0\x9c\xec\x83\x9d\xec\x8b\x9c\xed\x82\xac \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4.\nbUniquesEndInit\xec\x9d\x84 true\xeb\xa1\x9c \xec\xa0\x84\xed\x99\x98\xed\x95\xa9\xeb\x8b\x88\xeb\x8b\xa4." },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
+		{ "ToolTip", "InitManager?? ??\xc5\xb0?? ?\xca\xb1?\xc8\xad?? ???? ???????? ?? ?\xdf\xbb???\xc5\xb3 ?\xcc\xba?\xc6\xae?\xd4\xb4\xcf\xb4?.\nbUniquesEndInit?? true?? ??\xc8\xaf?\xd5\xb4\xcf\xb4?." },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AInitManager_OnEndInitEvent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AInitManager, "OnEndInitEvent", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x04040401, 0, nullptr, 0, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AInitManager_OnEndInitEvent_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_AInitManager_OnEndInitEvent_Statics::Function_MetaDataParams)) };
@@ -146,8 +146,8 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Prototpe|Init" },
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
-		{ "ToolTip", "\xec\x9c\xa0\xeb\x8b\x88\xed\x81\xac \xea\xb0\x9d\xec\xb2\xb4\xeb\xa5\xbc \xed\x95\x84\xec\x9a\x94\xeb\xa1\x9c \xed\x95\x98\xeb\x8a\x94 \xea\xb0\x9d\xec\xb2\xb4\xea\xb0\x80 \xec\x95\x88\xec\xa0\x84\xed\x95\x98\xea\xb2\x8c \xeb\xa0\x88\xed\x8d\xbc\xeb\x9f\xb0\xec\x8b\xb1\xed\x95\x98\xeb\x8f\x84\xeb\xa1\x9d \xed\x95\xa9\xeb\x8b\x88\xeb\x8b\xa4." },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
+		{ "ToolTip", "????\xc5\xa9 ??\xc3\xbc?? ?\xca\xbf??? ?\xcf\xb4? ??\xc3\xbc?? ?????\xcf\xb0? ???\xdb\xb7????\xcf\xb5??? ?\xd5\xb4\xcf\xb4?." },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AInitManager, "SafeRefUniqueToActor", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x04020401, sizeof(InitManager_eventSafeRefUniqueToActor_Parms), Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor_Statics::Function_MetaDataParams)) };
@@ -189,23 +189,23 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_UEPrototype,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_AInitManager_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_AInitManager_InitializeUniques, "InitializeUniques" }, // 2808618898
-		{ &Z_Construct_UFunction_AInitManager_OnEndInitEvent, "OnEndInitEvent" }, // 393202182
-		{ &Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor, "SafeRefUniqueToActor" }, // 3082819245
+		{ &Z_Construct_UFunction_AInitManager_InitializeUniques, "InitializeUniques" }, // 4079432796
+		{ &Z_Construct_UFunction_AInitManager_OnEndInitEvent, "OnEndInitEvent" }, // 192800171
+		{ &Z_Construct_UFunction_AInitManager_SafeRefUniqueToActor, "SafeRefUniqueToActor" }, // 964912081
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AInitManager_Statics::Class_MetaDataParams[] = {
-		{ "IncludePath", "Module/Init/InitManager.h" },
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
-		{ "ToolTip", "*     AInitManager\xeb\x8a\x94 \xeb\x8b\xa8 \xed\x95\x98\xeb\x82\x98\xeb\xa7\x8c \xec\x83\x9d\xec\x84\xb1\xeb\x90\x98\xec\x96\xb4\xec\x95\xbc \xed\x95\x98\xeb\x8a\x94, \xeb\x98\x90\xeb\x8a\x94 \xea\xb2\x8c\xec\x9e\x84 \xec\x8b\x9c\xec\x9e\x91\xec\x8b\x9c\n*     \xec\xb4\x88\xea\xb8\xb0\xed\x99\x94\xeb\x90\x98\xec\x96\xb4\xec\x95\xbc \xed\x95\x98\xeb\x8a\x94 \xea\xb2\x83\xeb\x93\xa4\xec\x9d\x84 \xec\xb4\x88\xea\xb8\xb0\xed\x99\x94\xed\x95\x98\xeb\x8a\x94 \xed\x81\xb4\xeb\x9e\x98\xec\x8a\xa4\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4." },
+		{ "IncludePath", "Init/InitManager.h" },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
+		{ "ToolTip", "*     AInitManager?? ?? ?\xcf\xb3??? ?????\xc7\xbe??? ?\xcf\xb4?, ?\xc7\xb4? ???? ???\xdb\xbd?\n*     ?\xca\xb1?\xc8\xad?\xc7\xbe??? ?\xcf\xb4? ?\xcd\xb5??? ?\xca\xb1?\xc8\xad?\xcf\xb4? \xc5\xac?????\xd4\xb4\xcf\xb4?." },
 	};
 #endif
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AInitManager_Statics::NewProp_bUniquesEndInit_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Prototype|Init" },
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
-		{ "ToolTip", "\xec\x9c\xa0\xeb\x8b\x88\xed\x81\xac\xeb\x93\xa4\xec\x9d\xb4 \xeb\xaa\xa8\xeb\x91\x90 \xec\xb4\x88\xea\xb8\xb0\xed\x99\x94\xeb\xa5\xbc \xeb\xa7\x88\xec\xb3\xa4\xeb\x8a\x94\xec\xa7\x80 \xec\x97\xac\xeb\xb6\x80\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4." },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
+		{ "ToolTip", "????\xc5\xa9???? ???? ?\xca\xb1?\xc8\xad?? ???\xc6\xb4??? ?????\xd4\xb4\xcf\xb4?." },
 	};
 #endif
 	void Z_Construct_UClass_AInitManager_Statics::NewProp_bUniquesEndInit_SetBit(void* Obj)
@@ -216,8 +216,8 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AInitManager_Statics::NewProp_OnUniquesEndInit_MetaData[] = {
 		{ "Category", "Prototype|Init" },
-		{ "ModuleRelativePath", "Public/Module/Init/InitManager.h" },
-		{ "ToolTip", "\xec\xb4\x88\xea\xb8\xb0\xed\x99\x94 \xeb\xa7\xa4\xeb\x8b\x88\xec\xa0\x80\xea\xb0\x80 \xec\x9c\xa0\xeb\x8b\x88\xed\x81\xac \xec\xb4\x88\xea\xb8\xb0\xed\x99\x94\xeb\xa5\xbc \xec\x88\x98\xed\x96\x89\xed\x95\x9c \xec\x9d\xb4\xed\x9b\x84\xec\x97\x90 \xec\x9d\xb4\xea\xb2\x83\xeb\x93\xa4\xec\x9d\x84 \xed\x95\x84\xec\x9a\x94\xeb\xa1\x9c \xed\x95\x98\xeb\x8a\x94\n\xeb\x8c\x80\xec\x83\x81\xec\x97\x90\xea\xb2\x8c \xeb\xb8\x8c\xeb\xa1\x9c\xeb\x93\x9c\xec\xba\x90\xec\x8a\xa4\xed\x8a\xb8\xed\x95\x98\xea\xb8\xb0 \xec\x9c\x84\xed\x95\x9c \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8 \xeb\x94\x94\xec\x8a\xa4\xed\x8c\xa8\xec\xb2\x98\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4." },
+		{ "ModuleRelativePath", "Public/Init/InitManager.h" },
+		{ "ToolTip", "?\xca\xb1?\xc8\xad ?\xc5\xb4????? ????\xc5\xa9 ?\xca\xb1?\xc8\xad?? ?????? ???\xc4\xbf? ?\xcc\xb0\xcd\xb5??? ?\xca\xbf??? ?\xcf\xb4?\n???\xf3\xbf\xa1\xb0? ???\xce\xb5?\xc4\xb3??\xc6\xae?\xcf\xb1? ???? ?\xcc\xba?\xc6\xae ??????\xc3\xb3?\xd4\xb4\xcf\xb4?." },
 	};
 #endif
 	const UE4CodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_AInitManager_Statics::NewProp_OnUniquesEndInit = { UE4CodeGen_Private::EPropertyClass::MulticastDelegate, "OnUniquesEndInit", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010100010080000, 1, nullptr, STRUCT_OFFSET(AInitManager, OnUniquesEndInit), Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_AInitManager_Statics::NewProp_OnUniquesEndInit_MetaData, ARRAY_COUNT(Z_Construct_UClass_AInitManager_Statics::NewProp_OnUniquesEndInit_MetaData)) };
@@ -248,7 +248,7 @@ void EmptyLinkFunctionForGeneratedCodeInitManager() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AInitManager, 2118406135);
+	IMPLEMENT_CLASS(AInitManager, 1306676165);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_AInitManager(Z_Construct_UClass_AInitManager, &AInitManager::StaticClass, TEXT("/Script/UEPrototype"), TEXT("AInitManager"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AInitManager);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
