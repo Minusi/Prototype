@@ -13,12 +13,8 @@ UCLASS(BlueprintType)
 class UEPROTOTYPE_API UGizmoAxis : public UGizmoMeshComponent
 {
 	GENERATED_BODY()
-	
-private:
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Axis", meta = (AllowPrivateAccess = "true"))
-	TMap<EGizmoTransType, UStaticMesh*> TransTypeMeshs;
 
 public:
-	virtual void UpdateGizmoTransType(EGizmoTransType InTransType) override;
-
+	virtual void CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh);
+	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);
 };

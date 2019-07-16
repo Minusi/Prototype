@@ -11,11 +11,10 @@
 
 #include "GizmoAxes.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType)
 class UEPROTOTYPE_API AGizmoAxes : public AActor
 {
 	GENERATED_BODY()
-	
 public:	
 	// Sets default values for this actor's properties
 	AGizmoAxes();
@@ -51,15 +50,34 @@ private:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Origin", meta = (AllowPrivateAccess = "true"))
 	EGizmoTransType TransType;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes", meta = (AllowPrivateAccess = "true"))
+	bool bIsGizmoActivated;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes", meta = (AllowPrivateAccess = "true"))
+	float GizmoViewOffsetFromCamera;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes", meta = (AllowPrivateAccess = "true"))
+	AActor* SelectedActor;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Axis", meta = (AllowPrivateAccess = "true"))
+	TMap<EGizmoTransType, UStaticMesh*> TransTypeMeshs;
+
 public:
+	// 오브젝트를 선택시 호출됨 -> PC가 GizmoManager를 통해 호출가능
+	UFUNCTION(BlueprintCallable, Category = "Gizmo")
+	void OnObjectClicked(AActor* TargetObject);
+
+	// 기즈모 활성화/비활성화
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void ActivateGizmo(bool bActive);
 
-	UFUNCTION(BlueprintCallable, Category = "Gizmo")
-	void UpdateGizmoTransform(FTransform InTransform);
-
+	// 변형 모드를 변경, 모드에 따라 매쉬 변경
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void SetupGizmoTransType(EGizmoTransType InTransType);
+
+	// 좌표 모드를 변경, 모드에 따라 기즈모 회전
+	UFUNCTION(BlueprintCallable, Category = "Gizmo")
+	void SetupGizmoCoordType(EGizmoCoordType InCoordType);
 
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Type")
 	EGizmoCoordType GetGizmoCoordType();

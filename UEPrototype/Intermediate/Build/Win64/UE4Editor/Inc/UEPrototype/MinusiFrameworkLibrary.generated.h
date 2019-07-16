@@ -8,8 +8,12 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UPrimitiveComponent;
+struct FVector;
+struct FHitResult;
 class UObject;
 class AActor;
+struct FTransform;
 struct FColor;
 enum class EBoolean : uint8;
 #ifdef UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
@@ -17,7 +21,71 @@ enum class EBoolean : uint8;
 #endif
 #define UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_RPC_WRAPPERS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execTraceComponent) \
+	{ \
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_TheComp); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceComponent(Z_Param_TheComp,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execTraceWithIgnoreArray) \
+	{ \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_GET_TARRAY_REF(AActor*,Z_Param_Out_ActorsToIgnore); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
+		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceWithIgnoreArray(Z_Param_WorldContextObject,Z_Param_Out_ActorsToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execTrace) \
+	{ \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_GET_OBJECT(AActor,Z_Param_ActorToIgnore); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
+		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::Trace(Z_Param_WorldContextObject,Z_Param_ActorToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetTransformToTraceHitResult) \
+	{ \
+		P_GET_STRUCT(FHitResult,Z_Param_HitResult); \
+		P_GET_UBOOL(Z_Param_IsHit); \
+		P_GET_STRUCT(FVector,Z_Param_ActorLocation); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FTransform*)Z_Param__Result=UMinusiFrameworkLibrary::GetTransformToTraceHitResult(Z_Param_HitResult,Z_Param_IsHit,Z_Param_ActorLocation); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetDirectionOffsetVector) \
+	{ \
+		P_GET_STRUCT(FVector,Z_Param_FromVector); \
+		P_GET_STRUCT(FVector,Z_Param_ToVector); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_Offset); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FVector*)Z_Param__Result=UMinusiFrameworkLibrary::GetDirectionOffsetVector(Z_Param_FromVector,Z_Param_ToVector,Z_Param_Offset); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execGetSpecificAllActorWithTag) \
 	{ \
@@ -135,7 +203,71 @@ enum class EBoolean : uint8;
 	}
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_RPC_WRAPPERS_NO_PURE_DECLS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execTraceComponent) \
+	{ \
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_TheComp); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceComponent(Z_Param_TheComp,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execTraceWithIgnoreArray) \
+	{ \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_GET_TARRAY_REF(AActor*,Z_Param_Out_ActorsToIgnore); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
+		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceWithIgnoreArray(Z_Param_WorldContextObject,Z_Param_Out_ActorsToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execTrace) \
+	{ \
+		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
+		P_GET_OBJECT(AActor,Z_Param_ActorToIgnore); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
+		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
+		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::Trace(Z_Param_WorldContextObject,Z_Param_ActorToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetTransformToTraceHitResult) \
+	{ \
+		P_GET_STRUCT(FHitResult,Z_Param_HitResult); \
+		P_GET_UBOOL(Z_Param_IsHit); \
+		P_GET_STRUCT(FVector,Z_Param_ActorLocation); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FTransform*)Z_Param__Result=UMinusiFrameworkLibrary::GetTransformToTraceHitResult(Z_Param_HitResult,Z_Param_IsHit,Z_Param_ActorLocation); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetDirectionOffsetVector) \
+	{ \
+		P_GET_STRUCT(FVector,Z_Param_FromVector); \
+		P_GET_STRUCT(FVector,Z_Param_ToVector); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_Offset); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(FVector*)Z_Param__Result=UMinusiFrameworkLibrary::GetDirectionOffsetVector(Z_Param_FromVector,Z_Param_ToVector,Z_Param_Offset); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execGetSpecificAllActorWithTag) \
 	{ \
@@ -253,7 +385,7 @@ enum class EBoolean : uint8;
 	}
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_INCLASS_NO_PURE_DECLS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMinusiFrameworkLibrary(); \
 	friend struct Z_Construct_UClass_UMinusiFrameworkLibrary_Statics; \
@@ -262,7 +394,7 @@ public: \
 	DECLARE_SERIALIZER(UMinusiFrameworkLibrary)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_INCLASS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_INCLASS \
 private: \
 	static void StaticRegisterNativesUMinusiFrameworkLibrary(); \
 	friend struct Z_Construct_UClass_UMinusiFrameworkLibrary_Statics; \
@@ -271,7 +403,7 @@ public: \
 	DECLARE_SERIALIZER(UMinusiFrameworkLibrary)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_STANDARD_CONSTRUCTORS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMinusiFrameworkLibrary(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMinusiFrameworkLibrary) \
@@ -284,7 +416,7 @@ private: \
 public:
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_ENHANCED_CONSTRUCTORS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMinusiFrameworkLibrary(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -297,26 +429,26 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UMinusiFrameworkLibrary); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMinusiFrameworkLibrary)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_PRIVATE_PROPERTY_OFFSET
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_27_PROLOG
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_GENERATED_BODY_LEGACY \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_PRIVATE_PROPERTY_OFFSET
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_PROLOG
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_RPC_WRAPPERS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_INCLASS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_STANDARD_CONSTRUCTORS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_INCLASS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_GENERATED_BODY \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_RPC_WRAPPERS_NO_PURE_DECLS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_INCLASS_NO_PURE_DECLS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_30_ENHANCED_CONSTRUCTORS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_INCLASS_NO_PURE_DECLS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

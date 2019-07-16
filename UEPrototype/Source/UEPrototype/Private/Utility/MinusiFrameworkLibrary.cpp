@@ -148,5 +148,126 @@ TArray<AActor*> UMinusiFrameworkLibrary::GetSpecificAllActorWithTag(const UObjec
 	return SpecificActors;
 }
 
+FVector UMinusiFrameworkLibrary::GetDirectionOffsetVector(FVector FromVector, FVector ToVector, float Offset)
+{
+	FVector Direction = UKismetMathLibrary::GetDirectionUnitVector(FromVector, ToVector);
+	return Direction * Offset;
+}
 
 
+FTransform UMinusiFrameworkLibrary::GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation)
+{
+	FTransform NewTranfrom;
+	NewTranfrom.SetLocation(ActorLocation);
+	FVector NewVector = IsHit ? HitResult.ImpactPoint : HitResult.TraceEnd;
+	FRotator NewRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewVector);
+	NewTranfrom.SetRotation(NewRotation.Quaternion());
+	return NewTranfrom;
+}
+
+bool UMinusiFrameworkLibrary::Trace(
+	UObject* WorldContextObject,
+	AActor* ActorToIgnore,
+	const FVector& Start,
+	const FVector& End,
+	FHitResult& HitOut,
+	ECollisionChannel CollisionChannel,
+	bool ReturnPhysMat
+) {
+	UWorld* World = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
+	if (!World)
+	{
+		return false;
+	}
+
+	FCollisionQueryParams TraceParams(FName(TEXT("VictoreCore Trace")), true, ActorToIgnore);
+	TraceParams.bTraceComplex = true;
+	//TraceParams.bTraceAsyncScene = true;
+	TraceParams.bReturnPhysicalMaterial = ReturnPhysMat;
+
+	//Ignore Actors
+	TraceParams.AddIgnoredActor(ActorToIgnore);
+
+	//Re-initialize hit info
+	HitOut = FHitResult(ForceInit);
+
+	//Trace!
+	World->LineTraceSingleByChannel(
+		HitOut,		//result
+		Start,	//start
+		End, //end
+		CollisionChannel, //collision channel
+		TraceParams
+	);
+
+	//Hit any Actor?
+	return (HitOut.GetActor() != NULL);
+}
+
+
+bool UMinusiFrameworkLibrary::TraceWithIgnoreArray(
+	UObject* WorldContextObject,
+	TArray<AActor*>& ActorsToIgnore,
+	const FVector& Start,
+	const FVector& End,
+	FHitResult& HitOut,
+	ECollisionChannel CollisionChannel,
+	bool ReturnPhysMat
+) {
+	UWorld* World = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
+	if (!World)
+	{
+		return false;
+	}
+
+	FCollisionQueryParams TraceParams(FName(TEXT("VictoryCore Trace")), true, ActorsToIgnore[0]);
+	TraceParams.bTraceComplex = true;
+
+	//TraceParams.bTraceAsyncScene = true;
+	TraceParams.bReturnPhysicalMaterial = ReturnPhysMat;
+
+	//Ignore Actors
+	TraceParams.AddIgnoredActors(ActorsToIgnore);
+
+	//Re-initialize hit info
+	HitOut = FHitResult(ForceInit);
+
+	World->LineTraceSingleByChannel(
+		HitOut,		//result
+		Start,	//start
+		End, //end
+		CollisionChannel, //collision channel
+		TraceParams
+	);
+
+	return (HitOut.GetActor() != NULL);
+}
+
+bool UMinusiFrameworkLibrary::TraceComponent(
+	UPrimitiveComponent* TheComp,
+	const FVector& Start,
+	const FVector& End,
+	FHitResult& HitOut
+) {
+	if (!TheComp) return false;
+	if (!TheComp->IsValidLowLevel()) return false;
+	//~~~~~~~~~~~~~~~~~~~~~
+
+	FCollisionQueryParams TraceParams(FName(TEXT("VictoreCore Comp Trace")), true, NULL);
+	TraceParams.bTraceComplex = true;
+	//TraceParams.bTraceAsyncScene = true;
+	TraceParams.bReturnPhysicalMaterial = false;
+
+	//Ignore Actors
+	//TraceParams.AddIgnoredActors(ActorsToIgnore);
+
+	//Re-initialize hit info
+	HitOut = FHitResult(ForceInit);
+
+	return TheComp->LineTraceComponent(
+		HitOut,
+		Start,
+		End,
+		TraceParams
+	);
+}

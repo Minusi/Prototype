@@ -6,6 +6,9 @@
 #include "Engine/Engine.h"
 #include "Math/Color.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "MinusiFrameworkLibrary.generated.h"
 
@@ -85,6 +88,46 @@ public:
 
 
 
+
+	// From 에서 To로 바라보는 방향 백터에 Offset을 곱한것을 반환
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static FVector GetDirectionOffsetVector(FVector FromVector, FVector ToVector, float Offset);
+
+
+
+
+
+	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
+	static FTransform GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation);
+
+	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
+	static bool Trace(
+			UObject* WorldContextObject,
+			AActor* ActorToIgnore,
+			const FVector& Start,
+			const FVector& End,
+			FHitResult& HitOut,
+			ECollisionChannel CollisionChannel = ECC_Pawn,
+			bool ReturnPhysMat = false
+		);
+
+	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
+	static bool TraceWithIgnoreArray(
+			UObject* WorldContextObject,
+			TArray<AActor*>& ActorsToIgnore,
+			const FVector& Start,
+			const FVector& End,
+			FHitResult& HitOut,
+			ECollisionChannel CollisionChannel = ECC_Pawn,
+			bool ReturnPhysMat = false
+		);
+	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
+	static bool TraceComponent(
+			UPrimitiveComponent* TheComp,
+			const FVector& Start,
+			const FVector& End,
+			FHitResult& HitOut
+		);
 
 
 	//

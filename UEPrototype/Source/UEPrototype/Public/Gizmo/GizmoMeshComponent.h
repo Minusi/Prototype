@@ -24,29 +24,39 @@ enum class EGizmoCoordType : uint8
 	GM_LOCALSPACE UMETA(DisplayName = "LocalSpace"),
 };
 
+UENUM(BlueprintType)
+enum class EGizmoAxisType : uint8
+{
+	GM_AXIS_X UMETA(DisplayName = "Axis_X"),
+	GM_AXIS_Y UMETA(DisplayName = "Axis_Y"),
+	GM_AXIS_Z UMETA(DisplayName = "Axis_Z"),
+	GM_AXIS_XY UMETA(DisplayName = "Axis_XY"),
+	GM_AXIS_YZ UMETA(DisplayName = "Axis_YZ"),
+	GM_AXIS_XZ UMETA(DisplayName = "Axis_XZ"),
+	GM_AXIS_XYZ UMETA(DisplayName = "Axis_XYZ"),
+};
+
+
 UCLASS(BlueprintType)
 class UEPROTOTYPE_API UGizmoMeshComponent : public UStaticMeshComponent
 {
 	GENERATED_BODY()
-	UGizmoMeshComponent();
-
+	
+//public:
+//	UGizmoMeshComponent();
+//
 protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
-	FVector ActiveAxis;
+	EGizmoAxisType AxisType;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
 	EGizmoTransType TransType;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
 	float OffsetFromCenter;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
-	FTransform Transformation;
-
+	
 public:
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
-	void CreateGizmo(FVector InActiveAxis, float InOffsetFromCenter);
+	virtual void CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh);
 
-	UFUNCTION(BlueprintCallable, Category = "Gizmo")
-	virtual void UpdateGizmoTransformation(FTransform InTransfrom);
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);
-
 };
