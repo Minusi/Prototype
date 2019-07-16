@@ -6,3 +6,4 @@
 DEFINE_LOG_CATEGORY(VRPrototype);
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, UEPrototype, "UEPrototype" );
+ 
