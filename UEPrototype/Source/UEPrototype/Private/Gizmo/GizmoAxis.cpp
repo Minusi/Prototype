@@ -2,31 +2,25 @@
 
 #include "Gizmo/GizmoAxis.h"
 
-void UGizmoAxis::CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh)
+void UGizmoAxis::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh)
 {
-	Super::CreateGizmo(InAxisType, InOffsetFromCenter, InMesh);
-	FVector Pos, Dir;
+	Super::CreateGizmo(InAxisTypes, InOffsetFromCenter, InMesh);
+	FVector Pos;
 	FRotator Rot = FRotator::ZeroRotator;
 
-	switch (AxisType)
+	if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_X))
 	{
-	case EGizmoAxisType::GM_AXIS_X: 
-
 		Rot.Pitch = -90;
-		//Dir.Set(0, -90, 0);
 		Pos = Rot.Vector().ForwardVector * OffsetFromCenter;
-		break;
-
-	case EGizmoAxisType::GM_AXIS_Y: 
+	}
+	else if(InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Y))
+	{
 		Rot.Roll = 90;
-		//Dir.Set(90, 0, 0);
 		Pos = Rot.Vector().RightVector * OffsetFromCenter;
-		break;
-
-	case EGizmoAxisType::GM_AXIS_Z: 
+	}
+	else if(InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Z))
+	{
 		Pos = FVector::UpVector * OffsetFromCenter;
-		break;
-
 	}
 	SetWorldLocationAndRotation(Pos, Rot.Quaternion());
 }

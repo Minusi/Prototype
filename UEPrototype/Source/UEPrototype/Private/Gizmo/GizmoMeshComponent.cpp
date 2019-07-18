@@ -8,9 +8,9 @@
 //	//Super::UStaticMeshComponent();
 //	VP_CTOR;
 //}
-void UGizmoMeshComponent::CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh)
+void UGizmoMeshComponent::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh)
 {
-	this->AxisType = InAxisType;
+	this->AxisTypes = InAxisTypes;
 	this->OffsetFromCenter = InOffsetFromCenter;
 
 	if (InMesh != nullptr) 

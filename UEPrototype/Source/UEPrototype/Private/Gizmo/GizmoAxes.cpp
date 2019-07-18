@@ -2,6 +2,8 @@
 
 #include "Gizmo/GizmoAxes.h"
 #include "UEPrototype.h"
+#include "Utility/MinusiFrameworkLibrary.h"
+#include "Kismet/GameplayStatics.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 
 // Sets default values
@@ -53,13 +55,13 @@ AGizmoAxes::AGizmoAxes()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Origin(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Origin"));
 
-	Axis_X->CreateGizmo(EGizmoAxisType::GM_AXIS_X, 200, SM_Axis_Move.Object);
-	Axis_Y->CreateGizmo(EGizmoAxisType::GM_AXIS_Y, 200, SM_Axis_Move.Object);
-	Axis_Z->CreateGizmo(EGizmoAxisType::GM_AXIS_Z, 200, SM_Axis_Move.Object);
-	Plane_XY->CreateGizmo(EGizmoAxisType::GM_AXIS_XY, 80, SM_Plane.Object);
-	Plane_YZ->CreateGizmo(EGizmoAxisType::GM_AXIS_YZ, 80, SM_Plane.Object);
-	Plane_XZ->CreateGizmo(EGizmoAxisType::GM_AXIS_XZ, 80, SM_Plane.Object);
-	Origin->CreateGizmo(EGizmoAxisType::GM_AXIS_XYZ, 0, SM_Origin.Object);
+	Axis_X->CreateGizmo({ EGizmoAxisType::GM_AXIS_X }, 200, SM_Axis_Move.Object);
+	Axis_Y->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y }, 200, SM_Axis_Move.Object);
+	Axis_Z->CreateGizmo({ EGizmoAxisType::GM_AXIS_Z }, 200, SM_Axis_Move.Object);
+	Plane_XY->CreateGizmo({ EGizmoAxisType::GM_AXIS_X, EGizmoAxisType::GM_AXIS_Y }, 80, SM_Plane.Object);
+	Plane_YZ->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y, EGizmoAxisType::GM_AXIS_Z }, 80, SM_Plane.Object);
+	Plane_XZ->CreateGizmo({ EGizmoAxisType::GM_AXIS_X, EGizmoAxisType::GM_AXIS_Z }, 80, SM_Plane.Object);
+	Origin->CreateGizmo({ EGizmoAxisType::GM_AXIS_X,EGizmoAxisType::GM_AXIS_Y, EGizmoAxisType::GM_AXIS_Z }, 0, SM_Origin.Object);
 
 	ActivateGizmo(false);
 }
@@ -83,7 +85,7 @@ void AGizmoAxes::OnObjectClicked(AActor* TargetObject)
 	{
 		this->SelectedActor = TargetObject;
 		this->SetActorLocation(TargetObject->GetActorLocation());
-		if(!bIsGizmoActivated)
+		if (!bIsGizmoActivated)
 			ActivateGizmo(true);
 	}
 	else VP_LOG(Error, TEXT("GM_ 선택된 오브젝트가 없습니다."));
@@ -169,3 +171,30 @@ EGizmoTransType AGizmoAxes::GetGizmoTransType()
 	return TransType;
 }
 
+void AGizmoAxes::GetGizmoDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, const FVector AxisLocation, FGizmoDriectionData& OutData)
+{
+	FVector2D OriginVector;
+	if (PC != nullptr)
+	{
+		OutData.AxisDireciton = UKismetMathLibrary::GetDirectionUnitVector(GetActorLocation(), AxisLocation);
+		UGameplayStatics::ProjectWorldToScreen(PC, OutData.AxisDireciton, OutData.ProjectedScreenAxisDirection);
+		UGameplayStatics::ProjectWorldToScreen(PC, FVector::ZeroVector, OriginVector);
+		OutData.ProjectedScreenAxisDirection -= OriginVector;
+		OutData.ProjectedScreenAxisDirection.Normalize();
+	}
+}
+
+void AGizmoAxes::GetGizmoAxisDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, FGizmoDriectionData& OutData)
+{
+	FVector AxisLocation;
+	if (PC != nullptr)
+	{
+		switch (AxisType)
+		{
+		case EGizmoAxisType::GM_AXIS_X: AxisLocation = Axis_X->GetComponentLocation(); break;
+		case EGizmoAxisType::GM_AXIS_Y: AxisLocation = Axis_Y->GetComponentLocation(); break;
+		case EGizmoAxisType::GM_AXIS_Z: AxisLocation = Axis_Z->GetComponentLocation(); break;
+		}
+		GetGizmoDirectionVector(PC, AxisType, AxisLocation, OutData);
+	}
+}

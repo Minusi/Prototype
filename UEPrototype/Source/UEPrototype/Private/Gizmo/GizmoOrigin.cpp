@@ -2,9 +2,9 @@
 
 #include "Gizmo/GizmoOrigin.h"
 
-void UGizmoOrigin::CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh)
+void UGizmoOrigin::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh)
 {
-	Super::CreateGizmo(InAxisType, InOffsetFromCenter, InMesh);
+	Super::CreateGizmo(InAxisTypes, InOffsetFromCenter, InMesh);
 	SetWorldLocation(FVector::UpVector * -InOffsetFromCenter);
 }
 

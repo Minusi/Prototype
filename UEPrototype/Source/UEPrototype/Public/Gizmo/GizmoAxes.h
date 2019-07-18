@@ -11,6 +11,18 @@
 
 #include "GizmoAxes.generated.h"
 
+USTRUCT(BlueprintType)
+struct FGizmoDriectionData
+{
+	GENERATED_BODY()
+	
+public:
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Direction", meta = (AllowPrivateAccess = "true"))
+	FVector AxisDireciton;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Direction", meta = (AllowPrivateAccess = "true"))
+	FVector2D ProjectedScreenAxisDirection;
+};
+
 UCLASS(BlueprintType)
 class UEPROTOTYPE_API AGizmoAxes : public AActor
 {
@@ -84,4 +96,11 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Type")
 	EGizmoTransType GetGizmoTransType();
+
+	// 기즈모 중심에서 해당 축으로의 방향 백터와 화면 Screen상에 Project시킨 백터를 반환합니다.
+	UFUNCTION(BlueprintCallable, Category = "Gizmo|Direction")
+	void GetGizmoAxisDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, FGizmoDriectionData& OutData);
+
+private :
+	void GetGizmoDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, const FVector AxisLocation, FGizmoDriectionData& OutData);
 };

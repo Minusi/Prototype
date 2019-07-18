@@ -148,10 +148,11 @@ TArray<AActor*> UMinusiFrameworkLibrary::GetSpecificAllActorWithTag(const UObjec
 	return SpecificActors;
 }
 
-FVector UMinusiFrameworkLibrary::GetDirectionOffsetVector(FVector FromVector, FVector ToVector, float Offset)
+
+void UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(FVector2D A, FVector2D B, float& Angle)
 {
-	FVector Direction = UKismetMathLibrary::GetDirectionUnitVector(FromVector, ToVector);
-	return Direction * Offset + ToVector;
+	A.Normalize(); B.Normalize();
+	Angle = UKismetMathLibrary::DegAcos(UKismetMathLibrary::DotProduct2D(A, B));
 }
 
 

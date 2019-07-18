@@ -30,10 +30,6 @@ enum class EGizmoAxisType : uint8
 	GM_AXIS_X UMETA(DisplayName = "Axis_X"),
 	GM_AXIS_Y UMETA(DisplayName = "Axis_Y"),
 	GM_AXIS_Z UMETA(DisplayName = "Axis_Z"),
-	GM_AXIS_XY UMETA(DisplayName = "Axis_XY"),
-	GM_AXIS_YZ UMETA(DisplayName = "Axis_YZ"),
-	GM_AXIS_XZ UMETA(DisplayName = "Axis_XZ"),
-	GM_AXIS_XYZ UMETA(DisplayName = "Axis_XYZ"),
 };
 
 
@@ -47,7 +43,7 @@ class UEPROTOTYPE_API UGizmoMeshComponent : public UStaticMeshComponent
 //
 protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
-	EGizmoAxisType AxisType;
+	TArray<EGizmoAxisType> AxisTypes;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
 	EGizmoTransType TransType;
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
@@ -55,8 +51,9 @@ protected:
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
-	virtual void CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh);
+	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh);
 
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);
+
 };

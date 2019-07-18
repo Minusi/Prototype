@@ -18,8 +18,8 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	UEPROTOTYPE_API UClass* Z_Construct_UClass_UMinusiFrameworkLibrary_NoRegister();
 	UEPROTOTYPE_API UClass* Z_Construct_UClass_UMinusiFrameworkLibrary();
 	ENGINE_API UClass* Z_Construct_UClass_UBlueprintFunctionLibrary();
-	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector();
-	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
+	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificAllActorWithTag();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
@@ -27,6 +27,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificFirstActorWithTag();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FTransform();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofActor();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofActor_Exec();
@@ -97,7 +98,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	{
 		UClass* Class = UMinusiFrameworkLibrary::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
-			{ "GetDirectionOffsetVector", &UMinusiFrameworkLibrary::execGetDirectionOffsetVector },
+			{ "GetAngleBetweenTwoVector", &UMinusiFrameworkLibrary::execGetAngleBetweenTwoVector },
 			{ "GetSpecificAllActorWithTag", &UMinusiFrameworkLibrary::execGetSpecificAllActorWithTag },
 			{ "GetSpecificFirstActorWithTag", &UMinusiFrameworkLibrary::execGetSpecificFirstActorWithTag },
 			{ "GetTransformToTraceHitResult", &UMinusiFrameworkLibrary::execGetTransformToTraceHitResult },
@@ -116,49 +117,44 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, ARRAY_COUNT(Funcs));
 	}
-	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics
+	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics
 	{
-		struct MinusiFrameworkLibrary_eventGetDirectionOffsetVector_Parms
+		struct MinusiFrameworkLibrary_eventGetAngleBetweenTwoVector_Parms
 		{
-			FVector FromVector;
-			FVector ToVector;
-			float Offset;
-			FVector ReturnValue;
+			FVector2D A;
+			FVector2D B;
+			float Angle;
 		};
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_ReturnValue;
-		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Offset;
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_ToVector;
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_FromVector;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Angle;
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_B;
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_A;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Struct, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000580, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetDirectionOffsetVector_Parms, ReturnValue), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_Offset = { UE4CodeGen_Private::EPropertyClass::Float, "Offset", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetDirectionOffsetVector_Parms, Offset), METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_ToVector = { UE4CodeGen_Private::EPropertyClass::Struct, "ToVector", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetDirectionOffsetVector_Parms, ToVector), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_FromVector = { UE4CodeGen_Private::EPropertyClass::Struct, "FromVector", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetDirectionOffsetVector_Parms, FromVector), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_ReturnValue,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_Offset,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_ToVector,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::NewProp_FromVector,
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::NewProp_Angle = { UE4CodeGen_Private::EPropertyClass::Float, "Angle", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetAngleBetweenTwoVector_Parms, Angle), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::NewProp_B = { UE4CodeGen_Private::EPropertyClass::Struct, "B", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetAngleBetweenTwoVector_Parms, B), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::NewProp_A = { UE4CodeGen_Private::EPropertyClass::Struct, "A", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventGetAngleBetweenTwoVector_Parms, A), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::NewProp_Angle,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::NewProp_B,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::NewProp_A,
 	};
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::Function_MetaDataParams[] = {
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Math" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
-		{ "ToolTip", "From \xec\x97\x90\xec\x84\x9c To\xeb\xa1\x9c \xeb\xb0\x94\xeb\x9d\xbc\xeb\xb3\xb4\xeb\x8a\x94 \xeb\xb0\xa9\xed\x96\xa5 \xeb\xb0\xb1\xed\x84\xb0\xec\x97\x90 Offset\xec\x9d\x84 \xea\xb3\xb1\xed\x95\x9c\xea\xb2\x83\xec\x9d\x84 \xeb\xb0\x98\xed\x99\x98" },
 	};
 #endif
-	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "GetDirectionOffsetVector", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14822401, sizeof(MinusiFrameworkLibrary_eventGetDirectionOffsetVector_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector()
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "GetAngleBetweenTwoVector", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventGetAngleBetweenTwoVector_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector_Statics::FuncParams);
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -1162,7 +1158,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_UEPrototype,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UMinusiFrameworkLibrary_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetDirectionOffsetVector, "GetDirectionOffsetVector" }, // 1906251121
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector, "GetAngleBetweenTwoVector" }, // 1732538104
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificAllActorWithTag, "GetSpecificAllActorWithTag" }, // 2845932865
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificFirstActorWithTag, "GetSpecificFirstActorWithTag" }, // 3739611449
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult, "GetTransformToTraceHitResult" }, // 3203618619
@@ -1210,7 +1206,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 1386825093);
+	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 993805379);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_UMinusiFrameworkLibrary(Z_Construct_UClass_UMinusiFrameworkLibrary, &UMinusiFrameworkLibrary::StaticClass, TEXT("/Script/UEPrototype"), TEXT("UMinusiFrameworkLibrary"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UMinusiFrameworkLibrary);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -3,27 +3,26 @@
 #include "Gizmo/GizmoPlane.h"
 
 
-void UGizmoPlane::CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh)
+void UGizmoPlane::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh)
 {
-	Super::CreateGizmo(InAxisType, InOffsetFromCenter, InMesh);
+	Super::CreateGizmo(InAxisTypes, InOffsetFromCenter, InMesh);
 
 	FVector Pos;
 	FRotator Rot = FRotator::ZeroRotator;
-	switch (AxisType)
+
+	if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_X) && InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Y))
 	{
-	case EGizmoAxisType::GM_AXIS_XY: 
-		Pos.Set(OffsetFromCenter, OffsetFromCenter, 0); 
-		break;
-
-	case EGizmoAxisType::GM_AXIS_YZ: 
-		Rot.Pitch = -90; 
-		Pos.Set(0, OffsetFromCenter, OffsetFromCenter); 
-		break;
-
-	case EGizmoAxisType::GM_AXIS_XZ:
+		Pos.Set(OffsetFromCenter, OffsetFromCenter, 0);
+	}
+	else if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_X) && InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Z))
+	{
 		Rot.Roll = 90;
 		Pos.Set(OffsetFromCenter, 0, OffsetFromCenter);
-		break;
+	}
+	else if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Y) && InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Z))
+	{
+		Rot.Pitch = -90;
+		Pos.Set(0, OffsetFromCenter, OffsetFromCenter);
 	}
 	SetWorldLocationAndRotation(Pos, Rot.Quaternion());
 }

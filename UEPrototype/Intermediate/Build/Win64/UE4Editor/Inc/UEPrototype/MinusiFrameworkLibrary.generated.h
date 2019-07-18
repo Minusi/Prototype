@@ -14,6 +14,7 @@ struct FHitResult;
 class UObject;
 class AActor;
 struct FTransform;
+struct FVector2D;
 struct FColor;
 enum class EBoolean : uint8;
 #ifdef UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
@@ -76,14 +77,14 @@ enum class EBoolean : uint8;
 		P_NATIVE_END; \
 	} \
  \
-	DECLARE_FUNCTION(execGetDirectionOffsetVector) \
+	DECLARE_FUNCTION(execGetAngleBetweenTwoVector) \
 	{ \
-		P_GET_STRUCT(FVector,Z_Param_FromVector); \
-		P_GET_STRUCT(FVector,Z_Param_ToVector); \
-		P_GET_PROPERTY(UFloatProperty,Z_Param_Offset); \
+		P_GET_STRUCT(FVector2D,Z_Param_A); \
+		P_GET_STRUCT(FVector2D,Z_Param_B); \
+		P_GET_PROPERTY_REF(UFloatProperty,Z_Param_Out_Angle); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(FVector*)Z_Param__Result=UMinusiFrameworkLibrary::GetDirectionOffsetVector(Z_Param_FromVector,Z_Param_ToVector,Z_Param_Offset); \
+		UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(Z_Param_A,Z_Param_B,Z_Param_Out_Angle); \
 		P_NATIVE_END; \
 	} \
  \
@@ -258,14 +259,14 @@ enum class EBoolean : uint8;
 		P_NATIVE_END; \
 	} \
  \
-	DECLARE_FUNCTION(execGetDirectionOffsetVector) \
+	DECLARE_FUNCTION(execGetAngleBetweenTwoVector) \
 	{ \
-		P_GET_STRUCT(FVector,Z_Param_FromVector); \
-		P_GET_STRUCT(FVector,Z_Param_ToVector); \
-		P_GET_PROPERTY(UFloatProperty,Z_Param_Offset); \
+		P_GET_STRUCT(FVector2D,Z_Param_A); \
+		P_GET_STRUCT(FVector2D,Z_Param_B); \
+		P_GET_PROPERTY_REF(UFloatProperty,Z_Param_Out_Angle); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(FVector*)Z_Param__Result=UMinusiFrameworkLibrary::GetDirectionOffsetVector(Z_Param_FromVector,Z_Param_ToVector,Z_Param_Offset); \
+		UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(Z_Param_A,Z_Param_B,Z_Param_Out_Angle); \
 		P_NATIVE_END; \
 	} \
  \

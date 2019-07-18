@@ -15,6 +15,6 @@ class UEPROTOTYPE_API UGizmoAxis : public UGizmoMeshComponent
 	GENERATED_BODY()
 
 public:
-	virtual void CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh);
+	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh);
 	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);
 };
