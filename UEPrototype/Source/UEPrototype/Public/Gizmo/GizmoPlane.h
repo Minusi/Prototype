@@ -16,5 +16,5 @@ class UEPROTOTYPE_API UGizmoPlane : public UGizmoMeshComponent
 	
 public:
 	virtual void CreateGizmo(EGizmoAxisType InAxisType, float InOffsetFromCenter, UStaticMesh* InMesh);
-	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);
+	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);																
 };

@@ -2,7 +2,6 @@
 
 #include "Gizmo/GizmoAxes.h"
 #include "UEPrototype.h"
-#include "Utility/MinusiFrameworkLibrary.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 
 // Sets default values
@@ -76,17 +75,6 @@ void AGizmoAxes::BeginPlay()
 void AGizmoAxes::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (bIsGizmoActivated && SelectedActor != nullptr)
-	{
-
-		// + 물체가 카메라에 보이지 않으면 기즈모를 그릴 필요가 없음
-
-		FVector Offset = UMinusiFrameworkLibrary::GetDirectionOffsetVector(SelectedActor->GetActorLocation(), GetActorLocation(), GizmoViewOffsetFromCamera);
-		if(GetActorLocation() != SelectedActor->GetActorLocation() + Offset)
-			SetActorLocation(SelectedActor->GetActorLocation() + Offset);
-
-	}
 }
 
 void AGizmoAxes::OnObjectClicked(AActor* TargetObject)
@@ -94,6 +82,7 @@ void AGizmoAxes::OnObjectClicked(AActor* TargetObject)
 	if (TargetObject != nullptr)
 	{
 		this->SelectedActor = TargetObject;
+		this->SetActorLocation(TargetObject->GetActorLocation());
 		if(!bIsGizmoActivated)
 			ActivateGizmo(true);
 	}

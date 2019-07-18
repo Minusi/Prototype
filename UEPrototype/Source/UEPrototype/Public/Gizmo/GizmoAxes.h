@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/World.h"
 #include "GameFramework/Actor.h"
-#include "Gizmo/GizmoMeshComponent.h"
 #include "Gizmo/GizmoAxis.h"
 #include "Gizmo/GizmoPlane.h"
 #include "Gizmo/GizmoOrigin.h"
@@ -80,7 +80,7 @@ public:
 	void SetupGizmoCoordType(EGizmoCoordType InCoordType);
 
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Type")
-	EGizmoCoordType GetGizmoCoordType();
+	EGizmoCoordType GetGizmoCoordType();	
 
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Type")
 	EGizmoTransType GetGizmoTransType();

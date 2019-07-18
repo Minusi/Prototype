@@ -151,7 +151,7 @@ TArray<AActor*> UMinusiFrameworkLibrary::GetSpecificAllActorWithTag(const UObjec
 FVector UMinusiFrameworkLibrary::GetDirectionOffsetVector(FVector FromVector, FVector ToVector, float Offset)
 {
 	FVector Direction = UKismetMathLibrary::GetDirectionUnitVector(FromVector, ToVector);
-	return Direction * Offset;
+	return Direction * Offset + ToVector;
 }
 
 
