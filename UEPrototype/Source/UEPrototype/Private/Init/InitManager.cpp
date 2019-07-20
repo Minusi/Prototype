@@ -21,7 +21,6 @@ AInitManager::AInitManager()
 void AInitManager::BeginPlay()
 {
 	Super::BeginPlay();
-
 	InitializeUniques();
 }
 
