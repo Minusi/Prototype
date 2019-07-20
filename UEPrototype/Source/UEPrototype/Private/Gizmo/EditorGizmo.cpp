@@ -57,6 +57,12 @@ AEditorGizmo::AEditorGizmo()
 	PlaneTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, nullptr);
 
 
+	if (SM_Origin.Object != nullptr) OriginTransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Origin.Object);
+	else VP_LOG(Error, TEXT("SM_Gizmo_Origin을 찾을 수 없습니다."));
+	OriginTransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, nullptr);
+	if (SM_Origin.Object != nullptr) OriginTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, SM_Origin.Object);
+	else VP_LOG(Error, TEXT("SM_Gizmo_Origin을 찾을 수 없습니다."));
+
 	Axis_X->CreateGizmo({ EGizmoAxisType::GM_AXIS_X }, 200);
 	Axis_Y->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y }, 200);
 	Axis_Z->CreateGizmo({ EGizmoAxisType::GM_AXIS_Z }, 200);
@@ -111,11 +117,6 @@ void AEditorGizmo::ActivateGizmo(bool bActive)
 	Axis_Y->SetVisibility(bActive, true);
 	Axis_Z->SetVisibility(bActive, true);
 	Origin->SetVisibility(bActive, true);
-
-	/*if (!bActive || GetGizmoTransType() != EGizmoTransType::GM_ROTATE)
-	{
-
-	}*/
 }
 
 void AEditorGizmo::SetupGizmoTransType(EGizmoTransType InTransType)
@@ -127,7 +128,7 @@ void AEditorGizmo::SetupGizmoTransType(EGizmoTransType InTransType)
 		Axis_Y->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
 		Axis_Z->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
 	}
-	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Static Mesh가 없습니다."));
+	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Axis Static Mesh가 없습니다."));
 
 	if (PlaneTransTypeMeshs.Contains(InTransType))
 	{
@@ -135,20 +136,16 @@ void AEditorGizmo::SetupGizmoTransType(EGizmoTransType InTransType)
 		Plane_YZ->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
 		Plane_XZ->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
 	}
-	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Static Mesh가 없습니다."));
+	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Plane Static Mesh가 없습니다."));
+
+	if (OriginTransTypeMeshs.Contains(InTransType))
+		Origin->SetStaticMesh(OriginTransTypeMeshs[InTransType]);
+	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Origin Static Mesh가 없습니다."));
 }
 
 void AEditorGizmo::SetupGizmoCoordType(EGizmoCoordType InCoordType)
 {
-	FRotator Rot = FRotator::ZeroRotator;
-
-	if (InCoordType == EGizmoCoordType::GM_LOCALSPACE)
-	{
-		if (SelectedActor != nullptr)
-			Rot = SelectedActor->GetActorRotation();
-		else VP_LOG(Error, TEXT("GM_ WorldSpace -> LocalSpace 로 변경 중 Actor를 찾을 수 없습니다."));
-	}
-	SetActorRotation(Rot);
+	CoordType = InCoordType;
 }
 
 EGizmoCoordType AEditorGizmo::GetGizmoCoordType()
@@ -165,10 +162,15 @@ void AEditorGizmo::FollowSelectedObject()
 {
 	if (bIsGizmoActivated && SelectedActor != nullptr)
 	{
-		if (GetGizmoCoordType() == EGizmoCoordType::GM_WORLDSPACE)
-			SetActorLocation(SelectedActor->GetActorLocation());
-		else
+		if (GetGizmoTransType() == EGizmoTransType::GM_SCALE)
 			SetActorLocationAndRotation(SelectedActor->GetActorLocation(), SelectedActor->GetActorRotation());
+		else
+		{
+			if (GetGizmoCoordType() == EGizmoCoordType::GM_WORLDSPACE)
+				SetActorLocationAndRotation(SelectedActor->GetActorLocation(), FRotator::ZeroRotator);
+			else
+				SetActorLocationAndRotation(SelectedActor->GetActorLocation(), SelectedActor->GetActorRotation());
+		}
 	}
 }
 

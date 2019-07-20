@@ -86,6 +86,9 @@ private:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Plane", meta = (AllowPrivateAccess = "true"))
 	TMap<EGizmoTransType, UStaticMesh*> PlaneTransTypeMeshs;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Plane", meta = (AllowPrivateAccess = "true"))
+	TMap<EGizmoTransType, UStaticMesh*> OriginTransTypeMeshs;
+
 public:
 	// 오브젝트를 선택시 호출됨 -> PC가 GizmoManager를 통해 호출가능
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
