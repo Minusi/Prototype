@@ -3,31 +3,29 @@
 #include "Gizmo/GizmoPlane.h"
 
 
-void UGizmoPlane::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh)
+void UGizmoPlane::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter)
 {
-	Super::CreateGizmo(InAxisTypes, InOffsetFromCenter, InMesh);
+	Super::CreateGizmo(InAxisTypes, InOffsetFromCenter);
 
 	FVector Pos;
 	FRotator Rot = FRotator::ZeroRotator;
 
 	if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_X) && InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Y))
 	{
-		Pos.Set(OffsetFromCenter, OffsetFromCenter, 0);
+		Pos.Set(InOffsetFromCenter, InOffsetFromCenter, 0);
+		RotateAxisTypes = EGizmoAxisType::GM_AXIS_Z;
 	}
 	else if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_X) && InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Z))
 	{
 		Rot.Roll = 90;
-		Pos.Set(OffsetFromCenter, 0, OffsetFromCenter);
+		Pos.Set(InOffsetFromCenter, 0, InOffsetFromCenter);
+		RotateAxisTypes = EGizmoAxisType::GM_AXIS_Y;
 	}
 	else if (InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Y) && InAxisTypes.Contains(EGizmoAxisType::GM_AXIS_Z))
 	{
 		Rot.Pitch = -90;
-		Pos.Set(0, OffsetFromCenter, OffsetFromCenter);
+		Pos.Set(0, InOffsetFromCenter, InOffsetFromCenter);
+		RotateAxisTypes = EGizmoAxisType::GM_AXIS_X;
 	}
 	SetWorldLocationAndRotation(Pos, Rot.Quaternion());
-}
-
-void UGizmoPlane::UpdateGizmoTransType(EGizmoTransType InTransType)
-{
-	Super::UpdateGizmoTransType(InTransType);
 }

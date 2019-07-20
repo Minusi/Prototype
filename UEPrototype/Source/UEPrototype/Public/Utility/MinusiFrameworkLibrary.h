@@ -90,7 +90,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
 	static void GetAngleBetweenTwoVector(FVector2D A, FVector2D B, float& Angle);
 
-
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static float DistanceRatioByOneDimensionalFunction(AActor* StartActor, AActor* EndActor, float  RatioMul, float RatioPlus, float MinSize, float MaxSize);
 
 	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
 	static FTransform GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation);

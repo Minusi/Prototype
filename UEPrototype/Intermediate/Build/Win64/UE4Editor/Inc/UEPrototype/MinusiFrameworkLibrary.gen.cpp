@@ -18,10 +18,11 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	UEPROTOTYPE_API UClass* Z_Construct_UClass_UMinusiFrameworkLibrary_NoRegister();
 	UEPROTOTYPE_API UClass* Z_Construct_UClass_UMinusiFrameworkLibrary();
 	ENGINE_API UClass* Z_Construct_UClass_UBlueprintFunctionLibrary();
+	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction();
+	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector2D();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificAllActorWithTag();
-	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UObject_NoRegister();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificFirstActorWithTag();
@@ -98,6 +99,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	{
 		UClass* Class = UMinusiFrameworkLibrary::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "DistanceRatioByOneDimensionalFunction", &UMinusiFrameworkLibrary::execDistanceRatioByOneDimensionalFunction },
 			{ "GetAngleBetweenTwoVector", &UMinusiFrameworkLibrary::execGetAngleBetweenTwoVector },
 			{ "GetSpecificAllActorWithTag", &UMinusiFrameworkLibrary::execGetSpecificAllActorWithTag },
 			{ "GetSpecificFirstActorWithTag", &UMinusiFrameworkLibrary::execGetSpecificFirstActorWithTag },
@@ -116,6 +118,63 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 			{ "TraceWithIgnoreArray", &UMinusiFrameworkLibrary::execTraceWithIgnoreArray },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics
+	{
+		struct MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms
+		{
+			AActor* StartActor;
+			AActor* EndActor;
+			float RatioMul;
+			float RatioPlus;
+			float MinSize;
+			float MaxSize;
+			float ReturnValue;
+		};
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_ReturnValue;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_MaxSize;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_MinSize;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_RatioPlus;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_RatioMul;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_EndActor;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_StartActor;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Float, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000580, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_MaxSize = { UE4CodeGen_Private::EPropertyClass::Float, "MaxSize", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, MaxSize), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_MinSize = { UE4CodeGen_Private::EPropertyClass::Float, "MinSize", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, MinSize), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_RatioPlus = { UE4CodeGen_Private::EPropertyClass::Float, "RatioPlus", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, RatioPlus), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_RatioMul = { UE4CodeGen_Private::EPropertyClass::Float, "RatioMul", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, RatioMul), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_EndActor = { UE4CodeGen_Private::EPropertyClass::Object, "EndActor", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, EndActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_StartActor = { UE4CodeGen_Private::EPropertyClass::Object, "StartActor", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms, StartActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_ReturnValue,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_MaxSize,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_MinSize,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_RatioPlus,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_RatioMul,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_EndActor,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::NewProp_StartActor,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Minusi|Math" },
+		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "DistanceRatioByOneDimensionalFunction", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14022401, sizeof(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics
 	{
@@ -1158,6 +1217,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_UEPrototype,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UMinusiFrameworkLibrary_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction, "DistanceRatioByOneDimensionalFunction" }, // 88046756
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector, "GetAngleBetweenTwoVector" }, // 1732538104
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificAllActorWithTag, "GetSpecificAllActorWithTag" }, // 2845932865
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificFirstActorWithTag, "GetSpecificFirstActorWithTag" }, // 3739611449
@@ -1206,7 +1266,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 993805379);
+	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 969843397);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_UMinusiFrameworkLibrary(Z_Construct_UClass_UMinusiFrameworkLibrary, &UMinusiFrameworkLibrary::StaticClass, TEXT("/Script/UEPrototype"), TEXT("UMinusiFrameworkLibrary"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UMinusiFrameworkLibrary);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

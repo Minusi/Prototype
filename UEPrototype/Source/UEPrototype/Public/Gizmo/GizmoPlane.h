@@ -14,7 +14,9 @@ class UEPROTOTYPE_API UGizmoPlane : public UGizmoMeshComponent
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
+	EGizmoAxisType RotateAxisTypes;
+
 public:
-	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh);
-	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);																
+	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter);
 };

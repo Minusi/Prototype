@@ -155,6 +155,16 @@ void UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(FVector2D A, FVector2D B,
 	Angle = UKismetMathLibrary::DegAcos(UKismetMathLibrary::DotProduct2D(A, B));
 }
 
+float UMinusiFrameworkLibrary::DistanceRatioByOneDimensionalFunction(AActor* StartActor, AActor* EndActor, float  RatioMul, float RatioPlus, float MinSize, float MaxSize)
+{
+	if (StartActor != nullptr && EndActor != nullptr)
+	{
+		return UKismetMathLibrary::FClamp(EndActor->GetDistanceTo(StartActor) * RatioMul + RatioPlus, MinSize, MaxSize);
+	}
+	return 1;
+}
+
+
 
 FTransform UMinusiFrameworkLibrary::GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation)
 {

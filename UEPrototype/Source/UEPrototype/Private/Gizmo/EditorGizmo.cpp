@@ -1,18 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Gizmo/GizmoAxes.h"
+#include "Gizmo/EditorGizmo.h"
 #include "UEPrototype.h"
 #include "Utility/MinusiFrameworkLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 
 // Sets default values
-AGizmoAxes::AGizmoAxes()
+AEditorGizmo::AEditorGizmo()
 {
 	VP_CTOR;
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	GizmoViewOffsetFromCamera = 200;
 
 	USceneComponent* Dummy = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	Dummy->SetupAttachment(RootComponent);
@@ -33,53 +32,59 @@ AGizmoAxes::AGizmoAxes()
 	Plane_XZ->SetupAttachment(RootComponent);
 	Origin->SetupAttachment(RootComponent);
 
-	SetupGizmoTransType(EGizmoTransType::GM_MOVE);
-	CoordType = EGizmoCoordType::GM_LOCALSPACE;
-
-
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Move(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Move"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Rotate(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Rotate"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Scale(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Scale"));
 
-	if (SM_Axis_Move.Object != nullptr) TransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Axis_Move.Object);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane_Move(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane_Move"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane_Rotate(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane_Rotate"));
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Origin(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Origin"));
+
+
+	if (SM_Axis_Move.Object != nullptr) AxisTransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Axis_Move.Object);
 	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_Move을 찾을 수 없습니다."));
-
-	if (SM_Axis_Rotate.Object != nullptr) TransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, SM_Axis_Rotate.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_Rotate을 찾을 수 없습니다."));
-
-	if (SM_Axis_Scale.Object != nullptr) TransTypeMeshs.Add(EGizmoTransType::GM_SCALE, SM_Axis_Scale.Object);
+	AxisTransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, nullptr);
+	if (SM_Axis_Scale.Object != nullptr) AxisTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, SM_Axis_Scale.Object);
 	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_Scale을 찾을 수 없습니다."));
 
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Origin(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Origin"));
 
-	Axis_X->CreateGizmo({ EGizmoAxisType::GM_AXIS_X }, 200, SM_Axis_Move.Object);
-	Axis_Y->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y }, 200, SM_Axis_Move.Object);
-	Axis_Z->CreateGizmo({ EGizmoAxisType::GM_AXIS_Z }, 200, SM_Axis_Move.Object);
-	Plane_XY->CreateGizmo({ EGizmoAxisType::GM_AXIS_X, EGizmoAxisType::GM_AXIS_Y }, 80, SM_Plane.Object);
-	Plane_YZ->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y, EGizmoAxisType::GM_AXIS_Z }, 80, SM_Plane.Object);
-	Plane_XZ->CreateGizmo({ EGizmoAxisType::GM_AXIS_X, EGizmoAxisType::GM_AXIS_Z }, 80, SM_Plane.Object);
-	Origin->CreateGizmo({ EGizmoAxisType::GM_AXIS_X,EGizmoAxisType::GM_AXIS_Y, EGizmoAxisType::GM_AXIS_Z }, 0, SM_Origin.Object);
+	if (SM_Plane_Move.Object != nullptr) PlaneTransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Plane_Move.Object);
+	else VP_LOG(Error, TEXT("SM_Gizmo_Plane_Move을 찾을 수 없습니다."));
+	if (SM_Plane_Rotate.Object != nullptr) PlaneTransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, SM_Plane_Rotate.Object);
+	else VP_LOG(Error, TEXT("SM_Gizmo_Plane_Rotate을 찾을 수 없습니다."));
+	PlaneTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, nullptr);
 
+
+	Axis_X->CreateGizmo({ EGizmoAxisType::GM_AXIS_X }, 200);
+	Axis_Y->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y }, 200);
+	Axis_Z->CreateGizmo({ EGizmoAxisType::GM_AXIS_Z }, 200);
+	Plane_XY->CreateGizmo({ EGizmoAxisType::GM_AXIS_X, EGizmoAxisType::GM_AXIS_Y }, 80);
+	Plane_YZ->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y, EGizmoAxisType::GM_AXIS_Z }, 80);
+	Plane_XZ->CreateGizmo({ EGizmoAxisType::GM_AXIS_X, EGizmoAxisType::GM_AXIS_Z }, 80);
+	Origin->CreateGizmo({ EGizmoAxisType::GM_AXIS_X,EGizmoAxisType::GM_AXIS_Y, EGizmoAxisType::GM_AXIS_Z }, 0);
+
+
+	CoordType = EGizmoCoordType::GM_LOCALSPACE;
+	SetupGizmoTransType(EGizmoTransType::GM_MOVE);
 	ActivateGizmo(false);
 }
 
 // Called when the game starts or when spawned
-void AGizmoAxes::BeginPlay()
+void AEditorGizmo::BeginPlay()
 {
 	Super::BeginPlay();
 
 }
 
 // Called every frame
-void AGizmoAxes::Tick(float DeltaTime)
+void AEditorGizmo::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void AGizmoAxes::OnObjectClicked(AActor* TargetObject)
+void AEditorGizmo::OnObjectClicked(AActor* TargetObject)
 {
 	if (TargetObject != nullptr)
 	{
@@ -92,63 +97,48 @@ void AGizmoAxes::OnObjectClicked(AActor* TargetObject)
 
 }
 
-void AGizmoAxes::ActivateGizmo(bool bActive)
+void AEditorGizmo::ActivateGizmo(bool bActive)
 {
 	bIsGizmoActivated = bActive;
 
 	SetActorEnableCollision(bActive);
 	SetActorTickEnabled(bActive);
 
+	Plane_XY->SetVisibility(bActive, true);
+	Plane_YZ->SetVisibility(bActive, true);
+	Plane_XZ->SetVisibility(bActive, true);
 	Axis_X->SetVisibility(bActive, true);
 	Axis_Y->SetVisibility(bActive, true);
 	Axis_Z->SetVisibility(bActive, true);
 	Origin->SetVisibility(bActive, true);
 
-	if (!bActive || GetGizmoTransType() != EGizmoTransType::GM_ROTATE)
+	/*if (!bActive || GetGizmoTransType() != EGizmoTransType::GM_ROTATE)
 	{
-		Plane_XY->SetVisibility(bActive, true);
-		Plane_YZ->SetVisibility(bActive, true);
-		Plane_XZ->SetVisibility(bActive, true);
-	}
+
+	}*/
 }
 
-void AGizmoAxes::SetupGizmoTransType(EGizmoTransType InTransType)
+void AEditorGizmo::SetupGizmoTransType(EGizmoTransType InTransType)
 {
-	if (TransTypeMeshs.Contains(InTransType))
+	TransType = InTransType;
+	if (AxisTransTypeMeshs.Contains(InTransType))
 	{
-		Axis_X->SetStaticMesh(TransTypeMeshs[InTransType]);
-		Axis_Y->SetStaticMesh(TransTypeMeshs[InTransType]);
-		Axis_Z->SetStaticMesh(TransTypeMeshs[InTransType]);
+		Axis_X->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
+		Axis_Y->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
+		Axis_Z->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
 	}
 	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Static Mesh가 없습니다."));
 
-	// Rotate의 경우 Plane은 비활성화 상태가 됩니다.
-	Axis_X->UpdateGizmoTransType(InTransType);
-	Axis_Y->UpdateGizmoTransType(InTransType);
-	Axis_Z->UpdateGizmoTransType(InTransType);
-	Plane_XY->UpdateGizmoTransType(InTransType);
-	Plane_YZ->UpdateGizmoTransType(InTransType);
-	Plane_XZ->UpdateGizmoTransType(InTransType);
-	Origin->UpdateGizmoTransType(InTransType);
-
-	if (InTransType == EGizmoTransType::GM_ROTATE)
+	if (PlaneTransTypeMeshs.Contains(InTransType))
 	{
-		Plane_XY->SetVisibility(false);
-		Plane_YZ->SetVisibility(false);
-		Plane_XZ->SetVisibility(false);
+		Plane_XY->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
+		Plane_YZ->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
+		Plane_XZ->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
 	}
-	else
-	{
-		if (bIsGizmoActivated)
-		{
-			Plane_XY->SetVisibility(true);
-			Plane_YZ->SetVisibility(true);
-			Plane_XZ->SetVisibility(true);
-		}
-	}
+	else VP_LOG(Error, TEXT("GM_ 기즈모 변형 모드에 알맞는 Static Mesh가 없습니다."));
 }
 
-void AGizmoAxes::SetupGizmoCoordType(EGizmoCoordType InCoordType)
+void AEditorGizmo::SetupGizmoCoordType(EGizmoCoordType InCoordType)
 {
 	FRotator Rot = FRotator::ZeroRotator;
 
@@ -161,17 +151,28 @@ void AGizmoAxes::SetupGizmoCoordType(EGizmoCoordType InCoordType)
 	SetActorRotation(Rot);
 }
 
-EGizmoCoordType AGizmoAxes::GetGizmoCoordType()
+EGizmoCoordType AEditorGizmo::GetGizmoCoordType()
 {
 	return CoordType;
 }
 
-EGizmoTransType AGizmoAxes::GetGizmoTransType()
+EGizmoTransType AEditorGizmo::GetGizmoTransType()
 {
 	return TransType;
 }
 
-void AGizmoAxes::GetGizmoDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, const FVector AxisLocation, FGizmoDriectionData& OutData)
+void AEditorGizmo::FollowSelectedObject()
+{
+	if (bIsGizmoActivated && SelectedActor != nullptr)
+	{
+		if (GetGizmoCoordType() == EGizmoCoordType::GM_WORLDSPACE)
+			SetActorLocation(SelectedActor->GetActorLocation());
+		else
+			SetActorLocationAndRotation(SelectedActor->GetActorLocation(), SelectedActor->GetActorRotation());
+	}
+}
+
+void AEditorGizmo::GetGizmoDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, const FVector AxisLocation, FGizmoDriectionData& OutData)
 {
 	FVector2D OriginVector;
 	if (PC != nullptr)
@@ -184,7 +185,7 @@ void AGizmoAxes::GetGizmoDirectionVector(APlayerController* PC, EGizmoAxisType A
 	}
 }
 
-void AGizmoAxes::GetGizmoAxisDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, FGizmoDriectionData& OutData)
+void AEditorGizmo::GetGizmoAxisDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, FGizmoDriectionData& OutData)
 {
 	FVector AxisLocation;
 	if (PC != nullptr)

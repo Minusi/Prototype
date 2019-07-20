@@ -44,16 +44,9 @@ class UEPROTOTYPE_API UGizmoMeshComponent : public UStaticMeshComponent
 protected:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
 	TArray<EGizmoAxisType> AxisTypes;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
-	EGizmoTransType TransType;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Data", meta = (AllowPrivateAccess = "true"))
-	float OffsetFromCenter;
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
-	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter, UStaticMesh* InMesh);
-
-	UFUNCTION(BlueprintCallable, Category = "Gizmo")
-	virtual void UpdateGizmoTransType(EGizmoTransType InTransType);
+	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter);
 
 };

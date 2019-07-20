@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GizmoAxes.h"
+#include "Gizmo/EditorGizmo.h"
 #include "GizmoManager.generated.h"
 
 UCLASS(BlueprintType)

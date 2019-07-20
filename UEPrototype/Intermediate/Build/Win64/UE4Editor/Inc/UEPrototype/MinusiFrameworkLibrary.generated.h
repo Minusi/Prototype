@@ -77,6 +77,20 @@ enum class EBoolean : uint8;
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execDistanceRatioByOneDimensionalFunction) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_StartActor); \
+		P_GET_OBJECT(AActor,Z_Param_EndActor); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_RatioMul); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_RatioPlus); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_MinSize); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_MaxSize); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=UMinusiFrameworkLibrary::DistanceRatioByOneDimensionalFunction(Z_Param_StartActor,Z_Param_EndActor,Z_Param_RatioMul,Z_Param_RatioPlus,Z_Param_MinSize,Z_Param_MaxSize); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execGetAngleBetweenTwoVector) \
 	{ \
 		P_GET_STRUCT(FVector2D,Z_Param_A); \
@@ -256,6 +270,20 @@ enum class EBoolean : uint8;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(FTransform*)Z_Param__Result=UMinusiFrameworkLibrary::GetTransformToTraceHitResult(Z_Param_HitResult,Z_Param_IsHit,Z_Param_ActorLocation); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execDistanceRatioByOneDimensionalFunction) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_StartActor); \
+		P_GET_OBJECT(AActor,Z_Param_EndActor); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_RatioMul); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_RatioPlus); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_MinSize); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_MaxSize); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=UMinusiFrameworkLibrary::DistanceRatioByOneDimensionalFunction(Z_Param_StartActor,Z_Param_EndActor,Z_Param_RatioMul,Z_Param_RatioPlus,Z_Param_MinSize,Z_Param_MaxSize); \
 		P_NATIVE_END; \
 	} \
  \

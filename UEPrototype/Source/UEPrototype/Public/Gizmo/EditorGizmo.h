@@ -9,7 +9,7 @@
 #include "Gizmo/GizmoPlane.h"
 #include "Gizmo/GizmoOrigin.h"
 
-#include "GizmoAxes.generated.h"
+#include "EditorGizmo.generated.h"
 
 USTRUCT(BlueprintType)
 struct FGizmoDriectionData
@@ -23,13 +23,25 @@ public:
 	FVector2D ProjectedScreenAxisDirection;
 };
 
+
+USTRUCT(BlueprintType)
+struct FGizmoRotationData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Rotation", meta = (AllowPrivateAccess = "true"))
+	FVector CenterAxis;
+};
+
+
 UCLASS(BlueprintType)
-class UEPROTOTYPE_API AGizmoAxes : public AActor
+class UEPROTOTYPE_API AEditorGizmo : public AActor
 {
 	GENERATED_BODY()
 public:	
 	// Sets default values for this actor's properties
-	AGizmoAxes();
+	AEditorGizmo();
 
 protected:
 	// Called when the game starts or when spawned
@@ -66,13 +78,13 @@ private:
 	bool bIsGizmoActivated;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes", meta = (AllowPrivateAccess = "true"))
-	float GizmoViewOffsetFromCamera;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes", meta = (AllowPrivateAccess = "true"))
 	AActor* SelectedActor;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Axis", meta = (AllowPrivateAccess = "true"))
-	TMap<EGizmoTransType, UStaticMesh*> TransTypeMeshs;
+	TMap<EGizmoTransType, UStaticMesh*> AxisTransTypeMeshs;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Gizmo|Axes|Plane", meta = (AllowPrivateAccess = "true"))
+	TMap<EGizmoTransType, UStaticMesh*> PlaneTransTypeMeshs;
 
 public:
 	// 오브젝트를 선택시 호출됨 -> PC가 GizmoManager를 통해 호출가능
@@ -90,6 +102,9 @@ public:
 	// 좌표 모드를 변경, 모드에 따라 기즈모 회전
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void SetupGizmoCoordType(EGizmoCoordType InCoordType);
+
+	UFUNCTION(BlueprintCallable, Category = "Gizmo")
+	void FollowSelectedObject();
 
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Type")
 	EGizmoCoordType GetGizmoCoordType();	
