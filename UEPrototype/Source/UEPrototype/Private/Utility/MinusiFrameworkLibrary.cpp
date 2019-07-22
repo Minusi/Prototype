@@ -149,4 +149,57 @@ TArray<AActor*> UMinusiFrameworkLibrary::GetSpecificAllActorWithTag(const UObjec
 }
 
 
+void UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(FVector2D A, FVector2D B, float& Angle)
+{
+	A.Normalize(); B.Normalize();
+	Angle = UKismetMathLibrary::DegAcos(UKismetMathLibrary::DotProduct2D(A, B));
+}
 
+float UMinusiFrameworkLibrary::DistanceRatioByOneDimensionalFunction(AActor* StartActor, AActor* EndActor, float  RatioMul, float RatioPlus, float MinSize, float MaxSize)
+{
+	if (StartActor != nullptr && EndActor != nullptr)
+	{
+		return UKismetMathLibrary::FClamp(EndActor->GetDistanceTo(StartActor) * RatioMul + RatioPlus, MinSize, MaxSize);
+	}
+	return 1;
+}
+
+
+
+FTransform UMinusiFrameworkLibrary::GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation)
+{
+	FTransform NewTranfrom;
+	NewTranfrom.SetLocation(ActorLocation);
+	FVector NewVector = IsHit ? HitResult.ImpactPoint : HitResult.TraceEnd;
+	FRotator NewRotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewVector);
+	NewTranfrom.SetRotation(NewRotation.Quaternion());
+	return NewTranfrom;
+}
+
+void UMinusiFrameworkLibrary::Snap(float Delta, float SnapInterval, bool& bCanSnap, float& SnappedDelta)
+{
+	float Ratio = Delta / SnapInterval;
+
+	// 최소한 -1이나 1의 비율은 가져야 스냅이 가능
+	bCanSnap = !UKismetMathLibrary::InRange_FloatFloat(Ratio, -1, 1, false, false);
+	if (bCanSnap)
+	{
+		// 소숫점 부분은 제거
+		Ratio -= UKismetMathLibrary::Fraction(Ratio);
+		SnappedDelta = Ratio * SnapInterval;
+	}
+	else
+		SnappedDelta = Delta;
+}
+// 원점과 방향을 화면상에 각각 사영시켜 원점에서 부터의 단위 방향 벡터를 구함
+void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D &ProjectedUnitDirectionToScreen)
+{
+	FVector2D OriginVector;
+	if (PC != nullptr)
+	{
+		UGameplayStatics::ProjectWorldToScreen(PC, InDirection, ProjectedUnitDirectionToScreen);
+		UGameplayStatics::ProjectWorldToScreen(PC, FVector::ZeroVector, OriginVector);
+		ProjectedUnitDirectionToScreen -= OriginVector;
+		ProjectedUnitDirectionToScreen.Normalize();
+	}
+}
