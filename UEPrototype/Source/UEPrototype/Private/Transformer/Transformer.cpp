@@ -13,28 +13,12 @@ ATransformer::ATransformer()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	bIsSyncWithGridSnap = false;
+	bIsSynced = false;
 
 	DefaultMoveSnapInterval = 0.1f;
 	DefaultRotateSnapInterval = 0.1f;
 	DefaultScaleSnapInterval = 0.1f;
 }
-
-
-// Called when the game starts or when spawned
-void ATransformer::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
-// Called every frame
-void ATransformer::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 
 
 
@@ -44,19 +28,36 @@ void ATransformer::MoveObject(AActor* Target, FVector Direction, float SnapInter
 {
 	FSnapStruct SnapElement;
 
+	// 타겟이 유효하지 않을 경우 물체가 정확하게 지정되지 않은 것으로 판단되기 때문에 로그를 표시하고 리턴을 함.
+	if (IsValid(Target) == false)
+	{
+		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
+		return;
+	}
+
 	// 스냅 동기화가 켜져있지 않을 경우 디폴트 스냅값으로 스냅 간격 설정
-	if (!bIsSyncWithGridSnap) SnapInterval = DefaultMoveSnapInterval;
+	if (!bIsSynced) SnapInterval = DefaultMoveSnapInterval;
 
 
 	Snap(Delta, SnapInterval, SnapElement);
 
-	if (SnapElement.bCanSnap) Target->SetActorLocation(Target->GetActorLocation() + Direction * SnapElement.SnappedDelta);
+	if (SnapElement.bCanSnap)
+	{
+		Target->SetActorLocation(Target->GetActorLocation() + Direction * SnapElement.SnappedDelta);
+	}
 }
 
 
 
 void ATransformer::MoveObjectToCurser(AActor * Target, FVector MousePosition)
 {
+	
+	if (IsValid(Target) == false)
+	{
+		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
+		return;
+	}
+
 	Target->SetActorLocation(MousePosition);
 }
 
@@ -65,12 +66,21 @@ void ATransformer::RotateObject(AActor * Target, FVector Axis, float SnapInterva
 {
 	FSnapStruct SnapElement;
 
+	if (IsValid(Target) == false)
+	{
+		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
+		return;
+	}
+
 	// 스냅 동기화가 켜져있지 않을 경우 디폴트 스냅값으로 스냅 간격 설정
-	if (!bIsSyncWithGridSnap) SnapInterval = DefaultRotateSnapInterval;
+	if (!bIsSynced) SnapInterval = DefaultRotateSnapInterval;
 
 	Snap(Delta, SnapInterval, SnapElement);
 
-	if (SnapElement.bCanSnap) Target->AddActorWorldRotation(UKismetMathLibrary::RotatorFromAxisAndAngle(Axis, SnapElement.SnappedDelta * -1));
+	if (SnapElement.bCanSnap)
+	{
+		Target->AddActorWorldRotation(UKismetMathLibrary::RotatorFromAxisAndAngle(Axis, SnapElement.SnappedDelta * -1));
+	}
 
 }
 
@@ -82,8 +92,14 @@ void ATransformer::ScaleObject(AActor * Target, FVector Direction, float SnapInt
 	FSnapStruct SnapElement;
 	FVector NewScale;
 
+	if (IsValid(Target) == false)
+	{
+		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
+		return;
+	}
+
 	// 스냅 동기화가 켜져있지 않을 경우 디폴트 스냅값으로 스냅 간격 설정
-	if (!bIsSyncWithGridSnap)
+	if (!bIsSynced)
 		SnapInterval = DefaultScaleSnapInterval;
 
 	Snap(Delta, SnapInterval, SnapElement);
@@ -126,7 +142,7 @@ void ATransformer::Snap(float Delta, float SnapInterval, FSnapStruct& SnapElemen
 
 
 
-void ATransformer::SyncWithGridSnap(bool bIsSyncWithGridSnap)
+void ATransformer::SyncWithGridSnap(bool bIsSynced)
 {
-	this->bIsSyncWithGridSnap = bIsSyncWithGridSnap;
+	this->bIsSynced = bIsSynced;
 }

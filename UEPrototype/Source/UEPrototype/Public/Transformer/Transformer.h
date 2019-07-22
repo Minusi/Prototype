@@ -21,6 +21,10 @@ struct FSnapStruct
 
 };
 
+
+// 선택된 물체의 기즈모를 변경 할 수 있는 함수들이 구현되어 있다. 
+//기즈모는 위치이동, 스케일 변경, 회전, 그리드스냅 동기화를 켜고 끌 수 있는 함수가 구현되어있음
+
 UCLASS()
 class UEPROTOTYPE_API ATransformer : public AActor
 {
@@ -52,9 +56,9 @@ public:
 
 
 
-	// 그리드의 간격과 스냅을 동기화 시켜주는 함수
+	// 그리드 스냅의 동기화 여부를 EditorGrid 의 그리드스냅과 같게 해 주는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-		void SyncWithGridSnap(bool bIsSyncWithGridSnap);
+		void SyncWithGridSnap(bool bIsSynced);
 
 	// 그리드 스냅이 활성화 되었을 경우 변경된 값의 비율을 생성하는 함수
 	UFUNCTION(BlueprintPure, Category = "Transformer")
@@ -62,18 +66,10 @@ public:
 
 
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 private:
 
 	// Grid 모듈의 그리드 스냅 on/off 여부를 가져올 변수
-	bool bIsSyncWithGridSnap;
+	bool bIsSynced;
 
 
 	// 그리드 스냅을 적용하지 않을 경우 사용되는 스냅 간격
