@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Gizmo/GizmoMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -13,15 +13,11 @@ void UGizmoMeshComponent::CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float 
 {
 	this->AxisTypes = InAxisTypes;
 	//else
-	//	VP_LOG(Error, TEXT("GM_ ±âÁî¸ð¿¡ ¾Ë¸ÂÀº ¸Å½¬¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	//	VP_LOG(Error, TEXT("GM_ ê¸°ì¦ˆëª¨ì— ì•Œë§žì€ ë§¤ì‰¬ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 	//GetClass()->GetDisplayNameText().ToString()
 }
 
 FVector UGizmoMeshComponent::GetAxisUnitDirectionVector()
 {
-	//if (GetAttachmentRootActor() != nullptr)
-	//{
-	//	return UKismetMathLibrary::GetDirectionUnitVector(getattach()->GetActorLocation(), GetComponentLocation());
-	//}
-	//return FVector::ZeroVector;
+	return RelativeLocation;
 }
