@@ -49,4 +49,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	virtual void CreateGizmo(TArray<EGizmoAxisType> InAxisTypes, float InOffsetFromCenter);
 
+	UFUNCTION(BlueprintCallable, Category = "Gizmo")
+	FVector GetAxisUnitDirectionVector();
+
 };

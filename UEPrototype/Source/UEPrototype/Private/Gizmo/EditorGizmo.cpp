@@ -173,31 +173,14 @@ void AEditorGizmo::FollowSelectedObject()
 		}
 	}
 }
-
-void AEditorGizmo::GetGizmoDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, const FVector AxisLocation, FGizmoDriectionData& OutData)
+FVector AEditorGizmo::GetAxisVector(EGizmoAxisType AxisType)
 {
-	FVector2D OriginVector;
-	if (PC != nullptr)
+	FVector AxisVector;
+	switch (AxisType)
 	{
-		OutData.AxisDireciton = UKismetMathLibrary::GetDirectionUnitVector(GetActorLocation(), AxisLocation);
-		UGameplayStatics::ProjectWorldToScreen(PC, OutData.AxisDireciton, OutData.ProjectedScreenAxisDirection);
-		UGameplayStatics::ProjectWorldToScreen(PC, FVector::ZeroVector, OriginVector);
-		OutData.ProjectedScreenAxisDirection -= OriginVector;
-		OutData.ProjectedScreenAxisDirection.Normalize();
+	case EGizmoAxisType::GM_AXIS_X: AxisVector = GetActorForwardVector(); break;
+	case EGizmoAxisType::GM_AXIS_Y: AxisVector = GetActorRightVector(); break;
+	case EGizmoAxisType::GM_AXIS_Z: AxisVector = GetActorUpVector(); break;
 	}
-}
-
-void AEditorGizmo::GetGizmoAxisDirectionVector(APlayerController* PC, EGizmoAxisType AxisType, FGizmoDriectionData& OutData)
-{
-	FVector AxisLocation;
-	if (PC != nullptr)
-	{
-		switch (AxisType)
-		{
-		case EGizmoAxisType::GM_AXIS_X: AxisLocation = Axis_X->GetComponentLocation(); break;
-		case EGizmoAxisType::GM_AXIS_Y: AxisLocation = Axis_Y->GetComponentLocation(); break;
-		case EGizmoAxisType::GM_AXIS_Z: AxisLocation = Axis_Z->GetComponentLocation(); break;
-		}
-		GetGizmoDirectionVector(PC, AxisType, AxisLocation, OutData);
-	}
+	return AxisVector;
 }

@@ -176,109 +176,30 @@ FTransform UMinusiFrameworkLibrary::GetTransformToTraceHitResult(FHitResult HitR
 	return NewTranfrom;
 }
 
-bool UMinusiFrameworkLibrary::Trace(
-	UObject* WorldContextObject,
-	AActor* ActorToIgnore,
-	const FVector& Start,
-	const FVector& End,
-	FHitResult& HitOut,
-	ECollisionChannel CollisionChannel,
-	bool ReturnPhysMat
-) {
-	UWorld* World = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
-	if (!World)
+void UMinusiFrameworkLibrary::Snap(float Delta, float SnapInterval, bool& bCanSnap, float& SnappedDelta)
+{
+	float Ratio = Delta / SnapInterval;
+
+	// 최소한 -1이나 1의 비율은 가져야 스냅이 가능
+	bCanSnap = !UKismetMathLibrary::InRange_FloatFloat(Ratio, -1, 1, false, false);
+	if (bCanSnap)
 	{
-		return false;
+		// 소숫점 부분은 제거
+		Ratio -= UKismetMathLibrary::Fraction(Ratio);
+		SnappedDelta = Ratio * SnapInterval;
 	}
-
-	FCollisionQueryParams TraceParams(FName(TEXT("VictoreCore Trace")), true, ActorToIgnore);
-	TraceParams.bTraceComplex = true;
-	//TraceParams.bTraceAsyncScene = true;
-	TraceParams.bReturnPhysicalMaterial = ReturnPhysMat;
-
-	//Ignore Actors
-	TraceParams.AddIgnoredActor(ActorToIgnore);
-
-	//Re-initialize hit info
-	HitOut = FHitResult(ForceInit);
-
-	//Trace!
-	World->LineTraceSingleByChannel(
-		HitOut,		//result
-		Start,	//start
-		End, //end
-		CollisionChannel, //collision channel
-		TraceParams
-	);
-
-	//Hit any Actor?
-	return (HitOut.GetActor() != NULL);
+	else
+		SnappedDelta = Delta;
 }
-
-
-bool UMinusiFrameworkLibrary::TraceWithIgnoreArray(
-	UObject* WorldContextObject,
-	TArray<AActor*>& ActorsToIgnore,
-	const FVector& Start,
-	const FVector& End,
-	FHitResult& HitOut,
-	ECollisionChannel CollisionChannel,
-	bool ReturnPhysMat
-) {
-	UWorld* World = GEngine->GetWorldFromContextObjectChecked(WorldContextObject);
-	if (!World)
+// 원점과 방향을 화면상에 각각 사영시켜 원점에서 부터의 단위 방향 벡터를 구함
+void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D &ProjectedUnitDirectionToScreen)
+{
+	FVector2D OriginVector;
+	if (PC != nullptr)
 	{
-		return false;
+		UGameplayStatics::ProjectWorldToScreen(PC, InDirection, ProjectedUnitDirectionToScreen);
+		UGameplayStatics::ProjectWorldToScreen(PC, FVector::ZeroVector, OriginVector);
+		ProjectedUnitDirectionToScreen -= OriginVector;
+		ProjectedUnitDirectionToScreen.Normalize();
 	}
-
-	FCollisionQueryParams TraceParams(FName(TEXT("VictoryCore Trace")), true, ActorsToIgnore[0]);
-	TraceParams.bTraceComplex = true;
-
-	//TraceParams.bTraceAsyncScene = true;
-	TraceParams.bReturnPhysicalMaterial = ReturnPhysMat;
-
-	//Ignore Actors
-	TraceParams.AddIgnoredActors(ActorsToIgnore);
-
-	//Re-initialize hit info
-	HitOut = FHitResult(ForceInit);
-
-	World->LineTraceSingleByChannel(
-		HitOut,		//result
-		Start,	//start
-		End, //end
-		CollisionChannel, //collision channel
-		TraceParams
-	);
-
-	return (HitOut.GetActor() != NULL);
-}
-
-bool UMinusiFrameworkLibrary::TraceComponent(
-	UPrimitiveComponent* TheComp,
-	const FVector& Start,
-	const FVector& End,
-	FHitResult& HitOut
-) {
-	if (!TheComp) return false;
-	if (!TheComp->IsValidLowLevel()) return false;
-	//~~~~~~~~~~~~~~~~~~~~~
-
-	FCollisionQueryParams TraceParams(FName(TEXT("VictoreCore Comp Trace")), true, NULL);
-	TraceParams.bTraceComplex = true;
-	//TraceParams.bTraceAsyncScene = true;
-	TraceParams.bReturnPhysicalMaterial = false;
-
-	//Ignore Actors
-	//TraceParams.AddIgnoredActors(ActorsToIgnore);
-
-	//Re-initialize hit info
-	HitOut = FHitResult(ForceInit);
-
-	return TheComp->LineTraceComponent(
-		HitOut,
-		Start,
-		End,
-		TraceParams
-	);
 }

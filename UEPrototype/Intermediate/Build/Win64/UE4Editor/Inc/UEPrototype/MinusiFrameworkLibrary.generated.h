@@ -8,13 +8,13 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class UPrimitiveComponent;
+class APlayerController;
 struct FVector;
-struct FHitResult;
-class UObject;
-class AActor;
-struct FTransform;
 struct FVector2D;
+struct FHitResult;
+struct FTransform;
+class AActor;
+class UObject;
 struct FColor;
 enum class EBoolean : uint8;
 #ifdef UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
@@ -24,45 +24,14 @@ enum class EBoolean : uint8;
 
 #define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS \
  \
-	DECLARE_FUNCTION(execTraceComponent) \
+	DECLARE_FUNCTION(execProjectWorldDirectionToScreenFromOrigin) \
 	{ \
-		P_GET_OBJECT(UPrimitiveComponent,Z_Param_TheComp); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
-		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_GET_OBJECT(APlayerController,Z_Param_PC); \
+		P_GET_STRUCT(FVector,Z_Param_InDirection); \
+		P_GET_STRUCT_REF(FVector2D,Z_Param_Out_ProjectedUnitDirectionToScreen); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceComponent(Z_Param_TheComp,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut); \
-		P_NATIVE_END; \
-	} \
- \
-	DECLARE_FUNCTION(execTraceWithIgnoreArray) \
-	{ \
-		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
-		P_GET_TARRAY_REF(AActor*,Z_Param_Out_ActorsToIgnore); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
-		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
-		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
-		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
-		P_FINISH; \
-		P_NATIVE_BEGIN; \
-		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceWithIgnoreArray(Z_Param_WorldContextObject,Z_Param_Out_ActorsToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
-		P_NATIVE_END; \
-	} \
- \
-	DECLARE_FUNCTION(execTrace) \
-	{ \
-		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
-		P_GET_OBJECT(AActor,Z_Param_ActorToIgnore); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
-		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
-		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
-		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
-		P_FINISH; \
-		P_NATIVE_BEGIN; \
-		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::Trace(Z_Param_WorldContextObject,Z_Param_ActorToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
+		UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(Z_Param_PC,Z_Param_InDirection,Z_Param_Out_ProjectedUnitDirectionToScreen); \
 		P_NATIVE_END; \
 	} \
  \
@@ -74,6 +43,18 @@ enum class EBoolean : uint8;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(FTransform*)Z_Param__Result=UMinusiFrameworkLibrary::GetTransformToTraceHitResult(Z_Param_HitResult,Z_Param_IsHit,Z_Param_ActorLocation); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execSnap) \
+	{ \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_Delta); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_SnapInterval); \
+		P_GET_UBOOL_REF(Z_Param_Out_bCanSnap); \
+		P_GET_PROPERTY_REF(UFloatProperty,Z_Param_Out_SnappedDelta); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		UMinusiFrameworkLibrary::Snap(Z_Param_Delta,Z_Param_SnapInterval,Z_Param_Out_bCanSnap,Z_Param_Out_SnappedDelta); \
 		P_NATIVE_END; \
 	} \
  \
@@ -220,45 +201,14 @@ enum class EBoolean : uint8;
 
 #define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
  \
-	DECLARE_FUNCTION(execTraceComponent) \
+	DECLARE_FUNCTION(execProjectWorldDirectionToScreenFromOrigin) \
 	{ \
-		P_GET_OBJECT(UPrimitiveComponent,Z_Param_TheComp); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
-		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
+		P_GET_OBJECT(APlayerController,Z_Param_PC); \
+		P_GET_STRUCT(FVector,Z_Param_InDirection); \
+		P_GET_STRUCT_REF(FVector2D,Z_Param_Out_ProjectedUnitDirectionToScreen); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceComponent(Z_Param_TheComp,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut); \
-		P_NATIVE_END; \
-	} \
- \
-	DECLARE_FUNCTION(execTraceWithIgnoreArray) \
-	{ \
-		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
-		P_GET_TARRAY_REF(AActor*,Z_Param_Out_ActorsToIgnore); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
-		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
-		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
-		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
-		P_FINISH; \
-		P_NATIVE_BEGIN; \
-		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::TraceWithIgnoreArray(Z_Param_WorldContextObject,Z_Param_Out_ActorsToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
-		P_NATIVE_END; \
-	} \
- \
-	DECLARE_FUNCTION(execTrace) \
-	{ \
-		P_GET_OBJECT(UObject,Z_Param_WorldContextObject); \
-		P_GET_OBJECT(AActor,Z_Param_ActorToIgnore); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_Start); \
-		P_GET_STRUCT_REF(FVector,Z_Param_Out_End); \
-		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_HitOut); \
-		P_GET_PROPERTY(UByteProperty,Z_Param_CollisionChannel); \
-		P_GET_UBOOL(Z_Param_ReturnPhysMat); \
-		P_FINISH; \
-		P_NATIVE_BEGIN; \
-		*(bool*)Z_Param__Result=UMinusiFrameworkLibrary::Trace(Z_Param_WorldContextObject,Z_Param_ActorToIgnore,Z_Param_Out_Start,Z_Param_Out_End,Z_Param_Out_HitOut,ECollisionChannel(Z_Param_CollisionChannel),Z_Param_ReturnPhysMat); \
+		UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(Z_Param_PC,Z_Param_InDirection,Z_Param_Out_ProjectedUnitDirectionToScreen); \
 		P_NATIVE_END; \
 	} \
  \
@@ -270,6 +220,18 @@ enum class EBoolean : uint8;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(FTransform*)Z_Param__Result=UMinusiFrameworkLibrary::GetTransformToTraceHitResult(Z_Param_HitResult,Z_Param_IsHit,Z_Param_ActorLocation); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execSnap) \
+	{ \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_Delta); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_SnapInterval); \
+		P_GET_UBOOL_REF(Z_Param_Out_bCanSnap); \
+		P_GET_PROPERTY_REF(UFloatProperty,Z_Param_Out_SnappedDelta); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		UMinusiFrameworkLibrary::Snap(Z_Param_Delta,Z_Param_SnapInterval,Z_Param_Out_bCanSnap,Z_Param_Out_SnappedDelta); \
 		P_NATIVE_END; \
 	} \
  \

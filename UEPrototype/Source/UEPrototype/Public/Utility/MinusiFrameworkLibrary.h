@@ -93,38 +93,14 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
 	static float DistanceRatioByOneDimensionalFunction(AActor* StartActor, AActor* EndActor, float  RatioMul, float RatioPlus, float MinSize, float MaxSize);
 
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static void Snap(float Delta, float SnapInterval, bool& bCanSnap, float& SnappedDelta);
+	
 	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
 	static FTransform GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation);
 
-	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
-	static bool Trace(
-			UObject* WorldContextObject,
-			AActor* ActorToIgnore,
-			const FVector& Start,
-			const FVector& End,
-			FHitResult& HitOut,
-			ECollisionChannel CollisionChannel = ECC_Pawn,
-			bool ReturnPhysMat = false
-		);
-
-	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
-	static bool TraceWithIgnoreArray(
-			UObject* WorldContextObject,
-			TArray<AActor*>& ActorsToIgnore,
-			const FVector& Start,
-			const FVector& End,
-			FHitResult& HitOut,
-			ECollisionChannel CollisionChannel = ECC_Pawn,
-			bool ReturnPhysMat = false
-		);
-	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
-	static bool TraceComponent(
-			UPrimitiveComponent* TheComp,
-			const FVector& Start,
-			const FVector& End,
-			FHitResult& HitOut
-		);
-
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static void ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D& ProjectedUnitDirectionToScreen);
 
 	//
 };

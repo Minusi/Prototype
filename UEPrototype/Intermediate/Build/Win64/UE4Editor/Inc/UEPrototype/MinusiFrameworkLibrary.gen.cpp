@@ -36,15 +36,13 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofClass_Exec();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofObject();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofObject_Exec();
+	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin();
+	ENGINE_API UClass* Z_Construct_UClass_APlayerController_NoRegister();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLog();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FColor();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLongLog();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenShortLog();
-	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace();
-	ENGINE_API UEnum* Z_Construct_UEnum_Engine_ECollisionChannel();
-	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent();
-	ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
-	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray();
+	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap();
 // End Cross Module References
 	static UEnum* EBoolean_StaticEnum()
 	{
@@ -110,12 +108,11 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 			{ "IsTypeofClass_Exec", &UMinusiFrameworkLibrary::execIsTypeofClass_Exec },
 			{ "IsTypeofObject", &UMinusiFrameworkLibrary::execIsTypeofObject },
 			{ "IsTypeofObject_Exec", &UMinusiFrameworkLibrary::execIsTypeofObject_Exec },
+			{ "ProjectWorldDirectionToScreenFromOrigin", &UMinusiFrameworkLibrary::execProjectWorldDirectionToScreenFromOrigin },
 			{ "ScreenLog", &UMinusiFrameworkLibrary::execScreenLog },
 			{ "ScreenLongLog", &UMinusiFrameworkLibrary::execScreenLongLog },
 			{ "ScreenShortLog", &UMinusiFrameworkLibrary::execScreenShortLog },
-			{ "Trace", &UMinusiFrameworkLibrary::execTrace },
-			{ "TraceComponent", &UMinusiFrameworkLibrary::execTraceComponent },
-			{ "TraceWithIgnoreArray", &UMinusiFrameworkLibrary::execTraceWithIgnoreArray },
+			{ "Snap", &UMinusiFrameworkLibrary::execSnap },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, ARRAY_COUNT(Funcs));
 	}
@@ -771,6 +768,47 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics
+	{
+		struct MinusiFrameworkLibrary_eventProjectWorldDirectionToScreenFromOrigin_Parms
+		{
+			APlayerController* PC;
+			FVector InDirection;
+			FVector2D ProjectedUnitDirectionToScreen;
+		};
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_ProjectedUnitDirectionToScreen;
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_InDirection;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_PC;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::NewProp_ProjectedUnitDirectionToScreen = { UE4CodeGen_Private::EPropertyClass::Struct, "ProjectedUnitDirectionToScreen", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventProjectWorldDirectionToScreenFromOrigin_Parms, ProjectedUnitDirectionToScreen), Z_Construct_UScriptStruct_FVector2D, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::NewProp_InDirection = { UE4CodeGen_Private::EPropertyClass::Struct, "InDirection", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventProjectWorldDirectionToScreenFromOrigin_Parms, InDirection), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::NewProp_PC = { UE4CodeGen_Private::EPropertyClass::Object, "PC", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventProjectWorldDirectionToScreenFromOrigin_Parms, PC), Z_Construct_UClass_APlayerController_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::NewProp_ProjectedUnitDirectionToScreen,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::NewProp_InDirection,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::NewProp_PC,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Minusi|Math" },
+		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "ProjectWorldDirectionToScreenFromOrigin", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventProjectWorldDirectionToScreenFromOrigin_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLog_Statics
 	{
 		struct MinusiFrameworkLibrary_eventScreenLog_Parms
@@ -939,262 +977,53 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics
+	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics
 	{
-		struct MinusiFrameworkLibrary_eventTrace_Parms
+		struct MinusiFrameworkLibrary_eventSnap_Parms
 		{
-			UObject* WorldContextObject;
-			AActor* ActorToIgnore;
-			FVector Start;
-			FVector End;
-			FHitResult HitOut;
-			TEnumAsByte<ECollisionChannel> CollisionChannel;
-			bool ReturnPhysMat;
-			bool ReturnValue;
+			float Delta;
+			float SnapInterval;
+			bool bCanSnap;
+			float SnappedDelta;
 		};
-		static void NewProp_ReturnValue_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
-		static void NewProp_ReturnPhysMat_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_ReturnPhysMat;
-		static const UE4CodeGen_Private::FBytePropertyParams NewProp_CollisionChannel;
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_HitOut;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_End_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_End;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Start_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_Start;
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ActorToIgnore;
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_WorldContextObject;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_SnappedDelta;
+		static void NewProp_bCanSnap_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bCanSnap;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_SnapInterval;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Delta;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	void Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_SnappedDelta = { UE4CodeGen_Private::EPropertyClass::Float, "SnappedDelta", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventSnap_Parms, SnappedDelta), METADATA_PARAMS(nullptr, 0) };
+	void Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_bCanSnap_SetBit(void* Obj)
 	{
-		((MinusiFrameworkLibrary_eventTrace_Parms*)Obj)->ReturnValue = 1;
+		((MinusiFrameworkLibrary_eventSnap_Parms*)Obj)->bCanSnap = 1;
 	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Bool, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000580, 1, nullptr, sizeof(bool), UE4CodeGen_Private::ENativeBool::Native, sizeof(MinusiFrameworkLibrary_eventTrace_Parms), &Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(nullptr, 0) };
-	void Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnPhysMat_SetBit(void* Obj)
-	{
-		((MinusiFrameworkLibrary_eventTrace_Parms*)Obj)->ReturnPhysMat = 1;
-	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnPhysMat = { UE4CodeGen_Private::EPropertyClass::Bool, "ReturnPhysMat", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, sizeof(bool), UE4CodeGen_Private::ENativeBool::Native, sizeof(MinusiFrameworkLibrary_eventTrace_Parms), &Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnPhysMat_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_CollisionChannel = { UE4CodeGen_Private::EPropertyClass::Byte, "CollisionChannel", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTrace_Parms, CollisionChannel), Z_Construct_UEnum_Engine_ECollisionChannel, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_HitOut = { UE4CodeGen_Private::EPropertyClass::Struct, "HitOut", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010008000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTrace_Parms, HitOut), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_End_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_End = { UE4CodeGen_Private::EPropertyClass::Struct, "End", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000008000182, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTrace_Parms, End), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_End_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_End_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_Start_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_Start = { UE4CodeGen_Private::EPropertyClass::Struct, "Start", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000008000182, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTrace_Parms, Start), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_Start_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_Start_MetaData)) };
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ActorToIgnore = { UE4CodeGen_Private::EPropertyClass::Object, "ActorToIgnore", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTrace_Parms, ActorToIgnore), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_WorldContextObject = { UE4CodeGen_Private::EPropertyClass::Object, "WorldContextObject", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTrace_Parms, WorldContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnValue,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ReturnPhysMat,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_CollisionChannel,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_HitOut,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_End,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_Start,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_ActorToIgnore,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::NewProp_WorldContextObject,
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_bCanSnap = { UE4CodeGen_Private::EPropertyClass::Bool, "bCanSnap", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000180, 1, nullptr, sizeof(bool), UE4CodeGen_Private::ENativeBool::Native, sizeof(MinusiFrameworkLibrary_eventSnap_Parms), &Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_bCanSnap_SetBit, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_SnapInterval = { UE4CodeGen_Private::EPropertyClass::Float, "SnapInterval", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventSnap_Parms, SnapInterval), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_Delta = { UE4CodeGen_Private::EPropertyClass::Float, "Delta", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventSnap_Parms, Delta), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_SnappedDelta,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_bCanSnap,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_SnapInterval,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::NewProp_Delta,
 	};
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Minusi|Trace" },
-		{ "CPP_Default_CollisionChannel", "ECC_Pawn" },
-		{ "CPP_Default_ReturnPhysMat", "false" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Minusi|Math" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "Trace", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventTrace_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace()
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "Snap", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14422401, sizeof(MinusiFrameworkLibrary_eventSnap_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace_Statics::FuncParams);
-		}
-		return ReturnFunction;
-	}
-	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics
-	{
-		struct MinusiFrameworkLibrary_eventTraceComponent_Parms
-		{
-			UPrimitiveComponent* TheComp;
-			FVector Start;
-			FVector End;
-			FHitResult HitOut;
-			bool ReturnValue;
-		};
-		static void NewProp_ReturnValue_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_HitOut;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_End_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_End;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Start_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_Start;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_TheComp_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_TheComp;
-		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UE4CodeGen_Private::FFunctionParams FuncParams;
-	};
-	void Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_ReturnValue_SetBit(void* Obj)
-	{
-		((MinusiFrameworkLibrary_eventTraceComponent_Parms*)Obj)->ReturnValue = 1;
-	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Bool, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000580, 1, nullptr, sizeof(bool), UE4CodeGen_Private::ENativeBool::Native, sizeof(MinusiFrameworkLibrary_eventTraceComponent_Parms), &Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_HitOut = { UE4CodeGen_Private::EPropertyClass::Struct, "HitOut", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010008000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceComponent_Parms, HitOut), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_End_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_End = { UE4CodeGen_Private::EPropertyClass::Struct, "End", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000008000182, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceComponent_Parms, End), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_End_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_End_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_Start_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_Start = { UE4CodeGen_Private::EPropertyClass::Struct, "Start", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000008000182, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceComponent_Parms, Start), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_Start_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_Start_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_TheComp_MetaData[] = {
-		{ "EditInline", "true" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_TheComp = { UE4CodeGen_Private::EPropertyClass::Object, "TheComp", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000080080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceComponent_Parms, TheComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_TheComp_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_TheComp_MetaData)) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_ReturnValue,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_HitOut,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_End,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_Start,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::NewProp_TheComp,
-	};
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Minusi|Trace" },
-		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "TraceComponent", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventTraceComponent_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent_Statics::FuncParams);
-		}
-		return ReturnFunction;
-	}
-	struct Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics
-	{
-		struct MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms
-		{
-			UObject* WorldContextObject;
-			TArray<AActor*> ActorsToIgnore;
-			FVector Start;
-			FVector End;
-			FHitResult HitOut;
-			TEnumAsByte<ECollisionChannel> CollisionChannel;
-			bool ReturnPhysMat;
-			bool ReturnValue;
-		};
-		static void NewProp_ReturnValue_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
-		static void NewProp_ReturnPhysMat_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_ReturnPhysMat;
-		static const UE4CodeGen_Private::FBytePropertyParams NewProp_CollisionChannel;
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_HitOut;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_End_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_End;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Start_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FStructPropertyParams NewProp_Start;
-		static const UE4CodeGen_Private::FArrayPropertyParams NewProp_ActorsToIgnore;
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ActorsToIgnore_Inner;
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_WorldContextObject;
-		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UE4CodeGen_Private::FFunctionParams FuncParams;
-	};
-	void Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnValue_SetBit(void* Obj)
-	{
-		((MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms*)Obj)->ReturnValue = 1;
-	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Bool, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000580, 1, nullptr, sizeof(bool), UE4CodeGen_Private::ENativeBool::Native, sizeof(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms), &Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(nullptr, 0) };
-	void Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnPhysMat_SetBit(void* Obj)
-	{
-		((MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms*)Obj)->ReturnPhysMat = 1;
-	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnPhysMat = { UE4CodeGen_Private::EPropertyClass::Bool, "ReturnPhysMat", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, sizeof(bool), UE4CodeGen_Private::ENativeBool::Native, sizeof(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms), &Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnPhysMat_SetBit, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_CollisionChannel = { UE4CodeGen_Private::EPropertyClass::Byte, "CollisionChannel", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms, CollisionChannel), Z_Construct_UEnum_Engine_ECollisionChannel, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_HitOut = { UE4CodeGen_Private::EPropertyClass::Struct, "HitOut", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010008000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms, HitOut), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(nullptr, 0) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_End_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_End = { UE4CodeGen_Private::EPropertyClass::Struct, "End", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000008000182, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms, End), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_End_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_End_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_Start_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-#endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_Start = { UE4CodeGen_Private::EPropertyClass::Struct, "Start", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000008000182, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms, Start), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_Start_MetaData, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_Start_MetaData)) };
-	const UE4CodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ActorsToIgnore = { UE4CodeGen_Private::EPropertyClass::Array, "ActorsToIgnore", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000180, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms, ActorsToIgnore), METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ActorsToIgnore_Inner = { UE4CodeGen_Private::EPropertyClass::Object, "ActorsToIgnore", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0000000000000000, 1, nullptr, 0, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_WorldContextObject = { UE4CodeGen_Private::EPropertyClass::Object, "WorldContextObject", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms, WorldContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnValue,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ReturnPhysMat,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_CollisionChannel,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_HitOut,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_End,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_Start,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ActorsToIgnore,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_ActorsToIgnore_Inner,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::NewProp_WorldContextObject,
-	};
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Minusi|Trace" },
-		{ "CPP_Default_CollisionChannel", "ECC_Pawn" },
-		{ "CPP_Default_ReturnPhysMat", "false" },
-		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "TraceWithIgnoreArray", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventTraceWithIgnoreArray_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray_Statics::FuncParams);
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -1228,12 +1057,11 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofClass_Exec, "IsTypeofClass_Exec" }, // 2844146777
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofObject, "IsTypeofObject" }, // 3731516030
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofObject_Exec, "IsTypeofObject_Exec" }, // 3402968250
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin, "ProjectWorldDirectionToScreenFromOrigin" }, // 1927868627
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLog, "ScreenLog" }, // 752282461
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLongLog, "ScreenLongLog" }, // 3864539865
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenShortLog, "ScreenShortLog" }, // 3192756805
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_Trace, "Trace" }, // 833294288
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceComponent, "TraceComponent" }, // 931992837
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_TraceWithIgnoreArray, "TraceWithIgnoreArray" }, // 26664727
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap, "Snap" }, // 3409830254
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMinusiFrameworkLibrary_Statics::Class_MetaDataParams[] = {
@@ -1266,7 +1094,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 969843397);
+	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 3259631323);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_UMinusiFrameworkLibrary(Z_Construct_UClass_UMinusiFrameworkLibrary, &UMinusiFrameworkLibrary::StaticClass, TEXT("/Script/UEPrototype"), TEXT("UMinusiFrameworkLibrary"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UMinusiFrameworkLibrary);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
