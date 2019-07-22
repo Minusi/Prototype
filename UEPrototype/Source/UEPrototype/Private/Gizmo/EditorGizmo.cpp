@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Gizmo/EditorGizmo.h"
 #include "UEPrototype.h"
@@ -33,35 +33,34 @@ AEditorGizmo::AEditorGizmo()
 	Origin->SetupAttachment(RootComponent);
 
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Move(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Move"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Scale(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Scale"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Move(TEXT("/Game/Prototype/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Move"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Axis_Scale(TEXT("/Game/Prototype/Gizmo/GizmoStaticMesh/SM_Gizmo_Axis_Scale"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane_Move(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane_Move"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane_Rotate(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane_Rotate"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane_Move(TEXT("/Game/Prototype/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane_Move"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Plane_Rotate(TEXT("/Game/Prototype/Gizmo/GizmoStaticMesh/SM_Gizmo_Plane_Rotate"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Origin(TEXT("/Game/Blueprint/Gizmo/GizmoStaticMesh/SM_Gizmo_Origin"));
-
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Origin(TEXT("/Game/Prototype/Gizmo/GizmoStaticMesh/SM_Gizmo_Origin"));
 
 	if (SM_Axis_Move.Object != nullptr) AxisTransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Axis_Move.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_MoveÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_Moveì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 	AxisTransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, nullptr);
 	if (SM_Axis_Scale.Object != nullptr) AxisTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, SM_Axis_Scale.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_ScaleÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("SM_Gizmo_Axis_Scaleì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 
 
 
 	if (SM_Plane_Move.Object != nullptr) PlaneTransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Plane_Move.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_Plane_MoveÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("SM_Gizmo_Plane_Moveì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 	if (SM_Plane_Rotate.Object != nullptr) PlaneTransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, SM_Plane_Rotate.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_Plane_RotateÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("SM_Gizmo_Plane_Rotateì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 	PlaneTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, nullptr);
 
 
 	if (SM_Origin.Object != nullptr) OriginTransTypeMeshs.Add(EGizmoTransType::GM_MOVE, SM_Origin.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_OriginÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("SM_Gizmo_Originì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 	OriginTransTypeMeshs.Add(EGizmoTransType::GM_ROTATE, nullptr);
 	if (SM_Origin.Object != nullptr) OriginTransTypeMeshs.Add(EGizmoTransType::GM_SCALE, SM_Origin.Object);
-	else VP_LOG(Error, TEXT("SM_Gizmo_OriginÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("SM_Gizmo_Originì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."));
 
 	Axis_X->CreateGizmo({ EGizmoAxisType::GM_AXIS_X }, 200);
 	Axis_Y->CreateGizmo({ EGizmoAxisType::GM_AXIS_Y }, 200);
@@ -99,7 +98,7 @@ void AEditorGizmo::OnObjectClicked(AActor* TargetObject)
 		if (!bIsGizmoActivated)
 			ActivateGizmo(true);
 	}
-	else VP_LOG(Error, TEXT("GM_ ¼±ÅÃµÈ ¿ÀºêÁ§Æ®°¡ ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("GM_ ì„ íƒëœ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤."));
 
 }
 
@@ -128,7 +127,7 @@ void AEditorGizmo::SetupGizmoTransType(EGizmoTransType InTransType)
 		Axis_Y->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
 		Axis_Z->SetStaticMesh(AxisTransTypeMeshs[InTransType]);
 	}
-	else VP_LOG(Error, TEXT("GM_ ±âÁî¸ð º¯Çü ¸ðµå¿¡ ¾Ë¸Â´Â Axis Static Mesh°¡ ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("GM_ ê¸°ì¦ˆëª¨ ë³€í˜• ëª¨ë“œì— ì•Œë§žëŠ” Axis Static Meshê°€ ì—†ìŠµë‹ˆë‹¤."));
 
 	if (PlaneTransTypeMeshs.Contains(InTransType))
 	{
@@ -136,11 +135,11 @@ void AEditorGizmo::SetupGizmoTransType(EGizmoTransType InTransType)
 		Plane_YZ->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
 		Plane_XZ->SetStaticMesh(PlaneTransTypeMeshs[InTransType]);
 	}
-	else VP_LOG(Error, TEXT("GM_ ±âÁî¸ð º¯Çü ¸ðµå¿¡ ¾Ë¸Â´Â Plane Static Mesh°¡ ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("GM_ ê¸°ì¦ˆëª¨ ë³€í˜• ëª¨ë“œì— ì•Œë§žëŠ” Plane Static Meshê°€ ì—†ìŠµë‹ˆë‹¤."));
 
 	if (OriginTransTypeMeshs.Contains(InTransType))
 		Origin->SetStaticMesh(OriginTransTypeMeshs[InTransType]);
-	else VP_LOG(Error, TEXT("GM_ ±âÁî¸ð º¯Çü ¸ðµå¿¡ ¾Ë¸Â´Â Origin Static Mesh°¡ ¾ø½À´Ï´Ù."));
+	else VP_LOG(Error, TEXT("GM_ ê¸°ì¦ˆëª¨ ë³€í˜• ëª¨ë“œì— ì•Œë§žëŠ” Origin Static Meshê°€ ì—†ìŠµë‹ˆë‹¤."));
 }
 
 void AEditorGizmo::SetupGizmoCoordType(EGizmoCoordType InCoordType)
@@ -183,4 +182,17 @@ FVector AEditorGizmo::GetAxisVector(EGizmoAxisType AxisType)
 	case EGizmoAxisType::GM_AXIS_Z: AxisVector = GetActorUpVector(); break;
 	}
 	return AxisVector;
+}
+
+FVector AEditorGizmo::GetAxisDirection(EGizmoAxisType AxisType)
+{
+	FVector DirectionVector;
+	switch (AxisType)
+	{
+	case EGizmoAxisType::GM_AXIS_X: DirectionVector = Axis_X->RelativeLocation; break;
+	case EGizmoAxisType::GM_AXIS_Y: DirectionVector = Axis_Y->RelativeLocation; break;
+	case EGizmoAxisType::GM_AXIS_Z: DirectionVector = Axis_Z->RelativeLocation; break;
+	}
+	DirectionVector.Normalize();
+	return DirectionVector;
 }

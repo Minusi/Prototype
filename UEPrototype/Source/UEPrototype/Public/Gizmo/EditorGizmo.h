@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -76,19 +76,19 @@ private:
 	TMap<EGizmoTransType, UStaticMesh*> OriginTransTypeMeshs;
 
 public:
-	// ¿ÀºêÁ§Æ®¸¦ ¼±ÅÃ½Ã È£ÃâµÊ -> PC°¡ GizmoManager¸¦ ÅëÇØ È£Ãâ°¡´É
+	// ì˜¤ë¸Œì íŠ¸ë¥¼ ì„ íƒì‹œ í˜¸ì¶œë¨ -> PCê°€ GizmoManagerë¥¼ í†µí•´ í˜¸ì¶œê°€ëŠ¥
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void OnObjectClicked(AActor* TargetObject);
 
-	// ±âÁî¸ğ È°¼ºÈ­/ºñÈ°¼ºÈ­
+	// ê¸°ì¦ˆëª¨ í™œì„±í™”/ë¹„í™œì„±í™”
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void ActivateGizmo(bool bActive);
 
-	// º¯Çü ¸ğµå¸¦ º¯°æ, ¸ğµå¿¡ µû¶ó ¸Å½¬ º¯°æ
+	// ë³€í˜• ëª¨ë“œë¥¼ ë³€ê²½, ëª¨ë“œì— ë”°ë¼ ë§¤ì‰¬ ë³€ê²½
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void SetupGizmoTransType(EGizmoTransType InTransType);
 
-	// ÁÂÇ¥ ¸ğµå¸¦ º¯°æ, ¸ğµå¿¡ µû¶ó ±âÁî¸ğ È¸Àü
+	// ì¢Œí‘œ ëª¨ë“œë¥¼ ë³€ê²½, ëª¨ë“œì— ë”°ë¼ ê¸°ì¦ˆëª¨ íšŒì „
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	void SetupGizmoCoordType(EGizmoCoordType InCoordType);
 
@@ -101,7 +101,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Type")
 	EGizmoTransType GetGizmoTransType();
 
-	// ÀÔ·ÂµÈ Ãà(x,y,z)¿¡ ÇØ´çÇÏ´Â º¤ÅÍ ¹İÈ¯
+	// ì…ë ¥ëœ ì¶•(x,y,z)ì— í•´ë‹¹í•˜ëŠ” ë²¡í„° ë°˜í™˜
 	UFUNCTION(BlueprintCallable, Category = "Gizmo|Direction")
 	FVector GetAxisVector(EGizmoAxisType AxisType);
+
+	UFUNCTION(BlueprintCallable, Category = "Gizmo|Direction")
+	FVector GetAxisDirection(EGizmoAxisType AxisType);
 };
