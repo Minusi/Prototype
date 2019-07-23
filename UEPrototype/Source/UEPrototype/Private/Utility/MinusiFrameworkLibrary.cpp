@@ -6,7 +6,6 @@
 #include "Kismet/GameplayStatics.h"
 
 
-
 bool UMinusiFrameworkLibrary::IsTypeofActor(AActor const * Actor, AActor const * Compare)
 {
 	if (Actor->GetClass() == Compare->GetClass())
