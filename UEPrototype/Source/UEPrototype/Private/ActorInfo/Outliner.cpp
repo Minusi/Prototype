@@ -10,7 +10,7 @@
 #include <Materials/MaterialInstanceDynamic.h>
 
 
-
+// actor가 const인데 const를 떼야 사용할 수 있는 것들이 많음(나중에 생각해봐야함)
 void UOutliner::DrawActorOutline(AActor * Actor)
 {
 
@@ -19,13 +19,13 @@ void UOutliner::DrawActorOutline(AActor * Actor)
 	//그리기 중복 검사, LableName을 검사해 해당 자식 Actor에 LabelName이 있다면 제거한다.
 	TArray<AActor*> ChildOutliner;
 	Actor->GetAttachedActors(ChildOutliner);
-	for (auto OutIter = ChildOutliner.CreateConstIterator(); OutIter; ++OutIter)
-	{	
-		if ((*OutIter)->GetActorLabel() == OutlinerLabelName) return;
+	for (auto OutlineIter = ChildOutliner.CreateConstIterator(); OutlineIter;++OutlineIter)
+	{
+		if ((*OutlineIter)->GetActorLabel() == OutlinerLabelName) return;
 	}
 
 	//중복검사를 통과하고(윤곽선이그려져있지않다면)나서 그려질 때마다 해당 Actor를 가장 최근에 그려진 Actor로 지정한다.
-	LastOutlinedActor = Actor;
+	LastOutlinedActor = const_cast<AActor*>(Actor);
 
 	//설정해둔 material을 가져오는 작업
 	UMaterialInstance* OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner"));
@@ -62,7 +62,7 @@ void UOutliner::DrawActorOutline(AActor * Actor)
 
 
 //이 함수에대해서 한 번 생각해봐야한다. 이 함수는 erase를 오직 LastOutlineActor에 대해서만 생각한것.
-//복수의 actor가 지정되었을 떄 다양한 방식으로 지워질 것을 생각하면 마지막 행의 LastOutlineActor를 nullptr로 지울것이아니라
+//복수의 actor가 지정되었을 때 다양한 방식으로 지워질 것을 생각하면 마지막 행의 LastOutlineActor를 nullptr로 지울것이아니라
 //하나의 배열을 만들어서(당연이 stack형식인게 유리하다) 마지막으로 체크되었던 actor들을 담아놓아서 차례차례 제거하는형식으로 가야한다.
 void UOutliner::EraseActorOutline()
 {
@@ -79,11 +79,11 @@ void UOutliner::EraseActorOutline()
 	if (ChildOutliner.Num() == 0) return;
 
 	//자식 actor들을 순회하여 해당 LableName이 있다면 모조리 제거해준다.
-	for (auto OutIter = ChildOutliner.CreateConstIterator();OutIter;++OutIter)
+	for (auto OutlineIter = ChildOutliner.CreateConstIterator();OutlineIter;++OutlineIter)
 	{
-		if ((*OutIter)->GetActorLabel() == OutlinerLabelName)
+		if ((*OutlineIter)->GetActorLabel() == OutlinerLabelName)
 		{
-			(*OutIter)->Destroy();
+			(*OutlineIter)->Destroy();
 		}
 	}
 	//마지막으로 최근 지정된 actor를 nullptr로 만들어준다.

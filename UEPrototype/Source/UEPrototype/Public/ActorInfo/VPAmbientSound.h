@@ -1,4 +1,4 @@
-
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -57,7 +57,6 @@ public:
 	//반복여부에 대한 설정
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "VPAmbientSound")
 	bool bLooping;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "VPAmbientSound")
 	bool bIsPaused;
 };
@@ -119,8 +118,9 @@ public:
 	//Widget에서 사운드를 만들어 낼 때 호출되야하는 함수, 사용자가 설정된 값을 통해 사운드를 생성하는 함수
 	UFUNCTION(BlueprintCallable,Category = "VPAmbientSound")
 	void InitSound(AActor* Actor, FSoundProperty SoundProperty,  FAttenuationProperty AttenuationProperty);
-	
-	//AAmbientSound에 구현되어 있는 함수들, Blueprint 테스트용으로 만들어놓음. 나중에 제거해도 상관없음
+	//사운드를 제거하는 함수
+	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
+	void DestroySound();
 
 	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
 	UAudioComponent* GetCustomAudioComponent() const;
@@ -134,6 +134,9 @@ public:
 	//코드상으로는 확인할 수 있으니 나중에 UI와 관련해서 사용되길 권장함.
 	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
 	static bool CheckIsUniqueSound(const AActor* Actor);
+
+
+	
 
 private:
 	//생성된 Actor의 자식으로 들어갈 때 자신을 식별하기위한 이름.

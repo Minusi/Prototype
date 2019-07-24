@@ -1,4 +1,4 @@
-
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPAmbientSound.h"
 #include <Components/AudioComponent.h>
@@ -12,7 +12,6 @@ AVPAmbientSound::AVPAmbientSound()
 	myAudioComponent->AttenuationOverrides.FalloffDistance = 3600.f;
 	myAudioComponent->AttenuationOverrides.AttenuationShapeExtents
 		= FVector(400.f, 0.0f, 0.0f);
-	myAudioComponent->bIsPaused = false;
 }
 
 void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAttenuationProperty AttenuationProperty)
@@ -115,7 +114,6 @@ void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAt
 	
 	//해당 Actor의 LableName을 작성
 	this->SetActorLabel(SoundLabelName);
-	
 
 	//사운드의 default location 값을 붙여질 Actor의 location을 이용해 설정
 	this->SetActorLocation(Actor->GetActorLocation());
@@ -127,12 +125,17 @@ void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAt
 	if (myAudioComponent->bAutoActivate)
 		Play();
 }
-
+//사운드 Actor 제거
+void AVPAmbientSound::DestroySound()
+{
+	Destroy();
+}
 
 void AVPAmbientSound::PlayNormal()
 {
 	Play();
 }
+
 
 
 UAudioComponent * AVPAmbientSound::GetCustomAudioComponent() const
@@ -146,7 +149,7 @@ bool AVPAmbientSound::CheckIsUniqueSound(const AActor* Actor)
 {
 	TArray<AActor*> ChildSound;
 	Actor->GetAttachedActors(ChildSound);
-	for (auto SoundIter = ChildSound.CreateConstIterator();SoundIter;++SoundIter)
+	for (auto SoundIter = ChildSound.CreateConstIterator(); SoundIter;++SoundIter)
 	{
 		if ((*SoundIter)->GetActorLabel() == "AmbientSound") return false;
 	}
