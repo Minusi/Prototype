@@ -9,12 +9,9 @@
 #include <UObjectGlobals.h>
 #include <Materials/MaterialInstanceDynamic.h>
 
-UOutliner::UOutliner()
-{
 
-}
-// actor가 const인데 const를 떼야 사용할 수 있는 것들이 많음(나중에 생각해봐야함)
-void UOutliner::DrawActorOutline(const AActor * Actor)
+
+void UOutliner::DrawActorOutline(AActor * Actor)
 {
 
 
@@ -22,13 +19,13 @@ void UOutliner::DrawActorOutline(const AActor * Actor)
 	//그리기 중복 검사, LableName을 검사해 해당 자식 Actor에 LabelName이 있다면 제거한다.
 	TArray<AActor*> ChildOutliner;
 	Actor->GetAttachedActors(ChildOutliner);
-	for (int i = 0; i < ChildOutliner.Num(); ++i)
-	{
-		if (ChildOutliner[i]->GetActorLabel() == OutlinerLabelName) return;
+	for (auto OutIter = ChildOutliner.CreateConstIterator(); OutIter; ++OutIter)
+	{	
+		if ((*OutIter)->GetActorLabel() == OutlinerLabelName) return;
 	}
 
 	//중복검사를 통과하고(윤곽선이그려져있지않다면)나서 그려질 때마다 해당 Actor를 가장 최근에 그려진 Actor로 지정한다.
-	LastOutlinedActor = const_cast<AActor*>(Actor);
+	LastOutlinedActor = Actor;
 
 	//설정해둔 material을 가져오는 작업
 	UMaterialInstance* OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner"));
@@ -37,11 +34,11 @@ void UOutliner::DrawActorOutline(const AActor * Actor)
 		return;
 	}
 
-	//Actor를 복제하는 과정. 복제이기 떄문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
+	//Actor를 복제하는 과정. 복제이기 때문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
 	AActor* SpawnedOutlineActor = GetWorld()->SpawnActor<AActor>(Actor->GetClass(), Actor->GetActorLocation(), Actor->GetActorRotation());
 
 	// 아웃라인을 스폰후 액터의 자식으로 넣어준다(기즈모나 트랜스폼에 의한 이동에 대해서 같이 따라가야하니깐)
-	SpawnedOutlineActor->AttachToActor(const_cast<AActor*>(Actor), FAttachmentTransformRules::KeepWorldTransform);
+	SpawnedOutlineActor->AttachToActor(Actor, FAttachmentTransformRules::KeepWorldTransform);
 
 	//자식 이름을 변경해준다. 이것을 통해 outline의 생성여부를 key로서 확인할 것이다.
 	SpawnedOutlineActor->SetActorLabel(OutlinerLabelName);
@@ -52,9 +49,9 @@ void UOutliner::DrawActorOutline(const AActor * Actor)
 
 	//Material을 설정하는 과정. 해당 액터의 모든 Component들을 순회하여 StaticMeshComponent가 있다면 그 Component의 material을
 	//미리 만들어놓은 material로 대체함.
-	for (int i = 0; i < SM_Comp.Num(); i++)
+	for (auto SMIter = SM_Comp.CreateConstIterator();SMIter;++SMIter)
 	{
-		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>(SM_Comp[i]);
+		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
 		if (thisComp)
 		{
 			thisComp->SetMaterial(0, UMaterialInstanceDynamic::Create(OutlineMaterial, this));
@@ -82,11 +79,11 @@ void UOutliner::EraseActorOutline()
 	if (ChildOutliner.Num() == 0) return;
 
 	//자식 actor들을 순회하여 해당 LableName이 있다면 모조리 제거해준다.
-	for (int i = 0; i < ChildOutliner.Num(); ++i)
+	for (auto OutIter = ChildOutliner.CreateConstIterator();OutIter;++OutIter)
 	{
-		if (ChildOutliner[i]->GetActorLabel() == OutlinerLabelName)
+		if ((*OutIter)->GetActorLabel() == OutlinerLabelName)
 		{
-			ChildOutliner[i]->Destroy();
+			(*OutIter)->Destroy();
 		}
 	}
 	//마지막으로 최근 지정된 actor를 nullptr로 만들어준다.

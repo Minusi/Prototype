@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+
 
 #pragma once
 
@@ -7,9 +7,6 @@
 #include <Components/AudioComponent.h>
 #include <Sound/SoundAttenuation.h>
 #include "VPAmbientSound.generated.h"
-/**
- * 
- */
 
 class UAudioComponent;
 
@@ -60,6 +57,9 @@ public:
 	//반복여부에 대한 설정
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "VPAmbientSound")
 	bool bLooping;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "VPAmbientSound")
+	bool bIsPaused;
 };
 
 //나중에 widget을 통해 사용자 인터페이스에서 원하는 설정들을 집어 넣어주기위한 Attenuation(감쇠) 구조체
@@ -118,52 +118,26 @@ public:
 public:
 	//Widget에서 사운드를 만들어 낼 때 호출되야하는 함수, 사용자가 설정된 값을 통해 사운드를 생성하는 함수
 	UFUNCTION(BlueprintCallable,Category = "VPAmbientSound")
-	void CreateSound(const AActor* Actor, FSoundProperty SoundProperty,  FAttenuationProperty AttenuationProperty);
-	//사운드를 제거하는 함수
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void DestroySound();
-
+	void InitSound(AActor* Actor, FSoundProperty SoundProperty,  FAttenuationProperty AttenuationProperty);
+	
 	//AAmbientSound에 구현되어 있는 함수들, Blueprint 테스트용으로 만들어놓음. 나중에 제거해도 상관없음
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void FadeInVP(float FadeInDuration, float FadeVolumeLevel = 1.f);
 
 	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void FadeOutVP(float FadeOutDuration, float FadeVolumeLevel);
-
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void AdjustVolumeVP(float AdjustVolumeDuration, float AdjustVolumeLevel);
-
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	UAudioComponent* GetAudioComponentVP() const;
+	UAudioComponent* GetCustomAudioComponent() const;
 
 	//loop event에 맞는 매개변수의 함수를 만들려고 일부러 생성한것.
 	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void PlayVPNormal();
+	void PlayNormal();
 
-	//기존 Play와 동일하다
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void PlayVPDelay(float StartTime);
-
-	//사운드를 완전히 정지시킨다.
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void StopVP();
-	
-
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void SetupGizmo(FTransform Transform);
 	
 	//Level Blueprint 상에서는 확인할 수 없음. 따라서 커스텀 Function을 만들어서 확인을했다.
 	//코드상으로는 확인할 수 있으니 나중에 UI와 관련해서 사용되길 권장함.
 	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
 	static bool CheckIsUniqueSound(const AActor* Actor);
 
-	//사운드를 일시정지 시킨다.
-	UFUNCTION(BlueprintCallable, Category = "VPAmbientSound")
-	void Pause();
-
-	
-
 private:
 	//생성된 Actor의 자식으로 들어갈 때 자신을 식별하기위한 이름.
 	const FString SoundLabelName = "AmbientSound";
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPAmbientSound", meta = (AllowPrivateAccess = "true"))
+	UAudioComponent* myAudioComponent;
 };
