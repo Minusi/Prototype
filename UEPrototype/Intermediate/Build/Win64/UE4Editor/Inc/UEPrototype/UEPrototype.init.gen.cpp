@@ -21,6 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeUEPrototype_init() {}
 	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_AxisKeyChangedEventDispatcher__DelegateSignature();
 	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature();
 	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature();
+	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_ModuleEndInitEventDispatcher__DelegateSignature();
+	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_EventToRegister__DelegateSignature();
 	UPackage* Z_Construct_UPackage__Script_UEPrototype()
 	{
 		static UPackage* ReturnPackage = nullptr;
@@ -37,12 +39,16 @@ void EmptyLinkFunctionForGeneratedCodeUEPrototype_init() {}
 				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_AxisKeyChangedEventDispatcher__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_ModuleEndInitEventDispatcher__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_EventToRegister__DelegateSignature,
 			};
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/UEPrototype",
 				PKG_CompiledIn | 0x00000000,
 				0xBCC191FD,
 				0x868975E7,
+				0x76634E28,
+				0x39DEEB39,
 				SingletonFuncArray, ARRAY_COUNT(SingletonFuncArray),
 				METADATA_PARAMS(nullptr, 0)
 			};
