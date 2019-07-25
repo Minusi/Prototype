@@ -15,12 +15,12 @@ void UEditorInterpreterManager::InitializeInterpreters()
 	// 유효성 검사를 각각 수행합니다.
 	if (IsValid(EditorActionMetaInputInterpreter) == false)
 	{
-		VP_LOG(Error, TEXT("생성하는 데 실패하였습니다 : %s"), EditorActionMetaInputInterpreter->GetName());
+		VP_LOG(Error, TEXT("생성하는 데 실패하였습니다 : %s"), *EditorActionMetaInputInterpreter->GetName());
 		return;
 	}
 	if (IsValid(EditorActionMultInputInterpreter) == false)
 	{
-		VP_LOG(Error, TEXT("생성하는 데 실패하였습니다 : %s"), EditorActionMultInputInterpreter->GetName());
+		VP_LOG(Error, TEXT("생성하는 데 실패하였습니다 : %s"), *EditorActionMultInputInterpreter->GetName());
 		return;
 	}
 }
