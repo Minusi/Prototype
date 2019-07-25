@@ -89,19 +89,19 @@ public:
 	UEditorActionMultInputInterpreter();
 
 	/* 새로운 멀티키 액션에 멀티키 기능을 제공하기 위해 등록합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void RegisterMultikeyAction(FName NewMultiKeyActionName, const TArray<FInputActionKeyMapping>& InMultiKeyMappings);
 	
 	/* 기존의 멀티키 액션을 등록 해제합니다. */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void UnregisterMultikeyAction(FName ExistedMultiKeyActionName);
 
 	/* Action Input으로부터 Pressed 이벤트를 수신하였을 때, 이를 처리합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void ReceivePressed(FKey PressedKey);
 
 	/* Action Input으로부터 Released 이벤트를 수신하였을 때, 이를 처리합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void ReceiveReleased(FKey ReleasedKey);
 
 
@@ -125,6 +125,7 @@ private:
 
 public:
 	/* 멀티키 입력이 발동되었을 때 발생하는 이벤트 디스패처를 반환합니다 */
+	UFUNCTION()
 	FORCEINLINE FMultiKeyTriggerStartEventDispatcher 
 		OnMultiKeyTriggerStart() const
 	{
@@ -132,6 +133,7 @@ public:
 	}
 
 	/* 멀티키 입력 발동이 끝났을 때 발생하는 이벤트 디스패처를 반환합니다 */
+	UFUNCTION()
 	FORCEINLINE FMultiKeyTriggerEndEventDispatcher
 		OnMultiKeyTriggerEnd() const
 	{
@@ -156,18 +158,21 @@ private:
 	TMap<FName, FKeyArray> MultiKeyActionMappings;
 
 	/* 멀티키 액션임을 구분짓기 위한 구분자입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category="Core|Input", meta=(AllowPrivateAccess=true))
 	FString MultiKeyActionDelimeter = TEXT("Mult_");
 
 
 
 	/* 멀티키 입력이 발동되었을 때 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY(BlueprintAssignable, Category="Core|Input|Delegate", meta=(AllowPrivateAccess=true))
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, 
+			Category="Core|Input|Delegate", meta=(AllowPrivateAccess=true))
 	FMultiKeyTriggerStartEventDispatcher MultiKeyTriggerStartEventDispatcher;
 	
 	/* 멀티키 입력이 발동이 끝났을 때 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY(BlueprintAssignable, Category="Core|Input|Delegate", meta=(AllowPrivateAccess=true))
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, 
+			Category="Core|Input|Delegate", meta=(AllowPrivateAccess=true))
 	FMultiKeyTriggerEndEventDispatcher MultiKeyTriggerEndEventDispatcher;
 
+	/* UInputSettings에 대한 클래스 스코프 캐시입니다 */
 	static const UInputSettings* InputSettings;
 };
