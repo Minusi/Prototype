@@ -49,6 +49,12 @@ void EmptyLinkFunctionForGeneratedCodeUEPrototype_init() {}
 				0x868975E7,
 				0x76634E28,
 				0x39DEEB39,
+				0x270A7645,
+				0xD9B7B8F9,
+				0x76634E28,
+				0x39DEEB39,
+				0xA59E6D1E,
+				0xD33908EF,
 				SingletonFuncArray, ARRAY_COUNT(SingletonFuncArray),
 				METADATA_PARAMS(nullptr, 0)
 			};
