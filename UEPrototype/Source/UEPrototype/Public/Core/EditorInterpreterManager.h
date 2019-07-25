@@ -57,14 +57,14 @@ public:
 
 	/* 주어진 입력 이름에 맞는 읽기 전용 UInputGate를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
-	FORCEINLINE const UInputGate* GetActionInputGate(FName InputName)
+	FORCEINLINE UInputGate* GetActionInputGate(FName InputName)
 	{
 		if (ActionInputGates.Contains(InputName) == false)
 		{
 			return nullptr;
 		}
 		
-		return *ActionInputGates.Find(InputName);
+		return ActionInputGates.FindRef(InputName);
 	}
 
 

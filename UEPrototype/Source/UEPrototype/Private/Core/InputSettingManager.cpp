@@ -24,7 +24,7 @@ void UInputSettingManager::AddActionMappings(FName NewActionName, const TArray<F
 	{
 		if (NewActionName != it.ActionName)
 		{
-			VP_LOG(Warning, "유효하지 않은 액션 이름을 가진 키매핑이 유입되었습니다 : %s.", *it.ActionName.ToString());
+			VP_LOG(Warning, TEXT("유효하지 않은 액션 이름을 가진 키매핑이 유입되었습니다 : %s."), *it.ActionName.ToString());
 			return;
 		}
 	}
@@ -89,7 +89,7 @@ void UInputSettingManager::ChangeActionKeyMappings(FName TargetActionName, const
 	{
 		if (it.ActionName != TargetActionName)
 		{
-			VP_LOG(Warning, "유효하지 액션 이름을 가진 키매핑이 유입되었습니다 : %s, 다음 이름을 가져야 합니다 : %s.", *it.ActionName.ToString(), *TargetActionName.ToString());
+			VP_LOG(Warning, TEXT("유효하지 액션 이름을 가진 키매핑이 유입되었습니다 : %s, 다음 이름을 가져야 합니다 : %s."), *it.ActionName.ToString(), *TargetActionName.ToString());
 			return;
 		}
 
@@ -108,7 +108,7 @@ void UInputSettingManager::ChangeActionKeyMappings(FName TargetActionName, const
 		// 지워야할 키가 입력 매핑 배열에 존재하지 않을 때 예외처리를 수행합니다.
 		if (bMatched == false)
 		{
-			VP_LOG(Warning, "지우고자 하는 키가 입력 매핑에 존재하지 않습니다 : %s.", *it.Key.GetDisplayName().ToString());
+			VP_LOG(Warning, TEXT("지우고자 하는 키가 입력 매핑에 존재하지 않습니다 : %s."), *it.Key.GetDisplayName().ToString());
 			return;
 		}
 	}
@@ -118,7 +118,7 @@ void UInputSettingManager::ChangeActionKeyMappings(FName TargetActionName, const
 	{
 		if (it.ActionName != TargetActionName)
 		{
-			VP_LOG(Warning, "유효하지 액션 이름을 가진 키매핑이 유입되었습니다 : %s, 다음 이름을 가져야 합니다 : %s.", *it.ActionName.ToString(), *TargetActionName.ToString());
+			VP_LOG(Warning, TEXT("유효하지 액션 이름을 가진 키매핑이 유입되었습니다 : %s, 다음 이름을 가져야 합니다 : %s."), *it.ActionName.ToString(), *TargetActionName.ToString());
 			return;
 		}
 
@@ -133,7 +133,7 @@ void UInputSettingManager::ChangeActionKeyMappings(FName TargetActionName, const
 				&& it.bCtrl == it.bCtrl
 				&& it.bShift == it.bShift)
 			{
-				VP_LOG(Warning, "추가하고자 하는 키가 이미 입력 매핑에 존재합니다 : %s", *it.Key.GetDisplayName().ToString());
+				VP_LOG(Warning, TEXT("추가하고자 하는 키가 이미 입력 매핑에 존재합니다 : %s"), *it.Key.GetDisplayName().ToString());
 				return;
 			}
 		}
