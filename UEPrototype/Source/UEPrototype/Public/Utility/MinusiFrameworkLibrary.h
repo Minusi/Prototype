@@ -8,6 +8,10 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "AssetRegistry/Public/AssetData.h"
+#include "AssetRegistry/Public/IAssetRegistry.h"
+#include "AssetRegistry/Public/AssetRegistryModule.h"
+#include "Engine/Blueprint.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "MinusiFrameworkLibrary.generated.h"
@@ -101,4 +105,10 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
 	static void ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D& ProjectedUnitDirectionToScreen);
+
+	UFUNCTION(BlueprintPure, Category = "Minusi|Loader")
+	static TArray<FAssetData> GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType);
+
+	/*UFUNCTION(BlueprintPure, Category = "Minusi|Loader")
+	static bool GetListOfBlueprintInPath(FName Passth, TArray<UClass*>& Result, UClass* Class);*/
 };

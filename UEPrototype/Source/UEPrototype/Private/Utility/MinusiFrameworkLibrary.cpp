@@ -202,3 +202,68 @@ void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerCon
 		ProjectedUnitDirectionToScreen.Normalize();
 	}
 }
+
+
+TArray<FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType)
+{
+	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
+	TArray<FAssetData> NewAssetData;
+
+	FString ClassName = ObjectType->GetName();
+	TArray< FStringFormatArg > args;
+	args.Add(FStringFormatArg(ClassName));
+
+	UE_LOG(LogTemp, Warning, TEXT("%s 타입의 Asset Data 찾는중..."), *FString::Format(TEXT("Name = {0}"), args));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("ClassName : %d"), ));
+
+	AssetRegistryModule.Get().GetAssetsByClass(*ClassName, NewAssetData);
+	if (!NewAssetData.IsValidIndex(0))
+		UE_LOG(LogTemp, Warning, TEXT("%s 타입의 에셋이 하나도 없습니다"), *FString::Format(TEXT("Name = {0}"), args));
+	return NewAssetData;
+}
+
+
+//
+//bool UMinusiFrameworkLibrary::GetListOfBlueprintInPath(FName Path, TArray<UClass*>& Result, UClass* Class)
+//{
+//	UObjectLibrary* Library = UObjectLibrary::CreateLibrary(Class, true, GIsEditor);
+//	int32 NumOfAssetDatas = Library->LoadBlueprintAssetDataFromPath(Path.ToString());
+//
+//	if (NumOfAssetDatas == 0)
+//		return false;
+//
+//	TArray<FAssetData> Assets;
+//	Library->GetAssetDataList(Assets);
+//
+//	for (auto &Asset : Assets)
+//	{
+//		UBlueprint* bp = Cast<UBlueprint>(Asset.GetAsset());
+//		if (bp)
+//		{
+//			auto gc = bp->GeneratedClass;
+//			if (gc)
+//			{
+//				Result.Add(gc);
+//			}
+//		}
+//		else
+//		{
+//			auto GeneratedClassName = (Asset.AssetName.ToString() + "_C");
+//
+//			UClass* Clazz = FindObject<UClass>(Asset.GetPackage(), *GeneratedClassName);
+//			if (Clazz)
+//			{
+//				Result.Add(Clazz);
+//			}
+//			else
+//			{
+//				UObjectRedirector* RenamedClassRedirector = FindObject<UObjectRedirector>(Asset.GetPackage(), *GeneratedClassName);
+//				if (RenamedClassRedirector)
+//				{
+//					Result.Add(CastChecked<UClass>(RenamedClassRedirector->DestinationObject));
+//				}
+//			}
+//		}
+//	}
+//	return true;
+//}
