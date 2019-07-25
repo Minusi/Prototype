@@ -10,11 +10,3 @@ ASpawnHelper::ASpawnHelper()
 	ObjectSMComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ObjectSMComp"));
 	ObjectSMComp->SetupAttachment(RootComponent);
 }
-
-
-
-UStaticMeshComponent* ASpawnHelper::ProvideSMComp()
-{
-	return ObjectSMComp;
-}
-

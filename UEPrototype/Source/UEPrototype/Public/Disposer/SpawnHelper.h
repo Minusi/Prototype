@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "SpawnHelper.generated.h"
 
 UCLASS()
@@ -22,7 +21,10 @@ public:
 
 	// Disposer에서 사용할 스태틱 매쉬 컴포넌트를 반환합니다.
 	UFUNCTION(BlueprintCallable, Category = "SpawnHelper")
-		UStaticMeshComponent* ProvideSMComp();
+	FORCEINLINE UStaticMeshComponent* GetSMComp() const
+	{
+		return ObjectSMComp;
+	}
 
 
 private:

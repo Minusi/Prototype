@@ -17,9 +17,10 @@ ADisposer::ADisposer()
 	GhostObject = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GhostObject"));
 
 	// 고스트 오브젝트의 머티리얼을 설정해 주어야 합니다.
+	// 현재 고스트 오브젝트에 설정해줄 머티리얼이 없어서 주석처리를 해 놓았습니다.
 	//GhostObjectMesh->SetMaterial();
 
-	GhostObject->AttachTo(RootComponent);
+	GhostObject->SetupAttachment(RootComponent);
 }
 
 
@@ -34,7 +35,7 @@ void ADisposer::ObjectSpawn(UStaticMesh* ObjectMesh, FVector SpawnPosition)
 
 	//SpawnHelper 에서 SMComp 를 받아와 액터를 생성한 후 생성할 오브젝트의 매쉬를 입힙니다.
 	ASpawnHelper* ObjectToSpawn = GetWorld()->SpawnActor<ASpawnHelper>(SpawnPosition, FRotator::ZeroRotator);
-	ObjectToSpawn->ProvideSMComp()->SetStaticMesh(ObjectMesh);
+	ObjectToSpawn->GetSMComp()->SetStaticMesh(ObjectMesh);
 
 }
 
@@ -51,5 +52,5 @@ void ADisposer::DeleteObject(AActor * HitActor)
 void ADisposer::ChangeGhostObject(UStaticMesh* NewGhostObject)
 {
 	// 초기에는 어떠한 오브젝트도 선택되어 있지 않아 null 값을 가지기 때문에 유효성 검사를 하지 않습니다.
-	this->GhostObject->SetStaticMesh(NewGhostObject);
+	GhostObject->SetStaticMesh(NewGhostObject);
 }
