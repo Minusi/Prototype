@@ -14,10 +14,10 @@ struct FSnapStruct
 	GENERATED_BODY()
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
-		bool bCanSnap;
+	bool bCanSnap;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
-		float SnappedDelta;
+	float SnappedDelta;
 
 };
 
@@ -38,19 +38,19 @@ public:
 
 	// 오브젝트를 기즈모의 x,y,z 축으로 이동시키는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-		void MoveObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
+	void MoveObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
 
 	// 오브젝트를 마우스 커서의 위치로 이동시키는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-		void MoveObjectToCurser(AActor* Target, FVector MousePosition);
+	void MoveObjectToCurser(AActor* Target, FVector MousePosition);
 
 	// 오브젝트를 회전시키는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-		void RotateObject(AActor* Target, FVector Axis, float SnapInterval, float Delta);
+	void RotateObject(AActor* Target, FVector Axis, float SnapInterval, float Delta);
 
 	// 오브젝트의 스케일을 변경하는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-		void ScaleObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
+	void ScaleObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
 
 
 
@@ -58,11 +58,11 @@ public:
 
 	// 그리드 스냅의 동기화 여부를 EditorGrid 의 그리드스냅과 같게 해 주는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-		void SyncWithGridSnap(bool bIsSynced);
+	void SyncWithGridSnap(bool bIsSynced);
 
 	// 그리드 스냅이 활성화 되었을 경우 변경된 값의 비율을 생성하는 함수
 	UFUNCTION(BlueprintPure, Category = "Transformer")
-		void Snap(float Delta, float SnapInterval, FSnapStruct& SnapElement);
+	void Snap(float Delta, float SnapInterval, FSnapStruct& SnapElement);
 
 
 
@@ -74,10 +74,10 @@ private:
 
 	// 그리드 스냅을 적용하지 않을 경우 사용되는 스냅 간격
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
-		float DefaultMoveSnapInterval;
+	float DefaultMoveSnapInterval;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
-		float DefaultRotateSnapInterval;
+	float DefaultRotateSnapInterval;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
-		float DefaultScaleSnapInterval;
+	float DefaultScaleSnapInterval;
 
 };
