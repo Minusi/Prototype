@@ -30,6 +30,8 @@ class UEPROTOTYPE_API UModuleManagerBase : public UObject
 {
 	GENERATED_BODY()
 	
+	
+	
 public:
 	/* 모듈 매니저가 초기화를 모두 마쳤는지 여부입니다 */
 	UFUNCTION(BlueprintGetter, Category="Module")
@@ -38,6 +40,8 @@ public:
 		return bInitialized;
 	}
 	
+
+
 protected:
 	/* 모듈 초기화를 수행합니다. 반드시 파생 클래스에서 구현되어야 합니다 */
 	UFUNCTION()
@@ -55,12 +59,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Module")
 	void RegisterIf(FEventToRegister EventToRegister);
 	
-private:
+
+
+
+
+protected:
 	/* 초기화되었는 지 여부입니다 */
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, BlueprintGetter=IsInitialized,
 				Category="Module", meta=(AllowPrivateAccess=true))
 	bool bInitialized;
 
+
+
+private:
 	/* 초기화가 완료되었을 때 브로드캐스트하는 이벤트 디스패처입니다 */
 	UPROPERTY(BlueprintAssignable, Category="Module|Delegate", meta=(AllowPrivateAccess=true))
 	FModuleEndInitEventDispatcher ModuleEndInitEventDispatcher;

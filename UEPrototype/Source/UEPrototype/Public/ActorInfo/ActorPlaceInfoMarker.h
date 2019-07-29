@@ -23,19 +23,19 @@ struct FActorPlaceContent
 	
 public:
 	/* 이 액터의 이름입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category="ActorInfo")
 	FString Name;
 
 	/* 이 액터의 클래스입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category = "ActorInfo")
 	UClass* Type;
 
 	/* 이 액터를 배치한 유저입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category = "ActorInfo")
 	FString UserName;
 
 	/* 이 액터가 스크립팅되었는 지 여부입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category = "ActorInfo")
 	bool bScripted;
 };
 
@@ -55,11 +55,11 @@ struct FActorPlaceInfo
 	
 public:
 	/* 월드에 배치된 액터입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category = "ActorInfo")
 	AActor* Target;
 
 	/* 월드에 배치된 액터의 간단한 정보입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category = "ActorInfo")
 	FActorPlaceContent TargetContent;
 };
 
@@ -89,11 +89,12 @@ public:
 	}
 
 	/* 대상 액터의 배치 정보를 브로드캐스트합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="ActorInfo")
 	void MarkActor(AActor* Target, FActorPlaceContent Content);
 
 private:
 	/* 액터 배치 정보가 변경되면 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category="ActorInfo",
+				meta=(AllowPrivateAccess=true))
 	FActorPlaceInfoMarkEventDispatcher ActorPlaceInfoMarkEventDispatcher;
 };

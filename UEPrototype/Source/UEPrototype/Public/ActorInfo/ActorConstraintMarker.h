@@ -17,18 +17,18 @@ UENUM(BlueprintType)
 enum class EActorConstraintState : uint8
 {
 	/* 초기화되지 않은 상태입니다 */
-	CSTR_None,
+	CSTR_None			UMETA(DisplayName = "None"),
 	/* 사용자와 아무런 상호작용을 하고 있지 않은 상태입니다 */
-	CSTR_Unfocused,
+	CSTR_Unfocused		UMETA(DisplayName = "Unfocused"),
 	/* 사용자가 물체를 주목하고 있는 상태입니다. */
-	CSTR_Focused,
+	CSTR_Focused		UMETA(DisplayName = "Focused"),
 	/* 일정 시간동안 주목받고 있는 상태입니다. */
-	CSTR_Highlighted,
+	CSTR_Highlighted	UMETA(DisplayName = "Highlighted"),
 	/* 상호작용을 하고 있는 상태입니다. */
-	CSTR_Activated,
+	CSTR_Activated		UMETA(DisplayName = "Activated"),
 	/* 특정 상호작용이 행해지고 있는 상태입니다. 
 	   이 때 다른 특정 상호작용이 불가능할 수 있습니다 */
-	CSTR_Blocked
+	CSTR_Blocked		UMETA(DisplayName = "Blocked")
 };
 
 
@@ -46,11 +46,11 @@ struct FActorConstraintInfo
 	
 public:
 	/* Constraint 상태를 나타낼 액터입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category="ActorInfo")
 	AActor* Target;
 
 	/* 액터의 상태를 나타냅니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, Category="ActorInfo")
 	EActorConstraintState TargetState;
 };
 
@@ -74,7 +74,7 @@ class UEPROTOTYPE_API UActorConstraintMarker : public UObject
 	
 public:	
 	/* 액터를 입력받은 상태로 설정합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="ActorInfo")
 	void MarkActor(AActor* Target, EActorConstraintState State);
 	
 	
@@ -91,6 +91,7 @@ public:
 
 private:
 	/* Actor의 제약 상태가 변경되면 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category="ActorInfo",
+				meta=(AllowPrivateAccess=true))
 	FActorConstraintMarkEventDispatcher ActorConstraintMarkEventDispatcher;
 };

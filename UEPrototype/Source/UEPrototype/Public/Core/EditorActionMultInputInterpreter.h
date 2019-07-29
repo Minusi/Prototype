@@ -88,6 +88,8 @@ public:
 	/* 생성자 */
 	UEditorActionMultInputInterpreter();
 
+
+
 	/* 새로운 멀티키 액션에 멀티키 기능을 제공하기 위해 등록합니다 */
 	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void RegisterMultikeyAction(FName NewMultiKeyActionName, const TArray<FInputActionKeyMapping>& InMultiKeyMappings);

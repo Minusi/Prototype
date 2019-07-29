@@ -16,6 +16,8 @@ UEditorActionMultInputInterpreter::UEditorActionMultInputInterpreter()
 		return;
 	}
 
+
+
 	TArray<FName> ActionNames;
 	TArray<FInputActionKeyMapping> MultiKeyActionNames;
 	FKeyArray KeyArray;

@@ -30,12 +30,20 @@ class UEPROTOTYPE_API UEditorInterpreterManager : public UObject
 	GENERATED_BODY()
 	
 public:
+	/* 생성자입니다 */
+	UEditorInterpreterManager();
+	
+
+
+
+private:
 	/* 인터프리터들을 초기화합니다 */
 	UFUNCTION()
 	void InitializeInterpreters();
 	
-	/* 모듈 매니저의 RegisterIf에 등록하기 위한 함수입니다 */
-	void ReceiveRegisterEndEvent();
+	/* InputGate를 초기화합니다 */
+	UFUNCTION()
+	void InitializeInputGates();
 
 
 
@@ -55,16 +63,16 @@ public:
 		return EditorActionMultInputInterpreter;
 	}
 
-	/* 주어진 입력 이름에 맞는 읽기 전용 UInputGate를 반환합니다 */
+	/* 주어진 입력 이름에 맞는 UInputGate를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
-	FORCEINLINE const UInputGate* GetActionInputGate(FName InputName)
+	FORCEINLINE UInputGate* GetActionInputGate(FName InputName)
 	{
 		if (ActionInputGates.Contains(InputName) == false)
 		{
 			return nullptr;
 		}
 		
-		return *ActionInputGates.Find(InputName);
+		return ActionInputGates.FindRef(InputName);
 	}
 
 
