@@ -73,6 +73,12 @@ class UEPROTOTYPE_API UActorConstraintMarker : public UObject
 	GENERATED_BODY()
 	
 public:	
+	/* ActorConstraintMarker를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static UActorConstraintMarker* GetGlobalActorConstraintMarker();
+
+
+
 	/* 액터를 입력받은 상태로 설정합니다 */
 	UFUNCTION()
 	void MarkActor(AActor* Target, EActorConstraintState State);
