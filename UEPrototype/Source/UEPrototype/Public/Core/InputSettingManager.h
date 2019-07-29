@@ -42,6 +42,13 @@ class UEPROTOTYPE_API UInputSettingManager : public UObject
 	GENERATED_BODY()
 	
 public:
+	/* InputSettingManager를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
+	UnsafeDuringActorConstruction = "true"))
+	static UInputSettingManager* GetGlobalInputSettingManager();
+
+
+public:
 	/* InputSettings에서 액션을 추가합니다 */
 	UFUNCTION()
 	void AddActionMappings(FName NewActionName, const TArray<FInputActionKeyMapping>& NewActionKeyMappings);

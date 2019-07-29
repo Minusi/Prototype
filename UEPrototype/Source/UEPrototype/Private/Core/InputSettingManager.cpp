@@ -1,12 +1,26 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "InputSettingManager.h"
-#include "GameFramework/InputSettings.h"
 #include "UEPrototype.h"
-
+#include "GameFramework/InputSettings.h"
+#include "UObjectIterator.h"
 
 
 UInputSettings* UInputSettingManager::InputSettings = UInputSettings::GetInputSettings();
+
+
+
+UInputSettingManager* UInputSettingManager::GetGlobalInputSettingManager()
+{
+	for (const auto& it : TObjectRange<UInputSettingManager>())
+	{
+		return it;
+	}
+
+	/* 존재하지 않는다면 시스템에 큰 결합이 있는 것입니다 */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *UInputSettingManager::StaticClass()->GetName());
+	return nullptr;
+}
 
 
 

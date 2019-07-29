@@ -26,21 +26,17 @@ public:
 	/* 생성자 */
 	UEditorModulesManager();
 
-
-
 protected:
 	/* 초기화합니다 */
 	virtual void Initialized() override;
 
-
-
 public:
-	// TODO : 다른 모든 모듈들에 대한 Getter 함수를 작성하시기 바랍니다.
-
-	/* CoreInput 모듈 매니저를 반환합니다(전역 접근 가능) */
+	/* EditorModulesManager를 반환합니다(전역 접근 가능). */
 	UFUNCTION(BlueprintCallable, Category = "Core|World", meta = (WorldContext = "WorldContextObject",
-				UnsafeDuringActorConstruction = "true"))
-	static UCoreInputModuleManager* GetCoreInputModuleManager(UObject* WorldContextObject);
+	UnsafeDuringActorConstruction = "true"))
+	static UEditorModulesManager* GetGlobalEditorModulesManager();
+
+
 
 
 
@@ -48,6 +44,6 @@ private:
 	// TODO : 다른 모든 모듈들을 작성하시기 바랍니다.
 
 	/* CoreInputModuleManager입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAcces=true))
+	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true))
 	UCoreInputModuleManager * CoreInputModuleManager;
 };

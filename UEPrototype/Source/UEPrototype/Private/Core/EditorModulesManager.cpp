@@ -9,7 +9,7 @@
 
 UEditorModulesManager::UEditorModulesManager()
 {
-	initialized();
+	Initialized();
 }
 
 
@@ -31,21 +31,12 @@ void UEditorModulesManager::Initialized()
 
 
 
-UCoreInputModuleManager * UEditorModulesManager::GetCoreInputModuleManager(UObject * WorldContextObject)
+UEditorModulesManager * UEditorModulesManager::GetGlobalEditorModulesManager()
 {
-	/* World Context Object의 유효성을 검사합니다 */
-	if (IsValid(WorldContextObject) == false)
-	{
-		VP_LOG(Warning, TEXT("World Context Object가 유효하지 않습니다"));
-		return nullptr;
-	}
-	
-	/* UCoreInputModuleManager를 수색하여 1번째 결과물을 반환합니다 */
-	for (const auto& it : TObjectRange<UCoreInputModuleManager>())
+	for (const auto& it : TObjectRange<UEditorModulesManager>())
 	{
 		return it;
 	}
 
 	return nullptr;
 }
-

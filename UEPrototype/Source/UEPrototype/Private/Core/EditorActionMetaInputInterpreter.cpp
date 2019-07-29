@@ -1,12 +1,12 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "EditorActionMetaInputInterpreter.h"
-#include "Containers/Array.h"
-#include "GameFramework/InputSettings.h"
-#include "Kismet/GameplayStatics.h"
 #include "UEPrototype.h"
-
-
+#include "Kismet/GameplayStatics.h"
+#include "UObjectIterator.h"
+#include "EditorInterpreterManager.h"
+#include "CoreInputModuleManager.h"
+#include "InputSettingManager.h"
 
 
 
@@ -14,14 +14,30 @@ const UInputSettings* UEditorActionMetaInputInterpreter::InputSettings = GetDefa
 
 UEditorActionMetaInputInterpreter::UEditorActionMetaInputInterpreter()
 {
+	/* 상위 모듈을 받아, 이벤트 바인딩을 수행합니다 */
+	UCoreInputModuleManager* CoreInputModuleManager =
+		UCoreInputModuleManager::GetGlobalCoreInputModuleManager();
+	if (IsValid(CoreInputModuleManager) == false)
+	{
+		return;
+	}
+	FEventToRegister Event;
+	Event.BindUFunction(this,"BindToEvents");
+	CoreInputModuleManager->RegisterIf(Event);
+
+
+
+	/* InputSeting에 대한 유효성 검사를 수행합니다 */
 	if (IsValid(InputSettings) == false)
 	{
 		VP_LOG(Error, TEXT("InputSetting이 유효하지 않습니다"));
 		return;
 	}
 
-	TArray<FName> ActionNames;
+	
 
+	/* 컨테이너를 초기화합니다 */
+	TArray<FName> ActionNames;
 	InputSettings->GetActionNames(ActionNames);
 	for (auto it : ActionNames)
 	{
@@ -31,8 +47,11 @@ UEditorActionMetaInputInterpreter::UEditorActionMetaInputInterpreter()
 
 
 
-void UEditorActionMetaInputInterpreter::RegisterInputAction(FName NewActionName)
+
+
+void UEditorActionMetaInputInterpreter::RegisterInputAction(FName NewActionName, const TArray<FInputActionKeyMapping>& AddedActionKeyMappings)
 {
+	/* 액션 이름에 대해 유효성 검사를 수행합니다 */
 	bool bIsValid = ValidateActionFast(NewActionName);
 	if (bIsValid == false)
 	{
@@ -40,14 +59,14 @@ void UEditorActionMetaInputInterpreter::RegisterInputAction(FName NewActionName)
 		return;
 	}
 
-	// 이미 존재하면 등록하지 않습니다.
+	/* 이미 존재하면 등록하지 않습니다. */
 	if (ActionMetaInputs.Contains(NewActionName) == true)
 	{
 		VP_LOG(Log, TEXT("이미 존재하고 있는 액션이름입니다 : %s."), *NewActionName.ToString());
 		return;
 	}
 
-	// 추가합니다.
+	/* 추가합니다. */
 	ActionMetaInputs.Add(NewActionName, -1.f);
 }
 
@@ -55,7 +74,7 @@ void UEditorActionMetaInputInterpreter::RegisterInputAction(FName NewActionName)
 
 void UEditorActionMetaInputInterpreter::UnregisterInputAction(FName ExistActionName)
 {
-	// 현재 액션이 유효한지 검사합니다.
+	/* 현재 액션이 유효한지 검사합니다. */
 	bool bIsValid = ValidateAction(ExistActionName);
 	if (bIsValid == false)
 	{
@@ -63,9 +82,28 @@ void UEditorActionMetaInputInterpreter::UnregisterInputAction(FName ExistActionN
 		return;
 	}
 
-	// 제거합니다.
+	/* 제거합니다. */
 	ActionMetaInputs.Remove(ExistActionName);
 }
+
+
+
+UEditorActionMetaInputInterpreter * UEditorActionMetaInputInterpreter::GetGlobalEditorActionMetaInputInterpreter()
+{
+	for (const auto& it : TObjectRange<UEditorActionMetaInputInterpreter>())
+	{
+		return it;
+	}
+
+	
+
+	/* 존재하지 않는다면 시스템에 큰 결함이 있다는 것입니다 */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *UEditorActionMetaInputInterpreter::StaticClass()->GetName());
+	return nullptr;
+}
+
+
+
 
 
 
@@ -139,6 +177,25 @@ void UEditorActionMetaInputInterpreter::ReceiveReleased(FName ActionName, FHighL
 
 
 
+
+
+void UEditorActionMetaInputInterpreter::BindToEvents()
+{
+	/* InputSettingManager를 받아서 이벤트 디스패처에 함수들을 등록합니다 */
+	UInputSettingManager* InputSettingManager = 
+		UInputSettingManager::GetGlobalInputSettingManager();
+	if (IsValid(InputSettingManager) == false)
+	{
+		return;
+	}
+
+	InputSettingManager->OnActionAdded().AddDynamic(this, &UEditorActionMetaInputInterpreter::RegisterInputAction);
+	InputSettingManager->OnActionRemoved().AddDynamic(this, &UEditorActionMetaInputInterpreter::UnregisterInputAction);
+}
+
+
+
+
 EInputMetadata UEditorActionMetaInputInterpreter::Interpret(float TotalActionTime)
 {
 	if (TotalActionTime < 0)
@@ -163,6 +220,8 @@ EInputMetadata UEditorActionMetaInputInterpreter::Interpret(float TotalActionTim
 
 
 
+
+
 void UEditorActionMetaInputInterpreter::ResetTime(FName ActionName)
 {
 	if (ActionMetaInputs.Contains(ActionName) == false)
@@ -173,6 +232,8 @@ void UEditorActionMetaInputInterpreter::ResetTime(FName ActionName)
 
 	ActionMetaInputs.Add(ActionName, -1.f);
 }
+
+
 
 
 
@@ -209,6 +270,8 @@ bool UEditorActionMetaInputInterpreter::ValidateAction(FName ActionName)
 	// 존재하지 않으면 거짓을 반환합니다.
 	return false;
 }
+
+
 
 bool UEditorActionMetaInputInterpreter::ValidateActionFast(FName ActionName)
 {

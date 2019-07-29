@@ -3,6 +3,9 @@
 #include "EditorActionMultInputInterpreter.h"
 #include "GameFramework/InputSettings.h"
 #include "UEPrototype.h"
+#include "UObjectIterator.h"
+#include "CoreInputModuleManager.h"
+#include "InputSettingManager.h"
 
 
 
@@ -10,6 +13,21 @@ const UInputSettings* UEditorActionMultInputInterpreter::InputSettings = GetDefa
 
 UEditorActionMultInputInterpreter::UEditorActionMultInputInterpreter()
 {
+	/* 상위 모듈을 불러와서 이벤트에 함수들을 바인딩합니다 */
+	UCoreInputModuleManager* CoreInputModuleManager
+		= UCoreInputModuleManager::GetGlobalCoreInputModuleManager();
+	if (IsValid(CoreInputModuleManager) == false)
+	{
+		return;
+	}
+
+	FEventToRegister Event;
+	Event.BindUFunction(this, "BoundToEvents");
+	CoreInputModuleManager->RegisterIf(Event);
+
+
+
+	/* InputSettings에 대한 유효성 검사를 수행합니다 */
 	if (InputSettings == nullptr)
 	{
 		VP_LOG(Warning, TEXT("InputSetting이 유효하지 않습니다"));
@@ -18,6 +36,7 @@ UEditorActionMultInputInterpreter::UEditorActionMultInputInterpreter()
 
 
 
+	/* 멀티키 입력 컨테이너를 초기화합니다 */
 	TArray<FName> ActionNames;
 	TArray<FInputActionKeyMapping> MultiKeyActionNames;
 	FKeyArray KeyArray;
@@ -55,6 +74,44 @@ UEditorActionMultInputInterpreter::UEditorActionMultInputInterpreter()
 
 
 
+UEditorActionMultInputInterpreter * UEditorActionMultInputInterpreter::GetGlobalEditorActionMultInputInterpreter()
+{
+	for (const auto& it : TObjectRange<UEditorActionMultInputInterpreter>())
+	{
+		return it;
+	}
+
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다. */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다"), *UCoreInputModuleManager::StaticClass()->GetName());
+	return nullptr;
+}
+
+
+
+
+
+void UEditorActionMultInputInterpreter::BoundToEvents()
+{
+	/* 바인드할 객체를 불러옵니다 */
+	UInputSettingManager* InputSettingManager =
+		UInputSettingManager::GetGlobalInputSettingManager();
+	if (IsValid(InputSettingManager) == false)
+	{
+		return;
+	}
+
+
+
+	/* InputSettingManager에 액션 키가 추가/제거되면 호출될 수 있도록 등록합니다 */
+	InputSettingManager->OnActionAdded().AddDynamic(this, &UEditorActionMultInputInterpreter::RegisterMultikeyAction);
+	InputSettingManager->OnActionRemoved().AddDynamic(this, &UEditorActionMultInputInterpreter::UnregisterMultikeyAction);
+	InputSettingManager->OnActionKeyChanged().AddDynamic(this, &UEditorActionMultInputInterpreter::ChangeMultikey);
+}
+
+
+
+
+
 void UEditorActionMultInputInterpreter::RegisterMultikeyAction(FName NewMultiKeyActionName, const TArray<FInputActionKeyMapping>& InMultiKeyMappings)
 {
 	// 입력 세팅에서 멀티키 액션이 유효한지 검사합니다.
@@ -76,7 +133,7 @@ void UEditorActionMultInputInterpreter::RegisterMultikeyAction(FName NewMultiKey
 	FKeyArray KeyArray;
 	for (const auto& it : InMultiKeyMappings)
 	{
-		if( ValidateMultiKey(it))
+		if( ValidateMultiKey(it)==true)
 		{
 			KeyArray.Keys.Add(it.Key);
 		}
@@ -101,6 +158,95 @@ void UEditorActionMultInputInterpreter::UnregisterMultikeyAction(FName ExistedMu
 	// 제거합니다.
 	MultiKeyActionMappings.Remove(ExistedMultiKeyActionName);
 }
+
+
+
+void UEditorActionMultInputInterpreter::ChangeMultikey(FName TargetMultiKeyActionName, const TArray<FInputActionKeyMapping>& Removes, const TArray<FInputActionKeyMapping>& Adds)
+{
+	/* 현재 멀티키 액션이 유효한지 검사합니다 */
+	bool bIsValid = ValidateMultiKeyAction(TargetMultiKeyActionName);
+	if (bIsValid == false)
+	{
+		VP_LOG(Warning, TEXT("유효하지 않은 멀티키 액션 이름입니다 : %s."), *TargetMultiKeyActionName.ToString());
+		return;
+	}
+	/* 추가하고 삭제하기 위한 키 배열을 컨테이너로부터 구합니다 */
+	FKeyArray& ActionKeysRef = MultiKeyActionMappings[TargetMultiKeyActionName];
+
+
+	
+	/* 추가할 키에 대한 유효성 검사를 수행합니다 */
+	for (const auto& it : Adds)
+	{
+		if (ValidateMultiKey(it) == false)
+		{
+			VP_LOG(Warning, TEXT("추가할 키가 유효하지 않은 멀티키 조건을 따릅니다 : %s."), *it.Key.GetDisplayName().ToString());
+			return;
+		}
+
+
+
+		bool bKeyExist = false;
+		for (const auto& jt : ActionKeysRef.Keys)
+		{
+			if (it.Key == jt)
+			{
+				bKeyExist = true;
+			}
+		}
+
+		if (bKeyExist == true)
+		{
+			VP_LOG(Warning, TEXT("추가할 키가 대상 멀티키 액션에 이미 존재합니다 : %s."), *it.Key.GetDisplayName().ToString());
+			return;
+		}
+	}
+
+	/* 키들을 추가합니다 */
+	for (const auto& it : Adds)
+	{
+		ActionKeysRef.Keys.Add(it.Key);
+	}
+
+
+
+
+
+	/* 삭제할 키에 대한 유효성 검사를 수행합니다 */
+	for (const auto& it : Removes)
+	{
+		if (ValidateMultiKey(it) == false)
+		{
+			VP_LOG(Warning, TEXT("삭제할 키가 유효하지 않은 멀티키 조건을 따릅니다 : %s."), *it.Key.GetDisplayName().ToString());
+			return;
+		}
+
+
+
+		bool bKeyExist = false;
+		for (const auto& jt : ActionKeysRef.Keys)
+		{
+			if (it.Key == jt)
+			{
+				bKeyExist = true;
+			}
+		}
+
+		if (bKeyExist == false)
+		{
+			VP_LOG(Warning, TEXT("삭제할 키가 대상 멀티키 액션에 존재하지 않습니다 : %s."), *it.Key.GetDisplayName().ToString());
+			return;
+		}
+	}
+
+	/* 키들을 삭제합니다 */
+	for (const auto& it : Removes)
+	{
+		ActionKeysRef.Keys.Remove(it.Key);
+	}
+}
+
+
 
 
 

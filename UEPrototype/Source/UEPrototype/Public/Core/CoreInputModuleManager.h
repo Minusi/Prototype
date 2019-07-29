@@ -32,6 +32,12 @@ protected:
 	/* 하위 모듈들을 초기화합니다 */
 	virtual void Initialized() override;
 
+public:
+	/* CoreInputModuleManager를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
+	UnsafeDuringActorConstruction = "true"))
+	static UCoreInputModuleManager* GetGlobalCoreInputModuleManager();
+
 
 	
 private:

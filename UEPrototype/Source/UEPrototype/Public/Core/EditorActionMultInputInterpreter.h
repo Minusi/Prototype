@@ -88,16 +88,32 @@ public:
 	/* 생성자 */
 	UEditorActionMultInputInterpreter();
 
+	/* EditorActionMultInputInterpreter를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
+	UnsafeDuringActorConstruction = "true"))
+	static UEditorActionMultInputInterpreter* GetGlobalEditorActionMultInputInterpreter();
 
+
+private:
+	/* 이벤트에 함수들을 등록합니다 */
+	UFUNCTION()
+	void BoundToEvents();
 
 	/* 새로운 멀티키 액션에 멀티키 기능을 제공하기 위해 등록합니다 */
-	UFUNCTION(BlueprintCallable, Category="Core|Input")
+	UFUNCTION()
 	void RegisterMultikeyAction(FName NewMultiKeyActionName, const TArray<FInputActionKeyMapping>& InMultiKeyMappings);
-	
+
 	/* 기존의 멀티키 액션을 등록 해제합니다. */
-	UFUNCTION(BlueprintCallable, Category="Core|Input")
+	UFUNCTION()
 	void UnregisterMultikeyAction(FName ExistedMultiKeyActionName);
 
+	/* 멀티키 액션의 입력키를 변경합니다 */
+	UFUNCTION()
+	void ChangeMultikey(FName TargetMultiKeyActionName, const TArray<FInputActionKeyMapping>& Removes, const TArray<FInputActionKeyMapping>& Adds);
+
+
+
+public:
 	/* Action Input으로부터 Pressed 이벤트를 수신하였을 때, 이를 처리합니다 */
 	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void ReceivePressed(FKey PressedKey);

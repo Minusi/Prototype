@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Containers/Map.h"
+#include "Containers/Array.h"
+#include "GameFramework/InputSettings.h"
 #include "EditorActionMetaInputInterpreter.generated.h"
 
 
@@ -88,14 +90,13 @@ public:
 	UEditorActionMetaInputInterpreter();
 
 
-	
-	// 새로운 액션 이름에 메타입력 기능을 제공하기 위해 등록합니다.
-	UFUNCTION(BlueprintCallable, Category = "Core|Input")
-	void RegisterInputAction(FName NewActionName);
 
-	// 기존 액션에 메타입력 기능을 해제하기 위해 등록 해제합니다.
-	UFUNCTION(BlueprintCallable, Category = "Core|Input")
-	void UnregisterInputAction(FName ExistActionName);
+	/* EditorActionMetaInputInterpreter를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
+	UnsafeDuringActorConstruction = "true"))
+	static UEditorActionMetaInputInterpreter* GetGlobalEditorActionMetaInputInterpreter();
+
+
 
 	// Action Input으로부터 Pressed 이벤트를 수신하였을 때, 이를 처리합니다.
 	UFUNCTION(BlueprintCallable, Category = "Core|Input")
@@ -104,6 +105,23 @@ public:
 	// Action Input으로부터 Released 이벤트를 수신하였을 때, 이를 처리합니다.
 	UFUNCTION(BlueprintCallable, Category = "Core|Input")
 	void ReceiveReleased(FName ActionName, FHighLevelInputData& MetadataResult);
+
+
+
+private:
+	/* 이벤트들에 함수들을 바인딩합니다 */
+	UFUNCTION()
+	void BindToEvents();
+
+	// 새로운 액션 이름에 메타입력 기능을 제공하기 위해 등록합니다.
+	UFUNCTION()
+	void RegisterInputAction(FName AddedActionName, const TArray<FInputActionKeyMapping>& AddedActionKeyMappings);
+
+	// 기존 액션에 메타입력 기능을 해제하기 위해 등록 해제합니다.
+	UFUNCTION()
+	void UnregisterInputAction(FName RemovedActionName);
+
+
 
 private:
 	// 입력을 메타 입력으로 해석합니다.

@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Containers/Array.h"
 #include "Containers/Map.h"
+#include "GameFramework/InputSettings.h"
 #include "UObject/NoExportTypes.h"
 #include "EditorInterpreterManager.generated.h"
 
@@ -34,6 +36,12 @@ public:
 	UEditorInterpreterManager();
 	
 
+	
+public:
+	/* EditorInterpreterManager를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
+	UnsafeDuringActorConstruction = "true"))
+	static UEditorInterpreterManager* GetGlobalEditorInterpreterManager();
 
 
 private:
@@ -44,25 +52,25 @@ private:
 	/* InputGate를 초기화합니다 */
 	UFUNCTION()
 	void InitializeInputGates();
+	
+
+
+private:
+	/* 필요한 이벤트들을 구독합니다 */
+	UFUNCTION()
+	void BoundToEvents();
+
+	/* 해당 액션이름에 대한 입력 게이트를 추가합니다 */
+	UFUNCTION()
+	void AddInputGate(FName AddedActionName, const TArray<FInputActionKeyMapping>& AddedActionKeyMappings);
+
+	/* 해당 액션이름에 대한 입력 게이트를 제거합니다 */
+	UFUNCTION()
+	void RemoveInputGate(FName RemovedActionName);
 
 
 
-
-
-	/* EditorActionMetaInputInterpreter의 Getter입니다 */
-	UFUNCTION(BlueprintGetter, Category="Core|Input")
-	FORCEINLINE UEditorActionMetaInputInterpreter* GetEditorActionMetaInputInterpreter() const
-	{
-		return EditorActionMetaInputInterpreter;
-	}
-
-	/* EditorActionMultInputInterpreter의 Getter입니다 */
-	UFUNCTION(BlueprintGetter, Category="Core|Input")
-	FORCEINLINE UEditorActionMultInputInterpreter* GetEditorActionMultInputInterpreter() const
-	{
-		return EditorActionMultInputInterpreter;
-	}
-
+public:
 	/* 주어진 입력 이름에 맞는 UInputGate를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
 	FORCEINLINE UInputGate* GetActionInputGate(FName InputName)
@@ -81,14 +89,14 @@ private:
 
 private:
 	/* 액션에 대한 메타입력 해석기입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, Category="Core}Input", meta=(AllowPrivateAccess=true))
 	UEditorActionMetaInputInterpreter * EditorActionMetaInputInterpreter;
 
 	/* 액션에 대한 멀티키 입력 해석기입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, Category="Core}Input", meta=(AllowPrivateAccess=true))
 	UEditorActionMultInputInterpreter* EditorActionMultInputInterpreter;
 
 	/* 액션 이름에 대한 인풋 게이트를 저장하는 컨테이너입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, Category="Core}Input", meta=(AllowPrivateAccess=true))
 	TMap<FName,UInputGate*> ActionInputGates;
 };

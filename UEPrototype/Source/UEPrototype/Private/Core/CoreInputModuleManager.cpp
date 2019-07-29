@@ -4,13 +4,14 @@
 #include "UEPrototype.h"
 #include "InputSettingManager.h"
 #include "EditorInterpreterManager.h"
+#include "UObjectIterator.h"
 
 
 
-UCoreInputModuleManager::UCoreInputMoudleManager()
+UCoreInputModuleManager::UCoreInputModuleManager()
 {
 	// 초기화합니다.
-	initialized();
+	Initialized();
 }
 
 
@@ -40,11 +41,14 @@ void UCoreInputModuleManager::Initialized()
 	}
 }
 
-
-
-
-
-void UCoreInputModuleManager::ReceiveRegisterEndEvent()
+UCoreInputModuleManager * UCoreInputModuleManager::GetGlobalCoreInputModuleManager()
 {
+	for (const auto& it : TObjectRange<UCoreInputModuleManager>())
+	{
+		return it;
+	}
 
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다. */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다"), *UCoreInputModuleManager::StaticClass()->GetName());
+	return nullptr;
 }
