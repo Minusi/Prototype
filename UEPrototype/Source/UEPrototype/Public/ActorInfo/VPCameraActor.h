@@ -12,6 +12,8 @@ class APlayerController;
 class USpringArmComponent;
 class USceneComponent;
 
+//카메라를 고정시킬것인지, 액터를 따라다닐 것인지, 카메라 이용을 따로 하지않고 자유롭게 움직이며 관찰할 떄
+//에 대한 enum값
 UENUM(BlueprintType)
 enum class ECameraStyle : uint8
 {
@@ -20,6 +22,7 @@ enum class ECameraStyle : uint8
 	CONTROL		UMETA(DisplayName = "Control"),
 };
 
+//카메라가 Perspective 방식이냐 Orthographic 방식인지에 관한 enum
 UENUM(BlueprintType)
 enum class EPROJECTION_MODE : uint8
 {
@@ -28,6 +31,7 @@ enum class EPROJECTION_MODE : uint8
 
 };
 
+//OrthoGraphic에 설정 값에 대한 구조체
 USTRUCT(BlueprintType)
 struct FOrthoGraphic
 {
@@ -41,6 +45,7 @@ public:
 		float AspectRatio;
 };
 
+//Perspective에 설정 값에 대한 구조체
 USTRUCT(BlueprintType)
 struct FPerspective
 {
@@ -54,6 +59,7 @@ public:
 		float AspectRatio;
 };
 
+//SetViewTargetWithBlend()에 들어가는 파라미터 값에대한 구조체
 USTRUCT(BlueprintType)
 struct FViewTarget
 {
@@ -84,6 +90,7 @@ public:
 	void InitCameraSetting(AActor* Actor, FTransform Transform, FViewTarget ViewTarget, ECameraStyle CameraStyle = ECameraStyle::STATIC,
 			EPROJECTION_MODE ProjectionMode = EPROJECTION_MODE::PERSPECTIVE);
 
+	//카메라 엑터의 관점으로 볼 수 있게하는 함수
 	UFUNCTION(BlueprintCallable, Category = "VPCameraActor")
 	void ConverseViewTarget();
 
@@ -98,8 +105,10 @@ public:
 	//카메라 액터의 기능을 끝냈을 때 다시 Player의 카메라로 돌아오는 함수
 	UFUNCTION(BlueprintCallable, Category = "VPCameraActor")
 	void ReturnPlayerCamera();
+	//줌 인 기능
 	UFUNCTION(BlueprintCallable, Category = "VPCameraActor")
 	void ZoomIn();
+	//줌 아웃 기능
 	UFUNCTION(BlueprintCallable, Category = "VPCameraActor")
 	void ZoomOut();
 
@@ -110,12 +119,13 @@ private:
 	UFUNCTION(BlueprintCallable, Category = "VPCameraActor")
 	APlayerCameraManager* GetPlayerCameraMgr() const;
 
+	// 플레어이 카메라에 대한 레퍼런스
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPCameraActor", meta = (AllowPrivateAccess = "true"))
 	APlayerCameraManager* PlayerCameraMgr;
 
 	// 카메라 컴포넌트 캐싱을 위한 레퍼런스
 	UPROPERTY(BlueprintReadOnly, Category = "VPCameraActor", meta = (AllowPrivateAccess = "true"))
-	UCameraComponent* MyCameraComponent;
+	UCameraComponent* CachedCameraComponent;
 
 	//카메라를 고정된위치에 붙일것인지, 액터와 상대적으로 움직이도록 할 것인지에 대한 EnumClass
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPCameraActor", meta = (AllowPrivateAccess = "true"))
@@ -127,6 +137,7 @@ private:
 	// Perspective , Orthographic
 	EPROJECTION_MODE ProjectionMode;
 
+	// 초기화와 실행 기능이 분리 되어있기 떄문에 초기화 떄 ViewTarget 파라미터를 담아두기 위한 변수
 	FViewTarget ViewTarget;
 
 	const FString CameraLabel = "VPCameraActor";
