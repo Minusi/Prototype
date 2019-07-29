@@ -82,6 +82,12 @@ class UEPROTOTYPE_API UActorPlaceInfoMarker : public UObject
 	GENERATED_BODY()
 	
 public:
+	/* ActorInfoModuleManager를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static UActorPlaceInfoMarker* GetGlobalActorPlaceInfoMarker();
+
+
+
 	/* ActorPlaceInfoMarkEventDispatcher의 Getter 함수입니다 */
 	FORCEINLINE FActorPlaceInfoMarkEventDispatcher OnActorPlaceInfoMark() const
 	{

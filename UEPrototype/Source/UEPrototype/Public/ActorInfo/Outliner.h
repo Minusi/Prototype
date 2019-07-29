@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -7,25 +7,35 @@
 #include "Outliner.generated.h"
 
 
+
 class AActor;
 
-//UObject¸¦ Blueprint¿¡¼­ »ı¼ºÇÏ±âÀ§ÇØ UCLASS(Blueprintable,BlueprintType)À» »ç¿ë
-//ÀÌ class´Â ¿ÜºÎ¿¡¼­ ÁöÁ¤µÈ Actor¿¡´ëÇØ À±°û¼±À» ±×·ÁÁÖ°Å³ª Á¦°ÅÇÏ´Â ¿ªÇÒÀ» ÇÑ´Ù.
+
+
+/*	UObjectë¥¼ Blueprintì—ì„œ ìƒì„±í•˜ê¸°ìœ„í•´ UCLASS(Blueprintable,BlueprintType)ì„ ì‚¬ìš©
+ *	ì´ í´ë˜ìŠ¤ëŠ” ì™¸ë¶€ì—ì„œ ì§€ì •ëœ Actorì— ëŒ€í•´ ìœ¤ê³½ì„ ì„ ê·¸ë ¤ì£¼ê±°ë‚˜ ì œê±°í•˜ëŠ” ì—­í• ì„ ìˆ˜
+ *	í–‰í•©ë‹ˆë‹¤.
+ */
 UCLASS(Blueprintable, BlueprintType)
 class UEPROTOTYPE_API UOutliner : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	//¸¶Áö¸·À¸·Î ¼±ÅÃµÇ¾ú´ø Actor¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+	/* UOutlinerë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤(ì „ì—­ ì ‘ê·¼ ê°€ëŠ¥). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static UOutliner* GetGlobalOutliner();
+
+	/* ë§ˆì§€ë§‰ìœ¼ë¡œ ì„ íƒë˜ì—ˆë˜ Actorë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ */
 	FORCEINLINE AActor* GetLastOutlinedActor()const { return LastOutlinedActor; }
 
-	//¿ÜºÎ¿¡¼­ ¼±ÅÃµÈ ¾×ÅÍ¿¡ ´ëÇØ¼­ À±°û¼±À» ±×·ÁÁÖ´Â ÇÔ¼ö
-	//Âü°í·Î À±°û¼±À» ±×¸®´Â ¹æ½ÄÀº ¼±ÅÃµÈ ¾×ÅÍ¸¦ ÇÏ³ª ´õ º¹Á¦ÇØ Á¶Á¤µÈ materialÀ» ÀÔÇô À±°û¼±È¿°ú¸¦ ³»´Â°Í
+	/* ì™¸ë¶€ì—ì„œ ì„ íƒëœ ì•¡í„°ì— ëŒ€í•´ì„œ ìœ¤ê³½ì„ ì„ ê·¸ë ¤ì£¼ëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤.
+	 * ì°¸ê³ ë¡œ ìœ¤ê³½ì„ ì„ ê·¸ë¦¬ëŠ” ë°©ì‹ì€ ì„ íƒëœ ì•¡í„°ë¥¼ í•˜ë‚˜ ë” ë³µì œí•´ 
+	 * ì¡°ì •ëœ materialì„ ì…í˜€ ìœ¤ê³½ì„  íš¨ê³¼ë¥¼ ëƒ…ë‹ˆë‹¤. */
 	UFUNCTION(BlueprintCallable, Category = "Outliner")
 		void DrawActorOutline(AActor* Actor);
 
-	//À±°û¼±ÀÌ ±×·ÁÁø Æ¯Á¤ ActorÀÇ À±°û¼±À» Áö¿öÁØ´Â ÇÔ¼ö
+	/* ìœ¤ê³½ì„ ì´ ê·¸ë ¤ì§„ íŠ¹ì • Actorì˜ ìœ¤ê³½ì„ ì„ ì§€ì›Œì¤ë‹ˆë‹¤ */
 	UFUNCTION(BlueprintCallable, Category = "Outliner")
 		void EraseActorOutline();
 
@@ -33,15 +43,14 @@ public:
 
 
 private:
-
-	//¸¶Áö¸·À¸·Î À±°û¼±ÀÌ ±×·ÁÁø ActorÀÇ ·¹ÆÛ·±½º¸¦ °¡Áö´Â º¯¼öÀÌ´Ù.
+	/* ë§ˆì§€ë§‰ìœ¼ë¡œ ìœ¤ê³½ì„ ì´ ê·¸ë ¤ì§„ Actorì…ë‹ˆë‹¤ */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Outliner", meta = (AllowPrivateAccess = "true"))
 		AActor* LastOutlinedActor;
 
 
-	//À±°û¼± Á¦°Å¸¦ À§ÇØ ÇØ´ç ActorÀÇ ÀÚ½Ä ActorÁß LableNameÀÌ "OutLiner"ÀÎ °ÍµéÀ» Ã£¾Æ¼­
-	//"OutLiner"¸¦ °¡Áö°í ÀÖ´Ù¸é Á¦°ÅÇÏ´Â ¹æ½ÄÀ» »ç¿ëÇÏ´Âµ¥, "OutLiner"°¡ ÀÌ°÷Àú°÷¿¡¼­ Áßº¹ÀûÀ¸·Î »ç¿ëµÇ¾î
-	//ÇÏ³ªÀÇ º¯¼ö·Î¸¸µé¾î »ç¿ëÇÏ´Â°Í.
+	/* ìœ¤ê³½ì„  ì œê±°ë¥¼ ìœ„í•´ í•´ë‹¹ Actorì˜ ìì‹ Actorì¤‘ LableNameì´ "OutLiner"ì¸ ê²ƒë“¤ì„ ì°¾ì•„ì„œ
+	 * "OutLiner"ë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´ ì œê±°í•˜ëŠ” ë°©ì‹ì„ ì‚¬ìš©í•˜ëŠ”ë°, "OutLiner"ê°€ ì´ê³³ì €ê³³ì—ì„œ ì¤‘ë³µì ìœ¼ë¡œ ì‚¬ìš©ë˜ì–´
+	 * í•˜ë‚˜ì˜ ë³€ìˆ˜ë¡œë§Œë“¤ì–´ ì‚¬ìš©í•©ë‹ˆë‹¤ */
 	const FString OutlinerLabelName = "OutLiner";
 
 };

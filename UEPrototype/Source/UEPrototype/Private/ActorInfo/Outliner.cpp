@@ -1,22 +1,39 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Outliner.h"
-#include "ActorInfo/Outliner.h"
-#include <GameFramework/Actor.h>
-#include <Components/StaticMeshComponent.h>
-#include <Materials/Material.h>
-#include <Engine/World.h>
-#include <UObjectGlobals.h>
-#include <Materials/MaterialInstanceDynamic.h>
+#include "UEPrototype.h"
+#include "UObjectGlobals.h"
+#include "UObjectIterator.h"
+#include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
+#include "Materials/Material.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Engine/World.h"
 
 
-// actor°¡ constÀÎµ¥ const¸¦ ¶¼¾ß »ç¿ëÇÒ ¼ö ÀÖ´Â °ÍµéÀÌ ¸¹À½(³ªÁß¿¡ »ı°¢ÇØºÁ¾ßÇÔ)
+
+UOutliner* UOutliner::GetGlobalOutliner()
+{
+	for (const auto& it : TObjectRange<UOutliner>())
+	{
+		return it;
+	}
+
+
+
+	/* ë°˜ë³µìì—ì„œ ì°¾ì§€ ëª»í•˜ë©´ ì‹œìŠ¤í…œì— í° ê²°í•¨ì´ ìˆëŠ” ê²ƒì…ë‹ˆë‹¤ */
+	VP_LOG(Error, TEXT("%sê°€ ìœ íš¨í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤."), *UOutliner::StaticClass()->GetName());
+	return nullptr;
+}
+
+
+// actorê°€ constì¸ë° constë¥¼ ë–¼ì•¼ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ê²ƒë“¤ì´ ë§ìŒ(ë‚˜ì¤‘ì— ìƒê°í•´ë´ì•¼í•¨)
 void UOutliner::DrawActorOutline(AActor * Actor)
 {
 
 
 
-	//±×¸®±â Áßº¹ °Ë»ç, LableNameÀ» °Ë»çÇØ ÇØ´ç ÀÚ½Ä Actor¿¡ LabelNameÀÌ ÀÖ´Ù¸é Á¦°ÅÇÑ´Ù.
+	//ê·¸ë¦¬ê¸° ì¤‘ë³µ ê²€ì‚¬, LableNameì„ ê²€ì‚¬í•´ í•´ë‹¹ ìì‹ Actorì— LabelNameì´ ìˆë‹¤ë©´ ì œê±°í•œë‹¤.
 	TArray<AActor*> ChildOutliner;
 	Actor->GetAttachedActors(ChildOutliner);
 	for (auto OutlineIter = ChildOutliner.CreateConstIterator(); OutlineIter;++OutlineIter)
@@ -24,31 +41,31 @@ void UOutliner::DrawActorOutline(AActor * Actor)
 		if ((*OutlineIter)->GetActorLabel() == OutlinerLabelName) return;
 	}
 
-	//Áßº¹°Ë»ç¸¦ Åë°úÇÏ°í(À±°û¼±ÀÌ±×·ÁÁ®ÀÖÁö¾Ê´Ù¸é)³ª¼­ ±×·ÁÁú ¶§¸¶´Ù ÇØ´ç Actor¸¦ °¡Àå ÃÖ±Ù¿¡ ±×·ÁÁø Actor·Î ÁöÁ¤ÇÑ´Ù.
+	//ì¤‘ë³µê²€ì‚¬ë¥¼ í†µê³¼í•˜ê³ (ìœ¤ê³½ì„ ì´ê·¸ë ¤ì ¸ìˆì§€ì•Šë‹¤ë©´)ë‚˜ì„œ ê·¸ë ¤ì§ˆ ë•Œë§ˆë‹¤ í•´ë‹¹ Actorë¥¼ ê°€ì¥ ìµœê·¼ì— ê·¸ë ¤ì§„ Actorë¡œ ì§€ì •í•œë‹¤.
 	LastOutlinedActor = const_cast<AActor*>(Actor);
 
-	//¼³Á¤ÇØµĞ materialÀ» °¡Á®¿À´Â ÀÛ¾÷
+	//ì„¤ì •í•´ë‘” materialì„ ê°€ì ¸ì˜¤ëŠ” ì‘ì—…
 	UMaterialInstance* OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner"));
 	if (OutlineMaterial == nullptr)
 	{
 		return;
 	}
 
-	//Actor¸¦ º¹Á¦ÇÏ´Â °úÁ¤. º¹Á¦ÀÌ±â ¶§¹®¿¡ spawn°úÁ¤¿¡ ÇÊ¿äÇÑ parameter´Â ¸ğµÎ ÇØ´ç Actor¿¡ °üÇÑ °Íµé.
+	//Actorë¥¼ ë³µì œí•˜ëŠ” ê³¼ì •. ë³µì œì´ê¸° ë•Œë¬¸ì— spawnê³¼ì •ì— í•„ìš”í•œ parameterëŠ” ëª¨ë‘ í•´ë‹¹ Actorì— ê´€í•œ ê²ƒë“¤.
 	AActor* SpawnedOutlineActor = GetWorld()->SpawnActor<AActor>(Actor->GetClass(), Actor->GetActorLocation(), Actor->GetActorRotation());
 
-	// ¾Æ¿ô¶óÀÎÀ» ½ºÆùÈÄ ¾×ÅÍÀÇ ÀÚ½ÄÀ¸·Î ³Ö¾îÁØ´Ù(±âÁî¸ğ³ª Æ®·£½ºÆû¿¡ ÀÇÇÑ ÀÌµ¿¿¡ ´ëÇØ¼­ °°ÀÌ µû¶ó°¡¾ßÇÏ´Ï±ñ)
+	// ì•„ì›ƒë¼ì¸ì„ ìŠ¤í°í›„ ì•¡í„°ì˜ ìì‹ìœ¼ë¡œ ë„£ì–´ì¤€ë‹¤(ê¸°ì¦ˆëª¨ë‚˜ íŠ¸ëœìŠ¤í¼ì— ì˜í•œ ì´ë™ì— ëŒ€í•´ì„œ ê°™ì´ ë”°ë¼ê°€ì•¼í•˜ë‹ˆê¹)
 	SpawnedOutlineActor->AttachToActor(Actor, FAttachmentTransformRules::KeepWorldTransform);
 
-	//ÀÚ½Ä ÀÌ¸§À» º¯°æÇØÁØ´Ù. ÀÌ°ÍÀ» ÅëÇØ outlineÀÇ »ı¼º¿©ºÎ¸¦ key·Î¼­ È®ÀÎÇÒ °ÍÀÌ´Ù.
+	//ìì‹ ì´ë¦„ì„ ë³€ê²½í•´ì¤€ë‹¤. ì´ê²ƒì„ í†µí•´ outlineì˜ ìƒì„±ì—¬ë¶€ë¥¼ keyë¡œì„œ í™•ì¸í•  ê²ƒì´ë‹¤.
 	SpawnedOutlineActor->SetActorLabel(OutlinerLabelName);
 
-	//actor(È¤Àº ÀÚ½Ä)ÀÇ material¿¡ Á¢±ÙÇÏ±âÀ§ÇØ staticmeshcomponent »ç¿ë
+	//actor(í˜¹ì€ ìì‹)ì˜ materialì— ì ‘ê·¼í•˜ê¸°ìœ„í•´ staticmeshcomponent ì‚¬ìš©
 	TArray<UStaticMeshComponent*> SM_Comp;
 	SpawnedOutlineActor->GetComponents(SM_Comp);
 
-	//MaterialÀ» ¼³Á¤ÇÏ´Â °úÁ¤. ÇØ´ç ¾×ÅÍÀÇ ¸ğµç ComponentµéÀ» ¼øÈ¸ÇÏ¿© StaticMeshComponent°¡ ÀÖ´Ù¸é ±× ComponentÀÇ materialÀ»
-	//¹Ì¸® ¸¸µé¾î³õÀº material·Î ´ëÃ¼ÇÔ.
+	//Materialì„ ì„¤ì •í•˜ëŠ” ê³¼ì •. í•´ë‹¹ ì•¡í„°ì˜ ëª¨ë“  Componentë“¤ì„ ìˆœíšŒí•˜ì—¬ StaticMeshComponentê°€ ìˆë‹¤ë©´ ê·¸ Componentì˜ materialì„
+	//ë¯¸ë¦¬ ë§Œë“¤ì–´ë†“ì€ materialë¡œ ëŒ€ì²´í•¨.
 	for (auto SMIter = SM_Comp.CreateConstIterator();SMIter;++SMIter)
 	{
 		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
@@ -61,24 +78,24 @@ void UOutliner::DrawActorOutline(AActor * Actor)
 }
 
 
-//ÀÌ ÇÔ¼ö¿¡´ëÇØ¼­ ÇÑ ¹ø »ı°¢ÇØºÁ¾ßÇÑ´Ù. ÀÌ ÇÔ¼ö´Â erase¸¦ ¿ÀÁ÷ LastOutlineActor¿¡ ´ëÇØ¼­¸¸ »ı°¢ÇÑ°Í.
-//º¹¼öÀÇ actor°¡ ÁöÁ¤µÇ¾úÀ» ¶§ ´Ù¾çÇÑ ¹æ½ÄÀ¸·Î Áö¿öÁú °ÍÀ» »ı°¢ÇÏ¸é ¸¶Áö¸· ÇàÀÇ LastOutlineActor¸¦ nullptr·Î Áö¿ï°ÍÀÌ¾Æ´Ï¶ó
-//ÇÏ³ªÀÇ ¹è¿­À» ¸¸µé¾î¼­(´ç¿¬ÀÌ stackÇü½ÄÀÎ°Ô À¯¸®ÇÏ´Ù) ¸¶Áö¸·À¸·Î Ã¼Å©µÇ¾ú´ø actorµéÀ» ´ã¾Æ³õ¾Æ¼­ Â÷·ÊÂ÷·Ê Á¦°ÅÇÏ´ÂÇü½ÄÀ¸·Î °¡¾ßÇÑ´Ù.
+//ì´ í•¨ìˆ˜ì—ëŒ€í•´ì„œ í•œ ë²ˆ ìƒê°í•´ë´ì•¼í•œë‹¤. ì´ í•¨ìˆ˜ëŠ” eraseë¥¼ ì˜¤ì§ LastOutlineActorì— ëŒ€í•´ì„œë§Œ ìƒê°í•œê²ƒ.
+//ë³µìˆ˜ì˜ actorê°€ ì§€ì •ë˜ì—ˆì„ ë•Œ ë‹¤ì–‘í•œ ë°©ì‹ìœ¼ë¡œ ì§€ì›Œì§ˆ ê²ƒì„ ìƒê°í•˜ë©´ ë§ˆì§€ë§‰ í–‰ì˜ LastOutlineActorë¥¼ nullptrë¡œ ì§€ìš¸ê²ƒì´ì•„ë‹ˆë¼
+//í•˜ë‚˜ì˜ ë°°ì—´ì„ ë§Œë“¤ì–´ì„œ(ë‹¹ì—°ì´ stackí˜•ì‹ì¸ê²Œ ìœ ë¦¬í•˜ë‹¤) ë§ˆì§€ë§‰ìœ¼ë¡œ ì²´í¬ë˜ì—ˆë˜ actorë“¤ì„ ë‹´ì•„ë†“ì•„ì„œ ì°¨ë¡€ì°¨ë¡€ ì œê±°í•˜ëŠ”í˜•ì‹ìœ¼ë¡œ ê°€ì•¼í•œë‹¤.
 void UOutliner::EraseActorOutline()
 {
-	//ÇØ´ç ActorÀÇ ÀÚ½Ä ActorµéÀ» ´ãÀ» ¹è¿­
+	//í•´ë‹¹ Actorì˜ ìì‹ Actorë“¤ì„ ë‹´ì„ ë°°ì—´
 	TArray<AActor*> ChildOutliner;
 
-	//Actor°¡ ÁöÁ¤µÈÀûÀÌ ¾ø´Ù¸é Ã³¸®¸¦ ÇÏÁö ¾Ê´Â´Ù.
+	//Actorê°€ ì§€ì •ëœì ì´ ì—†ë‹¤ë©´ ì²˜ë¦¬ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (LastOutlinedActor == nullptr) return;
 
-	//°¡ÀåÃÖ±Ù actorÀÇ ÀÚ½Ä actorµéÀ» ´Ù ¹Ş¾Æ¿Â´Ù.
+	//ê°€ì¥ìµœê·¼ actorì˜ ìì‹ actorë“¤ì„ ë‹¤ ë°›ì•„ì˜¨ë‹¤.
 	LastOutlinedActor->GetAttachedActors(ChildOutliner);
 
-	//ÀÚ½Ä actor°¡ ¾ø´Ù¸é Ã³¸®¸¦ ÇÏÁö ¾Ê´Â´Ù.
+	//ìì‹ actorê°€ ì—†ë‹¤ë©´ ì²˜ë¦¬ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (ChildOutliner.Num() == 0) return;
 
-	//ÀÚ½Ä actorµéÀ» ¼øÈ¸ÇÏ¿© ÇØ´ç LableNameÀÌ ÀÖ´Ù¸é ¸ğÁ¶¸® Á¦°ÅÇØÁØ´Ù.
+	//ìì‹ actorë“¤ì„ ìˆœíšŒí•˜ì—¬ í•´ë‹¹ LableNameì´ ìˆë‹¤ë©´ ëª¨ì¡°ë¦¬ ì œê±°í•´ì¤€ë‹¤.
 	for (auto OutlineIter = ChildOutliner.CreateConstIterator();OutlineIter;++OutlineIter)
 	{
 		if ((*OutlineIter)->GetActorLabel() == OutlinerLabelName)
@@ -86,7 +103,7 @@ void UOutliner::EraseActorOutline()
 			(*OutlineIter)->Destroy();
 		}
 	}
-	//¸¶Áö¸·À¸·Î ÃÖ±Ù ÁöÁ¤µÈ actor¸¦ nullptr·Î ¸¸µé¾îÁØ´Ù.
+	//ë§ˆì§€ë§‰ìœ¼ë¡œ ìµœê·¼ ì§€ì •ëœ actorë¥¼ nullptrë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.
 	LastOutlinedActor = nullptr;
 }
 

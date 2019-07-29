@@ -2,6 +2,25 @@
 
 #include "ActorConstraintMarker.h"
 #include "UEPrototype.h"
+#include "UObjectIterator.h"
+
+
+
+UActorConstraintMarker* UActorConstraintMarker::GetGlobalActorConstraintMarker()
+{
+	for (const auto& it : TObjectRange<UActorConstraintMarker>())
+	{
+		return it;
+	}
+
+
+
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다 */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *UActorConstraintMarker::StaticClass()->GetName());
+	return nullptr;
+}
+
+
 
 
 
