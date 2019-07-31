@@ -3,6 +3,7 @@
 #include "MinusiFrameworkLibrary.h"
 #include "UEPrototype.h"
 #include "EngineUtils.h"
+#include "Runtime/ImageWrapper/Public/IImageWrapper.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -221,7 +222,48 @@ TArray<FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSubclassOf
 		UE_LOG(LogTemp, Warning, TEXT("%s 타입의 에셋이 하나도 없습니다"), *FString::Format(TEXT("Name = {0}"), args));
 	return NewAssetData;
 }
-
+//
+//bool UMinusiFrameworkLibrary::GetThumbnail(UObject* Object, UTexture2D*& OutTexture)
+//{
+//	FObjectThumbnail Thumbnail;
+//	ThumbnailTools::RenderThumbnail(Object, 128, 128, ThumbnailTools::EThumbnailTextureFlushMode::AlwaysFlush, NULL, &Thumbnail);
+//
+//	IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
+//	TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
+//	// Note: PNG format.  Other formats are supported
+//
+//	TArray<uint8>& Raw = Thumbnail.AccessImageData();
+//	ImageWrapper->SetRaw(Raw.GetData(), Raw.Num(), Thumbnail.GetImageWidth(), Thumbnail.GetImageHeight(), ERGBFormat::BGRA, 8);
+//	//Thumbnail.
+//	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(Raw.GetData(), Raw.Num()))
+//	{
+//		const TArray<uint8>* UncompressedBGRA = NULL;
+//		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
+//		{
+//			OutTexture = UTexture2D::CreateTransient(ImageWrapper->GetWidth(), ImageWrapper->GetHeight(), PF_B8G8R8A8);
+//			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(Raw.Num()));
+//			//oh yes, you need copy the loaded data onto texture:
+//			//mytex->MipGenSettings = TMGS_NoMipmaps;
+//			void* TextureData = OutTexture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
+//			FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
+//			OutTexture->PlatformData->Mips[0].BulkData.Unlock();
+//
+//			// Update the rendering resource from data.
+//			OutTexture->UpdateResource();
+//			return true;
+//		}
+//	}
+//	return false;
+//
+//	//Form.AddField("thumb", ImageWrapper->GetCompressed(100));
+//	/*FThumbnailMap ThumbnailMap;
+//	UPackage* Package = LoadPackage(nullptr, *PackageName, 0);
+//
+//	if (Package->HasThumbnailMap())
+//		ThumbnailMap = Package->AccessThumbnailMap();
+//
+//	return ThumbnailMap;*/
+//}
 
 //
 //bool UMinusiFrameworkLibrary::GetListOfBlueprintInPath(FName Path, TArray<UClass*>& Result, UClass* Class)

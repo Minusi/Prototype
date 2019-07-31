@@ -11,9 +11,22 @@
 #include "AssetRegistry/Public/AssetData.h"
 #include "AssetRegistry/Public/IAssetRegistry.h"
 #include "AssetRegistry/Public/AssetRegistryModule.h"
-#include "Engine/Blueprint.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
+
+#include "ObjectTools.h"
+#include "UnrealEd/Public/ObjectTools.h"
+#include "Misc/ObjectThumbnail.h"
+#include "ThumbnailRendering/ThumbnailManager.h"
+#include "ThumbnailRendering/ThumbnailRenderer.h"
+#include "ImageUtils.h"
+#include "Modules/ModuleManager.h"
+#include "Public/IImageWrapperModule.h"
+//#include "Runtime/ImageWrapper/Public/Interfaces/IImageWrapper.h"
+//#include "Runtime/ImageWrapper/Public/Interfaces/IImageWrapperModule.h"
+#include "UObject/Package.h"
+
+
 #include "MinusiFrameworkLibrary.generated.h"
 
 
@@ -109,6 +122,8 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Minusi|Loader")
 	static TArray<FAssetData> GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType);
 
-	/*UFUNCTION(BlueprintPure, Category = "Minusi|Loader")
+	//UFUNCTION(BlueprintPure, Category = "Minusi|Loader")
+	//static bool GetThumbnail(UObject* Object, UTexture2D*& OutTexture);
+		/*UFUNCTION(BlueprintPure, Category = "Minusi|Loader")
 	static bool GetListOfBlueprintInPath(FName Passth, TArray<UClass*>& Result, UClass* Class);*/
 };

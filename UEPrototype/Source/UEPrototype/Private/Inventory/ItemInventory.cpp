@@ -40,14 +40,12 @@ bool AItemInventory::GetItemInfoAtIndex(int32 Index, FItemInfo& OutItemInfo)
 
 bool AItemInventory::AddItem(AItem* NewItem)
 {
-	FSlotState SlotState = SearchEmptySlotIndex();
+	if (IsAllSlotFull())
+		return false;
 
-	if (!SlotState.bIsAllSlotsFull)
-	{
-		Slots[SlotState.ValidSlotIndex] = NewItem;
-		return true;
-	}
-	return false;
+	++UsedSlotCount;
+	Slots[SearchEmptySlotIndex()] = NewItem;
+	return true;
 }
 
 bool AItemInventory::IsSlotEmpty(int32 Index)
@@ -62,23 +60,12 @@ bool AItemInventory::IsAllSlotFull()
 	return (MaxSlotSize == UsedSlotCount);
 }
 
-FSlotState AItemInventory::SearchEmptySlotIndex()
+int32 AItemInventory::SearchEmptySlotIndex()
 {
-	FSlotState SlotState;
-
-	if (IsAllSlotFull())
-	{
-		SlotState.SetState(0, false);
-		return SlotState;
-	}
-
 	for (int32 idx = 0; idx < MaxSlotSize; ++idx)
 	{
 		if (IsSlotEmpty(idx))
-		{
-			SlotState.SetState(idx, false);
-			break;
-		}
+			return idx;
 	}
-	return SlotState;
+	return 0;
 }

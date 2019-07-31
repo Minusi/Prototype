@@ -7,17 +7,6 @@
 #include "Inventory/Item.h"
 #include "AssetInventory.generated.h"
 
-USTRUCT(BlueprintType)
-struct FInventoryAssetDataInfo
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Inventory|Asset", meta = (AllowPrivateAccess = "true"))
-	FItemInfo ItemInfo;
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Inventory|Asset", meta = (AllowPrivateAccess = "true"))
-	FAssetData AssetData;
-};
-
 UCLASS(BlueprintType)
 class UEPROTOTYPE_API AAssetInventory : public AActor
 {
@@ -42,17 +31,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory|Asset")
 	void SetObjectType(TSubclassOf<UObject> InObjectType);
 
-	UFUNCTION(BlueprintPure, Category = "Inventory|Asset")
-	bool GetAssetInfoAtIndex(int32 Index, FAssetData& OutAssetData);
-
-	UFUNCTION(BlueprintCallable, Category = "Inventory|Asset")
-	bool InsertAsset(FAssetData NewAssetData);
-
 	UFUNCTION(BlueprintCallable, Category = "Inventory|Asset")
 	void SetSlots(TArray<FAssetData> NewSlots);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory|Asset")
-	void GetAssetDataAtIndex();
+	bool InsertAsset(FAssetData NewAssetData);
+
+	UFUNCTION(BlueprintPure, Category = "Inventory|Asset")
+	bool GetAssetInfoAtIndex(int32 Index, FAssetData& OutAssetData);
 
 	inline TSubclassOf<UObject> GetObjectType() { return ObjectType; };
 

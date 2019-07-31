@@ -7,31 +7,6 @@
 #include "Inventory/Item.h"
 #include "ItemInventory.generated.h"
 
-USTRUCT(BlueprintType)
-struct FSlotState
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Inventory|Item", meta = (AllowPrivateAccess = "true"))
-	int32 ValidSlotIndex;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "Inventory|Item", meta = (AllowPrivateAccess = "true"))
-	bool bIsAllSlotsFull;
-
-public:
-	FSlotState()
-	{
-		ValidSlotIndex = 0;
-		bIsAllSlotsFull = true;
-	}
-
-	void SetState(int32 ValidSlotIndex, bool bIsAllSlotsFull)
-	{
-		this->ValidSlotIndex = ValidSlotIndex;
-		this->bIsAllSlotsFull = bIsAllSlotsFull;
-	}
-};
-
 UCLASS(BlueprintType)
 class UEPROTOTYPE_API AItemInventory : public AActor
 {
@@ -61,7 +36,7 @@ public:
 private:
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory|Item")
-	FSlotState SearchEmptySlotIndex();
+	int32 SearchEmptySlotIndex();
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory|Item")
 	bool IsAllSlotFull();
