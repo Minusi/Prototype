@@ -82,6 +82,11 @@ class UEPROTOTYPE_API UActorPlaceInfoMarker : public UObject
 	GENERATED_BODY()
 	
 public:
+	/* 생성자 */
+	UActorPlaceInfoMarker();
+
+
+
 	/* ActorInfoModuleManager를 반환합니다(전역 접근 가능). */
 	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
 	static UActorPlaceInfoMarker* GetGlobalActorPlaceInfoMarker();
@@ -89,7 +94,7 @@ public:
 
 
 	/* ActorPlaceInfoMarkEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FActorPlaceInfoMarkEventDispatcher OnActorPlaceInfoMark() const
+	FORCEINLINE FActorPlaceInfoMarkEventDispatcher& OnActorPlaceInfoMark()
 	{
 		return ActorPlaceInfoMarkEventDispatcher;
 	}
@@ -97,6 +102,19 @@ public:
 	/* 대상 액터의 배치 정보를 브로드캐스트합니다 */
 	UFUNCTION(BlueprintCallable, Category="ActorInfo")
 	void MarkActor(AActor* Target, FActorPlaceContent Content);
+
+
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
+
+
+
+
 
 private:
 	/* 액터 배치 정보가 변경되면 브로드캐스트하는 이벤트 디스패처입니다 */

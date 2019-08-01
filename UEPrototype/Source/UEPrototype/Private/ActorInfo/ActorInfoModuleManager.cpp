@@ -4,6 +4,8 @@
 #include "UEPrototype.h"
 #include "UObjectIterator.h"
 #include "Outliner.h"
+#include "EditorWorldManager.h"
+#include "EditorModulesManager.h"
 #include "ActorConstraintMarker.h"
 #include "ActorPlaceInfoMarker.h"
 
@@ -11,8 +13,24 @@
 
 UActorInfoModuleManager::UActorInfoModuleManager()
 {
+	VP_CTOR;
+
+	bInitialized = false;
+	/* 월드 컨텍스트를 포함하지 않는 CDO는 프레임워크에서 필요로 하지 않는 CDO이므로,
+	더이상의 초기화를 수행하지 않습니다 */
+	if (ContainWorldContextCDO() == false)
+	{
+		return;
+	}
+
+
+
 	/* 초기화를 수행합니다 */
 	Initialized();
+
+	/* ActorInfo 모듈의 초기화가 완료되었음을 브로드캐스트합니다. */
+	bInitialized = true;
+	ModuleEndInitEventDispatcher.Broadcast();
 }
 
 
@@ -21,7 +39,10 @@ UActorInfoModuleManager * UActorInfoModuleManager::GetGlobalActorInfoModuleManag
 {
 	for (const auto& it : TObjectRange<UActorInfoModuleManager>())
 	{
-		return it;
+		if (it->ContainWorldContextCDO())
+		{
+			return it;
+		}
 	}
 
 
@@ -38,9 +59,9 @@ UActorInfoModuleManager * UActorInfoModuleManager::GetGlobalActorInfoModuleManag
 void UActorInfoModuleManager::Initialized()
 {
 	/* 하위 컴포넌트들을 초기화합니다 */
-	Outliner = CreateDefaultSubobject<UOutliner>(MakeUniqueObjectName(this, UOutliner::StaticClass()));
-	ActorConstraintMarker = CreateDefaultSubobject<UActorConstraintMarker>(MakeUniqueObjectName(this, UActorConstraintMarker::StaticClass()));
-	ActorPlaceInfoMarker = CreateDefaultSubobject<UActorPlaceInfoMarker>(MakeUniqueObjectName(this, UActorPlaceInfoMarker::StaticClass()));
+	Outliner = CreateDefaultSubobject<UOutliner>(UOutliner::StaticClass()->GetFName());
+	ActorConstraintMarker = CreateDefaultSubobject<UActorConstraintMarker>(UActorConstraintMarker::StaticClass()->GetFName());
+	ActorPlaceInfoMarker = CreateDefaultSubobject<UActorPlaceInfoMarker>(UActorPlaceInfoMarker::StaticClass()->GetFName());
 
 
 
@@ -60,6 +81,24 @@ void UActorInfoModuleManager::Initialized()
 		VP_LOG(Error, TEXT("%s가 유효하지 않습니다. 생성되지 않았을 수 있습니다."), *UActorPlaceInfoMarker::StaticClass()->GetName());
 		return;
 	}
+}
 
-	/* TODO : 모듈이 끝났을 때 이벤트를 브로드캐스트해야 합니다. 현재 커밋 버전은 모듈이 수정되지 않았습니다 */
+
+
+
+
+bool UActorInfoModuleManager::ContainWorldContextCDO()
+{
+	/* OuterChain을 거슬러 올라가면서, AEditorWorldManager가 있는지 탐색합니다 */
+	UObject* OuterChain = this;
+	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
+	{
+		/* OuterChain에 AEditorWorldManager가 있으면 참을 반환합니다. */
+		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass())
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

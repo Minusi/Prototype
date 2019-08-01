@@ -8,13 +8,13 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UObject;
 class APlayerController;
 struct FVector;
 struct FVector2D;
 struct FHitResult;
 struct FTransform;
 class AActor;
-class UObject;
 struct FColor;
 enum class EBoolean : uint8;
 #ifdef UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
@@ -23,6 +23,15 @@ enum class EBoolean : uint8;
 #define UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
 
 #define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execGetInfoWithOuterChain) \
+	{ \
+		P_GET_OBJECT(UObject,Z_Param_Object); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		UMinusiFrameworkLibrary::GetInfoWithOuterChain(Z_Param_Object); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execProjectWorldDirectionToScreenFromOrigin) \
 	{ \
@@ -200,6 +209,15 @@ enum class EBoolean : uint8;
 
 
 #define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execGetInfoWithOuterChain) \
+	{ \
+		P_GET_OBJECT(UObject,Z_Param_Object); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		UMinusiFrameworkLibrary::GetInfoWithOuterChain(Z_Param_Object); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execProjectWorldDirectionToScreenFromOrigin) \
 	{ \

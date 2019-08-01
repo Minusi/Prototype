@@ -3,6 +3,12 @@
 #include "VPGameStateBase.h"
 #include "UEPrototype.h"
 
+// DEBUG
+#include "UObjectIterator.h"
+#include "CoreInputModuleManager.h"
+#include "EditorInterpreterManager.h"
+#include "MinusiFrameworkLibrary.h"
+
 
 
 void AVPGameStateBase::BeginPlay()
@@ -15,6 +21,13 @@ void AVPGameStateBase::BeginPlay()
 	{
 		VP_LOG(Error, TEXT("유효하지 않습니다. 월드에 스폰되지 않았을 수 있습니다 : %s."), *AEditorWorldManager::StaticClass()->GetName());
 		return;
+	}
+
+	
+
+	for (const auto& it : TObjectRange<UCoreInputModuleManager>())
+	{
+		UMinusiFrameworkLibrary::GetInfoWithOuterChain(it);
 	}
 }
 

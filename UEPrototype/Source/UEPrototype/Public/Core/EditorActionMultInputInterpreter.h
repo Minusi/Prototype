@@ -89,15 +89,14 @@ public:
 	UEditorActionMultInputInterpreter();
 
 	/* EditorActionMultInputInterpreter를 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
-	UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (UnsafeDuringActorConstruction = "true"))
 	static UEditorActionMultInputInterpreter* GetGlobalEditorActionMultInputInterpreter();
 
 
 private:
 	/* 이벤트에 함수들을 등록합니다 */
 	UFUNCTION()
-	void BoundToEvents();
+	void BindToEvents();
 
 	/* 새로운 멀티키 액션에 멀티키 기능을 제공하기 위해 등록합니다 */
 	UFUNCTION()
@@ -139,21 +138,28 @@ private:
 	UFUNCTION()
 	bool ValidateMultiKey(FInputActionKeyMapping MultiKeyMapping);
 
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
+
 
 
 public:
 	/* 멀티키 입력이 발동되었을 때 발생하는 이벤트 디스패처를 반환합니다 */
 	UFUNCTION()
-	FORCEINLINE FMultiKeyTriggerStartEventDispatcher 
-		OnMultiKeyTriggerStart() const
+	FORCEINLINE FMultiKeyTriggerStartEventDispatcher&
+		OnMultiKeyTriggerStart()
 	{
 		return MultiKeyTriggerStartEventDispatcher;
 	}
 
 	/* 멀티키 입력 발동이 끝났을 때 발생하는 이벤트 디스패처를 반환합니다 */
 	UFUNCTION()
-	FORCEINLINE FMultiKeyTriggerEndEventDispatcher
-		OnMultiKeyTriggerEnd() const
+	FORCEINLINE FMultiKeyTriggerEndEventDispatcher&
+		OnMultiKeyTriggerEnd()
 	{
 		return MultiKeyTriggerEndEventDispatcher;
 	}

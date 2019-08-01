@@ -53,7 +53,7 @@ public:
 	void SetWorldState(EWorldState InWorldState);
 
 	/* WorldStateChangedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FWorldStateChangedEventDispatcher OnWorldStateChanged() const
+	FORCEINLINE FWorldStateChangedEventDispatcher& OnWorldStateChanged()
 	{
 		return WorldStateChangedEventDispatcher;
 	}

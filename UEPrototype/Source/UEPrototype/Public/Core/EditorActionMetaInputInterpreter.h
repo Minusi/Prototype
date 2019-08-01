@@ -92,8 +92,7 @@ public:
 
 
 	/* EditorActionMetaInputInterpreter를 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
-	UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (UnsafeDuringActorConstruction = "true"))
 	static UEditorActionMetaInputInterpreter* GetGlobalEditorActionMetaInputInterpreter();
 
 
@@ -139,6 +138,13 @@ private:
 	// 액션이 입력 세팅에서 유효한지 확인합니다.
 	UFUNCTION()
 	bool ValidateActionFast(FName ActionName);
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
 
 
 

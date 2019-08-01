@@ -34,18 +34,44 @@ protected:
 
 public:
 	/* CoreInputModuleManager를 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
-	UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (UnsafeDuringActorConstruction = "true"))
 	static UCoreInputModuleManager* GetGlobalCoreInputModuleManager();
 
 
+
+	UFUNCTION(BlueprintGetter, Category="Core|Input")
+	FORCEINLINE UInputSettingManager* GetInputSettingManager() const
+	{
+		return InputSettingManager;
+	}
+
+	UFUNCTION(BlueprintGetter, Category="Core|Input")
+		FORCEINLINE UEditorInterpreterManager* GetEditorInterpreterManager() const
+	{
+		return EditorInterpreterManager;
+	}
+
+
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
+
 	
+
+
+
 private:
 	/* InputSettingManager 입니다. */
-	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
+				BlueprintGetter=GetInputSettingManager)
 	UInputSettingManager* InputSettingManager;
 
 	/* EditorInterpreterManager 입니다. */
-	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true)
+,				BlueprintGetter=GetEditorInterpreterManager)
 	UEditorInterpreterManager* EditorInterpreterManager;
 };

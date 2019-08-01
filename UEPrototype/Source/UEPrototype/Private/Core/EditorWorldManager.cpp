@@ -11,6 +11,9 @@
 // Sets default values
 AEditorWorldManager::AEditorWorldManager()
 {
+	// DEBUG
+	VP_CTOR;
+
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -18,9 +21,13 @@ AEditorWorldManager::AEditorWorldManager()
 	EditorModulesManager = CreateDefaultSubobject<UEditorModulesManager>(MakeUniqueObjectName(this, UEditorModulesManager::StaticClass()));
 	if (IsValid(EditorModulesManager) == false)
 	{
-		//VP_LOG(Error, TEXT("서브오브젝트 생성에 실패하였습니다 : %s".), *UEditorModulesManager::StaticClass()->GetName());
+		VP_LOG(Error, TEXT("%s가 유효하지 않습니다. 생성에 실패했을 수 있습니다."), *UEditorModulesManager::StaticClass()->GetName());
 		return;
 	}
+
+	FEventToRegister Event;
+	Event.BindUFunction(this, "BindToEvents");
+	EditorModulesManager->RegisterIf(Event);
 }
 
 
@@ -84,6 +91,75 @@ void AEditorWorldManager::GetActorPlaceContent(const AActor * InTarget, FActorPl
 
 
 
+void AEditorWorldManager::BindToEvents()
+{
+	/* ActorConstraintMarker를 얻어옵니다 */
+	UActorConstraintMarker* ActorConstraintMarker =
+		UActorConstraintMarker::GetGlobalActorConstraintMarker();
+	if (IsValid(ActorConstraintMarker) == false)
+	{
+		return;
+	}
+	
+	/* 이벤트에 함수를 바인딩합니다 */
+	ActorConstraintMarker->OnActorConstraintChanged().AddDynamic(this, &AEditorWorldManager::UpdateBlockedActors);
+}
+
+
+
+void AEditorWorldManager::UpdateBlockedActors(FActorConstraintInfo ChangedInfo)
+{
+	if (IsValid(ChangedInfo.Target) == false)
+	{
+		VP_LOG(Warning, TEXT("브로드캐스트된 액터가 유효하지 않습니다."));
+		return;
+	}
+	
+	/* BlockedActor 컨테이너에 쿼리를 던지기 위해 새로 구성합니다 */
+	FActorConstraintInfo QueryBlocked;
+	QueryBlocked.Target = ChangedInfo.Target;
+	QueryBlocked.TargetState = EActorConstraintState::CSTR_Blocked;
+	
+
+
+	/* 해당 액터가 컨테이너에 존재하고 Blocked가 아니게 된다는 이벤트를 수신
+		받았다면, 삭제합니다 */
+	if (BlockedActors.Contains(QueryBlocked)
+		&& ChangedInfo.TargetState != EActorConstraintState::CSTR_Blocked)
+	{
+		BlockedActors.Remove(QueryBlocked);
+
+		/* 삭제되었음을 알리는 이벤트를 브로드캐스트합니다 */
+		BlockedActorRemovedEventDispatcher.Broadcast(ChangedInfo.Target);
+		return;
+	}
+
+
+
+	
+	/* 해당 액터가 컨테이너에 존재하지 않고 Blocked이게 된다는 이벤트를 수신
+		받았다면, 추가합니다 */
+	if (BlockedActors.Contains(QueryBlocked) == false
+		&& ChangedInfo.TargetState == EActorConstraintState::CSTR_Blocked)
+	{
+		BlockedActors.Add(QueryBlocked);
+
+		/* 추가되었음을 알리는 이벤트를 브로드캐스트합니다 */
+		BlockedActorAddedEventDispatcher.Broadcast(ChangedInfo.Target);
+		return;
+	}
+
+
+	/* 이번 이벤트는 EditorWorldManager에서 무시해도 되는 이벤트입니다 */
+	VP_LOG(Log, TEXT("해당 액터는 처리 대상이 아닙니다 : Actor(%s), State(%d)"),
+		*ChangedInfo.Target->GetName(), (uint8)(ChangedInfo.TargetState));
+	return;
+}
+
+
+
+
+
 AEditorWorldManager * AEditorWorldManager::GetGlobalEditorWorldManager(const UObject* WorldContextObject)
 {
 	/* 월드 컨텍스트 객체를 얻어 AEditorWorldManager를 찾습니다. */
@@ -92,28 +168,6 @@ AEditorWorldManager * AEditorWorldManager::GetGlobalEditorWorldManager(const UOb
 		return it;
 	}
 
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *AEditorWorldManager::StaticClass()->GetName());
 	return nullptr;
-}
-
-
-
-UEditorModulesManager* AEditorWorldManager::GetGlobalEditorModulesManager(const UObject* WorldContextObject)
-{
-	AEditorWorldManager* LocalEditorWorldManager = GetGlobalEditorWorldManager(WorldContextObject);
-	if (IsValid(LocalEditorWorldManager) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *AEditorWorldManager::StaticClass()->GetName());
-		return nullptr;
-	}
-
-	/* 반환합니다 */
-	return LocalEditorWorldManager->EditorModulesManager;
-}
-
-
-
-UEditorModulesManager * AEditorWorldManager::GetGlobalEditorModulesManagerFast(const AEditorWorldManager * InEditorWorldManager)
-{
-	/* AEditorWorldManager의 내부 Getter를 이용하여 반환합니다 */
-	return InEditorWorldManager->GetEditorModulesManager();
 }

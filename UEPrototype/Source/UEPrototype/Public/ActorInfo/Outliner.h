@@ -22,6 +22,9 @@ class UEPROTOTYPE_API UOutliner : public UObject
 	GENERATED_BODY()
 
 public:
+	/* 생성자 */
+	UOutliner();
+
 	/* UOutliner를 반환합니다(전역 접근 가능). */
 	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
 	static UOutliner* GetGlobalOutliner();
@@ -38,6 +41,15 @@ public:
 	/* 윤곽선이 그려진 특정 Actor의 윤곽선을 지워줍니다 */
 	UFUNCTION(BlueprintCallable, Category = "Outliner")
 		void EraseActorOutline();
+
+
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
 
 
 

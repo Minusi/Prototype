@@ -6,6 +6,7 @@
 #include "Containers/Array.h"
 #include "UObject/NoExportTypes.h"
 #include "GameFramework/PlayerInput.h"
+#include "UObjectGlobals.h"
 #include "InputSettingManager.generated.h"
 
 
@@ -42,61 +43,71 @@ class UEPROTOTYPE_API UInputSettingManager : public UObject
 	GENERATED_BODY()
 	
 public:
+	// DEBUG
+	UInputSettingManager();
+
 	/* InputSettingManager를 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (WorldContext = "WorldContextObject",
-	UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (UnsafeDuringActorConstruction = "true"))
 	static UInputSettingManager* GetGlobalInputSettingManager();
 
 
 public:
 	/* InputSettings에서 액션을 추가합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void AddActionMappings(FName NewActionName, const TArray<FInputActionKeyMapping>& NewActionKeyMappings);
 	
 	/* InputSettings에서 액션을 제거합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void RemoveActionMappings(FName ExistActionName);
 
 	/* InputSettings에서 액션의 특정 키를 변경합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void ChangeActionKeyMappings(FName TargetActionName, const TArray<FInputActionKeyMapping>& Removes, const TArray<FInputActionKeyMapping	>&Adds);
 	
-
-
-
 	
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
+
+
+
+public:
 	/* ActionAddedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FActionAddedEventDispatcher OnActionAdded() const
+	FORCEINLINE FActionAddedEventDispatcher& OnActionAdded()
 	{
 		return ActionAddedEventDispatcher;
 	}
 
 	/* ActionRemovedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FActionRemovedEventDispatcher OnActionRemoved() const
+	FORCEINLINE FActionRemovedEventDispatcher& OnActionRemoved()
 	{
 		return ActionRemovedEventDispatcher;
 	}
 
 	/* ActionChangedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FActionKeyChangedEventDispatcher OnActionKeyChanged() const
+	FORCEINLINE FActionKeyChangedEventDispatcher& OnActionKeyChanged()
 	{
 		return ActionKeyChangedEventDispatcher;
 	}
 
 	/* AxisAddedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FAxisAddedEventDispatcher OnAxisAdded() const
+	FORCEINLINE FAxisAddedEventDispatcher& OnAxisAdded()
 	{
 		return AxisAddedEventDispatcher;
 	}
 
 	/* AxisRemovedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FAxisRemovedEventDispatcher OnAxisRemoved() const
+	FORCEINLINE FAxisRemovedEventDispatcher& OnAxisRemoved()
 	{
 		return AxisRemovedEventDispatcher;
 	}
 
 	/* AxisKeyChangedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FAxisKeyChangedEventDispatcher OnAxisKeyChanged() const
+	FORCEINLINE FAxisKeyChangedEventDispatcher& OnAxisKeyChanged()
 	{
 		return AxisKeyChangedEventDispatcher;
 	}
@@ -104,32 +115,38 @@ public:
 
 
 
+
 private:
 	/* 새로운 액션이 추가되었을 때 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintAssignable, BlueprintCallable,
+	Category = "Core|Input|Delegate", meta = (AllowPrivateAccess = true))
 	FActionAddedEventDispatcher ActionAddedEventDispatcher;
 	
 	/* 기존 액션이 삭제되었을 때 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY()
+	UPROPERTY(BlueprintAssignable, BlueprintCallable,
+	Category = "Core|Input|Delegate", meta = (AllowPrivateAccess = true))
 	FActionRemovedEventDispatcher ActionRemovedEventDispatcher;
 
 	/* 기존 액션 입력에 키 변경이 일어났을 때 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY()
-	FActionKeyChangedEventDispatcher ActionKeyChangedEventDispatcher;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable,
+	Category = "Core|Input|Delegate", meta = (AllowPrivateAccess = true))
+		FActionKeyChangedEventDispatcher ActionKeyChangedEventDispatcher;
 
 	/* 새로운 축이 추가되었을 때 브로드캐스트 하는 이벤트 디스패처입니다 */
-	UPROPERTY()
-	FAxisAddedEventDispatcher AxisAddedEventDispatcher;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable,
+	Category = "Core|Input|Delegate", meta = (AllowPrivateAccess = true))
+		FAxisAddedEventDispatcher AxisAddedEventDispatcher;
 
 	/* 기존 축 이 삭제되었을 때 브로드캐스트 하는 이벤트 디스패처입니다 */
-	UPROPERTY()
-	FAxisRemovedEventDispatcher AxisRemovedEventDispatcher;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable,
+	Category = "Core|Input|Delegate", meta = (AllowPrivateAccess = true))
+		FAxisRemovedEventDispatcher AxisRemovedEventDispatcher;
 
 	/* 기존 축 입력에 키 변경이 일어났을 때 브로드캐스트 하는 이벤트 디스패처입니다 */
-	UPROPERTY()
-	FAxisKeyChangedEventDispatcher AxisKeyChangedEventDispatcher;
+	UPROPERTY(BlueprintAssignable, BlueprintCallable,
+	Category = "Core|Input|Delegate", meta = (AllowPrivateAccess = true))
+		FAxisKeyChangedEventDispatcher AxisKeyChangedEventDispatcher;
 	
 	/* UInputSettings에 대한 클래스 스코프 캐시입니다 */
 	static UInputSettings* InputSettings;
-	
 };

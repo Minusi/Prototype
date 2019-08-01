@@ -4,7 +4,9 @@
 #include "GameFramework/InputSettings.h"
 #include "UEPrototype.h"
 #include "UObjectIterator.h"
+#include "EditorWorldManager.h"
 #include "CoreInputModuleManager.h"
+#include "EditorInterpreterManager.h"
 #include "InputSettingManager.h"
 
 
@@ -13,6 +15,18 @@ const UInputSettings* UEditorActionMultInputInterpreter::InputSettings = GetDefa
 
 UEditorActionMultInputInterpreter::UEditorActionMultInputInterpreter()
 {
+	// DEBUG
+	VP_CTOR;
+
+	/* 월드 컨텍스트를 포함하지 않는 CDO는 프레임워크에서 필요로 하지 않는 CDO이므로,
+	더이상의 초기화를 수행하지 않습니다 */
+	if (ContainWorldContextCDO() == false)
+	{
+		return;
+	}
+
+
+
 	/* 상위 모듈을 불러와서 이벤트에 함수들을 바인딩합니다 */
 	UCoreInputModuleManager* CoreInputModuleManager
 		= UCoreInputModuleManager::GetGlobalCoreInputModuleManager();
@@ -22,7 +36,7 @@ UEditorActionMultInputInterpreter::UEditorActionMultInputInterpreter()
 	}
 
 	FEventToRegister Event;
-	Event.BindUFunction(this, "BoundToEvents");
+	Event.BindUFunction(this, "BindToEvents");
 	CoreInputModuleManager->RegisterIf(Event);
 
 
@@ -78,8 +92,13 @@ UEditorActionMultInputInterpreter * UEditorActionMultInputInterpreter::GetGlobal
 {
 	for (const auto& it : TObjectRange<UEditorActionMultInputInterpreter>())
 	{
-		return it;
+		if (it->ContainWorldContextCDO())
+		{
+			return it;
+		}
 	}
+
+
 
 	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다. */
 	VP_LOG(Error, TEXT("%s가 유효하지 않습니다"), *UCoreInputModuleManager::StaticClass()->GetName());
@@ -90,7 +109,7 @@ UEditorActionMultInputInterpreter * UEditorActionMultInputInterpreter::GetGlobal
 
 
 
-void UEditorActionMultInputInterpreter::BoundToEvents()
+void UEditorActionMultInputInterpreter::BindToEvents()
 {
 	/* 바인드할 객체를 불러옵니다 */
 	UInputSettingManager* InputSettingManager =
@@ -341,7 +360,7 @@ void UEditorActionMultInputInterpreter::ReceivePressed(FKey PressedKey)
 	// 이후, 트리거 중인 키로 추가합니다.
 	TriggerKeys.Add(MultiKeyArray);
 
-	// 마지막으로 멀티키 이벤트를 브로트캐스트합니다.
+	/* 마지막으로 멀티키 이벤트를 브로트캐스트합니다. */
 	MultiKeyTriggerStartEventDispatcher.Broadcast(MultiKeyArray.Keys);
 }
 
@@ -517,5 +536,21 @@ bool UEditorActionMultInputInterpreter::ValidateMultiKey(FInputActionKeyMapping 
 	}
 
 	// 그렇지 않으면 거짓을 반환합니다.
+	return false;
+}
+
+bool UEditorActionMultInputInterpreter::ContainWorldContextCDO()
+{
+	/* OuterChain을 거슬러 올라가면서, AEditorWorldManager가 있는지 탐색합니다 */
+	UObject* OuterChain = this;
+	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
+	{
+		/* OuterChain에 AEditorWorldManager가 있으면 참을 반환합니다. */
+		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass())
+		{
+			return true;
+		}
+	}
+
 	return false;
 }

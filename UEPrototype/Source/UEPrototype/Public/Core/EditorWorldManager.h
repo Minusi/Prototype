@@ -27,7 +27,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBlockedActorRemovedEventDispatcher,
  *	
  *	VPGameStateBase와 마찬가지로 기능 확장 가능성이 높습니다.
  */
-UCLASS(notplaceable)
+UCLASS()
 class UEPROTOTYPE_API AEditorWorldManager : public AActor
 {
 	GENERATED_BODY()
@@ -53,6 +53,8 @@ public:
 		return ActorsPlaceInfo;
 	}
 
+
+
 	/* 액터가 Blocked 상태인지 여부를 반환합니다 */
 	UFUNCTION(BlueprintCallable, Category="Core|World")
 	bool IsActorBlocked(const AActor* InTarget) const;
@@ -63,42 +65,40 @@ public:
 
 
 
-	/* 월드 에디터 매니저를 반환합니다(전역 접근 가능) */
+private:
+	/* 함수들을 이벤트에 바인드합니다 */
+	UFUNCTION()
+	void BindToEvents();
+
+	/* 액터의 상태가 변경되었을 때 Blocked상태인지 확인하고 맞을 때, 컨테이너에 추가합니다 */
+	UFUNCTION()
+	void UpdateBlockedActors(FActorConstraintInfo ChangedInfo);
+
+
+
+public:
 	UFUNCTION(BlueprintCallable, Category = "Core|World", meta = (WorldContext = "WorldContextObject", UnsafeDuringActorConstruction = "true"))
 	static AEditorWorldManager* GetGlobalEditorWorldManager(const UObject* WorldContextObject);
 
-	/* 에디터 모듈 매니저를 반환합니다(전역 접근 가능) */
-	UFUNCTION(BlueprintCallable, Category = "Core|World", meta = (WorldContext = "WorldContextObject", UnsafeDuringActorConstruction = "true"))
-	static UEditorModulesManager* GetGlobalEditorModulesManager(const UObject* WorldContextObject);
-
-	/* AEditorWorldManager를 이용하여 에디터 모듈 매니저를 바로 반환받습니다.(전역 접근 가능) */
-	UFUNCTION(BlueprintCallable, Category = "Core|World")
-	static UEditorModulesManager* GetGlobalEditorModulesManagerFast(const AEditorWorldManager* InEditorWorldManager);
 
 
-
-private:
 	/* EditorModulesManager의 Getter 함수입니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintGetter, Category="Core|World")
 	FORCEINLINE UEditorModulesManager* GetEditorModulesManager() const
 	{
 		return EditorModulesManager;
 	}
-
-
-
-public:	/* 이벤트와 관련된 함수입니다. 브로드캐스트하거나 받는 함수들을 모아놓습니다 */
 	
 
 
 	/* BlockedActorAddedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FBlockedActorAddedEventDispatcher OnBlockedActorAdded() const
+	FORCEINLINE FBlockedActorAddedEventDispatcher& OnBlockedActorAdded()
 	{
 		return BlockedActorAddedEventDispatcher;
 	}
 
 	/* BlockedActorRemovedEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FBlockedActorRemovedEventDispatcher OnBlockedActorRemoved() const
+	FORCEINLINE FBlockedActorRemovedEventDispatcher& OnBlockedActorRemoved()
 	{
 		return BlockedActorRemovedEventDispatcher;
 	}
@@ -106,8 +106,11 @@ public:	/* 이벤트와 관련된 함수입니다. 브로드캐스트하거나 �
 
 
 
+
 private:
 	/* 모듈들을 관리하는 최상위 매니저입니다 */
+	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true),
+				BlueprintGetter=GetEditorModulesManager)
 	UEditorModulesManager * EditorModulesManager;
 
 	/* 현재 블록된 액터들을 관리하는 컨테이너입니다 */
@@ -131,3 +134,14 @@ private:
 	FBlockedActorRemovedEventDispatcher BlockedActorRemovedEventDispatcher;
 };
  
+
+
+/*	TODO : 언젠가는 해야할 일이 올지도 모르니 미리 적어둡니다 
+ *	현재 BlockedActor의 설계는 전적으로 잘못되어 있습니다. 권장되는 형식은
+ *	TMap<AActor*, EActorConstarintState>입니다. 이 문제를 지금 처리하려면,
+ *	ActorInfo 모듈의 FActorConstraintInfo와 함께 조정되어야 하는 문제가 있
+ *	습니다. 
+	
+ *	물론 앞으로 문제가 없을 수도 있습니다. 그 경우, 이 주석을 언젠가 도움이
+ *	되도록 남겨만 두도록 하시길 바랍니다.
+ */

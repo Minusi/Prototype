@@ -52,6 +52,12 @@ public:
 	/* 액터의 상태를 나타냅니다 */
 	UPROPERTY(BlueprintReadWrite, Category="ActorInfo")
 	EActorConstraintState TargetState;
+
+	/* == 연산자 오버로딩 */
+	FORCEINLINE bool operator==(const FActorConstraintInfo& Rhs) const
+	{
+		return Target == Rhs.Target && TargetState == Rhs.TargetState;
+	}
 };
 
 
@@ -73,6 +79,9 @@ class UEPROTOTYPE_API UActorConstraintMarker : public UObject
 	GENERATED_BODY()
 	
 public:	
+	/* 생성자 */
+	UActorConstraintMarker();
+
 	/* ActorConstraintMarker를 반환합니다(전역 접근 가능). */
 	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
 	static UActorConstraintMarker* GetGlobalActorConstraintMarker();
@@ -86,11 +95,19 @@ public:
 	
 
 	/* ActorConstraintMarkEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FActorConstraintMarkEventDispatcher OnActorConstraintChanged() const
+	FORCEINLINE FActorConstraintMarkEventDispatcher& OnActorConstraintChanged()
 	{
 		return ActorConstraintMarkEventDispatcher;
 	}
 
+
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+		이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한 
+		프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
 
 
 

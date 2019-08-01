@@ -3,6 +3,21 @@
 #include "ActorPlaceInfoMarker.h"
 #include "UEPrototype.h"
 #include "UObjectIterator.h"
+#include "EditorWorldManager.h"
+
+
+
+UActorPlaceInfoMarker::UActorPlaceInfoMarker()
+{
+	/* 월드 컨텍스트를 포함하지 않는 CDO는 프레임워크에서 필요로 하지 않는 CDO이므로,
+	더이상의 초기화를 수행하지 않습니다 */
+	if (ContainWorldContextCDO() == false)
+	{
+		return;
+	}
+}
+
+
 
 
 
@@ -39,4 +54,24 @@ void UActorPlaceInfoMarker::MarkActor(AActor* Target, FActorPlaceContent Content
 
 	/* 브로드캐스트합니다*/
 	ActorPlaceInfoMarkEventDispatcher.Broadcast(ActorPlaceInfo);
+}
+
+
+
+
+
+bool UActorPlaceInfoMarker::ContainWorldContextCDO()
+{
+	/* OuterChain을 거슬러 올라가면서, AEditorWorldManager가 있는지 탐색합니다 */
+	UObject* OuterChain = this;
+	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
+	{
+		/* OuterChain에 AEditorWorldManager가 있으면 참을 반환합니다. */
+		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass())
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

@@ -9,6 +9,7 @@
 
 
 class UCoreInputModuleManager;
+class UActorInfoModuleManager;
 
 
 
@@ -32,11 +33,31 @@ protected:
 
 public:
 	/* EditorModulesManager를 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|World", meta = (WorldContext = "WorldContextObject",
-	UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, Category = "Core|World", meta = (UnsafeDuringActorConstruction = "true"))
 	static UEditorModulesManager* GetGlobalEditorModulesManager();
+	
 
 
+	/* CoreInputModuleManager를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category="Core|World")
+	FORCEINLINE UCoreInputModuleManager* GetCoreInputModuleManager() const
+	{
+		return CoreInputModuleManager;
+	}
+
+	/* ActorInfoModuleManager를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category="Core|World")
+	FORCEINLINE UActorInfoModuleManager* GetActorInfoModuleManager() const
+	{
+		return ActorInfoModuleManager;
+	}
+
+private:
+	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
+	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
+	프레임워크 플로우를 따를 수 있기 때문입니다. */
+	UFUNCTION()
+	bool ContainWorldContextCDO();
 
 
 
@@ -44,6 +65,13 @@ private:
 	// TODO : 다른 모든 모듈들을 작성하시기 바랍니다.
 
 	/* CoreInputModuleManager입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true))
+	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true),
+				BlueprintGetter=GetCoreInputModuleManager)
 	UCoreInputModuleManager * CoreInputModuleManager;
+
+	/* ActorInfoModuleManager입니다 */
+	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true),
+				BlueprintGetter=GetActorInfoModuleManager)
+	UActorInfoModuleManager* ActorInfoModuleManager;
 };
+
