@@ -62,6 +62,23 @@ enum class EMoveType : uint8;
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execGetMoveType) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(EMoveType*)Z_Param__Result=P_THIS->GetMoveType(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execSetMoveType) \
+	{ \
+		P_GET_ENUM(EMoveType,Z_Param_InMoveType); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		P_THIS->SetMoveType(EMoveType(Z_Param_InMoveType)); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execMoveAround) \
 	{ \
 		P_GET_ENUM(EMoveType,Z_Param_InMoveType); \
@@ -120,6 +137,23 @@ enum class EMoveType : uint8;
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		P_THIS->MoveAbsoluteAxis(Z_Param_InX,Z_Param_InY,Z_Param_InZ); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetMoveType) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(EMoveType*)Z_Param__Result=P_THIS->GetMoveType(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execSetMoveType) \
+	{ \
+		P_GET_ENUM(EMoveType,Z_Param_InMoveType); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		P_THIS->SetMoveType(EMoveType(Z_Param_InMoveType)); \
 		P_NATIVE_END; \
 	} \
  \

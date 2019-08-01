@@ -27,6 +27,7 @@ void AVPGameStateBase::BeginPlay()
 
 	for (const auto& it : TObjectRange<UCoreInputModuleManager>())
 	{
+		// DEBUG
 		UMinusiFrameworkLibrary::GetInfoWithOuterChain(it);
 	}
 }

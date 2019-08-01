@@ -5,6 +5,7 @@
 #include "UObjectIterator.h"
 #include "EditorWorldManager.h"
 #include "CoreInputModuleManager.h"
+#include "CorePlayerModuleManager.h"
 #include "ActorInfoModuleManager.h"
 
 
@@ -41,6 +42,9 @@ void UEditorModulesManager::Initialized()
 	/* CoreInputModuleManager를 생성합니다 */
 	CoreInputModuleManager = CreateDefaultSubobject<UCoreInputModuleManager>
 								(UCoreInputModuleManager::StaticClass()->GetFName());
+	/* CorePlayerModuleManager를 생성합니다 */
+	CorePlayerModuleManager = CreateDefaultSubobject<UCorePlayerModuleManager>
+								(UCorePlayerModuleManager::StaticClass()->GetFName());
 	/* ActorInfoModuleManager를 생성합니다 */
 	ActorInfoModuleManager = CreateDefaultSubobject<UActorInfoModuleManager>
 								(UActorInfoModuleManager::StaticClass()->GetFName());
@@ -51,6 +55,10 @@ void UEditorModulesManager::Initialized()
 	if (IsValid(CoreInputModuleManager) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCoreInputModuleManager::StaticClass()->GetName());
+	}
+	if (IsValid(CorePlayerModuleManager) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCorePlayerModuleManager::StaticClass()->GetName());
 	}
 	if (IsValid(ActorInfoModuleManager) == false)
 	{

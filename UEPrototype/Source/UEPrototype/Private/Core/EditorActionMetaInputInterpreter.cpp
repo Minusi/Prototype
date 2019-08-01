@@ -13,6 +13,8 @@
 
 const UInputSettings* UEditorActionMetaInputInterpreter::InputSettings = GetDefault<UInputSettings>();
 
+
+
 UEditorActionMetaInputInterpreter::UEditorActionMetaInputInterpreter()
 {
 	// DEBUG

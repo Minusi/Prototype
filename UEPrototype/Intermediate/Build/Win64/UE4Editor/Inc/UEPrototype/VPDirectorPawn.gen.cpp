@@ -18,12 +18,14 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 	UEPROTOTYPE_API UClass* Z_Construct_UClass_AVPDirectorPawn_NoRegister();
 	UEPROTOTYPE_API UClass* Z_Construct_UClass_AVPDirectorPawn();
 	ENGINE_API UClass* Z_Construct_UClass_APawn();
+	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_GetMoveType();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_MoveAbsoluteAxis();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_MoveAround();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_MoveFixedAxis();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_MoveLocalAxis();
 	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_MoveOrbitAxis();
+	UEPROTOTYPE_API UFunction* Z_Construct_UFunction_AVPDirectorPawn_SetMoveType();
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 	ENGINE_API UClass* Z_Construct_UClass_UFloatingPawnMovement_NoRegister();
 	UMG_API UClass* Z_Construct_UClass_UWidgetComponent_NoRegister();
@@ -94,13 +96,53 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 	{
 		UClass* Class = AVPDirectorPawn::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "GetMoveType", &AVPDirectorPawn::execGetMoveType },
 			{ "MoveAbsoluteAxis", &AVPDirectorPawn::execMoveAbsoluteAxis },
 			{ "MoveAround", &AVPDirectorPawn::execMoveAround },
 			{ "MoveFixedAxis", &AVPDirectorPawn::execMoveFixedAxis },
 			{ "MoveLocalAxis", &AVPDirectorPawn::execMoveLocalAxis },
 			{ "MoveOrbitAxis", &AVPDirectorPawn::execMoveOrbitAxis },
+			{ "SetMoveType", &AVPDirectorPawn::execSetMoveType },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics
+	{
+		struct VPDirectorPawn_eventGetMoveType_Parms
+		{
+			EMoveType ReturnValue;
+		};
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_ReturnValue;
+		static const UE4CodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Underlying;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::NewProp_ReturnValue = { UE4CodeGen_Private::EPropertyClass::Enum, "ReturnValue", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000580, 1, nullptr, STRUCT_OFFSET(VPDirectorPawn_eventGetMoveType_Parms, ReturnValue), Z_Construct_UEnum_UEPrototype_EMoveType, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::NewProp_ReturnValue_Underlying = { UE4CodeGen_Private::EPropertyClass::Byte, "UnderlyingType", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0000000000000000, 1, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::NewProp_ReturnValue,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::NewProp_ReturnValue_Underlying,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::Function_MetaDataParams[] = {
+		{ "BlueprintGetter", "" },
+		{ "Category", "Core|Player" },
+		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
+		{ "ToolTip", "CurrentMoveType\xec\x9d\x98 Getter \xed\x95\xa8\xec\x88\x98\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AVPDirectorPawn, "GetMoveType", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x54020401, sizeof(VPDirectorPawn_eventGetMoveType_Parms), Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AVPDirectorPawn_GetMoveType()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AVPDirectorPawn_GetMoveType_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_AVPDirectorPawn_MoveAbsoluteAxis_Statics
 	{
@@ -189,7 +231,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AVPDirectorPawn_MoveAround_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Custom" },
+		{ "Category", "Core|Player" },
 		{ "CPP_Default_InOrbitTarget", "None" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xec\x9e\x85\xeb\xa0\xa5\xed\x95\x9c \xeb\xac\xb4\xeb\xb8\x8c \xed\x83\x80\xec\x9e\x85 \xeb\xb0\xa9\xec\x8b\x9d\xec\x9c\xbc\xeb\xa1\x9c \xec\x9d\xb4\xeb\x8f\x99\xec\x9d\x84 \xec\x88\x98\xed\x96\x89\xed\x95\xa9\xeb\x8b\x88\xeb\x8b\xa4." },
@@ -340,6 +382,44 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics
+	{
+		struct VPDirectorPawn_eventSetMoveType_Parms
+		{
+			EMoveType InMoveType;
+		};
+		static const UE4CodeGen_Private::FEnumPropertyParams NewProp_InMoveType;
+		static const UE4CodeGen_Private::FBytePropertyParams NewProp_InMoveType_Underlying;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::NewProp_InMoveType = { UE4CodeGen_Private::EPropertyClass::Enum, "InMoveType", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0010000000000080, 1, nullptr, STRUCT_OFFSET(VPDirectorPawn_eventSetMoveType_Parms, InMoveType), Z_Construct_UEnum_UEPrototype_EMoveType, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FBytePropertyParams Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::NewProp_InMoveType_Underlying = { UE4CodeGen_Private::EPropertyClass::Byte, "UnderlyingType", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0000000000000000, 1, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::NewProp_InMoveType,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::NewProp_InMoveType_Underlying,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::Function_MetaDataParams[] = {
+		{ "BlueprintSetter", "" },
+		{ "Category", "Core|Player" },
+		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
+		{ "ToolTip", "CurrentMoveType\xec\x9d\x98 Setter \xed\x95\xa8\xec\x88\x98\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AVPDirectorPawn, "SetMoveType", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x04020401, sizeof(VPDirectorPawn_eventSetMoveType_Parms), Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AVPDirectorPawn_SetMoveType()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AVPDirectorPawn_SetMoveType_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	UClass* Z_Construct_UClass_AVPDirectorPawn_NoRegister()
 	{
 		return AVPDirectorPawn::StaticClass();
@@ -393,11 +473,13 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_UEPrototype,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_AVPDirectorPawn_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_AVPDirectorPawn_GetMoveType, "GetMoveType" }, // 3381364950
 		{ &Z_Construct_UFunction_AVPDirectorPawn_MoveAbsoluteAxis, "MoveAbsoluteAxis" }, // 2373195368
-		{ &Z_Construct_UFunction_AVPDirectorPawn_MoveAround, "MoveAround" }, // 2015482300
+		{ &Z_Construct_UFunction_AVPDirectorPawn_MoveAround, "MoveAround" }, // 2285569871
 		{ &Z_Construct_UFunction_AVPDirectorPawn_MoveFixedAxis, "MoveFixedAxis" }, // 21941984
 		{ &Z_Construct_UFunction_AVPDirectorPawn_MoveLocalAxis, "MoveLocalAxis" }, // 3932231737
 		{ &Z_Construct_UFunction_AVPDirectorPawn_MoveOrbitAxis, "MoveOrbitAxis" }, // 2036689145
+		{ &Z_Construct_UFunction_AVPDirectorPawn_SetMoveType, "SetMoveType" }, // 2322339071
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::Class_MetaDataParams[] = {
@@ -409,15 +491,20 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #endif
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "Core|Player" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
+		{ "ToolTip", "\xea\xb3\xa0\xec\xa0\x95 \xec\x9d\xb4\xeb\x8f\x99 \xec\x8b\x9c \xea\xb3\xa0\xec\xa0\x95\xed\x95\xa0 \xec\xb6\x95 \xeb\x8d\xb0\xec\x9d\xb4\xed\x84\xb0\xec\x9e\x85\xeb\x8b\x88\xeb\x8b\xa4" },
 	};
 #endif
-	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis = { UE4CodeGen_Private::EPropertyClass::Struct, "FixedAxis", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0040000000000000, 1, nullptr, STRUCT_OFFSET(AVPDirectorPawn, FixedAxis), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis_MetaData, ARRAY_COUNT(Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis_MetaData)) };
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis = { UE4CodeGen_Private::EPropertyClass::Struct, "FixedAxis", RF_Public|RF_Transient|RF_MarkAsNative, (EPropertyFlags)0x0040000000000014, 1, nullptr, STRUCT_OFFSET(AVPDirectorPawn, FixedAxis), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis_MetaData, ARRAY_COUNT(Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FixedAxis_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_CurrentMoveType_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Bitmask", "" },
-		{ "Category", "VPDirectorPawn" },
+		{ "BlueprintGetter", "GetMoveType" },
+		{ "BlueprintSetter", "SetMoveType" },
+		{ "Category", "Core|Player" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4\xec\x9d\x98 \xed\x98\x84\xec\x9e\xac \xec\x9d\xb4\xeb\x8f\x99 \xed\x83\x80\xec\x9e\x85" },
 	};
@@ -427,7 +514,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_FloatingPawnMovement_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Director" },
+		{ "Category", "Core|Player" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4 \xec\x9d\xb4\xeb\x8f\x99 \xec\xbb\xb4\xed\x8f\xac\xeb\x84\x8c\xed\x8a\xb8" },
@@ -437,7 +524,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_MCWidget_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Director" },
+		{ "Category", "Core|Player" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4 \xeb\xaa\xa8\xec\x85\x98 \xec\xbb\xa8\xed\x8a\xb8\xeb\xa1\xa4\xeb\x9f\xac \xec\x9c\x84\xec\xa0\xaf" },
@@ -447,7 +534,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_MotionController_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Director" },
+		{ "Category", "Core|Player" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4 \xeb\xaa\xa8\xec\x85\x98 \xec\xbb\xa8\xed\x8a\xb8\xeb\xa1\xa4\xeb\x9f\xac" },
@@ -457,7 +544,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_VRCamera_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Director" },
+		{ "Category", "Core|Player" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4 VR \xec\xb9\xb4\xeb\xa9\x94\xeb\x9d\xbc" },
@@ -467,7 +554,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_VRRootTransform_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Director" },
+		{ "Category", "Core|Player" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4 VR \xeb\xa3\xa8\xed\x8a\xb8 \xed\x8a\xb8\xeb\x9e\x9c\xec\x8a\xa4\xed\x8f\xbc" },
@@ -477,7 +564,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AVPDirectorPawn_Statics::NewProp_RootCollision_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Director" },
+		{ "Category", "Core|Player" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/Core/VPDirectorPawn.h" },
 		{ "ToolTip", "\xed\x94\x8c\xeb\xa0\x88\xec\x9d\xb4\xec\x96\xb4 \xec\xbd\x9c\xeb\xa6\xac\xec\xa0\x84" },
@@ -518,7 +605,7 @@ void EmptyLinkFunctionForGeneratedCodeVPDirectorPawn() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AVPDirectorPawn, 534804095);
+	IMPLEMENT_CLASS(AVPDirectorPawn, 2174372527);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_AVPDirectorPawn(Z_Construct_UClass_AVPDirectorPawn, &AVPDirectorPawn::StaticClass, TEXT("/Script/UEPrototype"), TEXT("AVPDirectorPawn"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AVPDirectorPawn);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
