@@ -40,6 +40,8 @@ AVPDirectorPawn::AVPDirectorPawn()
 	FixedAxis = FRotator(0, 0, 0);
 }
 
+
+
 // Called when the game starts or when spawned
 void AVPDirectorPawn::BeginPlay()
 {
@@ -47,13 +49,9 @@ void AVPDirectorPawn::BeginPlay()
 	
 }
 
-// Called every frame
-void AVPDirectorPawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-	
-	
-}
+
+
+
 
 // Called to bind functionality to input
 void AVPDirectorPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -91,6 +89,19 @@ void AVPDirectorPawn::MoveAround(EMoveType InMoveType, float InX, float InY, flo
 	}
 }
 
+
+
+
+
+void AVPDirectorPawn::SetMoveType(EMoveType InMoveType)
+{
+	CurrentMoveType = InMoveType;
+}
+
+
+
+
+
 void AVPDirectorPawn::MoveAbsoluteAxis(float InX, float InY, float InZ)
 {
 	AddMovementInput(FVector(1, 0, 0), InX);
@@ -99,6 +110,8 @@ void AVPDirectorPawn::MoveAbsoluteAxis(float InX, float InY, float InZ)
 
 	CurrentMoveType = EMoveType::MT_ABSOLUTEAXIS;
 }
+
+
 
 void AVPDirectorPawn::MoveFixedAxis(float InX, float InY, float InZ)
 {
@@ -120,6 +133,8 @@ void AVPDirectorPawn::MoveFixedAxis(float InX, float InY, float InZ)
 	CurrentMoveType = EMoveType::MT_FIXEDAXIS;
 }
 
+
+
 void AVPDirectorPawn::MoveLocalAxis(float InX, float InY, float InZ)
 {
 	FRotator InRot = GetControlRotation();
@@ -135,6 +150,8 @@ void AVPDirectorPawn::MoveLocalAxis(float InX, float InY, float InZ)
 
 	CurrentMoveType = EMoveType::MT_LOCALAXIS;
 }
+
+
 
 void AVPDirectorPawn::MoveOrbitAxis(float InX, float InY, float InZ, AActor const * InOrbitTarget)
 {

@@ -102,5 +102,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
 	static void ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D& ProjectedUnitDirectionToScreen);
 
-	//
+
+
+
+
+	UFUNCTION(BlueprintCallable, Category = "Minusi|Debug")
+	static void GetInfoWithOuterChain(const UObject* Object);
 };
