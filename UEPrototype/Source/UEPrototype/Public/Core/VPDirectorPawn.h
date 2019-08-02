@@ -61,21 +61,30 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
+	/* Called to bind functionality to input */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
-
-	// 입력한 무브 타입 방식으로 이동을 수행합니다.
-	UFUNCTION(BlueprintCallable, Category = "Custom")
+	/* 입력한 무브 타입 방식으로 이동을 수행합니다. */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
 	void MoveAround(EMoveType InMoveType, float InX, float InY, float InZ, AActor const * InOrbitTarget = nullptr);
 
+
+
+	/* CurrentMoveType의 Setter 함수입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetMoveType(EMoveType InMoveType);
+
+	/* CurrentMoveType의 Getter 함수입니다 */
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+	FORCEINLINE EMoveType GetMoveType() const
+	{
+		return CurrentMoveType;
+	}
+
+
+
 private:
-	
-	// 절대 좌표 기준으로 폰의 이동을 수행합니다.
+	/* 절대 좌표 기준으로 폰의 이동을 수행합니다. */
 	UFUNCTION()
 	void MoveAbsoluteAxis(float InX, float InY, float InZ);
 
@@ -94,35 +103,41 @@ private:
 
 	
 
+
 private:
 	// 플레이어 콜리전
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Director", meta= ( AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Core|Player", meta= ( AllowPrivateAccess = "true"))
 	class UCapsuleComponent * RootCollision;
 
 	// 플레이어 VR 루트 트랜스폼
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* VRRootTransform;
 
 	// 플레이어 VR 카메라
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* VRCamera;
 
 	// 플레이어 모션 컨트롤러
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UMotionControllerComponent* MotionController;
 
 	// 플레이어 모션 컨트롤러 위젯
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UWidgetComponent* MCWidget;
 	
 	// 플레이어 이동 컴포넌트
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UFloatingPawnMovement* FloatingPawnMovement;
 
+
+
 	// 플레이어의 현재 이동 타입
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (Bitmask, AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,	Category = "Core|Player", meta = (Bitmask, AllowPrivateAccess = "true"),
+				BlueprintSetter=SetMoveType, BlueprintGetter=GetMoveType)
 	EMoveType CurrentMoveType;
 	
-	UPROPERTY()
+	/* 고정 이동 시 고정할 축 데이터입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Core|Player", meta=(AllowPrivateAccess=true))
 	FRotator FixedAxis;
+
 };
