@@ -1,31 +1,31 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Inventory/AssetInventory.h"
+#include "Inventory/ContentsInventory.h"
 
 // Sets default values
-AAssetInventory::AAssetInventory()
+AContentsInventory::AContentsInventory()
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
-void AAssetInventory::BeginPlay()
+void AContentsInventory::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 // Called every frame
-void AAssetInventory::Tick(float DeltaTime)
+void AContentsInventory::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void AAssetInventory::SetObjectType(TSubclassOf<UObject> InObjectType)
+void AContentsInventory::SetObjectType(TSubclassOf<UObject> InObjectType)
 {
 	ObjectType = InObjectType;
 }
 
-bool AAssetInventory::GetAssetInfoAtIndex(int32 Index, FAssetData& OutAssetData)
+bool AContentsInventory::GetAssetInfoAtIndex(int32 Index, struct FAssetData& OutAssetData)
 {
 	if (Slots.IsValidIndex(Index))
 	{
@@ -35,7 +35,7 @@ bool AAssetInventory::GetAssetInfoAtIndex(int32 Index, FAssetData& OutAssetData)
 	return false;
 }
 
-bool AAssetInventory::InsertAsset(FAssetData NewAssetData)
+bool AContentsInventory::InsertAsset(struct FAssetData NewAssetData)
 {
 	if (NewAssetData != nullptr)
 	{
@@ -45,7 +45,7 @@ bool AAssetInventory::InsertAsset(FAssetData NewAssetData)
 	return false;
 }
 
-void AAssetInventory::SetSlots(TArray<FAssetData> NewSlots)
+void AContentsInventory::SetSlots(TArray<struct FAssetData> NewSlots)
 {
 	Slots = NewSlots;
 }

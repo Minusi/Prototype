@@ -23,7 +23,7 @@ enum class EBoolean : uint8;
 #endif
 #define UEPROTOTYPE_MinusiFrameworkLibrary_generated_h
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_RPC_WRAPPERS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_RPC_WRAPPERS \
  \
 	DECLARE_FUNCTION(execGetAssetDataByObjectType) \
 	{ \
@@ -209,7 +209,7 @@ enum class EBoolean : uint8;
 	}
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_RPC_WRAPPERS_NO_PURE_DECLS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execGetAssetDataByObjectType) \
 	{ \
@@ -395,7 +395,7 @@ enum class EBoolean : uint8;
 	}
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_INCLASS_NO_PURE_DECLS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMinusiFrameworkLibrary(); \
 	friend struct Z_Construct_UClass_UMinusiFrameworkLibrary_Statics; \
@@ -404,7 +404,7 @@ public: \
 	DECLARE_SERIALIZER(UMinusiFrameworkLibrary)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_INCLASS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_INCLASS \
 private: \
 	static void StaticRegisterNativesUMinusiFrameworkLibrary(); \
 	friend struct Z_Construct_UClass_UMinusiFrameworkLibrary_Statics; \
@@ -413,7 +413,7 @@ public: \
 	DECLARE_SERIALIZER(UMinusiFrameworkLibrary)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_STANDARD_CONSTRUCTORS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMinusiFrameworkLibrary(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMinusiFrameworkLibrary) \
@@ -426,7 +426,7 @@ private: \
 public:
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_ENHANCED_CONSTRUCTORS \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UMinusiFrameworkLibrary(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -439,26 +439,26 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UMinusiFrameworkLibrary); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UMinusiFrameworkLibrary)
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_PRIVATE_PROPERTY_OFFSET
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_47_PROLOG
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_GENERATED_BODY_LEGACY \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_PRIVATE_PROPERTY_OFFSET
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_28_PROLOG
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_RPC_WRAPPERS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_INCLASS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_STANDARD_CONSTRUCTORS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_RPC_WRAPPERS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_INCLASS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_GENERATED_BODY \
+#define UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_PRIVATE_PROPERTY_OFFSET \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_RPC_WRAPPERS_NO_PURE_DECLS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_INCLASS_NO_PURE_DECLS \
-	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_50_ENHANCED_CONSTRUCTORS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_PRIVATE_PROPERTY_OFFSET \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_INCLASS_NO_PURE_DECLS \
+	UEPrototype_Source_UEPrototype_Public_Utility_MinusiFrameworkLibrary_h_31_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

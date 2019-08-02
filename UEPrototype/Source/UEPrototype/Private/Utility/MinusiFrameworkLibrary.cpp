@@ -3,7 +3,8 @@
 #include "MinusiFrameworkLibrary.h"
 #include "UEPrototype.h"
 #include "EngineUtils.h"
-#include "Runtime/ImageWrapper/Public/IImageWrapper.h"
+#include "AssetRegistry/Public/IAssetRegistry.h"
+#include "AssetRegistry/Public/AssetRegistryModule.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -148,7 +149,6 @@ TArray<AActor*> UMinusiFrameworkLibrary::GetSpecificAllActorWithTag(const UObjec
 	return SpecificActors;
 }
 
-
 void UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(FVector2D A, FVector2D B, float& Angle)
 {
 	A.Normalize(); B.Normalize();
@@ -163,7 +163,6 @@ float UMinusiFrameworkLibrary::DistanceRatioByOneDimensionalFunction(AActor* Sta
 	}
 	return 1;
 }
-
 
 
 FTransform UMinusiFrameworkLibrary::GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation)
@@ -191,8 +190,7 @@ void UMinusiFrameworkLibrary::Snap(float Delta, float SnapInterval, bool& bCanSn
 	else
 		SnappedDelta = Delta;
 }
-// 원점과 방향을 화면상에 각각 사영시켜 원점에서 부터의 단위 방향 벡터를 구함
-void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D &ProjectedUnitDirectionToScreen)
+void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(class APlayerController* PC, FVector InDirection, FVector2D &ProjectedUnitDirectionToScreen)
 {
 	FVector2D OriginVector;
 	if (PC != nullptr)
@@ -204,108 +202,18 @@ void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerCon
 	}
 }
 
-
-TArray<FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType)
+TArray<struct FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType)
 {
 	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
-	TArray<FAssetData> NewAssetData;
+	TArray<struct FAssetData> NewAssetData;
 
 	FString ClassName = ObjectType->GetName();
 	TArray< FStringFormatArg > args;
 	args.Add(FStringFormatArg(ClassName));
 
 	UE_LOG(LogTemp, Warning, TEXT("%s 타입의 Asset Data 찾는중..."), *FString::Format(TEXT("Name = {0}"), args));
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT("ClassName : %d"), ));
-
 	AssetRegistryModule.Get().GetAssetsByClass(*ClassName, NewAssetData);
 	if (!NewAssetData.IsValidIndex(0))
 		UE_LOG(LogTemp, Warning, TEXT("%s 타입의 에셋이 하나도 없습니다"), *FString::Format(TEXT("Name = {0}"), args));
 	return NewAssetData;
 }
-//
-//bool UMinusiFrameworkLibrary::GetThumbnail(UObject* Object, UTexture2D*& OutTexture)
-//{
-//	FObjectThumbnail Thumbnail;
-//	ThumbnailTools::RenderThumbnail(Object, 128, 128, ThumbnailTools::EThumbnailTextureFlushMode::AlwaysFlush, NULL, &Thumbnail);
-//
-//	IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
-//	TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
-//	// Note: PNG format.  Other formats are supported
-//
-//	TArray<uint8>& Raw = Thumbnail.AccessImageData();
-//	ImageWrapper->SetRaw(Raw.GetData(), Raw.Num(), Thumbnail.GetImageWidth(), Thumbnail.GetImageHeight(), ERGBFormat::BGRA, 8);
-//	//Thumbnail.
-//	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(Raw.GetData(), Raw.Num()))
-//	{
-//		const TArray<uint8>* UncompressedBGRA = NULL;
-//		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
-//		{
-//			OutTexture = UTexture2D::CreateTransient(ImageWrapper->GetWidth(), ImageWrapper->GetHeight(), PF_B8G8R8A8);
-//			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(Raw.Num()));
-//			//oh yes, you need copy the loaded data onto texture:
-//			//mytex->MipGenSettings = TMGS_NoMipmaps;
-//			void* TextureData = OutTexture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-//			FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
-//			OutTexture->PlatformData->Mips[0].BulkData.Unlock();
-//
-//			// Update the rendering resource from data.
-//			OutTexture->UpdateResource();
-//			return true;
-//		}
-//	}
-//	return false;
-//
-//	//Form.AddField("thumb", ImageWrapper->GetCompressed(100));
-//	/*FThumbnailMap ThumbnailMap;
-//	UPackage* Package = LoadPackage(nullptr, *PackageName, 0);
-//
-//	if (Package->HasThumbnailMap())
-//		ThumbnailMap = Package->AccessThumbnailMap();
-//
-//	return ThumbnailMap;*/
-//}
-
-//
-//bool UMinusiFrameworkLibrary::GetListOfBlueprintInPath(FName Path, TArray<UClass*>& Result, UClass* Class)
-//{
-//	UObjectLibrary* Library = UObjectLibrary::CreateLibrary(Class, true, GIsEditor);
-//	int32 NumOfAssetDatas = Library->LoadBlueprintAssetDataFromPath(Path.ToString());
-//
-//	if (NumOfAssetDatas == 0)
-//		return false;
-//
-//	TArray<FAssetData> Assets;
-//	Library->GetAssetDataList(Assets);
-//
-//	for (auto &Asset : Assets)
-//	{
-//		UBlueprint* bp = Cast<UBlueprint>(Asset.GetAsset());
-//		if (bp)
-//		{
-//			auto gc = bp->GeneratedClass;
-//			if (gc)
-//			{
-//				Result.Add(gc);
-//			}
-//		}
-//		else
-//		{
-//			auto GeneratedClassName = (Asset.AssetName.ToString() + "_C");
-//
-//			UClass* Clazz = FindObject<UClass>(Asset.GetPackage(), *GeneratedClassName);
-//			if (Clazz)
-//			{
-//				Result.Add(Clazz);
-//			}
-//			else
-//			{
-//				UObjectRedirector* RenamedClassRedirector = FindObject<UObjectRedirector>(Asset.GetPackage(), *GeneratedClassName);
-//				if (RenamedClassRedirector)
-//				{
-//					Result.Add(CastChecked<UClass>(RenamedClassRedirector->DestinationObject));
-//				}
-//			}
-//		}
-//	}
-//	return true;
-//}

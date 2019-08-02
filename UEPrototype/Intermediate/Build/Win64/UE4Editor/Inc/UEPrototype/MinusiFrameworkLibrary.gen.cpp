@@ -164,6 +164,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Math" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+		{ "ToolTip", "\xeb\x91\x90 \xec\x97\x91\xed\x84\xb0\xea\xb0\x84\xec\x9d\x98 \xea\xb1\xb0\xeb\xa6\xac\xeb\xa5\xbc \xec\x9d\xbc\xec\xb0\xa8\xec\x9b\x90 \xed\x95\xa8\xec\x88\x98\xec\x9d\x98 \xeb\xb3\x80\xec\x88\x98\xeb\xa1\x9c \xeb\x84\xa3\xec\x96\xb4 \xeb\xb0\x98\xed\x99\x98" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "DistanceRatioByOneDimensionalFunction", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14022401, sizeof(MinusiFrameworkLibrary_eventDistanceRatioByOneDimensionalFunction_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction_Statics::Function_MetaDataParams)) };
@@ -205,6 +206,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Math" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+		{ "ToolTip", "\xec\x99\xb8\xec\xa0\x81\xec\x9d\x84 \xec\x82\xac\xec\x9a\xa9\xed\x95\x98\xec\x97\xac \xeb\x91\x90 \xeb\xb0\xb1\xed\x84\xb0 \xec\x82\xac\xec\x9d\xb4\xec\x9d\x98 \xea\xb0\x81\xeb\x8f\x84\xeb\xa5\xbc \xea\xb5\xac\xed\x95\xa8" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "GetAngleBetweenTwoVector", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventGetAngleBetweenTwoVector_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector_Statics::Function_MetaDataParams)) };
@@ -245,6 +247,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Loader" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+		{ "ToolTip", "\xec\x98\xa4\xeb\xb8\x8c\xec\xa0\x9d\xed\x8a\xb8 \xed\x83\x80\xec\x9e\x85\xec\x9c\xbc\xeb\xa1\x9c \xeb\xa3\xa8\xed\x8a\xb8\xec\x97\x90\xec\x84\x9c \xeb\xb6\x80\xed\x84\xb0 \xec\x97\x90\xec\x85\x8b \xeb\x8d\xb0\xec\x9d\xb4\xed\x84\xb0\xeb\xa5\xbc \xec\xa1\xb0\xec\x82\xac\xed\x95\x98\xec\x97\xac \xeb\xb0\x98\xed\x99\x98" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "GetAssetDataByObjectType", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14022401, sizeof(MinusiFrameworkLibrary_eventGetAssetDataByObjectType_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType_Statics::Function_MetaDataParams)) };
@@ -412,6 +415,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Trace" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+		{ "ToolTip", "\xeb\x9d\xbc\xec\x9d\xb8 \xed\x8a\xb8\xeb\xa0\x88\xec\x9d\xb4\xec\x8a\xa4\xec\x9d\x98 \xea\xb2\xb0\xea\xb3\xbc\xea\xb0\x92\xec\x9c\xbc\xeb\xa1\x9c \xeb\xa7\x9e\xec\x9d\x80 \xeb\xac\xbc\xec\xb2\xb4\xec\x99\x80 \xed\x8a\xb9\xec\xa0\x95 \xec\x9c\x84\xec\xb9\x98\xea\xb9\x8c\xec\xa7\x80\xec\x9d\x98 \xed\x8a\xb8\xeb\x9e\x9c\xec\x8a\xa4\xed\x8f\xbc(\xec\x9c\x84\xec\xb9\x98, \xea\xb0\x81\xeb\x8f\x84) \xeb\xb0\x98\xed\x99\x98" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "GetTransformToTraceHitResult", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14822401, sizeof(MinusiFrameworkLibrary_eventGetTransformToTraceHitResult_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult_Statics::Function_MetaDataParams)) };
@@ -840,6 +844,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Math" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+		{ "ToolTip", "\xec\x9b\x90\xec\xa0\x90\xea\xb3\xbc \xeb\xb0\xa9\xed\x96\xa5\xec\x9d\x84 \xed\x99\x94\xeb\xa9\xb4\xec\x83\x81\xec\x97\x90 \xea\xb0\x81\xea\xb0\x81 \xec\x82\xac\xec\x98\x81\xec\x8b\x9c\xec\xbc\x9c \xec\x9b\x90\xec\xa0\x90\xec\x97\x90\xec\x84\x9c \xeb\xb6\x80\xed\x84\xb0\xec\x9d\x98 \xeb\x8b\xa8\xec\x9c\x84 \xeb\xb0\xa9\xed\x96\xa5 \xeb\xb2\xa1\xed\x84\xb0\xeb\xa5\xbc \xea\xb5\xac\xed\x95\xa8" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "ProjectWorldDirectionToScreenFromOrigin", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14C22401, sizeof(MinusiFrameworkLibrary_eventProjectWorldDirectionToScreenFromOrigin_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin_Statics::Function_MetaDataParams)) };
@@ -1058,6 +1063,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Minusi|Math" },
 		{ "ModuleRelativePath", "Public/Utility/MinusiFrameworkLibrary.h" },
+		{ "ToolTip", "\xec\x8a\xa4\xeb\x83\x85 \xea\xb0\x84\xea\xb2\xa9\xec\x9d\x84 \xea\xb8\xb0\xec\xa4\x80\xec\x9c\xbc\xeb\xa1\x9c \xec\x8a\xa4\xeb\x83\x85 \xea\xb0\x80\xeb\x8a\xa5 \xec\x97\xac\xeb\xb6\x80, \xec\x8a\xa4\xeb\x83\x85 \xeb\xb9\x84\xec\x9c\xa8 \xeb\xb0\x98\xed\x99\x98" },
 	};
 #endif
 	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMinusiFrameworkLibrary, "Snap", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x14422401, sizeof(MinusiFrameworkLibrary_eventSnap_Parms), Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::PropPointers, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::PropPointers), 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::Function_MetaDataParams, ARRAY_COUNT(Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap_Statics::Function_MetaDataParams)) };
@@ -1089,23 +1095,23 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_UEPrototype,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UMinusiFrameworkLibrary_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction, "DistanceRatioByOneDimensionalFunction" }, // 88046756
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector, "GetAngleBetweenTwoVector" }, // 1732538104
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType, "GetAssetDataByObjectType" }, // 1875036176
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_DistanceRatioByOneDimensionalFunction, "DistanceRatioByOneDimensionalFunction" }, // 689601958
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAngleBetweenTwoVector, "GetAngleBetweenTwoVector" }, // 3727746664
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetAssetDataByObjectType, "GetAssetDataByObjectType" }, // 982509360
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificAllActorWithTag, "GetSpecificAllActorWithTag" }, // 2845932865
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetSpecificFirstActorWithTag, "GetSpecificFirstActorWithTag" }, // 3739611449
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult, "GetTransformToTraceHitResult" }, // 3203618619
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_GetTransformToTraceHitResult, "GetTransformToTraceHitResult" }, // 3635001332
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofActor, "IsTypeofActor" }, // 2100958895
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofActor_Exec, "IsTypeofActor_Exec" }, // 3477991090
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofClass, "IsTypeofClass" }, // 3221798006
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofClass_Exec, "IsTypeofClass_Exec" }, // 2844146777
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofObject, "IsTypeofObject" }, // 3731516030
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_IsTypeofObject_Exec, "IsTypeofObject_Exec" }, // 3402968250
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin, "ProjectWorldDirectionToScreenFromOrigin" }, // 1927868627
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ProjectWorldDirectionToScreenFromOrigin, "ProjectWorldDirectionToScreenFromOrigin" }, // 424725547
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLog, "ScreenLog" }, // 752282461
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenLongLog, "ScreenLongLog" }, // 3864539865
 		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_ScreenShortLog, "ScreenShortLog" }, // 3192756805
-		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap, "Snap" }, // 3409830254
+		{ &Z_Construct_UFunction_UMinusiFrameworkLibrary_Snap, "Snap" }, // 1246988991
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMinusiFrameworkLibrary_Statics::Class_MetaDataParams[] = {
@@ -1138,7 +1144,7 @@ void EmptyLinkFunctionForGeneratedCodeMinusiFrameworkLibrary() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 2164637635);
+	IMPLEMENT_CLASS(UMinusiFrameworkLibrary, 2725195929);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_UMinusiFrameworkLibrary(Z_Construct_UClass_UMinusiFrameworkLibrary, &UMinusiFrameworkLibrary::StaticClass, TEXT("/Script/UEPrototype"), TEXT("UMinusiFrameworkLibrary"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UMinusiFrameworkLibrary);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
