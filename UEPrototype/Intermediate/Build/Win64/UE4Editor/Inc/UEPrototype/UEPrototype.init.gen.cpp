@@ -11,8 +11,6 @@
 #endif
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeUEPrototype_init() {}
-	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature();
-	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature();
 	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_ModuleEndInitEventDispatcher__DelegateSignature();
 	UEPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_UEPrototype_EventToRegister__DelegateSignature();
 	UPackage* Z_Construct_UPackage__Script_UEPrototype()
@@ -21,8 +19,6 @@ void EmptyLinkFunctionForGeneratedCodeUEPrototype_init() {}
 		if (!ReturnPackage)
 		{
 			static UObject* (*const SingletonFuncArray[])() = {
-				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_InitEventDispatcher__DelegateSignature,
-				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_ReferenceDelegate__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_ModuleEndInitEventDispatcher__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_UEPrototype_EventToRegister__DelegateSignature,
 			};
