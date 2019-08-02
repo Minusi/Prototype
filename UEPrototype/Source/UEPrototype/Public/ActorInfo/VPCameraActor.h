@@ -119,7 +119,7 @@ private:
 	UFUNCTION(BlueprintCallable, Category = "VPCameraActor")
 	APlayerCameraManager* GetPlayerCameraMgr() const;
 
-	// 플레어이 카메라에 대한 레퍼런스
+	// 플레이어 카메라에 대한 레퍼런스
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPCameraActor", meta = (AllowPrivateAccess = "true"))
 	APlayerCameraManager* PlayerCameraMgr;
 

@@ -10,9 +10,9 @@ void AVPEmitter::InitEmitter(UParticleSystem* ParticleSystem, FTransform Transfo
 	if (ParticleSystem == nullptr) return;
 
 	//캐싱
-	CashedParticleSystem = GetParticleSystemComponent();
+	CachedParticleSystem = GetParticleSystemComponent();
 	//Emitter Actor에 장착될 ParticleSystem
-	CashedParticleSystem->Template = ParticleSystem;
+	CachedParticleSystem->Template = ParticleSystem;
 	
 	//파티클 액터가 다른 액터의 자식일 떄 상대적인 Transform을 적용
 	if (Parent != nullptr)
@@ -40,19 +40,19 @@ void AVPEmitter::SettingEmitter(const FEmitterParam EmitterParam, const FTransfo
 	//ParamMode를 DPM Direct로 바꾸고 vector의 값을 파티클이 가질 수 있는 최대값으로 설정해라.
 	//파티클 파라미터 설정
 	{
-		CashedParticleSystem->SetVectorParameter("InitParticleSize", EmitterParam.InitParticleSize);
-		CashedParticleSystem->SetFloatParameter("Lifetime", EmitterParam.Lifetime);
-		CashedParticleSystem->SetFloatParameter("SpawnRate", EmitterParam.SpawnRate);
-		CashedParticleSystem->SetFloatParameter("SpawnRateScale", EmitterParam.SpawnRateScale);
-		CashedParticleSystem->SetColorParameter("Color", EmitterParam.Color);
-		CashedParticleSystem->SetFloatParameter("Alpah", EmitterParam.Alpah);
+		CachedParticleSystem->SetVectorParameter("InitParticleSize", EmitterParam.InitParticleSize);
+		CachedParticleSystem->SetFloatParameter("Lifetime", EmitterParam.Lifetime);
+		CachedParticleSystem->SetFloatParameter("SpawnRate", EmitterParam.SpawnRate);
+		CachedParticleSystem->SetFloatParameter("SpawnRateScale", EmitterParam.SpawnRateScale);
+		CachedParticleSystem->SetColorParameter("Color", EmitterParam.Color);
+		CachedParticleSystem->SetFloatParameter("Alpah", EmitterParam.Alpah);
 	}
 	
 	//이미터에 대한 상대적인 Trasnform 설정. 나중에 기즈모로 의해 조정되어야함.
-	CashedParticleSystem->SetRelativeTransform(RelativeTrasnform);
+	CachedParticleSystem->SetRelativeTransform(RelativeTrasnform);
 	
 	//파티클이 무한정 생성되는게아니라 일정 주기의 딜레이를 가지고 생성됩니다.
-	CashedParticleSystem->EmitterDelay = EmitterParam.EmitterDelay;
+	CachedParticleSystem->EmitterDelay = EmitterParam.EmitterDelay;
 }
 
 

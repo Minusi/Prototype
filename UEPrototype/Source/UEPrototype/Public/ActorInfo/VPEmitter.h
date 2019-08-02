@@ -52,14 +52,14 @@ public:
 
 	//파티클시스템 컴포넌트 캐싱
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
-	UParticleSystemComponent* GetCashedParticleSystem()const { return CashedParticleSystem; }
+	UParticleSystemComponent* GetCachedParticleSystem()const { return CachedParticleSystem; }
 
 	
 	
 	
 private:
 	UPROPERTY()
-	UParticleSystemComponent* CashedParticleSystem;
+	UParticleSystemComponent* CachedParticleSystem;
 
 	const FString EmitterLableName = "VPEmitter";
 };
