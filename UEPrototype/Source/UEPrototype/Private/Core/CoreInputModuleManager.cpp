@@ -11,6 +11,7 @@
 
 UCoreInputModuleManager::UCoreInputModuleManager()
 {
+	// DEBUG
 	VP_CTOR;
 
 	bInitialized = false;
