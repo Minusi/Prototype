@@ -19,8 +19,8 @@ bool UVPFrameworkLibrary::IsValidSingletonCDO(UObject* Target)
 	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
 	{
 		/* OuterChain에 AEditorWorldManager가 있으면서 아키타입이 아닐 때 참을 반환합니다. */
-		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass()
-			&& ((OuterChain->GetFlags() | EObjectFlags::RF_ArchetypeObject) == false))
+		if ((OuterChain->GetClass() == AEditorWorldManager::StaticClass())
+			&& ((OuterChain->HasAnyFlags(EObjectFlags::RF_ArchetypeObject) == false)))
 		{
 			return true;
 		}

@@ -4,6 +4,7 @@
 #include "Command/CommandQueue.h"
 #include "Command/CommandConstraintManager.h"
 #include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
 #include "UObjectIterator.h"
 #include "EditorWorldManager.h"
 
@@ -15,9 +16,8 @@ UCommandModuleManager::UCommandModuleManager()
 	VP_CTOR;
 
 	bInitialized = false;
-	/* 월드 컨텍스트를 포함하지 않는 CDO는 프레임워크에서 필요로 하지 않는 CDO이므로,
-	더이상의 초기화를 수행하지 않습니다 */
-	if (ContainWorldContextCDO() == false)
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
 	{
 		return;
 	}
@@ -29,28 +29,12 @@ UCommandModuleManager::UCommandModuleManager()
 
 
 	// DEBUG
-	VP_LOG(Log, TEXT("Core|Input 모듈 초기화완료"));
+	VP_LOG(Warning, TEXT("[DEBUG] Command 모듈 초기화완료"));
 	bInitialized = true;
 	ModuleEndInitEventDispatcher.Broadcast();
 }
 
 
-
-bool UCommandModuleManager::ContainWorldContextCDO()
-{
-	/* OuterChain을 거슬러 올라가면서, AEditorWorldManager가 있는지 탐색합니다 */
-	UObject* OuterChain = this;
-	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
-	{
-		/* OuterChain에 AEditorWorldManager가 있으면 참을 반환합니다. */
-		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass())
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
 
 
 
@@ -87,7 +71,7 @@ UCommandModuleManager * UCommandModuleManager::GetGlobalCommandModuleManager()
 {
 	for (const auto& it : TObjectRange<UCommandModuleManager>())
 	{
-		if (it->ContainWorldContextCDO())
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
 		{
 			return it;
 		}

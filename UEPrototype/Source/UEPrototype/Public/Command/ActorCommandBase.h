@@ -24,9 +24,9 @@ class UEPROTOTYPE_API UActorCommandBase : public UCommandBase
 	GENERATED_BODY()
 	
 public:
-	///* 액터 커맨드를 주어진 인자로부터 초기화합니다 */
-	//UFUNCTION(BlueprintCallable, Category="Command")
-	//virtual void InitActorCommand(FActorConstraintInfo Target);
+	/* 액터 커맨드를 주어진 인자로부터 초기화합니다 */
+	UFUNCTION(BlueprintCallable, Category="Command")
+	virtual void InitActorCommand(FActorConstraintInfo TargetInfo);
 	
 
 
@@ -37,8 +37,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Command", meta=(AllowPrivateAccess=true))
 	AActor * TargetActor;
 
-	/* 해당 명령을 실행하는 데 가해지는 제약 조건입니다 */
-	// TODO : 제약 조건은 클래스당 1개 씩 있어야 하므로, 싱글톤-LIKE로 변환해야함.
+	/* 해당 명령을 실행하는 데 가해지는 제약 조건입니다. 이 제약 조건 중 하나라도
+	만족하면 됩니다. */
 	UPROPERTY(BlueprintReadOnly, Category="Command", meta=(AllowPrivateAccess=true))
 	TArray<TScriptInterface<IActorCmdConstraint>> Constraints;
 };

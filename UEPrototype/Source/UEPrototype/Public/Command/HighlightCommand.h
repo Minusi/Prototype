@@ -26,9 +26,11 @@ public:
 	/* 생성자 */
 	UHighlightCommand();
 
-	/* UActorCommandBase로부터 상속됨 */
+	/* UCommandBase로부터 상속됨 */
 	virtual void ExecuteIf() override;
 	
+	/* UActorCommandBase로부터 상속됨 */
+	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 
 private:
@@ -37,4 +39,11 @@ private:
 
 	/* 물체에 윤곽선을 그려줍니다 */
 	static UOutliner* Outliner;
+
+
+
+private:
+	/* 명령의 대상이 되는 타겟입니다 */
+	UPROPERTY()
+	FActorConstraintInfo Target;
 };

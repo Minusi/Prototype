@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "ActorConstraintMarker.h"
+#include "UEPrototype.h"
+#include "ActorCommandBase.h"
 #include "ActorCommandFactory.generated.h"
 
 
@@ -20,9 +22,17 @@ class UEPROTOTYPE_API UActorCommandFactory : public UObject
 	GENERATED_BODY()
 	
 public:
-	//template<typename CmdType>
-	//static CmdType* CreateCommand<CmdType>(const FActorConstraintInfo)
-	//{
-	//	
-	//}
+	/* 액터 커맨드를 생성하여 후처리한 후 반환합니다 */
+	template<typename CmdType>
+	static FORCEINLINE CmdType* CreateActorCommand(const FActorConstraintInfo Target)
+	{
+		UActorCommandBase* ActorCommand = Cast<UActorCommandBase>(NewObject<CmdType>());
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
 };

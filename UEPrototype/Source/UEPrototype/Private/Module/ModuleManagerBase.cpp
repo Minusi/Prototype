@@ -31,7 +31,6 @@ void UModuleManagerBase::RegisterIf(FEventToRegister EventToRegister)
 	}
 	
 	// DEBUG
-	VP_LOG(Log, TEXT("RegisterIf : %s, bInitialized : %d"), *GetName(), bInitialized);
 	VP_LOG(Log, TEXT("RegisterIf : %s::%s 함수가 등록 준비중입니다."), *EventToRegister.GetUObject()->GetName() , *EventToRegister.GetFunctionName().ToString());
 
 	// 이미 모듈 초기화가 끝났다면 지체없이 이벤트를 트리거 합니다.

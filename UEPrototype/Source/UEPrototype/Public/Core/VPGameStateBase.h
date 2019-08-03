@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameStateBase.h"
-#include "EditorWorldManager.h"
 #include "VPGameStateBase.generated.h"
 
 
@@ -41,6 +40,9 @@ class UEPROTOTYPE_API AVPGameStateBase : public AGameStateBase
 	GENERATED_BODY()
 	
 public:
+	/* 생성자 */
+	AVPGameStateBase();
+
 	/* 월드의 현재 상태를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category="Core|World")
 	FORCEINLINE EWorldState GetWorldState() const
@@ -73,10 +75,6 @@ private:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Core|World", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetWorldState, BlueprintSetter=SetWorldState)
 	EWorldState WorldState;
-
-	/* 월드 전체를 관리하는 매니저 캐시입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true))
-	AEditorWorldManager* EditorWorldManagerCache;
 
 	/* 월드의 상태가 변화될 때 브로드캐스트하는 이벤트 디스패처입니다 */
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category="Core|World|Delegate", meta=(AllowPrivateAccess=true))

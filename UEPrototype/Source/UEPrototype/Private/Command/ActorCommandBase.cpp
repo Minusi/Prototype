@@ -4,3 +4,7 @@
 
 
 
+void UActorCommandBase::InitActorCommand(FActorConstraintInfo TargetInfo)
+{
+	return;
+}
