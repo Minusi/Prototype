@@ -2,6 +2,7 @@
 
 #include "EditorModulesManager.h"
 #include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
 #include "UObjectIterator.h"
 #include "EditorWorldManager.h"
 #include "CoreInputModuleManager.h"
@@ -16,9 +17,8 @@ UEditorModulesManager::UEditorModulesManager()
 	VP_CTOR;
 
 	bInitialized = false;
-	/* 월드 컨텍스트를 포함하지 않는 CDO는 프레임워크에서 필요로 하지 않는 CDO이므로,
-	더이상의 초기화를 수행하지 않습니다 */
-	if (ContainWorldContextCDO() == false)
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
 	{
 		return;
 	}
@@ -29,6 +29,8 @@ UEditorModulesManager::UEditorModulesManager()
 	Initialized();
 
 	/* 모든 하위 모듈의 초기화가 완료되었음을 브로드캐스트합니다. */
+	// DEBUG
+	VP_LOG(Warning, TEXT("[DEBUG] 모든 모듈 초기화완료"));
 	bInitialized = true;
 	ModuleEndInitEventDispatcher.Broadcast();
 }
@@ -74,7 +76,7 @@ UEditorModulesManager * UEditorModulesManager::GetGlobalEditorModulesManager()
 {
 	for (const auto& it : TObjectRange<UEditorModulesManager>())
 	{
-		if (it->ContainWorldContextCDO())
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
 		{
 			return it;
 		}
@@ -83,24 +85,4 @@ UEditorModulesManager * UEditorModulesManager::GetGlobalEditorModulesManager()
 	/* 유효하지 않다면, 시스템에 결함이 있습니다 */
 	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *AEditorWorldManager::StaticClass()->GetName());
 	return nullptr;
-}
-
-
-
-
-
-bool UEditorModulesManager::ContainWorldContextCDO()
-{
-	/* OuterChain을 거슬러 올라가면서, AEditorWorldManager가 있는지 탐색합니다 */
-	UObject* OuterChain = this;
-	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
-	{
-		/* OuterChain에 AEditorWorldManager가 있으면 참을 반환합니다. */
-		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass())
-		{
-			return true;
-		}
-	}
-
-	return false;
 }

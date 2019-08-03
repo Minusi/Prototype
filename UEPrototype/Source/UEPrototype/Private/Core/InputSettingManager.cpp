@@ -2,6 +2,7 @@
 
 #include "InputSettingManager.h"
 #include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
 #include "GameFramework/InputSettings.h"
 #include "UObjectIterator.h"
 #include "EditorWorldManager.h"
@@ -16,9 +17,9 @@ UInputSettingManager::UInputSettingManager()
 {
 	// DEBUG
 	VP_CTOR;
-	/* 월드 컨텍스트를 포함하지 않는 CDO는 프레임워크에서 필요로 하지 않는 CDO이므로,
-	더이상의 초기화를 수행하지 않습니다 */
-	if (ContainWorldContextCDO() == false)
+
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
 	{
 		return;
 	}
@@ -30,7 +31,7 @@ UInputSettingManager* UInputSettingManager::GetGlobalInputSettingManager()
 {
 	for (const auto& it : TObjectRange<UInputSettingManager>())
 	{
-		if (it->ContainWorldContextCDO())
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
 		{
 			return it;
 		}
@@ -205,21 +206,3 @@ void UInputSettingManager::ChangeActionKeyMappings(FName TargetActionName, const
 	// 매핑 설정을 강제로 리빌드합니다.
 	InputSettings->ForceRebuildKeymaps();
 }
-
-bool UInputSettingManager::ContainWorldContextCDO()
-{
-	/* OuterChain을 거슬러 올라가면서, AEditorWorldManager가 있는지 탐색합니다 */
-	UObject* OuterChain = this;
-	while ((OuterChain = OuterChain->GetOuter()) != nullptr)
-	{
-		VP_LOG(Log, TEXT("Outer : %s"), *OuterChain->GetName());
-		/* OuterChain에 AEditorWorldManager가 있으면 참을 반환합니다. */
-		if (OuterChain->GetClass() == AEditorWorldManager::StaticClass())
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
- 

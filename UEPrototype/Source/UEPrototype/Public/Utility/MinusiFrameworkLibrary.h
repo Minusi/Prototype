@@ -106,6 +106,10 @@ class UEPROTOTYPE_API UMinusiFrameworkLibrary : public UBlueprintFunctionLibrary
 
 
 
-	UFUNCTION(BlueprintCallable, Category = "Minusi|Debug")
+	UFUNCTION(BlueprintCallable, Category = "Minusi|UObject")
 	static void GetInfoWithOuterChain(const UObject* Object);
+
+	/* 오브젝트 이름 및 유니크 ID, 오브젝트 플래그와 Outer를 출력합니다 */
+	UFUNCTION(BlueprintCallable, Category = "Minudi|UObject")
+	static void GetInfo(const UObject* Object);
 };

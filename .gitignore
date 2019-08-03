@@ -90,3 +90,6 @@ UEPBox/
 # Don't ignore ThirdParty library
 !UEPrototype/Build/**/ASSIMP-VC-140-mt.dll
 !UEPrototype/Build/**/ASSIMP-VC-140-mt.lib
+
+# ±ê Ãæµ¹ Á¦
+UEPrototype/Intermediate/Build/Win64/UE4Editor/Inc/UEPrototype/UEPrototype.init.gen.cpp
