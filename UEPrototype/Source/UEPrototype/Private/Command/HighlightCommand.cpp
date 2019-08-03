@@ -4,6 +4,7 @@
 #include "UEPrototype.h"
 #include "EditorModulesManager.h"
 #include "Command/CommandConstraintManager.h"
+#include "Command/CmdFocusedConstraint.h"
 #include "ActorInfo/Outliner.h"
 #include "ActorInfo/ActorConstraintMarker.h"
 
@@ -45,7 +46,19 @@ UHighlightCommand::UHighlightCommand()
 	Outliner = UOutliner::GetGlobalOutliner();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
 
-	Constraints.Add(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint());
+	UCmdFocusedConstraint* FocusedConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint();
+	if (IsValid(FocusedConstraint) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()->GetName());
+		return;
+	}
+	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(FocusedConstraint);
+	if (ConstraintInterface == nullptr)
+	{
+		VP_LOG(Warning, TEXT(";;;"));
+		return;
+	}
+	Constraints.Add(FocusedConstraint);
 
 
 
