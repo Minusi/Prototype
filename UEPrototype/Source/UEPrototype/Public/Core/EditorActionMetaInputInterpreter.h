@@ -54,17 +54,17 @@ struct FHighLevelInputData
 {
 	GENERATED_BODY()
 	
-	// 입력 매핑의 이름입니다.
+	/* 입력 매핑의 이름입니다. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FName MappingName;
 
-	// 입력 매핑에 대한 입력 메타데이터 정보입니다.
+	/* 입력 매핑에 대한 입력 메타데이터 정보입니다. */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	EInputMetadata InputMetadata;
 
 
 
-	// 생성자
+	/* 생성자 */
 	FHighLevelInputData()
 	{
 		MappingName = NAME_None;
