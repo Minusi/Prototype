@@ -2,6 +2,9 @@
 
 #include "Core/VPDirectorPawn.h"
 #include "UEPrototype.h"
+#include "UObjectIterator.h"
+#include "MinusiFrameworkLibrary.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 AVPDirectorPawn::AVPDirectorPawn()
@@ -38,6 +41,14 @@ AVPDirectorPawn::AVPDirectorPawn()
 	// EMoveType 초기화
 	CurrentMoveType = EMoveType::MT_LOCALAXIS;
 	FixedAxis = FRotator(0, 0, 0);
+
+
+
+	/* 라인트레이스 길이가 에디터에 의해 초기홛되지 않았다면 초기화합니다 */
+	if (LineTraceLength == 0)
+	{
+		LineTraceLength = 100 * 1000;
+	}
 }
 
 
@@ -47,7 +58,58 @@ void AVPDirectorPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// DEBUG : 월드의 고유성 및 객체의 고유성 확인
+	for (const auto& it : TObjectRange<AVPDirectorPawn>())
+	{
+		UMinusiFrameworkLibrary::GetInfoWithOuterChain(it);
+	}
 }
+
+
+
+
+
+void AVPDirectorPawn::Tick(float DeltaTime)
+{
+	Focus(DeltaTime);
+}
+
+
+
+void AVPDirectorPawn::Focus(float DeltaTime)
+{
+	FHitResult OutHit;
+
+	FVector Start = VRCamera->GetComponentLocation();
+	FVector Forward = VRCamera->GetForwardVector();
+	FVector End = (Start + (Forward * LineTraceLength));
+
+	FCollisionQueryParams CollisionQueryParams;
+
+	// DEBUG : 라인트레이스 라인을 그립니다.
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false);
+
+
+	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility,
+		CollisionQueryParams);
+	if (HitResult == true)
+	{
+		if (OutHit.bBlockingHit)
+		{
+			// DEBUG : 엔진의 디스플레이에 로그를 남깁니다.
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
+				GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Red, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
+				GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Red, FString::Printf(TEXT("Hit Normal : %s"), *OutHit.ImpactNormal.ToString()));
+			}
+		}
+	}
+
+	/* 라인트레이스 결과를 브로드캐스트합니다 */
+	UserFocusEventDispatcher.Broadcast(OutHit.Actor.Get(), DeltaTime);
+}
+
 
 
 
@@ -91,11 +153,67 @@ void AVPDirectorPawn::MoveAround(EMoveType InMoveType, float InX, float InY, flo
 
 
 
+void AVPDirectorPawn::LookSide(float Value)
+{
+	AddControllerYawInput(Value);
+}
+
+
+
+void AVPDirectorPawn::LookUpSide(float Value)
+{
+	AddControllerPitchInput(Value);
+}
+
+
+
 
 
 void AVPDirectorPawn::SetMoveType(EMoveType InMoveType)
 {
 	CurrentMoveType = InMoveType;
+}
+
+
+
+void AVPDirectorPawn::SetYawRotSpeed(float InYawRotSpeed)
+{
+	if (InYawRotSpeed > 0.f)
+	{
+		YawRotSpeed = InYawRotSpeed;
+	}
+	else
+	{
+		YawRotSpeed = 1.f;
+	}
+}
+
+
+
+void AVPDirectorPawn::SetPitchRotSpeed(float InPitchRotSpeed)
+{
+	if (InPitchRotSpeed > 0.f)
+	{
+		PitchRotSpeed = InPitchRotSpeed;
+	}
+	else
+	{
+		PitchRotSpeed = 1.f;
+	}
+}
+
+
+
+void AVPDirectorPawn::SetLineTraceLength(float InLength)
+{
+	if (InLength > 0)
+	{
+		LineTraceLength = InLength;
+	}
+	else
+	{
+		LineTraceLength  = 100 * 1000;
+	}
 }
 
 
@@ -163,3 +281,8 @@ void AVPDirectorPawn::MoveOrbitAxis(float InX, float InY, float InZ, AActor cons
 
 	FVector TargetLocation = InOrbitTarget->GetActorLocation();
 }
+
+
+
+
+

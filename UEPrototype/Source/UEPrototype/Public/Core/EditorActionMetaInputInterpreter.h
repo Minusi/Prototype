@@ -20,28 +20,28 @@ class UInputSettings;
  * 없는 문제가 있습니다. 이 열거형 클래스는 메타데이터 입력을 지원하기
  * 위해 만들어졌습니다.
  */
-UENUM()
+UENUM(BlueprintType)
 enum class EInputMetadata : uint8
 {
 	/* 유효하지 않거나 초기화되지 않은 상태 */
-	META_None,
+	META_None		UMETA(DisplayName="None"),
 	/* 유휴 입력 */
-	META_Idle,
-	/* 포커스 */
-	META_Focus,
-	/* 하이라이트 */
-	META_Highlight,
+	META_Idle		UMETA(DisplayName="Idle"),
 	/* 특정 입력이 Pressed 후 Released까지 짧은 시간 상태 */
-	META_Trigger,
+	META_Trigger	UMETA(DisplayName = "Trigger"),
 	/* 특정 입력이 Pressed 후 Released까지 중간 시간 상태 */
-	META_Click,
+	META_Click		UMETA(DisplayName = "Click"),
 	/* 특정 입력의 Pressed 후 Released까지 긴 시간 상태 */
-	META_Charging,
+	META_Charging	UMETA(DisplayName = "Charging"),
 	/* 특정 2차원 입력이 Pressed되지 않은 채로 변동되는 상태 */
- 	META_Tracking,
+ 	META_Tracking	UMETA(DisplayName = "Tracking"),
 	/* 특정 2차원 입력이 Pressed된 채로 변동되는 상태 */
-	META_Drag
+	META_Drag		UMETA(DisplayName = "Drag")
 };
+
+
+
+
 
 /*
  * FHighLevelInputData는 특정 매핑과 매핑에 대한 입력 메타데이터 정보를
@@ -49,28 +49,33 @@ enum class EInputMetadata : uint8
  * 의 입력 프레임워크에서 중요한 데이터 중 하나입니다. 이 데이터는 인터프리터
  * 에 의해 가공되어, 도구의 입력으로 들어가게 됩니다..
  */
-USTRUCT(Blueprintable)
+USTRUCT(BlueprintType)
 struct FHighLevelInputData
 {
 	GENERATED_BODY()
 	
-	// 입력 매핑의 이름입니다.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FName MappingName;
-
-	// 입력 매핑에 대한 입력 메타데이터 정보입니다.
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	EInputMetadata InputMetadata;
-
-
-
-	// 생성자
+public:
+	/* 생성자 */
 	FHighLevelInputData()
 	{
 		MappingName = NAME_None;
 		InputMetadata = EInputMetadata::META_None;
 	}
+
+
+
+
+public:
+	/* 입력 매핑의 이름입니다. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FName MappingName;
+
+	/* 입력 매핑에 대한 입력 메타데이터 정보입니다. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	EInputMetadata InputMetadata;
 };
+
+
 
 
 

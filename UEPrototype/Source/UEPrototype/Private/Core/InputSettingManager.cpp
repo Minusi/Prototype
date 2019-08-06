@@ -69,7 +69,8 @@ void UInputSettingManager::AddActionMappings(FName NewActionName, const TArray<F
 		InputSettings->AddActionMapping(it,false);
 	}
 
-	// DEBUG
+	// DEBUG : 잘못된 싱글톤 CDO 프레임워크가 있는지 확인할 수 있는 가장
+	// 우수한 디버깅 코드입니다.
 	TArray<UObject*> sa = ActionAddedEventDispatcher.GetAllObjects();
 	for (const auto& it : sa)
 	{
