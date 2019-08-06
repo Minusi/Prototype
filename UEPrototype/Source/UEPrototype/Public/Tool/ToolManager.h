@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Containers/Set.h"
 #include "Core/EditorActionMetaInputInterpreter.h"
+#include "Core/EditorFocusMetaInputInterpreter.h"
 #include "ToolManager.generated.h"
 
 
@@ -81,8 +82,13 @@ private:
 	
 
 public:
+	/* 장착중인 도구들에게 입력 정보를 브로드캐스트합니다 */
 	UFUNCTION(BlueprintCallable, Category="Tool")
 	void BroadcastInput(FHighLevelInputData Input);
+
+	/* 장착중인 도구들에게 포커스 정보를 브로드캐스트합니다 */
+	UFUNCTION(BlueprintCallable, Category="Tool")
+	void BroadcastFocus(FHighLevelFocusData Input);
 
 
 

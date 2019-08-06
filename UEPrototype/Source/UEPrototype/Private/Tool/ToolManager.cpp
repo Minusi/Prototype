@@ -7,6 +7,7 @@
 #include "Tool/ToolModuleManager.h"
 #include "Tool/ToolKit.h"
 #include "Tool/ToolBase.h"
+#include "Tool/SightToolBase.h"
 
 
 
@@ -111,7 +112,7 @@ bool UToolManager::IsUsedTool(UToolBase * Tool)
 	{
 		return true;
 	}
-
+		
 	return false;
 }
 
@@ -141,5 +142,22 @@ void UToolManager::BroadcastInput(FHighLevelInputData Input)
 	for (auto& it : EquippedTools)
 	{
 		it->HandleInput(Input);
+	}
+}
+
+
+
+void UToolManager::BroadcastFocus(FHighLevelFocusData Focus)
+{
+	USightToolBase* SightTool;
+
+	/* 포커스를 브로드캐스트합니다 */
+	for (auto& it : EquippedTools)
+	{
+		SightTool = Cast<USightToolBase>(it);
+		if (IsValid(SightTool) == true)
+		{
+			SightTool->HandleFocus(Focus);
+		}
 	}
 }

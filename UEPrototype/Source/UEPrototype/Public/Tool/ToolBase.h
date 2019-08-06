@@ -4,17 +4,45 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "Containers/Array.h"
+#include "Containers/Map.h"
 #include "Core/EditorActionMetaInputInterpreter.h"
-#include "Math/Vector4.h"
+#include "Core/EditorFocusMetaInputInterpreter.h"
+#include "Command/CommandBase.h"
 #include "ToolBase.generated.h"
 
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggerCommandEventDispatcher, UCommandBase*, TriggeredCommand);
-
-
 class UCommandBase;
+
+
+
+/*	UE4에서 TMap<__SomeType__, TSubclassOf<__OtherType__>을
+ *	UPROPERTY로 지원하지 않기 떄문에 우회하기 위해 만들어진
+ *	우회 구조체입니다. ActionAvailables 및 FocusAvailables
+ *	에서 사용됩니다.
+ */
+USTRUCT(BlueprintType)
+struct FSubclassOfCommandBase
+{
+	GENERATED_BODY()
+
+public:
+	bool operator==(const FSubclassOfCommandBase& Rhs)
+	{
+		return CommandClass == Rhs.CommandClass;
+	}
+
+
+
+public:
+	TSubclassOf<UCommandBase> CommandClass;
+};
+
+
+
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTriggerCommandEventDispatcher, UCommandBase*, TriggeredCommand);
 
 
 
@@ -34,23 +62,24 @@ public:
 	/* 사용자로부터 입력을 받아 맞는 적절한 커맨드를 실행합니다.
 		반드시 파생클래스에서 구현해야 합니다 */
 	virtual UCommandBase* HandleInput(FHighLevelInputData Input);
+	
 
 	
-	
-	/* Commands의 Getter 함수입니다 */
+	/* ActionAvailables의 Getter 함수입니다 */
 	UFUNCTION(BlueprintGetter, Category="Tool")
-	FORCEINLINE TArray<UCommandBase*> GetCommands() const
+	FORCEINLINE TMap<FHighLevelInputData, FSubclassOfCommandBase> GetActionAvailables() const
 	{
-		return Commands;
+		return ActionAvailables;
 	}
 
 
 
 	/* TriggerCommandEventDispatcher의 Getter 함수입니다 */
-	FORCEINLINE FTriggerCommandEventDispatcher OnTriggerCommand()
+	FORCEINLINE FTriggerCommandEventDispatcher& OnTriggerCommand()
 	{
 		return TriggerCommandEventDispatcher;
 	}
+
 
 
 
@@ -58,13 +87,13 @@ public:
 protected:
 	/* 도구가 실행할 수 있는 커맨드들을 담은 컨테이너입니다. */
 	UPROPERTY(BlueprintReadOnly, Category="Tool", meta=(AllowPrivateAccess=true),
-				BlueprintGetter=GetCommands)
-	TArray<UCommandBase*> Commands;
+				BlueprintGetter=GetActionAvailables)
+	TMap<FHighLevelInputData, FSubclassOfCommandBase> ActionAvailables;
 
 
 
 	/* 도구가 명령을 실행했을 때 브로드캐스트하는 이벤트 디스패처입니다 */
-	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Tool|Dispatcher",
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Tool|Delegate",
 				meta = (AllowPrivateAccess = true))
 	FTriggerCommandEventDispatcher TriggerCommandEventDispatcher;
 };

@@ -44,6 +44,23 @@ public:
 		FocusMetadata = EFocusMetadata::META_None;
 	}
 
+	/* == 연산자 오버로딩 */
+	bool operator==(const FHighLevelFocusData& Rhs)
+	{
+		return (FocusedActor == Rhs.FocusedActor) && (FocusMetadata == Rhs.FocusMetadata);
+	}
+
+	friend bool operator==(const FHighLevelFocusData& Lhs, const FHighLevelFocusData& Rhs)
+	{
+		return (Lhs.FocusedActor == Rhs.FocusedActor) && (Lhs.FocusMetadata == Rhs.FocusMetadata);
+	}
+
+	/* 해시 타입 반환 */
+	friend uint32 GetTypeHash(const FHighLevelFocusData& Other)
+	{
+		return GetTypeHash(Other.FocusedActor) + GetTypeHash(Other.FocusMetadata);
+	}
+
 
 
 

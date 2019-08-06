@@ -62,6 +62,24 @@ public:
 		InputMetadata = EInputMetadata::META_None;
 	}
 
+	/* == 연산자 오버로딩 */
+	bool operator==(const FHighLevelInputData& Rhs)
+	{
+		return (MappingName == Rhs.MappingName) && (InputMetadata == Rhs.InputMetadata);
+	}
+
+	friend bool operator==(const FHighLevelInputData& Lhs, const FHighLevelInputData& Rhs)
+	{
+		return (Lhs.MappingName == Rhs.MappingName) && (Lhs.InputMetadata == Rhs.InputMetadata);
+	}
+
+	/* 해시 타입 반환 */
+	friend uint32 GetTypeHash(const FHighLevelInputData& Other)
+	{
+		return GetTypeHash(Other.MappingName) + GetTypeHash(Other.InputMetadata);
+	}
+
+
 
 
 
@@ -76,14 +94,6 @@ public:
 };
 
 
-
-	/* 생성자 */
-	FHighLevelInputData()
-	{
-		MappingName = NAME_None;
-		InputMetadata = EInputMetadata::META_None;
-	}
-};
 
 
 
