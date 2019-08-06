@@ -7,6 +7,7 @@
 #include "EditorWorldManager.h"
 #include "CoreInputModuleManager.h"
 #include "EditorActionMetaInputInterpreter.h"
+#include "EditorFocusMetaInputInterpreter.h"
 #include "EditorActionMultInputInterpreter.h"
 #include "InputSettingManager.h"
 #include "InputGate.h"
@@ -65,6 +66,8 @@ void UEditorInterpreterManager::InitializeInterpreters()
 	/* 하위 구성요소들을 초기화합니다 */
 	EditorActionMetaInputInterpreter = CreateDefaultSubobject<UEditorActionMetaInputInterpreter>
 										(UEditorActionMetaInputInterpreter::StaticClass()->GetFName());
+	EditorFocusMetaInputInterpreter = CreateDefaultSubobject<UEditorFocusMetaInputInterpreter>
+		(UEditorFocusMetaInputInterpreter::StaticClass()->GetFName());
 	EditorActionMultInputInterpreter = CreateDefaultSubobject<UEditorActionMultInputInterpreter>
 										(UEditorActionMultInputInterpreter::StaticClass()->GetFName());
 	
@@ -74,6 +77,11 @@ void UEditorInterpreterManager::InitializeInterpreters()
 	if (IsValid(EditorActionMetaInputInterpreter) == false)
 	{
 		VP_LOG(Error, TEXT("생성하는 데 실패하였습니다 : %s"), *UEditorActionMetaInputInterpreter::StaticClass()->GetName());
+		return;
+	}
+	if (IsValid(EditorFocusMetaInputInterpreter) == false)
+	{
+		VP_LOG(Error, TEXT("생성하는 데 실패했습니다 : %s"), *UEditorFocusMetaInputInterpreter::StaticClass()->GetName());
 		return;
 	}
 	if (IsValid(EditorActionMultInputInterpreter) == false)

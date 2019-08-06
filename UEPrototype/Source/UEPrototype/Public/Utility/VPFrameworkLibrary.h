@@ -31,5 +31,9 @@ public:
 		하기 이전에 검사되어야 합니다. */
 	UFUNCTION(BlueprintPure, BlueprintCallable, Category="Utility|System")
 	static bool IsValidSingletonCDO(UObject* Target);
+
+	/* 싱글톤 CDO의 최상위 오브젝트에서 BFS 탐색 방식으로 현재 오브젝트들이 싱글톤인지 및
+		각종 리플렉션 정보들을 뱉어냅니다. */
+	// TODO : 구현할 것
 };
  

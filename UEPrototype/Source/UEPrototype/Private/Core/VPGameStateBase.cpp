@@ -36,12 +36,7 @@ AVPGameStateBase::AVPGameStateBase()
 
 void AVPGameStateBase::BeginPlay()
 {
-	// DEBUG
-	for (const auto& it : TObjectRange<AEditorWorldManager>())
-	{
-		// DEBUG
-		UMinusiFrameworkLibrary::GetInfoWithOuterChain(it);
-	}
+	Super::BeginPlay();
 }
 
 

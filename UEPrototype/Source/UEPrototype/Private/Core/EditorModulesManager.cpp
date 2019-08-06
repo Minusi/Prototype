@@ -4,10 +4,11 @@
 #include "UEPrototype.h"
 #include "VPFrameworkLibrary.h"
 #include "UObjectIterator.h"
-#include "EditorWorldManager.h"
-#include "CoreInputModuleManager.h"
-#include "CorePlayerModuleManager.h"
-#include "ActorInfoModuleManager.h"
+#include "Core/EditorWorldManager.h"
+#include "Core/CoreInputModuleManager.h"
+#include "Core/CorePlayerModuleManager.h"
+#include "ActorInfo/ActorInfoModuleManager.h"
+#include "Command/CommandModuleManager.h"
 
 
 
@@ -50,7 +51,10 @@ void UEditorModulesManager::Initialized()
 	/* ActorInfoModuleManager를 생성합니다 */
 	ActorInfoModuleManager = CreateDefaultSubobject<UActorInfoModuleManager>
 								(UActorInfoModuleManager::StaticClass()->GetFName());
-
+	/* CommandModuleManager를 생성합니다 */
+	CommandModuleManager  = CreateDefaultSubobject<UCommandModuleManager>
+								(UCommandModuleManager::StaticClass()->GetFName());
+	
 
 
 	/* 하위 모듈들에 대한 유효성 검사를 수행합니다 */
@@ -65,6 +69,10 @@ void UEditorModulesManager::Initialized()
 	if (IsValid(ActorInfoModuleManager) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UActorInfoModuleManager::StaticClass()->GetName());
+	}
+	if (IsValid(CommandModuleManager) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UCommandModuleManager::StaticClass()->GetName());
 	}
 }
 

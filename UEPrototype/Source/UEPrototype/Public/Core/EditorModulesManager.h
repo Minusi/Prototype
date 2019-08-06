@@ -11,6 +11,8 @@
 class UCoreInputModuleManager;
 class UCorePlayerModuleManager;
 class UActorInfoModuleManager;
+class UCommandModuleManager;
+class UToolModuleManager;
 
 
 
@@ -60,6 +62,20 @@ public:
 		return ActorInfoModuleManager;
 	}
 
+	/* CommandModuleManager를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "Core|World")
+	FORCEINLINE UCommandModuleManager* GetCommandModuleManager() const
+	{
+		return CommandModuleManager;
+	}
+
+	/* ToolModuleManager를 반환합니다 */
+	//UFUNCTION(BlueprintGetter, Category = "Core|World")
+	//FORCEINLINE UToolModuleManager* GetToolModuleManager() const
+	//{
+	//	return ToolModuleManager;
+	//}
+
 
 
 
@@ -81,5 +97,16 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetActorInfoModuleManager)
 	UActorInfoModuleManager* ActorInfoModuleManager;
+
+	/* CommandModuleManager입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Core|World", meta = (AllowPrivateAccess = true),
+	BlueprintGetter = GetCommandModuleManager)
+	UCommandModuleManager* CommandModuleManager;
+
+	/* ToolModuleManager입니다 */
+	//UPROPERTY(BlueprintReadOnly, Category = "Core|World", meta = (AllowPrivateAccess = true),
+	//BlueprintGetter = GetToolModuleManager)
+	//UToolModuleManager* ToolModuleManager;
+
 };
 

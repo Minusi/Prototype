@@ -12,6 +12,7 @@
 
 
 class UEditorActionMetaInputInterpreter;
+class UEditorFocusMetaInputInterpreter;
 class UEditorActionMultInputInterpreter;
 
 class UInputGate;
@@ -71,12 +72,21 @@ private:
 
 
 public:
+	/* EditorActionMetaInputInterpreter의 Getter입니다. */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
 	FORCEINLINE UEditorActionMetaInputInterpreter* GetEditorActionMetaInputInterpreter() const
 	{
 		return EditorActionMetaInputInterpreter;
 	}
 
+	/* EditorFocusMetaInputInterpreter의 Getter입니다. */
+	UFUNCTION(BlueprintGetter, Category = "Core|Input")
+	FORCEINLINE UEditorFocusMetaInputInterpreter* GetEditorFocusMetaInputInterpreter() const
+	{
+		return EditorFocusMetaInputInterpreter;
+	}
+
+	/* EditorActionMultInputInterpreter의 Getter입니다. */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
 	FORCEINLINE UEditorActionMultInputInterpreter* GetEditorActionMultInputInterpreter() const
 	{
@@ -114,6 +124,12 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="Core|Input", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetEditorActionMetaInputInterpreter)
 	UEditorActionMetaInputInterpreter * EditorActionMetaInputInterpreter;
+
+	/* 액션에 대한 포커스입력 해석기입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
+	BlueprintGetter = GetEditorFocusMetaInputInterpreter)
+	UEditorFocusMetaInputInterpreter* EditorFocusMetaInputInterpreter;
+
 
 	/* 액션에 대한 멀티키 입력 해석기입니다 */
 	UPROPERTY(BlueprintReadOnly, Category="Core|Input", meta=(AllowPrivateAccess=true),
