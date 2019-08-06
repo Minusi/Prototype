@@ -42,6 +42,12 @@ enum class EMoveType : uint8
 
 
 
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUserFocusEventDispatcher, AActor*, Target, float, DeltaTime);
+
+
+
 /*
  *	DirectorPawn은 프로토타입 월드에서 프로토타입을 담당하는 플레이어가
  *	기본적으로 빙의하는 폰입니다. VR 기기와 컨트롤러를 사용하는 유저의
@@ -61,21 +67,92 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
+	/* 매 프레임마다 실행되는 함수입니다 */
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
+public:
+	/* 사용자의 시점에서 포커스를 수행합니다 */
+	UFUNCTION()
+	void Focus(float DeltaTime);
+
+
+
+	/* Called to bind functionality to input */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
-
-	// 입력한 무브 타입 방식으로 이동을 수행합니다.
-	UFUNCTION(BlueprintCallable, Category = "Custom")
+	/* 입력한 무브 타입 방식으로 이동을 수행합니다. */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
 	void MoveAround(EMoveType InMoveType, float InX, float InY, float InZ, AActor const * InOrbitTarget = nullptr);
 
+	/* 좌우를 둘러봅니다 */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
+	void LookSide(float Value);
+
+	/* 위아래를 둘러봅니다 */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
+	void LookUpSide(float Value);
+
+
+
+public:
+	/* CurrentMoveType의 Setter 함수입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetMoveType(EMoveType InMoveType);
+
+	/* CurrentMoveType의 Getter 함수입니다 */
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+	FORCEINLINE EMoveType GetMoveType() const
+	{
+		return CurrentMoveType;
+	}
+
+
+
+	/* YawRotSpeed의 Setter 함수입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetYawRotSpeed(float InYawRotSpeed);
+
+	/* YawRotSpeed의 Getter입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	FORCEINLINE float GetYawRotSpeed() const
+	{
+		return YawRotSpeed;
+	}
+
+	/* PitchRotSpeed의 Setter 함수입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetPitchRotSpeed(float InPitchRotSpeed);
+
+	/* PitchRotSpeed의 Getter입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	FORCEINLINE float GetPitchRotSpeed() const
+	{
+		return PitchRotSpeed;
+	}
+
+	/* LineTraceLength의 Setter 함수입니다 */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetLineTraceLength(float InLength);
+
+	/* LineTraceLength의 Getter 함수입니다 */
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+	FORCEINLINE float GetLineTraceLength() const
+	{
+		return LineTraceLength;
+	}
+
+
+
+	/* UserFocusEventDispatcher의 Getter입니다. */
+	FORCEINLINE FUserFocusEventDispatcher& OnUserFocus()
+	{
+		return UserFocusEventDispatcher;
+	}
+
+
+
 private:
-	
-	// 절대 좌표 기준으로 폰의 이동을 수행합니다.
+	/* 절대 좌표 기준으로 폰의 이동을 수행합니다. */
 	UFUNCTION()
 	void MoveAbsoluteAxis(float InX, float InY, float InZ);
 
@@ -92,37 +169,69 @@ private:
 	void MoveOrbitAxis(float InX, float InY, float InZ, AActor const * OrbitTarget);
 
 
+
+
+
 	
 
+
 private:
-	// 플레이어 콜리전
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Director", meta= ( AllowPrivateAccess = "true"))
+	/* 플레이어 콜리전 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Core|Player", meta= ( AllowPrivateAccess = "true"))
 	class UCapsuleComponent * RootCollision;
 
-	// 플레이어 VR 루트 트랜스폼
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	/* 플레이어 VR 루트 트랜스폼 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* VRRootTransform;
 
-	// 플레이어 VR 카메라
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	/* 플레이어 VR 카메라 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* VRCamera;
 
-	// 플레이어 모션 컨트롤러
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	/* 플레이어 모션 컨트롤러 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UMotionControllerComponent* MotionController;
 
 	// 플레이어 모션 컨트롤러 위젯
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UWidgetComponent* MCWidget;
 	
-	// 플레이어 이동 컴포넌트
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Director", meta = (AllowPrivateAccess = "true"))
+	/* 플레이어 이동 컴포넌트 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UFloatingPawnMovement* FloatingPawnMovement;
 
-	// 플레이어의 현재 이동 타입
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (Bitmask, AllowPrivateAccess = "true"))
+
+
+	/* 플레이어의 현재 이동 타입 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,	Category = "Core|Player", meta = (Bitmask, AllowPrivateAccess = "true"),
+				BlueprintSetter=SetMoveType, BlueprintGetter=GetMoveType)
 	EMoveType CurrentMoveType;
 	
-	UPROPERTY()
+	/* 고정 이동 시 고정할 축 데이터입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Core|Player", meta=(AllowPrivateAccess=true))
 	FRotator FixedAxis;
+
+
+
+private:
+	/* 좌우 회전 속도 스케일입니다 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
+		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+	float YawRotSpeed;
+
+	/* 수직 회전 속도 스케일입니다 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
+		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+	float PitchRotSpeed;
+
+	/* 라인트레이싱할 길이입니다 */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
+		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+	float LineTraceLength;
+
+
+
+	/* 포커스 정보를 브로드캐스트하는 이벤트 디스패처입니다 */
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Core|Player", meta = (AllowPrivateAccess = true))
+	FUserFocusEventDispatcher UserFocusEventDispatcher;
 };

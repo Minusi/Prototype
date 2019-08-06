@@ -3,6 +3,7 @@
 #include "MinusiFrameworkLibrary.h"
 #include "UEPrototype.h"
 #include "EngineUtils.h"
+#include "UObjectIterator.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -201,5 +202,36 @@ void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerCon
 		UGameplayStatics::ProjectWorldToScreen(PC, FVector::ZeroVector, OriginVector);
 		ProjectedUnitDirectionToScreen -= OriginVector;
 		ProjectedUnitDirectionToScreen.Normalize();
+	}
+}
+
+
+
+
+
+void UMinusiFrameworkLibrary::GetInfoWithOuterChain(const UObject * Object)
+{
+	VP_LOG(Warning, TEXT("%s(%d)"), *Object->GetName(), Object->GetUniqueID());
+	VP_LOG(Log, TEXT("ObjectFlags(hex) : %x"), (uint8)Object->GetFlags());
+	VP_LOG(Log, TEXT("ObjectFlags(dec) : %d"), (uint8)Object->GetFlags());
+
+	UObject* ObjectIt = Object->GetOuter();
+	while (IsValid(ObjectIt) == true)
+	{
+		VP_LOG(Log, TEXT("Outer : %s"), *ObjectIt->GetName());
+		ObjectIt = ObjectIt->GetOuter();
+	}
+}
+
+
+
+void UMinusiFrameworkLibrary::GetInfo(const UObject * Object)
+{
+	VP_LOG(Warning, TEXT("%s(%d)"), *Object->GetName(), Object->GetUniqueID());
+	VP_LOG(Log, TEXT("ObjectFlags(hex) : %x"), (uint8)Object->GetFlags());
+	VP_LOG(Log, TEXT("ObjectFlags(dec) : %d"), (uint8)Object->GetFlags());
+	if (IsValid(Object->GetOuter()) == true)
+	{
+		VP_LOG(Log, TEXT("Outer : %s"), *Object->GetName());
 	}
 }

@@ -30,14 +30,29 @@ class UEPROTOTYPE_API UModuleManagerBase : public UObject
 {
 	GENERATED_BODY()
 	
+	
+	
 public:
+	/* 생성자 */
+	UModuleManagerBase();
+
 	/* 모듈 매니저가 초기화를 모두 마쳤는지 여부입니다 */
 	UFUNCTION(BlueprintGetter, Category="Module")
 	FORCEINLINE bool IsInitialized() const
 	{
 		return bInitialized;
 	}
+
+
 	
+	/* ModuleEndInitEventDispatcher의 Getter함수입니다 */
+	FORCEINLINE FModuleEndInitEventDispatcher& OnModuleEntInit()
+	{
+		return ModuleEndInitEventDispatcher;
+	}
+	
+
+
 protected:
 	/* 모듈 초기화를 수행합니다. 반드시 파생 클래스에서 구현되어야 합니다 */
 	UFUNCTION()
@@ -53,13 +68,19 @@ public:
 		벤트 디스패처에 대한 Getter를 제공하는 것을 삭제한 대신, 좀더 안정
 		적으로 이벤트를 트리거할 수 있도록 하는 것이 이 함수의 목표입니다 */
 	UFUNCTION(BlueprintCallable, Category="Module")
-	void RegisterIf(FEventToRegister EventToRegister);
+	virtual void RegisterIf(FEventToRegister EventToRegister);
 	
-private:
+
+
+
+
+protected:
 	/* 초기화되었는 지 여부입니다 */
 	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, BlueprintGetter=IsInitialized,
 				Category="Module", meta=(AllowPrivateAccess=true))
-	bool bInitialized;
+	bool bInitialized = false;
+
+
 
 	/* 초기화가 완료되었을 때 브로드캐스트하는 이벤트 디스패처입니다 */
 	UPROPERTY(BlueprintAssignable, Category="Module|Delegate", meta=(AllowPrivateAccess=true))
