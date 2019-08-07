@@ -1,11 +1,11 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MinusiFrameworkLibrary.h"
+#include "Utility/MinusiFrameworkLibrary.h"
 #include "UEPrototype.h"
 #include "EngineUtils.h"
-#include "UObjectIterator.h"
+#include "AssetRegistry/Public/IAssetRegistry.h"
+#include "AssetRegistry/Public/AssetRegistryModule.h"
 #include "Kismet/GameplayStatics.h"
-
 
 
 bool UMinusiFrameworkLibrary::IsTypeofActor(AActor const * Actor, AActor const * Compare)
@@ -149,7 +149,6 @@ TArray<AActor*> UMinusiFrameworkLibrary::GetSpecificAllActorWithTag(const UObjec
 	return SpecificActors;
 }
 
-
 void UMinusiFrameworkLibrary::GetAngleBetweenTwoVector(FVector2D A, FVector2D B, float& Angle)
 {
 	A.Normalize(); B.Normalize();
@@ -164,7 +163,6 @@ float UMinusiFrameworkLibrary::DistanceRatioByOneDimensionalFunction(AActor* Sta
 	}
 	return 1;
 }
-
 
 
 FTransform UMinusiFrameworkLibrary::GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation)
@@ -192,8 +190,7 @@ void UMinusiFrameworkLibrary::Snap(float Delta, float SnapInterval, bool& bCanSn
 	else
 		SnappedDelta = Delta;
 }
-// 원점과 방향을 화면상에 각각 사영시켜 원점에서 부터의 단위 방향 벡터를 구함
-void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D &ProjectedUnitDirectionToScreen)
+void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(class APlayerController* PC, FVector InDirection, FVector2D &ProjectedUnitDirectionToScreen)
 {
 	FVector2D OriginVector;
 	if (PC != nullptr)
@@ -205,6 +202,33 @@ void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(APlayerCon
 	}
 }
 
+TArray<struct FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType)
+{
+	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
+	TArray<struct FAssetData> NewAssetData;
+
+	FString ClassName = ObjectType->GetName();
+	TArray< FStringFormatArg > args;
+	args.Add(FStringFormatArg(ClassName));
+
+	FARFilter Filter;
+	Filter.ClassNames.Add(*ClassName);
+	// 임포트 경로 밑의 컨텐츠만 들고오도록 수정
+	Filter.PackagePaths.Add("/Game/Import/CoreTemplate/Shapes");
+	Filter.PackagePaths.Add("/Game/Import/MobileStarterContent/Materials");
+	Filter.PackagePaths.Add("/Game/Import/MobileStarterContent/Textures");
+
+	AssetRegistryModule.Get().GetAssets(Filter, NewAssetData);
+	UE_LOG(LogTemp, Warning, TEXT("%s 타입의 Asset Data 찾는중..."), *FString::Format(TEXT("Name = {0}"), args));
+
+	//AssetRegistryModule.Get().GetAssetsByClass(*ClassName, NewAssetData);
+	if (!NewAssetData.IsValidIndex(0))
+		UE_LOG(LogTemp, Warning, TEXT("%s 타입의 에셋이 하나도 없습니다"), *FString::Format(TEXT("Name = {0}"), args));
+	return NewAssetData;
+}
+
+
+
 void UMinusiFrameworkLibrary::GetInfoWithOuterChain(const UObject * Object)
 {
 	VP_LOG(Warning, TEXT("CoreInputManager : %s(%d)"), *Object->GetName(), Object->GetUniqueID());
@@ -215,5 +239,18 @@ void UMinusiFrameworkLibrary::GetInfoWithOuterChain(const UObject * Object)
 	{
 		VP_LOG(Log, TEXT("Outer : %s"), *ObjectIt->GetName());
 		ObjectIt = ObjectIt->GetOuter();
+	}
+}
+
+
+
+void UMinusiFrameworkLibrary::GetInfo(const UObject * Object)
+{
+	VP_LOG(Warning, TEXT("%s(%d)"), *Object->GetName(), Object->GetUniqueID());
+	VP_LOG(Log, TEXT("ObjectFlags(hex) : %x"), (uint8)Object->GetFlags());
+	VP_LOG(Log, TEXT("ObjectFlags(dec) : %d"), (uint8)Object->GetFlags());
+	if (IsValid(Object->GetOuter()) == true)
+	{
+		VP_LOG(Log, TEXT("Outer : %s"), *Object->GetName());
 	}
 }
