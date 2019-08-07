@@ -63,15 +63,6 @@ public:
 	/* InputSettings에서 액션의 특정 키를 변경합니다 */
 	UFUNCTION(BlueprintCallable, Category="Core|Input")
 	void ChangeActionKeyMappings(FName TargetActionName, const TArray<FInputActionKeyMapping>& Removes, const TArray<FInputActionKeyMapping	>&Adds);
-	
-	
-
-private:
-	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
-	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
-	프레임워크 플로우를 따를 수 있기 때문입니다. */
-	UFUNCTION()
-	bool ContainWorldContextCDO();
 
 
 

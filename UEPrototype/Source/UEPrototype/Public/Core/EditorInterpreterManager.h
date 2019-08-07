@@ -12,6 +12,7 @@
 
 
 class UEditorActionMetaInputInterpreter;
+class UEditorFocusMetaInputInterpreter;
 class UEditorActionMultInputInterpreter;
 
 class UInputGate;
@@ -52,7 +53,7 @@ private:
 	/* InputGate를 초기화합니다 */
 	UFUNCTION()
 	void InitializeInputGates();
-	
+
 
 
 private:
@@ -71,12 +72,21 @@ private:
 
 
 public:
+	/* EditorActionMetaInputInterpreter의 Getter입니다. */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
 	FORCEINLINE UEditorActionMetaInputInterpreter* GetEditorActionMetaInputInterpreter() const
 	{
 		return EditorActionMetaInputInterpreter;
 	}
 
+	/* EditorFocusMetaInputInterpreter의 Getter입니다. */
+	UFUNCTION(BlueprintGetter, Category = "Core|Input")
+	FORCEINLINE UEditorFocusMetaInputInterpreter* GetEditorFocusMetaInputInterpreter() const
+	{
+		return EditorFocusMetaInputInterpreter;
+	}
+
+	/* EditorActionMultInputInterpreter의 Getter입니다. */
 	UFUNCTION(BlueprintGetter, Category = "Core|Input")
 	FORCEINLINE UEditorActionMultInputInterpreter* GetEditorActionMultInputInterpreter() const
 	{
@@ -105,12 +115,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Core|Input|Debug")
 	void PrintActionInputGate();
 	
-private:
-	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
-	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
-	프레임워크 플로우를 따를 수 있기 때문입니다. */
-	UFUNCTION()
-	bool ContainWorldContextCDO();
+
 
 
 
@@ -119,6 +124,12 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="Core|Input", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetEditorActionMetaInputInterpreter)
 	UEditorActionMetaInputInterpreter * EditorActionMetaInputInterpreter;
+
+	/* 액션에 대한 포커스입력 해석기입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
+	BlueprintGetter = GetEditorFocusMetaInputInterpreter)
+	UEditorFocusMetaInputInterpreter* EditorFocusMetaInputInterpreter;
+
 
 	/* 액션에 대한 멀티키 입력 해석기입니다 */
 	UPROPERTY(BlueprintReadOnly, Category="Core|Input", meta=(AllowPrivateAccess=true),

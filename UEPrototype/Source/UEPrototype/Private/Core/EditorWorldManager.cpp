@@ -6,6 +6,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "EditorModulesManager.h"
 
+// DEBUG
+#include "Command/HighlightCommand.h"
+
 
 
 // Sets default values

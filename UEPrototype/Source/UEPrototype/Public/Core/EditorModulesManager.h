@@ -11,6 +11,8 @@
 class UCoreInputModuleManager;
 class UCorePlayerModuleManager;
 class UActorInfoModuleManager;
+class UCommandModuleManager;
+class UToolModuleManager;
 
 
 
@@ -60,14 +62,19 @@ public:
 		return ActorInfoModuleManager;
 	}
 
+	/* CommandModuleManager를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "Core|World")
+	FORCEINLINE UCommandModuleManager* GetCommandModuleManager() const
+	{
+		return CommandModuleManager;
+	}
 
-
-private:
-	/*	월드 컨텍스트를 가지고 있는 CDO인지 여부를 판단합니다.
-	이것을 수행하는 이유는 AEditorWorldManager의 구성 요소들만이 유효한
-	프레임워크 플로우를 따를 수 있기 때문입니다. */
-	UFUNCTION()
-	bool ContainWorldContextCDO();
+	/* ToolModuleManager를 반환합니다 */
+	//UFUNCTION(BlueprintGetter, Category = "Core|World")
+	//FORCEINLINE UToolModuleManager* GetToolModuleManager() const
+	//{
+	//	return ToolModuleManager;
+	//}
 
 
 
@@ -90,5 +97,16 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="Core|World", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetActorInfoModuleManager)
 	UActorInfoModuleManager* ActorInfoModuleManager;
+
+	/* CommandModuleManager입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Core|World", meta = (AllowPrivateAccess = true),
+	BlueprintGetter = GetCommandModuleManager)
+	UCommandModuleManager* CommandModuleManager;
+
+	/* ToolModuleManager입니다 */
+	//UPROPERTY(BlueprintReadOnly, Category = "Core|World", meta = (AllowPrivateAccess = true),
+	//BlueprintGetter = GetToolModuleManager)
+	//UToolModuleManager* ToolModuleManager;
+
 };
 

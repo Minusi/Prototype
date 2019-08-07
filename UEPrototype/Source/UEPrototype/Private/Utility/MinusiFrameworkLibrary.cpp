@@ -202,6 +202,7 @@ void UMinusiFrameworkLibrary::ProjectWorldDirectionToScreenFromOrigin(class APla
 	}
 }
 
+
 TArray<struct FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSubclassOf<UObject> ObjectType)
 {
 	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
@@ -231,8 +232,9 @@ TArray<struct FAssetData> UMinusiFrameworkLibrary::GetAssetDataByObjectType(TSub
 
 void UMinusiFrameworkLibrary::GetInfoWithOuterChain(const UObject * Object)
 {
-	VP_LOG(Warning, TEXT("CoreInputManager : %s(%d)"), *Object->GetName(), Object->GetUniqueID());
-	VP_LOG(Log, TEXT("ObjectFlags : %x"), (uint8)Object->GetFlags());
+	VP_LOG(Warning, TEXT("%s(%d)"), *Object->GetName(), Object->GetUniqueID());
+	VP_LOG(Log, TEXT("ObjectFlags(hex) : %x"), (uint8)Object->GetFlags());
+	VP_LOG(Log, TEXT("ObjectFlags(dec) : %d"), (uint8)Object->GetFlags());
 
 	UObject* ObjectIt = Object->GetOuter();
 	while (IsValid(ObjectIt) == true)
