@@ -43,11 +43,11 @@ private:
 
 	// 한 행에 배치할 컨텐츠들의 개수
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "ContentsRoom", meta = (AllowPrivateAccess = "true"))
-	int RowCount;
+	int32 RowCount;
 
 	// 현재 만들어진 진열장의 개수
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "ContentsRoom", meta = (AllowPrivateAccess = "true"))
-	int ShowcaseCount;
+	int32 ShowcaseCount;
 
 	// 중심으로 부터 진열장의 거리
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite, Category = "ContentsRoom", meta = (AllowPrivateAccess = "true"))
