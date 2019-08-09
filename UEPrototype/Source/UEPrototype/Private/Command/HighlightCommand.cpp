@@ -5,6 +5,7 @@
 #include "EditorModulesManager.h"
 #include "Command/CommandConstraintManager.h"
 #include "Command/CmdFocusedConstraint.h"
+#include "Command/CmdHighlightedConstraint.h"
 #include "ActorInfo/Outliner.h"
 #include "ActorInfo/ActorConstraintMarker.h"
 
@@ -18,6 +19,23 @@ UOutliner* UHighlightCommand::Outliner = nullptr;
 UHighlightCommand::UHighlightCommand()
 {
 	VP_CTOR;
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
+
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()))return;
+
+	UCmdFocusedConstraint* FocusedConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint();
+	if (IsValid(FocusedConstraint) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()->GetName());
+		return;
+	}
+	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(FocusedConstraint);
+	if (ConstraintInterface == nullptr)
+	{
+		VP_LOG(Warning, TEXT(";;;"));
+		return;
+	}
+	Constraints.Add(FocusedConstraint);
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
@@ -38,28 +56,15 @@ UHighlightCommand::UHighlightCommand()
 	}
 
 
-
+	
 
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	Outliner = UOutliner::GetGlobalOutliner();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
-	UCmdFocusedConstraint* FocusedConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint();
-	if (IsValid(FocusedConstraint) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()->GetName());
-		return;
-	}
-	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(FocusedConstraint);
-	if (ConstraintInterface == nullptr)
-	{
-		VP_LOG(Warning, TEXT(";;;"));
-		return;
-	}
-	Constraints.Add(FocusedConstraint);
-
+	
+	
 
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
@@ -109,9 +114,21 @@ void UHighlightCommand::ExecuteIf()
 	}
 
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
+	VP_LOG(Warning, TEXT("asdasdasdasasd %d."),Constraints.Num());
+	for (const auto& it : Constraints)
+	{
+		if (it->CheckConstraint(Target) == true)
+		{
+			
+			ActorConstraintMarker->MarkActor(Target.Target, Target.TargetState);
+			Outliner->DrawActorOutline(Target.Target,true);
+			return;
+		}
+	}
+
+
+
 	
-	ActorConstraintMarker->MarkActor(Target.Target, Target.TargetState);
-	Outliner->DrawActorOutline(Target.Target);
 }
 
 

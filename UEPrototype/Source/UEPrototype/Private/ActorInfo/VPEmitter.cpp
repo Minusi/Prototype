@@ -55,5 +55,10 @@ void AVPEmitter::SettingEmitter(const FEmitterParam EmitterParam, const FTransfo
 	CachedParticleSystem->EmitterDelay = EmitterParam.EmitterDelay;
 }
 
+void AVPEmitter::ActivateEmitter()
+{
+	Activate();
+}
+
 
 

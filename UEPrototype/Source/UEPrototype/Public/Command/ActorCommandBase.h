@@ -8,6 +8,7 @@
 #include "ActorInfo/ActorConstraintMarker.h"
 #include "Containers/Array.h"
 #include "GameFramework/Actor.h"
+#include "ActorConstraintMarker.h"
 #include "ActorCommandBase.generated.h"
 
 
@@ -35,10 +36,10 @@ public:
 protected:
 	/* 명령의 대상이 되는 액터입니다 */
 	UPROPERTY(BlueprintReadOnly, Category="Command", meta=(AllowPrivateAccess=true))
-	AActor * TargetActor;
+	FActorConstraintInfo Target;
 
 	/* 해당 명령을 실행하는 데 가해지는 제약 조건입니다. 이 제약 조건 중 하나라도
 	만족하면 됩니다. */
-	UPROPERTY(BlueprintReadOnly, Category="Command", meta=(AllowPrivateAccess=true))
+	UPROPERTY()
 	TArray<TScriptInterface<IActorCmdConstraint>> Constraints;
 };

@@ -89,25 +89,47 @@ void AVPDirectorPawn::Focus(float DeltaTime)
 	// DEBUG : 라인트레이스 라인을 그립니다.
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false);
 
+	//자기자신은 raycast 충돌을 무시합니다.
+	CollisionQueryParams.AddIgnoredActor(this);
 
 	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility,
 		CollisionQueryParams);
+
+
+
 	if (HitResult == true)
 	{
-		if (OutHit.bBlockingHit)
-		{
-			// DEBUG : 엔진의 디스플레이에 로그를 남깁니다.
-			if (GEngine)
+		if ((OutHit.GetActor()->GetName().Contains("Outline"))) return;
+
+			if (OutHit.bBlockingHit)
 			{
-				GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
-				GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Red, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
-				GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Red, FString::Printf(TEXT("Hit Normal : %s"), *OutHit.ImpactNormal.ToString()));
+				// DEBUG : 엔진의 디스플레이에 로그를 남깁니다.
+				if (GEngine)
+				{
+					
+					//
+					GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
+					GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Red, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
+					GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Red, FString::Printf(TEXT("Hit Normal : %s"), *OutHit.ImpactNormal.ToString()));
+				}
+				
+				/* 라인트레이스 결과를 브로드캐스트합니다 */
+				UserFocusEventDispatcher.Broadcast(OutHit.Actor.Get(), DeltaTime);
+				
+				return;
 			}
-		}
+		
+		
+	}
+	else
+	{
+	
+		//라인트레이서가 어떤 액터도 가리키지 않을 때 nullptr을 넘겨준다.
+		UserFocusEventDispatcher.Broadcast(nullptr,0.0f);
+		return;
 	}
 
-	/* 라인트레이스 결과를 브로드캐스트합니다 */
-	UserFocusEventDispatcher.Broadcast(OutHit.Actor.Get(), DeltaTime);
+	
 }
 
 

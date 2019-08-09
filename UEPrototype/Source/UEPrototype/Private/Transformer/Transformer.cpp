@@ -18,6 +18,12 @@ ATransformer::ATransformer()
 	DefaultMoveSnapInterval = 0.1f;
 	DefaultRotateSnapInterval = 0.1f;
 	DefaultScaleSnapInterval = 0.1f;
+
+	/*
+		한상훈 -수정 , StartTransform Command 생성시 한번 만 실행(stack에 위치를 한 번만 담기위해)
+		EndTransform Command 생성시 다시 False로 만들어 그다음 Start에서 한 번만 접근하도록 다시 설정가능.
+	*/
+	isStart = true;
 }
 
 
@@ -41,8 +47,11 @@ void ATransformer::MoveObject(AActor* Target, FVector Direction, float SnapInter
 
 	Snap(Delta, SnapInterval, SnapElement);
 
+	
+
 	if (SnapElement.bCanSnap)
 	{
+		
 		Target->SetActorLocation(Target->GetActorLocation() + Direction * SnapElement.SnappedDelta);
 	}
 }

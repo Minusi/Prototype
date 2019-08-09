@@ -62,9 +62,11 @@ void AVPPlayerController::BeginPlay()
 	// 현상이 해결된다면 디버깅 코드를 지워주시길 바랍니다.
 	if (EditorActionMetaInputInterpreter != UEditorActionMetaInputInterpreter::GetGlobalEditorActionMetaInputInterpreter())
 	{
-		VP_LOG(Error, TEXT("%s와 %s가 일치하지 않습니다."),
+		VP_LOG(Error, TEXT("%s(%d)와 %s(%d)가 일치하지 않습니다."),
 			*EditorActionMetaInputInterpreter->GetName(),
-			*UEditorActionMetaInputInterpreter::GetGlobalEditorActionMetaInputInterpreter()->GetName());
+			EditorActionMetaInputInterpreter->GetUniqueID(),
+			*UEditorActionMetaInputInterpreter::GetGlobalEditorActionMetaInputInterpreter()->GetName(),
+			UEditorActionMetaInputInterpreter::GetGlobalEditorActionMetaInputInterpreter()->GetUniqueID());
 		return;
 	}
 	if (EditorFocusMetaInputInterpreter != UEditorFocusMetaInputInterpreter::GetGlobalEditorFocusMetaInputInterpreter())

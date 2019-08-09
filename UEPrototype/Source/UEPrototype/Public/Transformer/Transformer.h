@@ -64,7 +64,24 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Transformer")
 	void Snap(float Delta, float SnapInterval, FSnapStruct& SnapElement);
 
+	
+	/*
+		Transform command의 start와 end에 transform의 공통적인 프로퍼티에 접근해야 할 것 같아서
+		조금 건드리겠습니다.
+	*/
 
+	void PushTrasnform(FTransform Trans) { TransformStack.Push(Trans); }
+	FTransform PopTransform()
+	{
+		if(!TransformStack.Num() !=0)
+		return TransformStack.Pop(); 
+
+		return FTransform();
+		
+	}
+
+	void SetisStart(bool IsStart) { isStart = IsStart; }
+	bool GetisStart()const { return isStart; }
 
 private:
 
@@ -80,4 +97,13 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
 	float DefaultScaleSnapInterval;
 
+	/*
+		Transform command의 start와 end에 transform의 공통적인 프로퍼티에 접근해야 할 것 같아서
+		조금 건드리겠습니다.
+	*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	TArray<FTransform> TransformStack;
+	UPROPERTY()
+	bool isStart;
+	
 };

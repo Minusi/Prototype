@@ -50,6 +50,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
 	void SettingEmitter(const FEmitterParam EmitterParam , const FTransform RelativeTrasnform);
 
+	//명령을 위해 만들어둠. Emitter를 활성화시킨다.
+	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
+	void ActivateEmitter();
+
 	//파티클시스템 컴포넌트 캐싱
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
 	UParticleSystemComponent* GetCachedParticleSystem()const { return CachedParticleSystem; }

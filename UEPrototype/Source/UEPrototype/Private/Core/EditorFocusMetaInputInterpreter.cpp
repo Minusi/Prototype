@@ -64,6 +64,7 @@ void UEditorFocusMetaInputInterpreter::InterpreteFocus(AActor* Target, float Del
 	/* 둘 다 유효하지 않으면, 유휴 상태입니다 */
 	if (IsValid(FocusedActor) == false && IsValid(Target) == false)
 	{
+		
 		MetadataResult.FocusedActor = nullptr;
 		MetadataResult.FocusMetadata = EFocusMetadata::META_Idle;
 		return;
@@ -72,16 +73,18 @@ void UEditorFocusMetaInputInterpreter::InterpreteFocus(AActor* Target, float Del
 	/* 이전 포커스 대상이 없는 상태에서 새 포커스가 발생하면, 등록합니다 */
 	if (IsValid(FocusedActor) == false && IsValid(Target) == true)
 	{
+		
 		FocusedActor = Target;
-
 		MetadataResult.FocusedActor = FocusedActor;
 		MetadataResult.FocusMetadata = EFocusMetadata::META_Focus;
 		return;
 	}
-
+	
+	
 	/* 이전 포커스 대상이 있는 상태에서 포커스를 잃어버리면 리셋합니다. */
 	if (IsValid(FocusedActor) == true && IsValid(Target) == false)
 	{
+		
 		FocusedActor = nullptr;
 		FocusTime = 0.f;
 
@@ -92,9 +95,12 @@ void UEditorFocusMetaInputInterpreter::InterpreteFocus(AActor* Target, float Del
 
 	if (IsValid(FocusedActor) == true && IsValid(Target) == true)
 	{
+
+	
 		/* 같은 대상을 포커싱하면 시간을 갱신합니다 */
 		if (FocusedActor == Target)
 		{
+			
 			FocusTime += DeltaTime;
 			if (FocusTime >= TimeToHighlight)
 			{
@@ -115,9 +121,12 @@ void UEditorFocusMetaInputInterpreter::InterpreteFocus(AActor* Target, float Del
 		{
 			FocusedActor = Target;
 			FocusTime = 0.f;
-
 			MetadataResult.FocusedActor = FocusedActor;
 			MetadataResult.FocusMetadata = EFocusMetadata::META_ChangeFocus;
+
 		}
 	}
+
+	
+
 }

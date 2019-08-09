@@ -9,7 +9,7 @@
 #include "Command/CmdFocusedConstraint.h"
 #include "Command/CmdHighlightedConstraint.h"
 #include "Command/CmdActivatedConstraint.h"
-
+#include "Command/CmdBlockedConstraint.h"
 
 
 UCommandConstraintManager::UCommandConstraintManager()
@@ -35,7 +35,7 @@ void UCommandConstraintManager::InitializeConstraints()
 	CmdFocusedConstraint = CreateDefaultSubobject<UCmdFocusedConstraint>(UCmdFocusedConstraint::StaticClass()->GetFName());
 	CmdHighlightedConstraint = CreateDefaultSubobject<UCmdHighlightedConstraint>(UCmdHighlightedConstraint::StaticClass()->GetFName());
 	CmdActivatedConstraint = CreateDefaultSubobject<UCmdActivatedConstraint>(UCmdActivatedConstraint::StaticClass()->GetFName());
-
+	CmdBlockedConstraint = CreateDefaultSubobject<UCmdBlockedConstraint>(UCmdBlockedConstraint::StaticClass()->GetFName());
 
 
 	/* 제약조건들의 유효성을 검사합니다 */
@@ -57,6 +57,11 @@ void UCommandConstraintManager::InitializeConstraints()
 	if (IsValid(CmdActivatedConstraint) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCmdActivatedConstraint::StaticClass()->GetName());
+		return;
+	}
+	if (IsValid(CmdBlockedConstraint) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCmdBlockedConstraint::StaticClass()->GetName());
 		return;
 	}
 }

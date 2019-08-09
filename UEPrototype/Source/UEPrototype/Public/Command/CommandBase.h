@@ -18,7 +18,8 @@ class UEPROTOTYPE_API UCommandBase : public UObject
 	
 public:
 	/* 조건을 만족하면 명령을 실행합니다 */
-	UFUNCTION()
+	// TODO : 실험 끝ㄴ
+	UFUNCTION(BlueprintCallable)
 	virtual void ExecuteIf();
 	
 	/* 실행한 명령을 취소합니다 */
