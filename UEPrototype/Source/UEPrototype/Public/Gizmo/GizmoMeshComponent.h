@@ -52,4 +52,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Gizmo")
 	FVector GetAxisUnitDirectionVector();
 
+	/*
+		AxisTypes를 Getter로 가져오기 위해 수정하겠습니다. TransformCommand의 Execute에 사용될 예정입니다.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Gizmo")
+	TArray<EGizmoAxisType> GetAxisTypes()const { return AxisTypes; }
 };

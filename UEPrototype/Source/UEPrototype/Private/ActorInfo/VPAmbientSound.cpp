@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPAmbientSound.h"
 #include <Components/AudioComponent.h>
@@ -18,7 +18,7 @@ void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAt
 {
 	
 
-	//»ç¿îµå¿¡ °üÇÑ Value ¼³Á¤
+	//ì‚¬ìš´ë“œì— ê´€í•œ Value ì„¤ì •
 	{
 		myAudioComponent->Sound = SoundProperty.Sound;
 		myAudioComponent->bIsUISound = SoundProperty.bUISound;
@@ -34,59 +34,59 @@ void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAt
 	}
 		
 		
-	//°¨¼è¿¡ °üÇÑ  Value ¼³Á¤
+	//ê°ì‡ ì— ê´€í•œ  Value ì„¤ì •
 
 	{
-		//°ø°£È­¸¦ ÇÒ °ÍÀÎ°¡(ÀÏ´Ü °íÁ¤ÀÌ±äÇÑµ¥ »ç¿ëÀÚ¿¡°Ô ³Ñ°ÜÁÙÁö ¾È³Ñ°ÜÁÙÁö »ı°¢ÇØºÁ¾ßÇÔ)
+		//ê³µê°„í™”ë¥¼ í•  ê²ƒì¸ê°€(ì¼ë‹¨ ê³ ì •ì´ê¸´í•œë° ì‚¬ìš©ìì—ê²Œ ë„˜ê²¨ì¤„ì§€ ì•ˆë„˜ê²¨ì¤„ì§€ ìƒê°í•´ë´ì•¼í•¨)
 		myAudioComponent->bAllowSpatialization = true;
 
-		//°¨¼è¿¡ °üÇÑ ÆÄ¶ó¹ÌÅÍ¸¦ µû·Î ¼³Á¤ÇÏ±âÀ§ÇÑ bool°ª
+		//ê°ì‡ ì— ê´€í•œ íŒŒë¼ë¯¸í„°ë¥¼ ë”°ë¡œ ì„¤ì •í•˜ê¸°ìœ„í•œ boolê°’
 		myAudioComponent->bOverrideAttenuation = true;
 
-		//3d°ø°£¿¡´ëÇÑ Á¤±ÔÈ­, true·Î ¸ÂÃç³ö¾ßÇÔ.
+		//3dê³µê°„ì—ëŒ€í•œ ì •ê·œí™”, trueë¡œ ë§ì¶°ë†”ì•¼í•¨.
 		myAudioComponent->AttenuationOverrides
 			.bApplyNormalizationToStereoSounds = true;
 
-		//½ºÅ×·¹¿À »çÀÌ °Å¸®, ³Ê¹« ½ÉÈ­ÀÛ¾÷ÀÌ¹Ç·Î default°ªÀ» ¹Ú¾ÆµĞ´Ù.
+		//ìŠ¤í…Œë ˆì˜¤ ì‚¬ì´ ê±°ë¦¬, ë„ˆë¬´ ì‹¬í™”ì‘ì—…ì´ë¯€ë¡œ defaultê°’ì„ ë°•ì•„ë‘”ë‹¤.
 		myAudioComponent->AttenuationOverrides.StereoSpread = 200.0f;
 
-		//°ø°£È­ ¾Ë°í¸®Áò, ³Ê¹« ½ÉÈ­ÀÛ¾÷ÀÌ¹Ç·Î default°ªÀ» ¹Ú¾ÆµĞ´Ù.
+		//ê³µê°„í™” ì•Œê³ ë¦¬ì¦˜, ë„ˆë¬´ ì‹¬í™”ì‘ì—…ì´ë¯€ë¡œ defaultê°’ì„ ë°•ì•„ë‘”ë‹¤.
 		myAudioComponent->AttenuationOverrides.SpatializationAlgorithm =
 			ESoundSpatializationAlgorithm::SPATIALIZATION_Default;
 
-		//°ø°£È­ Àû¿ë¿¡ ´ëÇÑ bool°ª(ÀÚ·á°¡ ¾øÀ½)
+		//ê³µê°„í™” ì ìš©ì— ëŒ€í•œ boolê°’(ìë£Œê°€ ì—†ìŒ)
 		myAudioComponent->AttenuationOverrides.bSpatialize = true;
 
-		//2Â÷¿ø°ø°£¿¡ ´ëÇÑ ¹İ°æ, 3Â÷¿øÀ» »ç¿ëÇÒ ¶§´Â 0À¸·Î °íÁ¤
+		//2ì°¨ì›ê³µê°„ì— ëŒ€í•œ ë°˜ê²½, 3ì°¨ì›ì„ ì‚¬ìš©í•  ë•ŒëŠ” 0ìœ¼ë¡œ ê³ ì •
 		myAudioComponent->AttenuationOverrides.OmniRadius = 0.0f;
 
-		//Enable volume attenuationÀÎ °É·Î »ı°¢ÇÏ°í ¼³Á¤ÇÔ(¾ÈµÇ¸é Ã£¾Æº¸ÀÚ)
+		//Enable volume attenuationì¸ ê±¸ë¡œ ìƒê°í•˜ê³  ì„¤ì •í•¨(ì•ˆë˜ë©´ ì°¾ì•„ë³´ì)
 		myAudioComponent->AttenuationOverrides.bAttenuate = true;
 
-		//°¨¼è°Å¸®¿¡ °üÇÑ ¾Ë°í¸®Áò Àû¿ë
+		//ê°ì‡ ê±°ë¦¬ì— ê´€í•œ ì•Œê³ ë¦¬ì¦˜ ì ìš©
 		myAudioComponent->AttenuationOverrides.DistanceAlgorithm
 			= (EAttenuationDistanceModel)AttenuationProperty.AttenuationDistanceModel;
 
-		//Ç×»ó play¸¦ ½ÃÅ°·Á¸é NaturalSound ¾Ë°í¸®ÁòÀÌ ¹«Á¶°Ç Àû¿ëÀÌµÇ¾î¾ßÇÑ´Ù. µû¶ó¼­ 
-		//AlwaysPlay°¡ ÄÑÁ³´Ù¸é ¹«Á¶°Ç NaturalSound°¡ Àû¿ëµÇµµ·ÏÇÔ.(»ç¿ëÀÚ¿¡°Ô NaturalSound¸¦ º¸¿©ÁÙÁö°í¹Î)
+		//í•­ìƒ playë¥¼ ì‹œí‚¤ë ¤ë©´ NaturalSound ì•Œê³ ë¦¬ì¦˜ì´ ë¬´ì¡°ê±´ ì ìš©ì´ë˜ì–´ì•¼í•œë‹¤. ë”°ë¼ì„œ 
+		//AlwaysPlayê°€ ì¼œì¡Œë‹¤ë©´ ë¬´ì¡°ê±´ NaturalSoundê°€ ì ìš©ë˜ë„ë¡í•¨.(ì‚¬ìš©ìì—ê²Œ NaturalSoundë¥¼ ë³´ì—¬ì¤„ì§€ê³ ë¯¼)
 		if (SoundProperty.bAlwaysPlay)
 		{
 			myAudioComponent->AttenuationOverrides.DistanceAlgorithm = EAttenuationDistanceModel::NaturalSound;
 			myAudioComponent->AttenuationOverrides.dBAttenuationAtMax = -60;
 		}
 
-		//°¨¼è ¸ğ¾ç¿¡ ´ëÇÑ ¼³Á¤
+		//ê°ì‡  ëª¨ì–‘ì— ëŒ€í•œ ì„¤ì •
 		myAudioComponent->AttenuationOverrides.AttenuationShape
 			= AttenuationProperty.AttenuationShape;
-		//°¨¼è°¡ ³¡³ª´Â(º¼·ı =0)°Å¸®¿¡ ´ëÇÑ ¼³Á¤
+		//ê°ì‡ ê°€ ëë‚˜ëŠ”(ë³¼ë¥¨ =0)ê±°ë¦¬ì— ëŒ€í•œ ì„¤ì •
 		myAudioComponent->AttenuationOverrides.FalloffDistance
 			= AttenuationProperty.FalloffDistance;
-		//°¨¼è°¡ Àû¿ëµÇ´Â °Å¸®, º¸Åë X°ª¿¡ ³Ö°í º¤ÅÍÇü½ÄÀ¸·Î ¼³Á¤µÊ.
+		//ê°ì‡ ê°€ ì ìš©ë˜ëŠ” ê±°ë¦¬, ë³´í†µ Xê°’ì— ë„£ê³  ë²¡í„°í˜•ì‹ìœ¼ë¡œ ì„¤ì •ë¨.
 		myAudioComponent->AttenuationOverrides.AttenuationShapeExtents
 			= FVector(AttenuationProperty.DecreaseRadius, 0.0f, 0.0f);
 
-		//³»ºÎ¹İ°æÀÌ °¨¼è°¡ ³¡³ª´Â°Å¸®º¸´Ù ¸Ö¸® ÀÖÀ¸¸é È¿°ú Àû¿ëÀÌ¾ÈµÊ. µû¶ó¼­ ³»ºÎ¹İ°æÀº
-		//¹İµå½Ã falloffDistanceº¸´Ù ÀÛÀº °ªÀ» °¡Á®¾ßÇÑ´Ù.
+		//ë‚´ë¶€ë°˜ê²½ì´ ê°ì‡ ê°€ ëë‚˜ëŠ”ê±°ë¦¬ë³´ë‹¤ ë©€ë¦¬ ìˆìœ¼ë©´ íš¨ê³¼ ì ìš©ì´ì•ˆë¨. ë”°ë¼ì„œ ë‚´ë¶€ë°˜ê²½ì€
+		//ë°˜ë“œì‹œ falloffDistanceë³´ë‹¤ ì‘ì€ ê°’ì„ ê°€ì ¸ì•¼í•œë‹¤.
 		if (AttenuationProperty.FalloffDistance < AttenuationProperty.DecreaseRadius)
 		{
 			myAudioComponent->AttenuationOverrides.AttenuationShapeExtents =
@@ -100,9 +100,9 @@ void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAt
 
 	
 
-	//º¯Á¶¿¡ °üÇÑ Value ¼³Á¤
-		//º¯Á¶´Â »ç¿ëÀÚ°¡ µû·Î °Çµé¿©ÁÙ ÇÊ¿ä°¡ ¾ø¾î º¸ÀÓ.³ªÁß¿¡ ÇÊ¿ä¿¡ µû¶ó ±¸Á¶Ã¼ ÁÖ¼®À» Ç®°í ¸Å°³º¯¼ö·Î
-		//¹Ş¾Æ¿Ã ¿¹Á¤
+	//ë³€ì¡°ì— ê´€í•œ Value ì„¤ì •
+		//ë³€ì¡°ëŠ” ì‚¬ìš©ìê°€ ë”°ë¡œ ê±´ë“¤ì—¬ì¤„ í•„ìš”ê°€ ì—†ì–´ ë³´ì„.ë‚˜ì¤‘ì— í•„ìš”ì— ë”°ë¼ êµ¬ì¡°ì²´ ì£¼ì„ì„ í’€ê³  ë§¤ê°œë³€ìˆ˜ë¡œ
+		//ë°›ì•„ì˜¬ ì˜ˆì •
 	{
 		myAudioComponent->PitchModulationMax = 1.0f;
 		myAudioComponent->PitchModulationMin = 1.0f;
@@ -112,20 +112,20 @@ void AVPAmbientSound::InitSound(AActor* Actor, FSoundProperty SoundProperty, FAt
 	
 
 	
-	//ÇØ´ç ActorÀÇ LableNameÀ» ÀÛ¼º
+	//í•´ë‹¹ Actorì˜ LableNameì„ ì‘ì„±
 	this->SetActorLabel(SoundLabelName);
 
-	//»ç¿îµåÀÇ default location °ªÀ» ºÙ¿©Áú ActorÀÇ locationÀ» ÀÌ¿ëÇØ ¼³Á¤
+	//ì‚¬ìš´ë“œì˜ default location ê°’ì„ ë¶™ì—¬ì§ˆ Actorì˜ locationì„ ì´ìš©í•´ ì„¤ì •
 	this->SetActorLocation(Actor->GetActorLocation());
 
-	//ÇØ´ç Actor¸¦ ºÙ¿©Áú Actor¿¡ ºÙÀÌ°í »ó´ëÀûÀÎ Æ®·£½ºÆûÀ» µû¸£°ÔÇÔ.
+	//í•´ë‹¹ Actorë¥¼ ë¶™ì—¬ì§ˆ Actorì— ë¶™ì´ê³  ìƒëŒ€ì ì¸ íŠ¸ëœìŠ¤í¼ì„ ë”°ë¥´ê²Œí•¨.
 	this->AttachToActor(Actor, FAttachmentTransformRules::KeepWorldTransform);
 	
-	//»ı¼º°ú µ¿½Ã¿¡ ½ÇÇàÇÏ´Â º¯¼ö°¡ true¶ó¸é ¹Ù·Î ½ÇÇà½ÃÅ²´Ù.
+	//ìƒì„±ê³¼ ë™ì‹œì— ì‹¤í–‰í•˜ëŠ” ë³€ìˆ˜ê°€ trueë¼ë©´ ë°”ë¡œ ì‹¤í–‰ì‹œí‚¨ë‹¤.
 	if (myAudioComponent->bAutoActivate)
 		Play();
 }
-//»ç¿îµå Actor Á¦°Å
+//ì‚¬ìš´ë“œ Actor ì œê±°
 void AVPAmbientSound::DestroySound()
 {
 	Destroy();
@@ -143,8 +143,8 @@ UAudioComponent * AVPAmbientSound::GetCustomAudioComponent() const
 	return myAudioComponent;
 }
 
-//ÇöÀç »ç¿îµå°¡ ÇØ´ç ¾×ÅÍÀÇ ÇÏÀ§ Sound¾×ÅÍ·Î¼­ À¯ÀÏÇÑÁö °ËÁõÇÏ´Â ÇÔ¼ö
-//ÀÌ ÇÔ¼ö´Â ¿ÜºÎ(¾Æ¸¶µµ UIÂÊÀÌ µÉ µí)¿¡¼­ »ç¿ëÇÏ¿© °ËÁõÇØ¾ßÇÔ.
+//í˜„ì¬ ì‚¬ìš´ë“œê°€ í•´ë‹¹ ì•¡í„°ì˜ í•˜ìœ„ Soundì•¡í„°ë¡œì„œ ìœ ì¼í•œì§€ ê²€ì¦í•˜ëŠ” í•¨ìˆ˜
+//ì´ í•¨ìˆ˜ëŠ” ì™¸ë¶€(ì•„ë§ˆë„ UIìª½ì´ ë  ë“¯)ì—ì„œ ì‚¬ìš©í•˜ì—¬ ê²€ì¦í•´ì•¼í•¨.
 bool AVPAmbientSound::CheckIsUniqueSound(const AActor* Actor)
 {
 	TArray<AActor*> ChildSound;

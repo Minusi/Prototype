@@ -27,6 +27,7 @@ public:
 	UHighlightCommand();
 
 	/* UCommandBase로부터 상속됨 */
+	
 	virtual void ExecuteIf() override;
 	
 	/* UActorCommandBase로부터 상속됨 */
@@ -42,8 +43,5 @@ private:
 
 
 
-private:
-	/* 명령의 대상이 되는 타겟입니다 */
-	UPROPERTY()
-	FActorConstraintInfo Target;
+
 };
