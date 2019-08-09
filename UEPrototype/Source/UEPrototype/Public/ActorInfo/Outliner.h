@@ -36,7 +36,7 @@ public:
 	 * 참고로 윤곽선을 그리는 방식은 선택된 액터를 하나 더 복제해 
 	 * 조정된 material을 입혀 윤곽선 효과를 냅니다. */
 	UFUNCTION(BlueprintCallable, Category = "Outliner")
-		void DrawActorOutline(AActor* Actor);
+	void DrawActorOutline(AActor* Actor, bool isHighlight =false);
 
 	/* 윤곽선이 그려진 특정 Actor의 윤곽선을 지워줍니다 */
 	UFUNCTION(BlueprintCallable, Category = "Outliner")
@@ -49,7 +49,7 @@ public:
 private:
 	/* 마지막으로 윤곽선이 그려진 Actor입니다 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Outliner", meta = (AllowPrivateAccess = "true"))
-		AActor* LastOutlinedActor;
+	AActor* LastOutlinedActor;
 
 
 	/* 윤곽선 제거를 위해 해당 Actor의 자식 Actor중 LableName이 "OutLiner"인 것들을 찾아서

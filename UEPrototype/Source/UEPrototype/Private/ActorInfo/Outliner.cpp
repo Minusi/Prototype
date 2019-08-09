@@ -10,7 +10,9 @@
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/World.h"
+#include "EngineUtils.h"
 #include "EditorWorldManager.h"
+
 
 
 
@@ -51,7 +53,7 @@ UOutliner* UOutliner::GetGlobalOutliner()
 
 
 // actor가 const인데 const를 떼야 사용할 수 있는 것들이 많음(나중에 생각해봐야함)
-void UOutliner::DrawActorOutline(AActor * Actor)
+void UOutliner::DrawActorOutline(AActor * Actor, bool isHighlight)
 {
 
 
@@ -59,20 +61,45 @@ void UOutliner::DrawActorOutline(AActor * Actor)
 	//그리기 중복 검사, LableName을 검사해 해당 자식 Actor에 LabelName이 있다면 제거한다.
 	TArray<AActor*> ChildOutliner;
 	Actor->GetAttachedActors(ChildOutliner);
-	for (auto OutlineIter = ChildOutliner.CreateConstIterator(); OutlineIter;++OutlineIter)
+
+	// 기존의 자식 객체에 대해서만 Outliner를 돌렸던 점에 대해서 
+	// OutlineCommand에 Error를 일으켜 전체 월드에서 Outline된 것을 가져와 지우게 했다.
+
+	for (TActorIterator<AActor> OutlineIter(GetWorld()); OutlineIter; ++OutlineIter)
 	{
-		if ((*OutlineIter)->GetActorLabel() == OutlinerLabelName) return;
+		if ((*OutlineIter)->GetActorLabel() == OutlinerLabelName)
+		{
+			(*OutlineIter)->Destroy();
+
+		}
 	}
+
+	/*for (auto OutlineIter = ChildOutliner.CreateConstIterator(); OutlineIter;++OutlineIter)
+	{
+		
+	}*/
 
 	//중복검사를 통과하고(윤곽선이그려져있지않다면)나서 그려질 때마다 해당 Actor를 가장 최근에 그려진 Actor로 지정한다.
 	LastOutlinedActor = const_cast<AActor*>(Actor);
-
+	UMaterialInstance* OutlineMaterial;
 	//설정해둔 material을 가져오는 작업
-	UMaterialInstance* OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner"));
-	if (OutlineMaterial == nullptr)
+	if (isHighlight)
 	{
-		return;
+		OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner"));
+		if (OutlineMaterial == nullptr)
+		{
+			return;
+		}
 	}
+	else
+	{	
+		OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner_2"));
+		if (OutlineMaterial == nullptr)
+		{
+			return;
+		}
+	}
+	
 
 	//Actor를 복제하는 과정. 복제이기 때문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
 	AActor* SpawnedOutlineActor = GetWorld()->SpawnActor<AActor>(Actor->GetClass(), Actor->GetActorLocation(), Actor->GetActorRotation());

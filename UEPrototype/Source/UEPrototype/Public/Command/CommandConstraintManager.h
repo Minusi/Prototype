@@ -12,7 +12,7 @@ class UCmdUnfocusedConstraint;
 class UCmdFocusedConstraint;
 class UCmdHighlightedConstraint;
 class UCmdActivatedConstraint;
-
+class UCmdBlockedConstraint;
 
 
 /**
@@ -48,7 +48,7 @@ public:
 
 	/* CmdFocusedConstraint의 Getter입니다 */
 	UFUNCTION(BlueprintGetter, Category="Command")
-		FORCEINLINE UCmdFocusedConstraint* GetCmdFocusedConstraint() const
+	FORCEINLINE UCmdFocusedConstraint* GetCmdFocusedConstraint() const
 	{
 		return CmdFocusedConstraint;
 	}
@@ -65,6 +65,13 @@ public:
 	FORCEINLINE UCmdActivatedConstraint* GetCmdActivatedConstraint() const
 	{
 		return CmdActivatedConstraint;
+	}
+
+	/* CmdBlocked의 Getter입니다 */
+	UFUNCTION(BlueprintGetter, Category = "Command")
+	FORCEINLINE UCmdBlockedConstraint* GetCmdBlockedConstraint() const
+	{
+		return CmdBlockedConstraint;
 	}
 	
 	
@@ -90,4 +97,9 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category = "Command", meta = (AllowPrivateAccess = true),
 	BlueprintGetter = GetCmdActivatedConstraint)
 	UCmdActivatedConstraint* CmdActivatedConstraint;
+
+	/* 액터의 Blocked에 대한 제약조건입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "Command", meta = (AllowPrivateAccess = true),
+	BlueprintGetter = GetCmdBlockedConstraint)
+	UCmdBlockedConstraint* CmdBlockedConstraint;
 };
