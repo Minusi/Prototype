@@ -6,14 +6,6 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
-#include "Components/CapsuleComponent.h"
-#include "Components/SceneComponent.h"
-#include "Components/WidgetComponent.h"
-
-#include "Camera/CameraComponent.h"
-#include "MotionControllerComponent.h"
-#include "MotionTrackedDeviceFunctionLibrary.h"
-
 #include "Core/VPPlayerController.h"
 #include "VPDirectorPawn.generated.h"
 
@@ -188,14 +180,22 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* VRCamera;
 
-	/* 플레이어 모션 컨트롤러 */
+	/* 플레이어 좌측 모션 컨트롤러 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
-	class UMotionControllerComponent* MotionController;
+	class UMotionControllerComponent* LMotionController;
 
-	// 플레이어 모션 컨트롤러 위젯
+	// 플레이어 좌측 모션 컨트롤러 위젯
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
-	class UWidgetComponent* MCWidget;
+	class UWidgetComponent* LMotionWidget;
+
+	/* 플레이어 우측 모션 컨트롤러 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	class UMotionControllerComponent* RMotionController;
 	
+	// 플레이어 좌측 모션 컨트롤러 위젯
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* RMotionWidget;
+
 	/* 플레이어 이동 컴포넌트 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UFloatingPawnMovement* FloatingPawnMovement;

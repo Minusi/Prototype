@@ -74,6 +74,9 @@ private:
 	UFUNCTION()
 	void UpdateBlockedActors(FActorConstraintInfo ChangedInfo);
 
+	/* 액터의 배치 정보가 변경되었을 때, 이를 업데이트합니다. */
+	void UpdateActorsPlaceInfo(FActorPlaceInfo ChangedPlaceInfo);
+	
 
 
 public:
