@@ -2,6 +2,7 @@
 
 #include "VPTextureEditor.h"
 #include "UEPrototype.h"
+#include <UObjectGlobals.h>
 #include <GameFramework/Actor.h>
 #include <Components/StaticMeshComponent.h>
 #include <Materials/Material.h>

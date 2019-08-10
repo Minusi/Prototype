@@ -6,6 +6,15 @@
 #include "MinusiFrameworkLibrary.h"
 #include "DrawDebugHelpers.h"
 
+#include "Components/CapsuleComponent.h"
+#include "Components/SceneComponent.h"
+#include "Components/WidgetComponent.h"
+
+#include "Camera/CameraComponent.h"
+#include "MotionControllerComponent.h"
+#include "MotionTrackedDeviceFunctionLibrary.h"
+
+
 // Sets default values
 AVPDirectorPawn::AVPDirectorPawn()
 {
@@ -13,6 +22,14 @@ AVPDirectorPawn::AVPDirectorPawn()
 
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+
+	/* Pawn 프로퍼티 초기화 */
+	bUseControllerRotationRoll = true;
+	bUseControllerRotationPitch = true;
+	bUseControllerRotationYaw = true;
+
+
 
 	// RootCollision 초기화
 	RootCollision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("SphereCollision"));
@@ -26,19 +43,29 @@ AVPDirectorPawn::AVPDirectorPawn()
 	VRCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("VRCamera"));
 	VRCamera->SetupAttachment(VRRootTransform);
 		
-	// MotionController 초기화
-	MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("MotionController"));
-	MotionController->SetupAttachment(VRRootTransform);
+	/* LMotionController 초기화 */
+	LMotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("LMotionController"));
+	LMotionController->SetupAttachment(VRRootTransform);
 
-	// WidgetComponent 초기화
-	MCWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("MCWidget"));
-	MCWidget->SetupAttachment(MotionController);
+	/* LWidgetComponent 초기화 */
+	LMotionWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("LMotionWidget"));
+	LMotionWidget->SetupAttachment(LMotionController);
 
-	// FloatingPawnMovement 초기화
+	/* LMotionController 초기화 */
+	RMotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("RMotionController"));
+	RMotionController->SetupAttachment(VRRootTransform);
+
+	/* RWidgetComponent 초기화 */
+	RMotionWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("RMotionWidget"));
+	RMotionWidget->SetupAttachment(RMotionController);
+
+	/* FloatingPawnMovement 초기화 */
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
 	FloatingPawnMovement->UpdatedComponent = RootComponent;
 
-	// EMoveType 초기화
+
+
+	/* EMoveType 초기화 */
 	CurrentMoveType = EMoveType::MT_LOCALAXIS;
 	FixedAxis = FRotator(0, 0, 0);
 
@@ -71,6 +98,7 @@ void AVPDirectorPawn::BeginPlay()
 
 void AVPDirectorPawn::Tick(float DeltaTime)
 {
+	/* 포커스하는 대상을 알아냅니다. */
 	Focus(DeltaTime);
 }
 
@@ -177,14 +205,29 @@ void AVPDirectorPawn::MoveAround(EMoveType InMoveType, float InX, float InY, flo
 
 void AVPDirectorPawn::LookSide(float Value)
 {
-	AddControllerYawInput(Value);
+	if (bUseControllerRotationRoll == true)
+	{
+		AddControllerYawInput(Value);
+	}
 }
 
 
 
 void AVPDirectorPawn::LookUpSide(float Value)
 {
-	AddControllerPitchInput(Value);
+	if (bUseControllerRotationPitch == true)
+	{
+		AddControllerPitchInput(Value);
+	}
+}
+
+
+
+
+
+void AVPDirectorPawn::DrawCurvedTrajectory()
+{
+
 }
 
 

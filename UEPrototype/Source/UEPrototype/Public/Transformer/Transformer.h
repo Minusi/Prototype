@@ -38,7 +38,7 @@ public:
 
 	// 오브젝트를 기즈모의 x,y,z 축으로 이동시키는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-	void MoveObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
+	bool MoveObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
 
 	// 오브젝트를 마우스 커서의 위치로 이동시키는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
@@ -46,11 +46,11 @@ public:
 
 	// 오브젝트를 회전시키는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-	void RotateObject(AActor* Target, FVector Axis, float SnapInterval, float Delta);
+	bool RotateObject(AActor* Target, FVector Axis, float SnapInterval, float Delta);
 
 	// 오브젝트의 스케일을 변경하는 함수
 	UFUNCTION(BlueprintCallable, Category = "Transformer")
-	void ScaleObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
+	bool ScaleObject(AActor* Target, FVector Direction, float SnapInterval, float Delta);
 
 
 
@@ -90,11 +90,11 @@ private:
 
 
 	// 그리드 스냅을 적용하지 않을 경우 사용되는 스냅 간격
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Transformer", meta = (AllowPrivateAccess = true))
 	float DefaultMoveSnapInterval;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Transformer", meta = (AllowPrivateAccess = true))
 	float DefaultRotateSnapInterval;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Transformer", meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Transformer", meta = (AllowPrivateAccess = true))
 	float DefaultScaleSnapInterval;
 
 	/*

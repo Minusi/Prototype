@@ -30,7 +30,7 @@ ATransformer::ATransformer()
 
 
 
-void ATransformer::MoveObject(AActor* Target, FVector Direction, float SnapInterval, float Delta)
+bool ATransformer::MoveObject(AActor* Target, FVector Direction, float SnapInterval, float Delta)
 {
 	FSnapStruct SnapElement;
 
@@ -38,7 +38,7 @@ void ATransformer::MoveObject(AActor* Target, FVector Direction, float SnapInter
 	if (IsValid(Target) == false)
 	{
 		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
-		return;
+		return false;
 	}
 
 	// 스냅 동기화가 켜져있지 않을 경우 디폴트 스냅값으로 스냅 간격 설정
@@ -54,6 +54,7 @@ void ATransformer::MoveObject(AActor* Target, FVector Direction, float SnapInter
 		
 		Target->SetActorLocation(Target->GetActorLocation() + Direction * SnapElement.SnappedDelta);
 	}
+	return SnapElement.bCanSnap;
 }
 
 
@@ -71,14 +72,14 @@ void ATransformer::MoveObjectToCurser(AActor * Target, FVector MousePosition)
 }
 
 
-void ATransformer::RotateObject(AActor * Target, FVector Axis, float SnapInterval, float Delta)
+bool ATransformer::RotateObject(AActor * Target, FVector Axis, float SnapInterval, float Delta)
 {
 	FSnapStruct SnapElement;
 
 	if (IsValid(Target) == false)
 	{
 		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
-		return;
+		return false;
 	}
 
 	// 스냅 동기화가 켜져있지 않을 경우 디폴트 스냅값으로 스냅 간격 설정
@@ -90,13 +91,13 @@ void ATransformer::RotateObject(AActor * Target, FVector Axis, float SnapInterva
 	{
 		Target->AddActorWorldRotation(UKismetMathLibrary::RotatorFromAxisAndAngle(Axis, SnapElement.SnappedDelta * -1));
 	}
-
+	return SnapElement.bCanSnap;
 }
 
 
 
 
-void ATransformer::ScaleObject(AActor * Target, FVector Direction, float SnapInterval, float Delta)
+bool ATransformer::ScaleObject(AActor * Target, FVector Direction, float SnapInterval, float Delta)
 {
 	FSnapStruct SnapElement;
 	FVector NewScale;
@@ -104,7 +105,7 @@ void ATransformer::ScaleObject(AActor * Target, FVector Direction, float SnapInt
 	if (IsValid(Target) == false)
 	{
 		VP_LOG(Warning, TEXT("타겟이 유요하지 않습니다."));
-		return;
+		return false;
 	}
 
 	// 스냅 동기화가 켜져있지 않을 경우 디폴트 스냅값으로 스냅 간격 설정
@@ -124,6 +125,7 @@ void ATransformer::ScaleObject(AActor * Target, FVector Direction, float SnapInt
 
 		Target->SetActorScale3D(NewScale);
 	}
+	return SnapElement.bCanSnap;
 }
 
 

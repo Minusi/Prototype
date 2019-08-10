@@ -41,10 +41,226 @@ class UEPROTOTYPE_API UActorCommandFactory : public UObject
 	
 public:
 	/* 액터 커맨드를 생성하여 후처리한 후 반환합니다 */
+	/* 액터 커맨드를 생성하여 후처리한 후 반환합니다. */
 	template<typename CmdType>
-	static FORCEINLINE CmdType* CreateActorCommand(const FActorConstraintInfo Target)
+	static CmdType* CreateActorCommand(const FActorConstraintInfo Target)
 	{
-		UActorCommandBase* ActorCommand = Cast<UActorCommandBase>(NewObject<CmdType>());
+		CmdType* ActorCommand = NewObject<CmdType>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	/* 액터 커맨드를 생성하여 후처리한 후 반환합니다.
+	비 템플릿 버전입니다. */
+	static UActorCommandBase* CreateActorCommandWithClass(const FActorConstraintInfo Target, const TSubclassOf<UCommandBase> CommandClass);
+	
+
+
+
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UHighlightCommand* testCreateActorCommand(const FActorConstraintInfo Target)
+	{
+		
+
+		UHighlightCommand* ActorCommand = NewObject<UHighlightCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UUnfocusedCommand* testCreateActorCommand_Unfocused(const FActorConstraintInfo Target)
+	{
+
+
+		UUnfocusedCommand* ActorCommand = NewObject<UUnfocusedCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UActivateCommand* testCreateActorCommand_Activate(const FActorConstraintInfo Target)
+	{
+
+
+		UActivateCommand* ActorCommand = NewObject<UActivateCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UFocusCommand* testCreateActorCommand_Focus(const FActorConstraintInfo Target)
+	{
+
+
+		UFocusCommand* ActorCommand = NewObject<UFocusCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UTranslateStartCommand* testCreateActorCommand_StartTrans(const FActorConstraintInfo Target)
+	{
+
+
+		UTranslateStartCommand* ActorCommand = NewObject<UTranslateStartCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UTranslateEndCommand* testCreateActorCommand_EndTrans(const FActorConstraintInfo Target)
+	{
+
+
+		UTranslateEndCommand* ActorCommand = NewObject<UTranslateEndCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static URotateStartCommand* testCreateActorCommand_RotateStart(const FActorConstraintInfo Target)
+	{
+		URotateStartCommand* ActorCommand = NewObject<URotateStartCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+		static URotateEndCommand* testCreateActorCommand_RotateEnd(const FActorConstraintInfo Target)
+	{
+		URotateEndCommand* ActorCommand = NewObject<URotateEndCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UScaleStartCommand* testCreateActorCommand_ScaleStart(const FActorConstraintInfo Target)
+	{
+		UScaleStartCommand* ActorCommand = NewObject<UScaleStartCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UScaleEndCommand* testCreateActorCommand_ScaleEnd(const FActorConstraintInfo Target)
+	{
+		UScaleEndCommand* ActorCommand = NewObject<UScaleEndCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UBlockedCommand* testCreateActorCommand_Blocked(const FActorConstraintInfo Target)
+	{
+		UBlockedCommand* ActorCommand = NewObject<UBlockedCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static USoundCommand* testCreateActorCommand_Sound(const FActorConstraintInfo Target)
+	{
+		USoundCommand* ActorCommand = NewObject<USoundCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UEmitterCommand* testCreateActorCommand_Emitter(const FActorConstraintInfo Target)
+	{
+		UEmitterCommand* ActorCommand = NewObject<UEmitterCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UDeleteCommand* testCreateActorCommand_Delete(const FActorConstraintInfo Target)
+	{
+		UDeleteCommand* ActorCommand = NewObject<UDeleteCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UDuplicateCommand* testCreateActorCommand_Duplicate(const FActorConstraintInfo Target)
+	{
+		UDuplicateCommand* ActorCommand = NewObject<UDuplicateCommand>();
 		if (IsValid(ActorCommand) == false)
 		{
 			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));

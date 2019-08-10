@@ -22,6 +22,15 @@ struct FActorPlaceContent
 	GENERATED_BODY()
 	
 public:
+	bool operator==(const FActorPlaceContent& Rhs) const
+	{
+		return ((Name == Rhs.Name)
+			&& (Type == Rhs.Type)
+			&& (UserName == Rhs.UserName)
+			&& (bScripted == Rhs.bScripted));
+	}
+
+public:
 	/* 이 액터의 이름입니다 */
 	UPROPERTY(BlueprintReadWrite, Category="ActorInfo")
 	FString Name;
@@ -53,6 +62,15 @@ struct FActorPlaceInfo
 {
 	GENERATED_BODY()
 	
+public:
+	/* == 연산자 오버로딩 */
+	bool operator==(const FActorPlaceInfo& Rhs)
+	{
+		return (Target == Rhs.Target) && (TargetContent == Rhs.TargetContent);
+	}
+
+
+
 public:
 	/* 월드에 배치된 액터입니다 */
 	UPROPERTY(BlueprintReadWrite, Category = "ActorInfo")

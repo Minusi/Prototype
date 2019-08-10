@@ -114,6 +114,7 @@ void UHighlightCommand::ExecuteIf()
 	}
 
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
+	VP_LOG(Warning, TEXT("asdasdasdasasd %d."),Constraints.Num());
 	for (const auto& it : Constraints)
 	{
 		if (it->CheckConstraint(Target) == true)

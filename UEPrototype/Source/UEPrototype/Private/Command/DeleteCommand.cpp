@@ -12,6 +12,7 @@ UActorConstraintMarker* UDeleteCommand::ActorConstraintMarker = nullptr;
 
 UOutliner* UDeleteCommand::Outliner = nullptr;
 
+UActorConstraintMarker* UDeleteCommand::ActorConstraintMarker = nullptr;
 UDeleteCommand::UDeleteCommand()
 {
 	VP_CTOR;

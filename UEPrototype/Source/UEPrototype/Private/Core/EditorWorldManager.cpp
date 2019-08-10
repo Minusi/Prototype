@@ -106,6 +106,19 @@ void AEditorWorldManager::BindToEvents()
 	
 	/* 이벤트에 함수를 바인딩합니다 */
 	ActorConstraintMarker->OnActorConstraintChanged().AddDynamic(this, &AEditorWorldManager::UpdateBlockedActors);
+
+
+
+	/* ActorPlaceInfoMarker를 얻어옵니다 */
+	UActorPlaceInfoMarker* ActorPlaceInfoMarker =
+		UActorPlaceInfoMarker::GetGlobalActorPlaceInfoMarker();
+	if (IsValid(ActorPlaceInfoMarker) == false)
+	{
+		return;
+	}
+
+	/* 이벤트에 함수를 바인딩합니다. */
+	ActorPlaceInfoMarker->OnActorPlaceInfoMark().AddDynamic(this, &AEditorWorldManager::UpdateActorsPlaceInfo);
 }
 
 
@@ -157,6 +170,44 @@ void AEditorWorldManager::UpdateBlockedActors(FActorConstraintInfo ChangedInfo)
 	VP_LOG(Log, TEXT("해당 액터는 처리 대상이 아닙니다 : Actor(%s), State(%d)"),
 		*ChangedInfo.Target->GetName(), (uint8)(ChangedInfo.TargetState));
 	return;
+}
+
+
+
+void AEditorWorldManager::UpdateActorsPlaceInfo(FActorPlaceInfo ChangedPlaceInfo)
+{
+	/* 액터가 유효한지 검사합니다. */
+	if (IsValid(ChangedPlaceInfo.Target) == false)
+	{
+		VP_LOG(Warning, TEXT("브로드캐스트된 액터가 유효하지 않습니다."));
+		return;
+	}
+
+
+	
+	/* 해당 액터가 월드에 배치되어 있는지 확인합니다. */
+	for (auto& it : ActorsPlaceInfo)
+	{
+		/* 액터가 월드에 존재한다면, 해당 액터의 배치 정보를 갱신합니다. */
+		if (it.Target == ChangedPlaceInfo.Target)
+		{
+			/* 만약 액터가 삭제됨으로써 발생한 정보라면 삭제합니다.*/
+			if (IsValid(it.TargetContent.Type) == false)
+			{
+				ActorsPlaceInfo.Remove(it);
+				return;
+			}
+			/* 그 외의 경우, 변경된 내용을 업데이트합니다. */
+			else
+			{
+				it.TargetContent = ChangedPlaceInfo.TargetContent;
+				return;
+			}
+		}
+	}
+
+	/* 액터과 월드에 존재하지 않는다면, 해당 액터의 정보를 추가합니다. */
+	ActorsPlaceInfo.Add(ChangedPlaceInfo);
 }
 
 

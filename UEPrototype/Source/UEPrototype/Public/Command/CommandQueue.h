@@ -31,6 +31,13 @@ public:
 	/* 생성자 */
 	UCommandQueue();
 	
+private:
+	/* 도구의 이벤트 디스패처에 함수를 바인드합니다 */
+	UFUNCTION()
+	void BindToEvents();
+
+
+private:
 	/* 실행된 명령을 담습니다 */
 	UFUNCTION()
 	void AddUndoQueue(UCommandBase* CommandExecuted);

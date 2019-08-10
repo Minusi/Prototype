@@ -12,6 +12,7 @@ class UOutliner;
 class UVPTexturer;
 class UActorConstraintMarker;
 class UActorPlaceInfoMarker;
+class UHUDWorldPositioner;
 
 
 
@@ -64,6 +65,13 @@ public:
 		return ActorPlaceInfoMarker;
 	}
 
+	/* HUDWorldPositioner를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE UHUDWorldPositioner* GetHUDWorldPositioner() const
+	{
+		return HUDWorldPositioner;
+	}
+
 
 
 protected:
@@ -94,4 +102,10 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetActorPlaceInfoMarker)
 	UActorPlaceInfoMarker* ActorPlaceInfoMarker;
+
+	/* 액터에 대한 정보를 띄워줄 위젯의 위치를 결정합니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetHUDWorldPositioner)
+	UHUDWorldPositioner* HUDWorldPositioner;
+
 };

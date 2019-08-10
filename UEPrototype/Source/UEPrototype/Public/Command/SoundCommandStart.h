@@ -48,5 +48,7 @@ private:
 	FSoundProperty SoundProperty; 
 	FAttenuationProperty AttenuationProperty;
 
+	AVPAmbientSound* VPAmbientSound;
+
 
 };

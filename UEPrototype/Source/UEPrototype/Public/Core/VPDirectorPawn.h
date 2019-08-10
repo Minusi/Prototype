@@ -6,14 +6,6 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
-#include "Components/CapsuleComponent.h"
-#include "Components/SceneComponent.h"
-#include "Components/WidgetComponent.h"
-
-#include "Camera/CameraComponent.h"
-#include "MotionControllerComponent.h"
-#include "MotionTrackedDeviceFunctionLibrary.h"
-
 #include "Core/VPPlayerController.h"
 #include "VPDirectorPawn.generated.h"
 
@@ -91,6 +83,12 @@ public:
 	/* 위아래를 둘러봅니다 */
 	UFUNCTION(BlueprintCallable, Category = "Core|Player")
 	void LookUpSide(float Value);
+
+
+
+	/* 커브 포인터 궤적을 그립니다. */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
+	void DrawCurvedTrajectory();
 
 
 
@@ -188,14 +186,22 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* VRCamera;
 
-	/* 플레이어 모션 컨트롤러 */
+	/* 플레이어 좌측 모션 컨트롤러 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
-	class UMotionControllerComponent* MotionController;
+	class UMotionControllerComponent* LMotionController;
 
-	// 플레이어 모션 컨트롤러 위젯
+	// 플레이어 좌측 모션 컨트롤러 위젯
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
-	class UWidgetComponent* MCWidget;
+	class UWidgetComponent* LMotionWidget;
+
+	/* 플레이어 우측 모션 컨트롤러 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	class UMotionControllerComponent* RMotionController;
 	
+	// 플레이어 좌측 모션 컨트롤러 위젯
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* RMotionWidget;
+
 	/* 플레이어 이동 컴포넌트 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UFloatingPawnMovement* FloatingPawnMovement;
@@ -216,12 +222,12 @@ private:
 private:
 	/* 좌우 회전 속도 스케일입니다 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
-		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+		BlueprintSetter = SetYawRotSpeed, BlueprintGetter = GetYawRotSpeed)
 	float YawRotSpeed;
 
 	/* 수직 회전 속도 스케일입니다 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
-		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+		BlueprintSetter = SetPitchRotSpeed, BlueprintGetter = GetPitchRotSpeed)
 	float PitchRotSpeed;
 
 	/* 라인트레이싱할 길이입니다 */

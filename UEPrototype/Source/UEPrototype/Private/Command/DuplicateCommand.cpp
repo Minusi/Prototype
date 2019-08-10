@@ -99,6 +99,7 @@ void UDuplicateCommand::ExecuteIf()
 		{
 			Duplicate();
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_None);
+			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
 			
 			return;
 		}

@@ -2,6 +2,10 @@
 
 #include "Command/CommandQueue.h"
 #include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
+#include "UObjectIterator.h"
+#include "Core/EditorModulesManager.h"
+#include "Tool/ToolBase.h"
 
 
 
@@ -9,6 +13,36 @@ UCommandQueue::UCommandQueue()
 {
 	// DEBUG
 	VP_CTOR;
+
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
+	{
+		return;
+	}
+
+
+
+	/* 상위 모듈을 불러와서 이벤트에 함수들을 바인딩합니다 */
+	UEditorModulesManager* EditorModulesManager =
+		UEditorModulesManager::GetGlobalEditorModulesManager();
+	if (IsValid(EditorModulesManager) == false)
+	{
+		return;
+	}
+
+	FEventToRegister Event;
+	Event.BindUFunction(this, "BindToEvents");
+	EditorModulesManager->RegisterIf(Event);
+}
+
+
+
+
+
+void UCommandQueue::BindToEvents()
+{
+	// TODO : 모든 구체 도구들에 대한 바인드
+	
 }
 
 
