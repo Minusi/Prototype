@@ -9,6 +9,7 @@
 
 
 class UOutliner;
+class UVPTexturer;
 class UActorConstraintMarker;
 class UActorPlaceInfoMarker;
 
@@ -37,7 +38,14 @@ public:
 	
 	/* UOutliner를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category="ActorInfo")
-		FORCEINLINE UOutliner* GetOutliner() const
+	FORCEINLINE UVPTexturer* GetTexturer() const
+	{
+		return VPTexturer;
+	}
+
+	/* UOutliner를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE UOutliner* GetOutliner() const
 	{
 		return Outliner;
 	}
@@ -71,6 +79,11 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetOutliner)
 	UOutliner * Outliner;
+
+	/* 윤곽선을 그려주는 Outliner입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetTexturer)
+	UVPTexturer * VPTexturer;
 
 	/* 액터의 Constraint 상태의 변경을 알립니다 */
 	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),

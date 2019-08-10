@@ -1,7 +1,10 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "VPTextureEditor.h"
+#include "VPTexturer.h"
 #include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
+#include "UObjectGlobals.h"
+#include "UObjectIterator.h"
 #include <GameFramework/Actor.h>
 #include <Components/StaticMeshComponent.h>
 #include <Materials/Material.h>
@@ -15,17 +18,54 @@
 
 
 
-AVPTextureEditor::AVPTextureEditor()
+UVPTexturer::UVPTexturer()
 {
+	VP_CTOR;
 
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
+	{
+		return;
+	}
 }
 
-
-void AVPTextureEditor::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT)
+UVPTexturer* UVPTexturer::GetGlobalTexturer()
 {
-	if (PaintMarkMat == nullptr || PaintMat == nullptr
-		|| PaintMarkMat == nullptr || CanvasRT == nullptr)
+	for (const auto& it : TObjectRange<UVPTexturer>())
 	{
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
+		{
+			return it;
+		}
+	}
+
+
+
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다 */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *UVPTexturer::StaticClass()->GetName());
+	return nullptr;
+}
+
+void UVPTexturer::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT)
+{
+	if(PaintMarkMat == nullptr)
+	{
+		VP_LOG(Error, TEXT("PaintMarkMat이 유효하지 않습니다."));
+		return;
+	}
+	if (PaintMat == nullptr)
+	{
+		VP_LOG(Error, TEXT("PaintMat이 유효하지 않습니다."));
+		return;
+	}
+	if (CanvasRT == nullptr)
+	{
+		VP_LOG(Error, TEXT("CanvasRT가 유효하지 않습니다."));
+		return;
+	}
+	if (Actor == nullptr)
+	{
+		VP_LOG(Error, TEXT("InitEditMaterial에 Actor가 유효하지않습니다"));
 		return;
 	}
 
@@ -53,11 +93,11 @@ void AVPTextureEditor::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FN
 		}
 	}
 	//생성 전에 그려진 부분이 있다면 모두 지워주는 작업
-	UKismetRenderingLibrary::ClearRenderTarget2D(GetWorld(), MyRenderTarget);
+	//UKismetRenderingLibrary::ClearRenderTarget2D(GetWorld(), MyRenderTarget);
 
 }
 
-void AVPTextureEditor::PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam, bool isHit)
+void UVPTexturer::PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam, bool isHit)
 {
 	if (!isHit) return;
 
@@ -71,7 +111,7 @@ void AVPTextureEditor::PaintTexture(FVector2D LocationToDraw, FName PaintMarkPar
 	UKismetRenderingLibrary::DrawMaterialToRenderTarget(GetWorld(), MyRenderTarget, DynamicPaintMarkerMat);
 }
 
-void AVPTextureEditor::EditPaintParameter(float DrawSize, FColor Color, UTexture* PreviousTexture, float ForceStrength)
+void UVPTexturer::EditPaintParameter(float DrawSize, FColor Color, float ForceStrength)
 {
 	// 그려질 머테리얼의 색을 받아옴.
 	FLinearColor C = FLinearColor(Color.R, Color.G, Color.B, Color.A);
@@ -98,4 +138,14 @@ void AVPTextureEditor::EditPaintParameter(float DrawSize, FColor Color, UTexture
 	/*DynamicPaintMat->SetVectorParameterValue("PreviousColor", CurrentColor);*/
 
 
+}
+
+void UVPTexturer::EraseTarget()
+{
+	if (MyRenderTarget == nullptr)
+	{
+		VP_LOG(Error, TEXT("MyRenderTarget이 유효하지 않습니다."));
+		return;
+	}
+	UKismetRenderingLibrary::ClearRenderTarget2D(GetWorld(), MyRenderTarget);
 }

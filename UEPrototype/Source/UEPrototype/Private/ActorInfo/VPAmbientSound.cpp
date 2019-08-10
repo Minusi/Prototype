@@ -7,7 +7,7 @@ AVPAmbientSound::AVPAmbientSound()
 {
 	myAudioComponent = GetAudioComponent();
 	//Default Values
-	myAudioComponent->VolumeMultiplier = 1.f;
+	myAudioComponent->VolumeMultiplier = 2.f;
 	myAudioComponent->PitchMultiplier = 1.f;
 	myAudioComponent->AttenuationOverrides.FalloffDistance = 3600.f;
 	myAudioComponent->AttenuationOverrides.AttenuationShapeExtents
@@ -131,6 +131,7 @@ void AVPAmbientSound::DestroySound()
 	Destroy();
 }
 
+//플레이 시작시간에 delay를 주지않고 바로 시작함.
 void AVPAmbientSound::PlayNormal()
 {
 	Play();

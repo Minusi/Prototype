@@ -1,50 +1,46 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Command/HighlightCommand.h"
+#include "TextureCommandStart.h"
 #include "UEPrototype.h"
 #include "EditorModulesManager.h"
 #include "Command/CommandConstraintManager.h"
-#include "Command/CmdFocusedConstraint.h"
-#include "Command/CmdHighlightedConstraint.h"
-#include "ActorInfo/Outliner.h"
+#include "Command/CmdActivatedConstraint.h"
 #include "ActorInfo/ActorConstraintMarker.h"
+#include "ActorInfo/VPTexturer.h"
 
+UActorConstraintMarker* UTextureCommandStart::ActorConstraintMarker = nullptr;
+UVPTexturer* UTextureCommandStart::VPTextureEditor = nullptr;
 
-
-UActorConstraintMarker* UHighlightCommand::ActorConstraintMarker = nullptr;
-UOutliner* UHighlightCommand::Outliner = nullptr;
-
-
-
-UHighlightCommand::UHighlightCommand()
+UTextureCommandStart::UTextureCommandStart()
 {
+	
 	VP_CTOR;
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
 
-	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()))return;
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()))return;
 
-	UCmdFocusedConstraint* FocusedConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint();
-	if (IsValid(FocusedConstraint) == false)
+	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
+	if (IsValid(ActivateConstraint) == false)
 	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()->GetName());
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
 		return;
 	}
-	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(FocusedConstraint);
+	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
 	if (ConstraintInterface == nullptr)
 	{
 		VP_LOG(Warning, TEXT(";;;"));
 		return;
 	}
-	Constraints.Add(FocusedConstraint);
+	Constraints.Add(ActivateConstraint);
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
-		&& Outliner != nullptr && Outliner->IsValidLowLevel())
+		||(VPTextureEditor !=nullptr && VPTextureEditor->IsValidLowLevel()))
 	{
-		VP_LOG(Log, TEXT("HighlightCommand의 멤버가 유효하다네요?"));
+		VP_LOG(Log, TEXT("TextureCommandStart의 멤버가 유효하다네요?"));
 		return;
 	}
-	VP_LOG(Log, TEXT("HighlightCommand의 멤버가 유효하지 않다네요?"));
+	VP_LOG(Log, TEXT("TextureCommandStart의 멤버가 유효하지 않다네요?"));
 
 	/* 초기화하는 데 필요한 객체를 가지고 있는 모듈의 유효성을 검사합니다 */
 	UEditorModulesManager* EditorModulesManager =
@@ -61,18 +57,12 @@ UHighlightCommand::UHighlightCommand()
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
-	Outliner = UOutliner::GetGlobalOutliner();
+	VPTextureEditor = UVPTexturer::GetGlobalTexturer();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
 	
 	
-
-
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
-	if (IsValid(Outliner) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UOutliner::StaticClass()->GetName());
-		return;
-	}
+
 	if (IsValid(ActorConstraintMarker) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UActorConstraintMarker::StaticClass()->GetName());
@@ -83,24 +73,24 @@ UHighlightCommand::UHighlightCommand()
 		VP_LOG(Warning, TEXT("제약 조건이 올바르게 설정되지 않았습니다."));
 		return;
 	}
+	if (IsValid(VPTextureEditor) == false)
+	{
+		VP_LOG(Warning, TEXT("초기화 제대로 안하냐"));
+
+	}
 
 	// DEBUG
-	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *Outliner->GetName(), Outliner->GetUniqueID(), &Outliner);
 	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *ActorConstraintMarker->GetName(), ActorConstraintMarker->GetUniqueID(), &ActorConstraintMarker);
 }
 
-
-
-
-
-void UHighlightCommand::ExecuteIf()
+void UTextureCommandStart::ExecuteIf()
 {
-	/* 실행 전 유효성을 검사합니다 */
-	if (IsValid(Outliner) == false)
+	if (IsValid(VPTextureEditor) == false)
 	{
-		VP_LOG(Warning, TEXT("명령을 실행하는데 %s가 유효하지 않습니다."), *UOutliner::StaticClass()->GetName());
+		VP_LOG(Warning, TEXT("명령을 실행하는데 %s가 유효하지 않습니다."), *UActorConstraintMarker::StaticClass()->GetName());
 		return;
 	}
+
 	if (IsValid(ActorConstraintMarker) == false)
 	{
 		VP_LOG(Warning, TEXT("명령을 실행하는데 %s가 유효하지 않습니다."), *UActorConstraintMarker::StaticClass()->GetName());
@@ -114,27 +104,31 @@ void UHighlightCommand::ExecuteIf()
 	}
 
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
+
 	for (const auto& it : Constraints)
 	{
 		if (it->CheckConstraint(Target) == true)
 		{
-			
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Highlighted);
-			Outliner->DrawActorOutline(Target.Target,true);
+			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Blocked);
+			VPTextureEditor->PaintTexture(DrawParam.LocationToDraw, DrawParam.PaintMarkParam, DrawParam.isHit);
 			return;
 		}
 	}
-
-
-
-	
 }
 
-
-
-
-
-void UHighlightCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
+void UTextureCommandStart::InitActorCommand(FActorConstraintInfo TargetInfo)
 {
 	Target = TargetInfo;
+}
+
+void UTextureCommandStart::InitVPTexture(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT)
+{
+	if (!IsValid(VPTextureEditor))
+	{
+		VP_LOG(Warning, TEXT("한상훈의 실패."));
+		
+		return;
+		
+	}
+	VPTextureEditor->InitEditMaterial(Target.Target, PaintMat, DrawLocationName, PaintMarkMat, CanvasRT);
 }

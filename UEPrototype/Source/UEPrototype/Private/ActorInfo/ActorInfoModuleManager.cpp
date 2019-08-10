@@ -5,6 +5,7 @@
 #include "VPFrameworkLibrary.h"
 #include "UObjectIterator.h"
 #include "Outliner.h"
+#include "VPTexturer.h"
 #include "EditorWorldManager.h"
 #include "EditorModulesManager.h"
 #include "ActorConstraintMarker.h"
@@ -62,6 +63,7 @@ void UActorInfoModuleManager::Initialized()
 {
 	/* 하위 컴포넌트들을 초기화합니다 */
 	Outliner = CreateDefaultSubobject<UOutliner>(UOutliner::StaticClass()->GetFName());
+	VPTexturer = CreateDefaultSubobject<UVPTexturer>(UVPTexturer::StaticClass()->GetFName());
 	ActorConstraintMarker = CreateDefaultSubobject<UActorConstraintMarker>(UActorConstraintMarker::StaticClass()->GetFName());
 	ActorPlaceInfoMarker = CreateDefaultSubobject<UActorPlaceInfoMarker>(UActorPlaceInfoMarker::StaticClass()->GetFName());
 
@@ -71,6 +73,11 @@ void UActorInfoModuleManager::Initialized()
 	if (IsValid(Outliner) == false)
 	{
 		VP_LOG(Error, TEXT("%s가 유효하지 않습니다. 생성되지 않았을 수 있습니다."), *UOutliner::StaticClass()->GetName());
+		return;
+	}
+	if (IsValid(VPTexturer) == false)
+	{
+		VP_LOG(Error, TEXT("%s가 유효하지 않습니다. 생성되지 않았을 수 있습니다."), *UVPTexturer::StaticClass()->GetName());
 		return;
 	}
 	if (IsValid(ActorConstraintMarker) == false)

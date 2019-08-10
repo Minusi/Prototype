@@ -37,7 +37,7 @@ UFocusCommand::UFocusCommand()
 	if (Outliner != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
 		ActorConstraintMarker->IsValidLowLevel())
 	{
-		VP_LOG(Log, TEXT("UnFocusedCommand의 멤버가 유효하다네요?"));
+		VP_LOG(Log, TEXT("FocusCommand의 멤버가 유효하다네요?"));
 		return;
 	}
 
@@ -118,7 +118,7 @@ void UFocusCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			VP_LOG(Warning, TEXT("FocusCommand에 의해 Outline이 그려지고 있습니다"));
-			ActorConstraintMarker->MarkActor(Target.Target, Target.TargetState);
+			ActorConstraintMarker->MarkActor(Target.Target,Target.TargetState);
 			Outliner->DrawActorOutline(Target.Target);
 			return;
 		}

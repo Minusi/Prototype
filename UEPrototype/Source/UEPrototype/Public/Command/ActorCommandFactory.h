@@ -23,6 +23,8 @@
 #include "EmitterCommand.h"
 #include "DeleteCommand.h"
 #include "DuplicateCommand.h"
+#include "TextureCommandStart.h"
+#include "TextureCommandEnd.h"
 #include "ActorCommandFactory.generated.h"
 
 
@@ -250,6 +252,32 @@ public:
 	static UDuplicateCommand* testCreateActorCommand_Duplicate(const FActorConstraintInfo Target)
 	{
 		UDuplicateCommand* ActorCommand = NewObject<UDuplicateCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UTextureCommandStart* testCreateActorCommand_Texture_Start(const FActorConstraintInfo Target)
+	{
+		UTextureCommandStart* ActorCommand = NewObject<UTextureCommandStart>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UTextureCommandEnd* testCreateActorCommand_Texture_End(const FActorConstraintInfo Target)
+	{
+		UTextureCommandEnd* ActorCommand = NewObject<UTextureCommandEnd>();
 		if (IsValid(ActorCommand) == false)
 		{
 			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));

@@ -15,6 +15,25 @@ USoundCommandStart::USoundCommandStart()
 {
 	VP_CTOR;
 
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
+
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()))return;
+
+
+	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
+	if (IsValid(ActivateConstraint) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
+		return;
+	}
+	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
+	if (ConstraintInterface == nullptr)
+	{
+		VP_LOG(Warning, TEXT(";;;"));
+		return;
+	}
+	Constraints.Add(ActivateConstraint);
+
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
@@ -35,19 +54,7 @@ USoundCommandStart::USoundCommandStart()
 	}
 
 
-	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
-	if (IsValid(ActivateConstraint) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
-		return;
-	}
-	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
-	if (ConstraintInterface == nullptr)
-	{
-		VP_LOG(Warning, TEXT(";;;"));
-		return;
-	}
-	Constraints.Add(ActivateConstraint);
+	
 
 
 	/* 초기화를 수행합니다 */

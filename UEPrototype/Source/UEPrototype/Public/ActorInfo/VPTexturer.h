@@ -3,18 +3,37 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "UObject/NoExportTypes.h"
+#include "GameFramework/Actor.h"
 #include <Engine/EngineTypes.h>
-#include "VPTextureEditor.generated.h"
+#include "VPTexturer.generated.h"
+
 
 class UMaterialInstanceDynamic;
 class UCanvasRenderTarget2D;
 class UMaterial;
+class UTextureRenderTarget2D;
+class UTexture;
 
 USTRUCT(BlueprintType)
-struct FPaintParameter2 
+struct FPaintParameter
 {
+	//float DrawSize, FColor Color, UTexture* PreviousTexture, float ForceStrength
+	GENERATED_BODY()
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
+	float DrawSize;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
+	FColor Color;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
+	float ForceStrength;
+	
+};
+
+USTRUCT(BlueprintType)
+struct FDrawParameter
+{
+	//FVector2D LocationToDraw, FName PaintMarkParam, bool isHit
 	GENERATED_BODY()
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
@@ -23,19 +42,20 @@ public:
 	FName PaintMarkParam;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
 	bool isHit;
+
 };
 
-
 UCLASS()
-class UEPROTOTYPE_API AVPTextureEditor : public AActor
+class UEPROTOTYPE_API UVPTexturer : public UObject
 {
 	GENERATED_BODY()
-
 public:
 
-	AVPTextureEditor();
-	
+	UVPTexturer();
 
+	/* UOutliner를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static UVPTexturer* GetGlobalTexturer();
 	//Texture 생성 및 편집에 필요한 파라미터 초기화
 	UFUNCTION(BlueprintCallable, Category = "VPEditor")
 	void InitEditMaterial(AActor* Actor, UMaterial* PaintMat, FName DrawLocationName,
@@ -43,12 +63,13 @@ public:
 
 	//실시간으로 그리기 작업
 	UFUNCTION(BlueprintCallable, Category = "VPEditor")
-	void PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam,bool isHit);
+	void PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam, bool isHit);
 
 	//그리기 도구 편집용 함수
 	UFUNCTION(BlueprintCallable, Category = "VPEditor")
-	void EditPaintParameter(float DrawSize, FColor Color, UTexture* PreviousTexture, float ForceStrength);
-
+	void EditPaintParameter(float DrawSize, FColor Color, float ForceStrength);
+	UFUNCTION(BlueprintCallable, Category = "VPEditor")
+	void EraseTarget();
 
 private:
 	// 직접적으로 텍스쳐와 합쳐질 머테리얼
@@ -73,4 +94,12 @@ private:
 	// 현재 그려진 컬러
 	UPROPERTY()
 	FLinearColor CurrentColor;
+
+
+
+
+
+
+
+	
 };
