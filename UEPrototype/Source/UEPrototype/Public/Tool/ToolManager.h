@@ -82,12 +82,28 @@ private:
 	
 
 public:
-	/* 장착중인 도구들에게 입력 정보를 브로드캐스트합니다 */
+	/* 입력 정보를 처리합니다. */
 	UFUNCTION(BlueprintCallable, Category="Tool")
+	void ProcessInput(FHighLevelInputData Input);
+
+	/* 포커스 정보를 처리합니다. */
+	UFUNCTION(BlueprintCallable, Category="Tool")
+	void ProcessFocus(FHighLevelFocusData Input);
+	
+private:
+	/* 입력에 대한 실행가능한 도구의 기능이 여러개가 있는 지 확인합니다. */
+	UFUNCTION()
+	bool CheckInputOverlap(FHighLevelInputData Input);
+
+	UFUNCTION()
+	bool CheckFocusOverlap(FHighLevelFocusData Input);
+
+	/* 적합한 도구에게 입력 정보를 브로드캐스트합니다 */
+	UFUNCTION()
 	void BroadcastInput(FHighLevelInputData Input);
 
-	/* 장착중인 도구들에게 포커스 정보를 브로드캐스트합니다 */
-	UFUNCTION(BlueprintCallable, Category="Tool")
+	/* 적합한 도구에게 포커스 정보를 브로드캐스트합니다 */
+	UFUNCTION()
 	void BroadcastFocus(FHighLevelFocusData Input);
 
 

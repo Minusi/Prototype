@@ -136,9 +136,104 @@ void UToolManager::BindToEvents()
 
 
 
+void UToolManager::ProcessInput(FHighLevelInputData Input)
+{
+	/* 해당 입력이 여러 도구의 기능을 활성화시키는지 확인합니다. */
+	bool bOverlapped = CheckInputOverlap(Input);
+	if (bOverlapped == true)
+	{
+		VP_LOG(Warning, TEXT("명령이 중첩됩니다."));
+		return;
+	}
+
+	/* 입력을 브로드캐스트합니다. */
+	BroadcastInput(Input);
+}
+
+
+
+void UToolManager::ProcessFocus(FHighLevelFocusData Input)
+{
+	/* 해당 입력이 여러 도구의 기능을 활성화시키는지 확인합니다. */
+	bool bOverlapped = CheckFocusOverlap(Input);
+	if (bOverlapped == true)
+	{
+		VP_LOG(Warning, TEXT("포커스 명령이 중첩됩니다."));
+		return;
+	}
+
+	/* 입력을 브로드캐스트합니다. */
+	BroadcastFocus(Input);
+}
+
+
+
+bool UToolManager::CheckInputOverlap(FHighLevelInputData Input)
+{
+	uint32 NumTriggerableCommands = 0;
+
+	for (const auto& it : EquippedTools)
+	{
+		/* 도구가 주어진 입력으로 커맨드를 트리거할 수 있으면
+			수치가 상승합니다. */
+		if (it->HasTriggerableCommand(Input) == true)
+		{
+			++NumTriggerableCommands;
+		}
+	}
+
+	/* 사용가능한 명령이 없거나, 단 하나 있으면 겹치는 도구 명령이
+		없다는 것을 의미합니다. */
+	if (NumTriggerableCommands <= 1)
+	{
+		return false;
+	}
+
+
+
+	/* 위의 조건을 만족하지 않으면 명령 겹침이 발생한 것입니다. */
+	return true;
+}
+
+
+
+bool UToolManager::CheckFocusOverlap(FHighLevelFocusData Input)
+{
+	USightToolBase* SightTool;
+	uint32 NumTriggerableFocusCommands = 0;
+
+	for (auto& it : EquippedTools)
+	{
+		SightTool = Cast<USightToolBase>(it);
+		if (IsValid(SightTool) == true)
+		{
+			if (SightTool->HasTriggerableFocusCommand(Input) == true)
+			{
+				++NumTriggerableFocusCommands;
+			}
+		}
+	}
+
+
+
+	/* 사용가능한 명령이 없거나, 단 하나 있으면 겹치는 도구 명령이
+	없다는 것을 의미합니다. */
+	if (NumTriggerableFocusCommands <= 1)
+	{
+		return false;
+	}
+
+
+
+	/* 위의 조건을 만족하지 않으면 명령 겹침이 발생한 것입니다. */
+	return true;
+}
+
+
+
 void UToolManager::BroadcastInput(FHighLevelInputData Input)
 {
-	/* 입력을 브로드캐스트합니다 */
+	/* 모든 도구들에 대해 입력을 브로드캐스트합니다 */
 	for (auto& it : EquippedTools)
 	{
 		it->HandleInput(Input);

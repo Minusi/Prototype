@@ -27,11 +27,13 @@ public:
 	반드시 파생클래스에서 구현해야 합니다 */
 	virtual UCommandBase* HandleFocus(FHighLevelFocusData Focus);
 
+	/* 주어진 포커스 입력이 도구의 기능을 활성화시킬 수 있는지 여부를 반환합니다. */
+	virtual bool HasTriggerableFocusCommand(FHighLevelFocusData Focus);
 
 
 	/* FocusAvailables의 Getter 함수입니다 */
 	UFUNCTION(BlueprintGetter, Category = "Tool")
-	FORCEINLINE TMap<EFocusMetadata, FSubclassOfCommandBase> GetFocusAvailables() const
+	FORCEINLINE TMap<FHighLevelFocusData, FSubclassOfCommandBase> GetFocusAvailables() const
 	{
 		return FocusAvailables;
 	}
@@ -52,7 +54,7 @@ private:
 	/* 도구가 실행할 수 있는 시선 관련 커맨드들을 담은 컨테이너입니다. */
 	UPROPERTY(BlueprintReadOnly, Category = "Tool", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetFocusAvailables)
-	TMap<EFocusMetadata, FSubclassOfCommandBase> FocusAvailables;
+	TMap<FHighLevelFocusData, FSubclassOfCommandBase> FocusAvailables;
 
 	/* 도구가 포커스 관련 명령을 실행했을 때 브로드캐스트하는 이벤트 디스패처입니다 */
 	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Tool|Delegate",

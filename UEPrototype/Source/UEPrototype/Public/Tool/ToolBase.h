@@ -27,6 +27,8 @@ struct FSubclassOfCommandBase
 	GENERATED_BODY()
 
 public:
+
+	/* == 연산자 오버로딩 */
 	bool operator==(const FSubclassOfCommandBase& Rhs)
 	{
 		return CommandClass == Rhs.CommandClass;
@@ -35,6 +37,7 @@ public:
 
 
 public:
+	UPROPERTY(BlueprintReadWrite)
 	TSubclassOf<UCommandBase> CommandClass;
 };
 
@@ -62,6 +65,9 @@ public:
 	/* 사용자로부터 입력을 받아 맞는 적절한 커맨드를 실행합니다.
 		반드시 파생클래스에서 구현해야 합니다 */
 	virtual UCommandBase* HandleInput(FHighLevelInputData Input);
+
+	/* 주어진 입력이 도구의 기능을 활성화시킬 수 있는지 여부를 반환합니다. */
+	virtual bool HasTriggerableCommand(FHighLevelInputData Input);
 	
 
 	

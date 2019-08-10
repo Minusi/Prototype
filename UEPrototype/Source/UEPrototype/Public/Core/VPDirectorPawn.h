@@ -86,6 +86,12 @@ public:
 
 
 
+	/* 커브 포인터 궤적을 그립니다. */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
+	void DrawCurvedTrajectory();
+
+
+
 public:
 	/* CurrentMoveType의 Setter 함수입니다 */
 	UFUNCTION(BlueprintSetter, Category = "Core|Player")
@@ -216,12 +222,12 @@ private:
 private:
 	/* 좌우 회전 속도 스케일입니다 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
-		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+		BlueprintSetter = SetYawRotSpeed, BlueprintGetter = GetYawRotSpeed)
 	float YawRotSpeed;
 
 	/* 수직 회전 속도 스케일입니다 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
-		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
+		BlueprintSetter = SetPitchRotSpeed, BlueprintGetter = GetPitchRotSpeed)
 	float PitchRotSpeed;
 
 	/* 라인트레이싱할 길이입니다 */

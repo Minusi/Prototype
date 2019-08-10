@@ -225,6 +225,15 @@ void AVPDirectorPawn::LookUpSide(float Value)
 
 
 
+void AVPDirectorPawn::DrawCurvedTrajectory()
+{
+
+}
+
+
+
+
+
 void AVPDirectorPawn::SetMoveType(EMoveType InMoveType)
 {
 	CurrentMoveType = InMoveType;
