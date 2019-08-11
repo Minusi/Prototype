@@ -12,6 +12,7 @@
 UActorConstraintMarker* UFocusCommand::ActorConstraintMarker = nullptr;
 UOutliner* UFocusCommand::Outliner = nullptr;
 
+
 UFocusCommand::UFocusCommand()
 {
 	VP_CTOR;

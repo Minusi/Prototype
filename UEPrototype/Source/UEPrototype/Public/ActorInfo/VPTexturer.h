@@ -70,7 +70,10 @@ public:
 	void EditPaintParameter(float DrawSize, FColor Color, float ForceStrength);
 	UFUNCTION(BlueprintCallable, Category = "VPEditor")
 	void EraseTarget();
-
+	UFUNCTION(BlueprintCallable, Category = "VPEditor")
+	void SetDrawing(bool isDrawing) { IsDrawing = isDrawing; }
+	UFUNCTION(BlueprintCallable, Category = "VPEditor")
+	bool GetDrawing()const { return IsDrawing; }
 private:
 	// 직접적으로 텍스쳐와 합쳐질 머테리얼
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
@@ -84,6 +87,10 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
 	UTextureRenderTarget2D* MyRenderTarget;
 
+	UPROPERTY()
+	bool IsDrawing;
+
+
 	/*
 		이 밑에 것들은 아직 적용이안됨. 나중에 제작.
 	*/
@@ -95,7 +102,7 @@ private:
 	UPROPERTY()
 	FLinearColor CurrentColor;
 
-
+	
 
 
 

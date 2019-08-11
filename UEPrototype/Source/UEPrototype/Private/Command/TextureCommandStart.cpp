@@ -126,7 +126,6 @@ void UTextureCommandStart::InitVPTexture(AActor * Actor, UMaterial * PaintMat, F
 	if (!IsValid(VPTextureEditor))
 	{
 		VP_LOG(Warning, TEXT("한상훈의 실패."));
-		
 		return;
 		
 	}

@@ -13,7 +13,7 @@ class UVPTexturer;
 class UActorConstraintMarker;
 class UActorPlaceInfoMarker;
 class UHUDWorldPositioner;
-
+class AContextor;
 
 
 /**
@@ -72,6 +72,13 @@ public:
 		return HUDWorldPositioner;
 	}
 
+	/* Contextor를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE AContextor* GetContextor()const
+	{
+		return Contextor;
+	}
+
 
 
 protected:
@@ -107,5 +114,9 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetHUDWorldPositioner)
 	UHUDWorldPositioner* HUDWorldPositioner;
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetContextor)
+	AContextor* Contextor;
 
 };

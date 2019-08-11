@@ -89,8 +89,10 @@ void UVPTexturer::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName D
 		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
 		if (thisComp)
 		{
+			//DynamicPaintMat = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), Actor);
 			thisComp->SetMaterial(0, DynamicPaintMat);
 		}
+		
 	}
 	//생성 전에 그려진 부분이 있다면 모두 지워주는 작업
 	//UKismetRenderingLibrary::ClearRenderTarget2D(GetWorld(), MyRenderTarget);

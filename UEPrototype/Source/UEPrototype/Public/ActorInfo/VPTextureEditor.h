@@ -52,15 +52,7 @@ protected:
 
 
 public:
-	//Texture 생성 및 편집에 필요한 파라미터 초기화
-	UFUNCTION(BlueprintCallable, Category = "VPEditor")
-		void InitEditMaterial(AActor* Actor, UMaterial* PaintMat, FName DrawLocationName,
-			UMaterial* PaintMarkMat, UTextureRenderTarget2D* CanvasRT);
-
-	//실시간으로 그리기 작업
-	UFUNCTION(BlueprintCallable, Category = "VPEditor")
-		void PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam,
-			bool isHit);
+	
 
 
 
@@ -76,15 +68,9 @@ private:
 	//그려질 RenderTarget
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
 	UTextureRenderTarget2D* MyRenderTarget;
-		UMaterialInstanceDynamic* DynamicPaintMat;
+		
 
-	// 그리기도구에 대한 머테리얼
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
-		UMaterialInstanceDynamic* DynamicPaintMarkerMat;
-
-	//그려질 RenderTarget
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "VPEditor", meta = (AllowPrivateAccess = "true"))
-		UTextureRenderTarget2D* MyRenderTarget;
+	
 
 	/*
 		이 밑에 것들은 아직 적용이안됨. 나중에 제작.
@@ -96,6 +82,6 @@ private:
 	// 현재 그려진 컬러
 	UPROPERTY()
 	FLinearColor CurrentColor;
-		FName DrawLocation;
+		
 
 };

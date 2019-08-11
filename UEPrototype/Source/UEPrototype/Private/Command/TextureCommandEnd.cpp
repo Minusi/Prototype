@@ -97,6 +97,7 @@ void UTextureCommandEnd::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
+			//TODO: 나중에 텍스처 undo를위한 작업을 해 두어야함. 지금은 액터 상태만 바꾸는용도로쓰자.
 			return;
 		}
 	}

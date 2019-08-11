@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Command/ActorCommandBase.h"
+#include "ActorInfo/VPEmitter.h"
 #include "EmitterCommandStart.generated.h"
 
 class UActorConstraintMarker;
-class AVPEmitter;
 
 UCLASS()
 class UEPROTOTYPE_API UEmitterCommandStart : public UActorCommandBase
@@ -25,7 +25,12 @@ public:
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 	UFUNCTION(BlueprintCallable)
-		void SetVPAmbientSound(AVPEmitter* Emit) { VPEmitter = Emit; }
+	void SetVPAmbientSound(AVPEmitter* Emit) { VPEmitter = Emit; }
+
+	void SetEmitter(UParticleSystem* ParticleSystem, FTransform Transform, AActor* Parent = nullptr);
+	void SetEmitterParam(const FEmitterParam EmitterParam, const FTransform RelativeTrasnform);
+
+
 
 private:
 	/* 하이라이트로 표시할 마커입니다 */

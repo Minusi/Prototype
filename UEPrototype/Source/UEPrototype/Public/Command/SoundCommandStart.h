@@ -31,8 +31,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetVPAmbientParam(FSoundProperty SoundProp, FAttenuationProperty AttenuProp)
 	{
-		SoundProperty = SoundProp;
-		AttenuationProperty = AttenuProp;
+		VPAmbientSound->InitSound(Target.Target, SoundProp, AttenuProp);
 	}
 	
 	
@@ -45,10 +44,6 @@ private:
 	UPROPERTY()
 	AVPAmbientSound* VPAmbientSound;
 
-	FSoundProperty SoundProperty; 
-	FAttenuationProperty AttenuationProperty;
-
-	AVPAmbientSound* VPAmbientSound;
-
+	
 
 };

@@ -15,6 +15,7 @@
 #include "ActorInfo/ActorConstraintMarker.h"
 #include "ActorInfo/ActorPlaceInfoMarker.h"
 #include "ActorInfo/HUDWorldPositioner.h"
+#include "ActorInfo/Contextor.h"
 
 
 
@@ -72,7 +73,7 @@ void UActorInfoModuleManager::Initialized()
 	ActorConstraintMarker = CreateDefaultSubobject<UActorConstraintMarker>(UActorConstraintMarker::StaticClass()->GetFName());
 	ActorPlaceInfoMarker = CreateDefaultSubobject<UActorPlaceInfoMarker>(UActorPlaceInfoMarker::StaticClass()->GetFName());
 	HUDWorldPositioner = CreateDefaultSubobject<UHUDWorldPositioner>(UHUDWorldPositioner::StaticClass()->GetFName());
-
+	Contextor = CreateDefaultSubobject<AContextor>(AContextor::StaticClass()->GetFName());
 
 
 	/* 컴포넌트들에 대한 유효성 검사를 수행합니다 */
@@ -99,6 +100,11 @@ void UActorInfoModuleManager::Initialized()
 	if (IsValid(HUDWorldPositioner) == false)
 	{
 		VP_LOG(Error, TEXT("%s가 유효하지 않습니다. 생성되지 않았을 수 있습니다."), *UHUDWorldPositioner::StaticClass()->GetName());
+		return;
+	}
+	if (IsValid(HUDWorldPositioner) == false)
+	{
+		VP_LOG(Error, TEXT("%s가 유효하지 않습니다. 생성되지 않았을 수 있습니다."), *AContextor::StaticClass()->GetName());
 		return;
 	}
 }

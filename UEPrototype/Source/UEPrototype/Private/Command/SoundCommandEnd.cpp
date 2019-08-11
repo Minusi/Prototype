@@ -91,7 +91,7 @@ void USoundCommandEnd::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target,EActorConstraintState::CSTR_Activated);
-			VPAmbientSound->PlayNormal();
+			VPAmbientSound->Stop();
 			return;
 		}
 	}

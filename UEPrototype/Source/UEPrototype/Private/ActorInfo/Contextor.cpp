@@ -6,12 +6,23 @@
 #include "Components/WidgetComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "ActorInfo/HUDWorldPositioner.h"
-
+#include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
+#include "UObjectIterator.h"
 
 
 // Sets default values
 AContextor::AContextor()
 {
+	// DEBUG : 생성자 로그
+	VP_CTOR;
+
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
+	{
+		return;
+	}
+
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -21,6 +32,20 @@ AContextor::AContextor()
 }
 
 
+
+AContextor * AContextor::GetGlobalContextor()
+{
+	for (const auto& it : TObjectRange<AContextor>())
+	{
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
+		{
+			return it;
+		}
+	}
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다. */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다"), *AContextor::StaticClass()->GetName());
+	return nullptr;
+}
 
 // Called when the game starts or when spawned
 void AContextor::BeginPlay()
@@ -115,6 +140,11 @@ void AContextor::ShowContext(AActor* InActor)
 	/* 위젯을 액터에 배치합니다. */
 	HUDWorldPositioner->CalculateWidgetPosition(InActor, DynamicWidget);
 	PrevContextedActor = InActor;
+}
+
+void AContextor::CloseContext(AActor * InActor)
+{
+
 }
 
 void AContextor::ProcessContext(AActor * InActor)
