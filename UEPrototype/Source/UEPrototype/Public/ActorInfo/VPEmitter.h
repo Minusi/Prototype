@@ -54,6 +54,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
 	void ActivateEmitter();
 
+	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
+	void DeActivateEmitter();
+
 	//파티클시스템 컴포넌트 캐싱
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
 	UParticleSystemComponent* GetCachedParticleSystem()const { return CachedParticleSystem; }

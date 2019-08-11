@@ -95,7 +95,7 @@ void UEmitterCommandEnd::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
-			VPEmitter->ActivateEmitter();
+			VPEmitter->DeActivateEmitter();
 			return;
 		}
 	}
