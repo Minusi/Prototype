@@ -120,7 +120,7 @@ void UHighlightCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			
-			ActorConstraintMarker->MarkActor(Target.Target, Target.TargetState);
+			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Highlighted);
 			Outliner->DrawActorOutline(Target.Target,true);
 			return;
 		}

@@ -185,9 +185,7 @@ public:
 
 
 
-class UHUDWorldPositioner;
 class UWidgetComponent;
-
 
 
 /*
@@ -203,6 +201,9 @@ class UEPROTOTYPE_API AContextor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AContextor();
+	/* HUDWorldPositioner를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static AContextor* GetGlobalContextor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -214,7 +215,8 @@ public:
 	/* 컨텍스트 창을 띄웁니다. */
 	UFUNCTION(BlueprintCallable, Category="ActorInfo")
 	void ShowContext(AActor* InActor);
-
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo")
+	void CloseContext(AActor* InActor);
 private:
 	UFUNCTION()
 	void ProcessContext(AActor* InActor);
