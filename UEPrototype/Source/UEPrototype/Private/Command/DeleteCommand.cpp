@@ -6,8 +6,11 @@
 #include "Command/CommandConstraintManager.h"
 #include "Command/CmdActivatedConstraint.h"
 #include "ActorInfo/ActorConstraintMarker.h"
+#include "ActorInfo/Outliner.h"
 
 UActorConstraintMarker* UDeleteCommand::ActorConstraintMarker = nullptr;
+
+UOutliner* UDeleteCommand::Outliner = nullptr;
 
 UDeleteCommand::UDeleteCommand()
 {
@@ -48,11 +51,17 @@ UDeleteCommand::UDeleteCommand()
 	}
 	Constraints.Add(ActivateConstraint);
 
+	if (Outliner != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
+		ActorConstraintMarker->IsValidLowLevel())
+	{
+		VP_LOG(Log, TEXT("DelectCommand의 멤버가 유효하다네요?"));
+		return;
+	}
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
+	Outliner = UOutliner::GetGlobalOutliner();
 
 
 
@@ -76,6 +85,12 @@ UDeleteCommand::UDeleteCommand()
 
 void UDeleteCommand::ExecuteIf()
 {
+	if (IsValid(Outliner) == false)
+	{
+		VP_LOG(Warning, TEXT("명령을 실행하는데 %s가 유효하지 않습니다."), *UOutliner::StaticClass()->GetName());
+		return;
+	}
+
 	if (IsValid(ActorConstraintMarker) == false)
 	{
 		VP_LOG(Warning, TEXT("명령을 실행하는데 %s가 유효하지 않습니다."), *UActorConstraintMarker::StaticClass()->GetName());
@@ -102,6 +117,9 @@ void UDeleteCommand::ExecuteIf()
 				Target.Target->SetActorHiddenInGame(true);
 				Target.Target->SetActorEnableCollision(false);
 				Target.Target->SetActorTickEnabled(false);
+
+				Outliner->EraseActorOutline();
+
 			}
 			
 

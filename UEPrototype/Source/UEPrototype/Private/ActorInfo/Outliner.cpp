@@ -28,9 +28,6 @@ UOutliner::UOutliner()
 }
 
 
-
-
-
 UOutliner* UOutliner::GetGlobalOutliner()
 {
 	for (const auto& it : TObjectRange<UOutliner>())
@@ -88,6 +85,7 @@ void UOutliner::DrawActorOutline(AActor * Actor, bool isHighlight)
 		OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner"));
 		if (OutlineMaterial == nullptr)
 		{
+			OutlinerLabelName = "Outline_Focus";
 			return;
 		}
 	}
@@ -96,6 +94,7 @@ void UOutliner::DrawActorOutline(AActor * Actor, bool isHighlight)
 		OutlineMaterial = LoadObject<UMaterialInstance>(nullptr, TEXT("/Game/Material/MI_Outliner_2"));
 		if (OutlineMaterial == nullptr)
 		{
+			OutlinerLabelName = "Outline_Highlight";
 			return;
 		}
 	}

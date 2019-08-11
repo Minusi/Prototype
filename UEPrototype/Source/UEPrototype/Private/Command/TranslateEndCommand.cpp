@@ -111,7 +111,7 @@ void UTranslateEndCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
-			VP_LOG(Warning, TEXT("한상훈등장 트랜스포머"));
+			
 			//트랜스폼 이동이 끝나는순간 Start를 true를 만들어 준다.
 			Transformer->SetisStart(true);
 			return;

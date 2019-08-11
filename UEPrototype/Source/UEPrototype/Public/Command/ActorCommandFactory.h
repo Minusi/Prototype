@@ -23,6 +23,10 @@
 #include "EmitterCommand.h"
 #include "DeleteCommand.h"
 #include "DuplicateCommand.h"
+#include "TextureCommandStart.h"
+#include "TextureCommandEnd.h"
+#include "ShowContextCommand.h"
+#include "CloseContextCommand.h"
 #include "ActorCommandFactory.generated.h"
 
 
@@ -38,6 +42,7 @@ class UEPROTOTYPE_API UActorCommandFactory : public UObject
 	GENERATED_BODY()
 	
 public:
+	/* 액터 커맨드를 생성하여 후처리한 후 반환합니다 */
 	/* 액터 커맨드를 생성하여 후처리한 후 반환합니다. */
 	template<typename CmdType>
 	static CmdType* CreateActorCommand(const FActorConstraintInfo Target)
@@ -266,4 +271,58 @@ public:
 		ActorCommand->InitActorCommand(Target);
 		return ActorCommand;
 	}
+	
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UTextureCommandStart* testCreateActorCommand_TextureStart(const FActorConstraintInfo Target)
+	{
+		UTextureCommandStart* ActorCommand = NewObject<UTextureCommandStart>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UTextureCommandEnd* testCreateActorCommand_TextureEnd(const FActorConstraintInfo Target)
+	{
+		UTextureCommandEnd* ActorCommand = NewObject<UTextureCommandEnd>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UShowContextCommand* testCreateActorCommand_ShowContext(const FActorConstraintInfo Target)
+	{
+		UShowContextCommand* ActorCommand = NewObject<UShowContextCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UCloseContextCommand* testCreateActorCommand_CloseContext(const FActorConstraintInfo Target)
+	{
+		UCloseContextCommand* ActorCommand = NewObject<UCloseContextCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	
 };

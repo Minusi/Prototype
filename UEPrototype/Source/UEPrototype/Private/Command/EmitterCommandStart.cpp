@@ -101,3 +101,13 @@ void UEmitterCommandStart::InitActorCommand(FActorConstraintInfo TargetInfo)
 {
 	Target = TargetInfo;
 }
+
+void UEmitterCommandStart::SetEmitter(UParticleSystem * ParticleSystem, FTransform Transform, AActor * Parent)
+{
+	VPEmitter->InitEmitter(ParticleSystem, Transform, Parent);
+}
+
+void UEmitterCommandStart::SetEmitterParam(const FEmitterParam EmitterParam, const FTransform RelativeTrasnform)
+{
+	VPEmitter->SettingEmitter(EmitterParam, RelativeTrasnform);
+}
