@@ -11,6 +11,13 @@
 class AActor;
 class UUserWidget;
 
+UENUM(BlueprintType)
+enum class UIDirectionType: uint8
+{
+	Right UMETA(DisplayName = "Right"),
+	Left 	UMETA(DisplayName = "Left")
+	
+};
 
 
 /**
@@ -50,8 +57,8 @@ public:
 public:
 	/* 액터와 위젯을 받아 위젯이 생성되기에 적절한 위치를 찾아 위젯의
 	   위치를 옮깁니다. */
-	UFUNCTION(BlueprintImplementableEvent, Category="ActorInfo")
-	void CalculateWidgetPosition(const AActor* Target, UUserWidget* InOutWidget);
+	UFUNCTION(BlueprintCallable, Category="ActorInfo")
+	void ApplyWidgetPosition(const AActor* Target, AActor* InOutWidget,UIDirectionType Direction);
 
 
 

@@ -42,7 +42,11 @@ AVPDirectorPawn::AVPDirectorPawn()
 	// VRCamera 초기화
 	VRCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("VRCamera"));
 	VRCamera->SetupAttachment(VRRootTransform);
-		
+
+	// WidgetAnchor 초기화
+	WidgetAnchor = CreateDefaultSubobject<USceneComponent>(TEXT("WidgetAnchor"));
+	WidgetAnchor->SetupAttachment(VRCamera);
+	
 	/* LMotionController 초기화 */
 	LMotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("LMotionController"));
 	LMotionController->SetupAttachment(VRRootTransform);
