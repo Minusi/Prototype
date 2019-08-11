@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/FloatingPawnMovement.h"
-
+#include "Engine/EngineTypes.h"
 #include "Core/VPPlayerController.h"
 #include "VPDirectorPawn.generated.h"
 
@@ -32,9 +32,21 @@ enum class EMoveType : uint8
 	MT_ORBITAXIS		UMETA(DisplayName = "OrbitAxis")
 };
 
+/* 
+ *	커브드 세그먼트를 어떻게 그릴지를 결정하는 열거형 클래스입니다.
+ */
+UENUM(BlueprintType)
+enum class EDrawSegment : uint8
+{
+	SEG_DebugLine	UMETA(DisplayName = "DebugLine"),
+	SEG_Beam		UMETA(DisplayName = "Beam")
+};
 
 
 
+
+class AUserBlackBoard;
+class USceneComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUserFocusEventDispatcher, AActor*, Target, float, DeltaTime);
 
@@ -64,11 +76,16 @@ public:
 
 public:
 	/* 사용자의 시점에서 포커스를 수행합니다 */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable, Category="Core|Player")
 	void Focus(float DeltaTime);
 
+	/* 주 모션 컨트롤러의 포인팅을 수행합니다. */
+	UFUNCTION(BlueprintCallable, Category = "Core|Player")
+	void Point(const USceneComponent* InComponent, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit);
+	
 
 
+public:
 	/* Called to bind functionality to input */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -86,9 +103,38 @@ public:
 
 
 
+// Blueprint 영역
+public: 
 	/* 커브 포인터 궤적을 그립니다. */
-	UFUNCTION(BlueprintCallable, Category = "Core|Player")
-	void DrawCurvedTrajectory();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void DrawCurvedTrajectory(const USceneComponent* InComponent);
+
+	/* 선형 포인터 궤적을 그립니다. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void DrawLinearTrajectory(const USceneComponent* InComponent);
+
+	/* 커브 세그먼트를 그리며 라인트레이스를 수행합니다. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void GetSegmentAtTime(const FVector& StartLocation, const FVector& InitialVelocity,
+		const FVector& Gravity, float Time1, float Time2, FVector& OutPoint1, FVector& OutPoint2);
+
+	/* 커브 세그먼트를 입력된 열거형 타입에 따라 비주얼라이즈합니다. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void VisualizeSegment(EDrawSegment DrawType, const FVector& Point1, const FVector& Point2);
+
+	/* 커브 빔을 그립니다. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void AddCurvedBeam(const FVector& Point1, const FVector& Point2);
+
+	/* 선형 빔을 그립니다. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void AddLinearBeam(const FVector& Point1, const FVector& Point2);
+	
+
+	/* 빔을 삭제합니다. */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Core|Player")
+	void RemoveBeam();
+		
 
 
 
@@ -174,6 +220,11 @@ private:
 
 
 private:
+	/* UserBlackBoard입니다. */
+	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
+	AUserBlackBoard * UserBlackBoardCache;
+
+
 	/* 플레이어 콜리전 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category= "Core|Player", meta= ( AllowPrivateAccess = "true"))
 	class UCapsuleComponent * RootCollision;
@@ -208,6 +259,7 @@ private:
 
 
 
+	private:
 	/* 플레이어의 현재 이동 타입 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,	Category = "Core|Player", meta = (Bitmask, AllowPrivateAccess = "true"),
 				BlueprintSetter=SetMoveType, BlueprintGetter=GetMoveType)
@@ -234,6 +286,13 @@ private:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
 		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
 	float LineTraceLength;
+
+
+
+private:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Core|Player", meta=(AllowPrivateAccess=true))
+	/* 궤적을 그리는 투사체의 시작 속도 */
+	FVector InitialLocalVelocity;
 
 
 
