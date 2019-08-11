@@ -1,6 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPTextureEditor.h"
+#include "UEPrototype.h"
 #include <UObjectGlobals.h>
 #include <GameFramework/Actor.h>
 #include <Components/StaticMeshComponent.h>
@@ -15,6 +16,10 @@
 
 
 
+AVPTextureEditor::AVPTextureEditor()
+{
+
+}
 
 
 void AVPTextureEditor::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT)

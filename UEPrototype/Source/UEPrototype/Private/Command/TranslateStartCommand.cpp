@@ -133,7 +133,9 @@ void UTranslateStartCommand::ExecuteIf()
 			
 			if (Transformer->GetisStart())
 			{
+				//Transformer는 액터에 하나만 존재하니깐, 모든 트랜스폼 동작을 Stack을 이용해 담음(Undo를 위해)
 				Transformer->PushTrasnform(Target.Target->GetTransform());
+				//스택에 마우스 드래그시 단 한번을 담기위해 Start가 true일 떄 한번 담고 false로 바꿔줌.
 				Transformer->SetisStart(false);
 				
 			}

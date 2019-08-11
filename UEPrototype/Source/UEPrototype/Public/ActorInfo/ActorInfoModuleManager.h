@@ -9,10 +9,11 @@
 
 
 class UOutliner;
+class UVPTexturer;
 class UActorConstraintMarker;
 class UActorPlaceInfoMarker;
 class UHUDWorldPositioner;
-
+class AContextor;
 
 
 /**
@@ -38,7 +39,14 @@ public:
 	
 	/* UOutliner를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category="ActorInfo")
-		FORCEINLINE UOutliner* GetOutliner() const
+	FORCEINLINE UVPTexturer* GetTexturer() const
+	{
+		return VPTexturer;
+	}
+
+	/* UOutliner를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE UOutliner* GetOutliner() const
 	{
 		return Outliner;
 	}
@@ -64,6 +72,13 @@ public:
 		return HUDWorldPositioner;
 	}
 
+	/* Contextor를 반환합니다 */
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE AContextor* GetContextor()const
+	{
+		return Contextor;
+	}
+
 
 
 protected:
@@ -80,6 +95,11 @@ private:
 				BlueprintGetter=GetOutliner)
 	UOutliner * Outliner;
 
+	/* 윤곽선을 그려주는 Outliner입니다 */
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetTexturer)
+	UVPTexturer * VPTexturer;
+
 	/* 액터의 Constraint 상태의 변경을 알립니다 */
 	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetActorConstraintMarker)
@@ -94,5 +114,9 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetHUDWorldPositioner)
 	UHUDWorldPositioner* HUDWorldPositioner;
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetContextor)
+	AContextor* Contextor;
 
 };

@@ -7,6 +7,7 @@
 #include "DeleteCommand.generated.h"
 
 class UActorConstraintMarker;
+class UOutliner;
 
 UCLASS()
 class UEPROTOTYPE_API UDeleteCommand : public UActorCommandBase
@@ -29,4 +30,5 @@ private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
 
+	static UOutliner* Outliner;
 };

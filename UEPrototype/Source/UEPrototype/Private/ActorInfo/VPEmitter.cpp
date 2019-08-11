@@ -26,9 +26,9 @@ void AVPEmitter::InitEmitter(UParticleSystem* ParticleSystem, FTransform Transfo
 		SetActorTransform(Transform);
 	}
 
-
+	
 	//파티클은 생성될 때 활성화가 off이므로 on으로 바꿔줌
-	Activate();
+	//Activate();
 	
 }
 //파티클의 파라미터들을 Set 해주는 함수
@@ -57,7 +57,14 @@ void AVPEmitter::SettingEmitter(const FEmitterParam EmitterParam, const FTransfo
 
 void AVPEmitter::ActivateEmitter()
 {
+	CachedParticleSystem->Activate();
 	Activate();
+
+}
+
+void AVPEmitter::DeActivateEmitter()
+{
+	CachedParticleSystem->Deactivate();
 }
 
 
