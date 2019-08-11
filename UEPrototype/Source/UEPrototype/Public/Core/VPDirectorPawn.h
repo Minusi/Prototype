@@ -92,7 +92,46 @@ public:
 
 
 
+
+	//위젯앵커에 위젯을 추가합니다.
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable, Category = "Core|Player")
+		void AddWidgetToAnchor(const AActor* Widget);
+
+
+
 public:
+	//VRCamera의 Getter
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+		FORCEINLINE UCameraComponent* GetVRCamera() const
+	{
+		return VRCamera;
+	}
+
+	//RMotionController의 Getter
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+		FORCEINLINE UMotionControllerComponent* GetRMotionController() const
+	{
+		return RMotionController;
+	}
+
+	//LMotionController의 Getter
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+		FORCEINLINE UMotionControllerComponent* GetLMotionController() const
+	{
+		return LMotionController;
+	}
+
+	//LMotionController의 Getter
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+		FORCEINLINE USceneComponent* GetWidgetAnchor() const
+	{
+		return WidgetAnchor;
+	}
+	
+
+
+
+
 	/* CurrentMoveType의 Setter 함수입니다 */
 	UFUNCTION(BlueprintSetter, Category = "Core|Player")
 	void SetMoveType(EMoveType InMoveType);
@@ -183,11 +222,18 @@ private:
 	class USceneComponent* VRRootTransform;
 
 	/* 플레이어 VR 카메라 */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
+		BlueprintGetter=GetVRCamera)
 	class UCameraComponent* VRCamera;
 
+	//위젯 생성되는 앵커
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
+		BlueprintGetter = GetWidgetAnchor)
+	class USceneComponent* WidgetAnchor;
+
 	/* 플레이어 좌측 모션 컨트롤러 */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
+		BlueprintGetter=GetLMotionController)
 	class UMotionControllerComponent* LMotionController;
 
 	// 플레이어 좌측 모션 컨트롤러 위젯
@@ -195,7 +241,8 @@ private:
 	class UWidgetComponent* LMotionWidget;
 
 	/* 플레이어 우측 모션 컨트롤러 */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
+		BlueprintGetter=GetRMotionController)
 	class UMotionControllerComponent* RMotionController;
 	
 	// 플레이어 좌측 모션 컨트롤러 위젯

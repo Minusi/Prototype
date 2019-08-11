@@ -131,14 +131,13 @@ void AContextor::ShowContext(AActor* InActor)
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UHUDWorldPositioner::StaticClass()->GetName());
 		return;
 	}
-
-
+	
 
 
 
 
 	/* 위젯을 액터에 배치합니다. */
-	HUDWorldPositioner->CalculateWidgetPosition(InActor, DynamicWidget);
+	HUDWorldPositioner->ApplyWidgetPosition(InActor, WidgetComponent->GetOwner(),UIDirectionType::Right);
 	PrevContextedActor = InActor;
 }
 
