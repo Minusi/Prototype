@@ -6,6 +6,9 @@
 #include "Engine/Engine.h"
 #include "Math/Color.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
 #include "MinusiFrameworkLibrary.generated.h"
 
@@ -84,8 +87,20 @@ public:
 	static TArray<AActor*> GetSpecificAllActorWithTag(const UObject* WorldContextObject, FName Tag, TSubclassOf<AActor> ActorToFind);
 
 
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static void GetAngleBetweenTwoVector(FVector2D A, FVector2D B, float& Angle);
 
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static float DistanceRatioByOneDimensionalFunction(AActor* StartActor, AActor* EndActor, float  RatioMul, float RatioPlus, float MinSize, float MaxSize);
 
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static void Snap(float Delta, float SnapInterval, bool& bCanSnap, float& SnappedDelta);
+	
+	UFUNCTION(BlueprintPure, Category = "Minusi|Trace")
+	static FTransform GetTransformToTraceHitResult(FHitResult HitResult, bool IsHit, FVector ActorLocation);
+
+	UFUNCTION(BlueprintPure, Category = "Minusi|Math")
+	static void ProjectWorldDirectionToScreenFromOrigin(APlayerController* PC, FVector InDirection, FVector2D& ProjectedUnitDirectionToScreen);
 
 	//
 };
