@@ -95,7 +95,7 @@ void UBlockedCommand::ExecuteIf()
 	{
 		if (it->CheckConstraint(Target) == true)
 		{
-			ActorConstraintMarker->MarkActor(Target.Target, Target.TargetState);
+			ActorConstraintMarker->MarkActor(Target.Target,EActorConstraintState::CSTR_Blocked);
 			
 			return;
 		}

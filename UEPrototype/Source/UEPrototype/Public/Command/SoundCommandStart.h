@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Command/ActorCommandBase.h"
+#include "ActorInfo/VPAmbientSound.h"
 #include "SoundCommandStart.generated.h"
 
 
@@ -27,12 +28,22 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetVPAmbientSound(AVPAmbientSound* Sound) { VPAmbientSound = Sound; }
+	UFUNCTION(BlueprintCallable)
+	void SetVPAmbientParam(FSoundProperty SoundProp, FAttenuationProperty AttenuProp)
+	{
+		VPAmbientSound->InitSound(Target.Target, SoundProp, AttenuProp);
+	}
+	
+	
 
+	
 private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
 
+	UPROPERTY()
 	AVPAmbientSound* VPAmbientSound;
 
+	
 
 };

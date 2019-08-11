@@ -55,6 +55,6 @@ private:
 	/* 윤곽선 제거를 위해 해당 Actor의 자식 Actor중 LableName이 "OutLiner"인 것들을 찾아서
 	 * "OutLiner"를 가지고 있다면 제거하는 방식을 사용하는데, "OutLiner"가 이곳저곳에서 중복적으로 사용되어
 	 * 하나의 변수로만들어 사용합니다 */
-	const FString OutlinerLabelName = "OutLiner";
+	 FString OutlinerLabelName = "OutLiner";
 
 };
