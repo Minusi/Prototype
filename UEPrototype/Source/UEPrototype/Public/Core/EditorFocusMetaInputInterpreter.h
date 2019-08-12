@@ -133,18 +133,18 @@ public:
 
 private:
 	/* 포커싱당한 액터입니다 */
-	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetFocusedActor)
 	AActor* FocusedActor;
 	
 	/* 특정 물체를 응시하고 있는 시간입니다. */
-	UPROPERTY(BlueprintReadOnly, Category="Core|Input", meta=(AllowPrivateAccess = true),
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Core|Input", meta=(AllowPrivateAccess = true),
 		BlueprintGetter=GetFocusTime)
 	float FocusTime;
 
 
 	/* 하이라이팅으로 인식하기까지의 시간입니다. */
-	UPROPERTY(BlueprintReadOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Core|Input", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetTimeToHighlight)
 	float TimeToHighlight;
 };

@@ -102,6 +102,9 @@ void UOutliner::DrawActorOutline(AActor * Actor, bool isHighlight)
 
 	//Actor를 복제하는 과정. 복제이기 때문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
 	AActor* SpawnedOutlineActor = GetWorld()->SpawnActor<AActor>(Actor->GetClass(), Actor->GetActorLocation(), Actor->GetActorRotation());
+	
+	/* 생성된 액터는 라인트레이스의 영향을 받지 않도록, 콜리전을 제거합니다. */
+	SpawnedOutlineActor->SetActorEnableCollision(false);
 
 	// 아웃라인을 스폰후 액터의 자식으로 넣어준다(기즈모나 트랜스폼에 의한 이동에 대해서 같이 따라가야하니깐)
 	SpawnedOutlineActor->AttachToActor(Actor, FAttachmentTransformRules::KeepWorldTransform);

@@ -64,13 +64,21 @@ class UEPROTOTYPE_API UToolBase : public UObject
 public:
 	/* 사용자로부터 입력을 받아 맞는 적절한 커맨드를 실행합니다.
 		반드시 파생클래스에서 구현해야 합니다 */
+	UFUNCTION(BlueprintCallable, Category="Tool")
 	virtual UCommandBase* HandleInput(FHighLevelInputData Input);
 
-	/* 주어진 입력이 도구의 기능을 활성화시킬 수 있는지 여부를 반환합니다. */
+	/* 주어진 입력이 도구의 기능을 활성화시킬 수 있는지 여부를 반환합니다. 
+		반드시 파생클래스에서 구현해야 합니다. */
+	UFUNCTION(BlueprintCallable, Category="Tool")
 	virtual bool HasTriggerableCommand(FHighLevelInputData Input);
-	
+
+protected:
+	/* 커맨드들을 등록합니다. 파생 클래스에서 구현해야 합니다. */
+	UFUNCTION()
+	virtual void RegisterCommands();
 
 	
+public:
 	/* ActionAvailables의 Getter 함수입니다 */
 	UFUNCTION(BlueprintGetter, Category="Tool")
 	FORCEINLINE TMap<FHighLevelInputData, FSubclassOfCommandBase> GetActionAvailables() const
@@ -92,7 +100,7 @@ public:
 	
 protected:
 	/* 도구가 실행할 수 있는 커맨드들을 담은 컨테이너입니다. */
-	UPROPERTY(BlueprintReadOnly, Category="Tool", meta=(AllowPrivateAccess=true),
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Tool", meta=(AllowPrivateAccess=true),
 				BlueprintGetter=GetActionAvailables)
 	TMap<FHighLevelInputData, FSubclassOfCommandBase> ActionAvailables;
 

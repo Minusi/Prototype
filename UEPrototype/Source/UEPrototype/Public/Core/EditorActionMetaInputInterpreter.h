@@ -177,11 +177,11 @@ private:
 	static const UInputSettings* InputSettings;
 
 	/* 입력이 트리거로 인정되기까지의 임계시간 */
-	UPROPERTY(EditDefaultsOnly, Category = "Core|Input", meta=(AllowPrivateAccess=true))
-	float TriggerThreshold = 0.2f;
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Core|Input", meta=(AllowPrivateAccess=true))
+	float TriggerThreshold;
 	
 	/* 입력이 클릭으로 인정되지까지의 임계시간 */
-	UPROPERTY(EditDefaultsOnly, Category = "Core|Input", meta=(AllowPrivateAccess=true))
-	float ClickThreshold = 1.2f;
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Core|Input", meta=(AllowPrivateAccess=true))
+	float ClickThreshold;
 
 };

@@ -22,6 +22,15 @@ struct FActorPlaceContent
 	GENERATED_BODY()
 	
 public:
+	/* 디폴트 생성자 */
+	FActorPlaceContent()
+	{
+		Name = FString();
+		Type = nullptr;
+		UserName = FString();
+		bScripted = false;
+	}
+
 	bool operator==(const FActorPlaceContent& Rhs) const
 	{
 		return ((Name == Rhs.Name)

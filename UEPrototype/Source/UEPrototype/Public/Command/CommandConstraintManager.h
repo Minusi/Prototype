@@ -53,21 +53,21 @@ public:
 		return CmdFocusedConstraint;
 	}
 
-	/* CmdFocusedConstraint의 Getter입니다 */
+	/* CmdHighlightedConstraint의 Getter입니다 */
 	UFUNCTION(BlueprintGetter, Category = "Command")
 	FORCEINLINE UCmdHighlightedConstraint* GetCmdHighlightedConstraint() const
 	{
 		return CmdHighlightedConstraint;
 	}
 
-	/* CmdFocusedConstraint의 Getter입니다 */
+	/* CmdActivatedConstraint의 Getter입니다 */
 	UFUNCTION(BlueprintGetter, Category = "Command")
 	FORCEINLINE UCmdActivatedConstraint* GetCmdActivatedConstraint() const
 	{
 		return CmdActivatedConstraint;
 	}
 
-	/* CmdBlocked의 Getter입니다 */
+	/* CmdBlockedConstraint의 Getter입니다 */
 	UFUNCTION(BlueprintGetter, Category = "Command")
 	FORCEINLINE UCmdBlockedConstraint* GetCmdBlockedConstraint() const
 	{
