@@ -16,7 +16,11 @@ UOutliner* UFocusCommand::Outliner = nullptr;
 UFocusCommand::UFocusCommand()
 {
 	VP_CTOR;
-	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
+
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()))
+	{
+		return;
+	}
 
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdUnfocusedConstraint()))return;
 

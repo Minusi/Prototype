@@ -22,6 +22,11 @@ UToolModuleManager::UToolModuleManager()
 	}
 
 
+	
+	/* 초기화합니다. */
+	Initialized();
+
+
 
 	// DEBUG
 	VP_LOG(Warning, TEXT("[DEBUG] Tool 모듈 초기화완료"));

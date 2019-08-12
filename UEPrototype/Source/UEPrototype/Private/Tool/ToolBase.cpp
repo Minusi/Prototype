@@ -14,5 +14,11 @@ UCommandBase* UToolBase::HandleInput(FHighLevelInputData Input)
 
 bool UToolBase::HasTriggerableCommand(FHighLevelInputData Input)
 {
-	return ActionAvailables.Contains(Input);
+	/* 파생 클래스에어 이를 구현해야 합니다. */
+	return false;
+}
+
+void UToolBase::RegisterCommands()
+{
+	return;
 }

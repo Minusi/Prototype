@@ -31,9 +31,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Tool", meta = (UnsafeDuringActorConstruction = "true"))
 	static UToolKit* GetGlobalToolKit();
 
+
+
 private:
 	/* 모듈로부터 필요한 컴포넌트들을 구해 도구 리스트들을 초기화합니다 */
-	void BindsToEvents();
+	UFUNCTION()
+	void BindToEvents();
 	
 
 

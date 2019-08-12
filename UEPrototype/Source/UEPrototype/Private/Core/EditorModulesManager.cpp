@@ -9,6 +9,7 @@
 #include "Core/CorePlayerModuleManager.h"
 #include "ActorInfo/ActorInfoModuleManager.h"
 #include "Command/CommandModuleManager.h"
+#include "Tool/ToolModuleManager.h"
 
 
 
@@ -54,6 +55,9 @@ void UEditorModulesManager::Initialized()
 	/* CommandModuleManager를 생성합니다 */
 	CommandModuleManager  = CreateDefaultSubobject<UCommandModuleManager>
 								(UCommandModuleManager::StaticClass()->GetFName());
+	/* ToolModuleManager를 생성합니다. */
+	ToolModuleManager = CreateDefaultSubobject<UToolModuleManager>
+							(UToolModuleManager::StaticClass()->GetFName());
 	
 
 
@@ -73,6 +77,10 @@ void UEditorModulesManager::Initialized()
 	if (IsValid(CommandModuleManager) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UCommandModuleManager::StaticClass()->GetName());
+	}
+	if (IsValid(ToolModuleManager) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UToolModuleManager::StaticClass()->GetName());
 	}
 }
 

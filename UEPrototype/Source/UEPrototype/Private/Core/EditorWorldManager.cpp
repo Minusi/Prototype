@@ -28,9 +28,23 @@ AEditorWorldManager::AEditorWorldManager()
 		return;
 	}
 
-	FEventToRegister Event;
-	Event.BindUFunction(this, "BindToEvents");
-	EditorModulesManager->RegisterIf(Event);
+	//FEventToRegister Event;
+	//Event.BindUFunction(this, "BindToEvents");
+	//EditorModulesManager->RegisterIf(Event);
+	// 여기서 계속 출력 로그에 콜스텍 에러를 유발하므로 다음으로 대체합니다.
+	BindToEvents();
+}
+
+
+
+
+
+void AEditorWorldManager::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	/* 모듈의 BeginPlay 이벤트를 브로드캐스트합니다. */
+	EditorModulesManager->OnModuleBeginPlay().Broadcast();
 }
 
 

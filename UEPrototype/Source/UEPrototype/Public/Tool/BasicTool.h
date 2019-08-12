@@ -9,6 +9,7 @@
 
 
 class UCommandBase;
+class AUserBlackBoard;
 
 
 
@@ -38,12 +39,41 @@ public:
 	UBasicTool();
 
 	/* BasicTool을 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|Input", meta = (UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, Category = "Tool", meta = (UnsafeDuringActorConstruction = "true"))
 	static UBasicTool* GetGlobalBasicTool();
+
+	/* UserBlackBoard의 Getter입니다. */
+	UFUNCTION(BlueprintGetter, Category="Tool")
+	FORCEINLINE AUserBlackBoard* GetUserBlackBoard() const
+	{
+		return UserBlackBoard;
+	}
+
+private:
+	/* BeginPlay 시점에 실행됩니다. */
+	UFUNCTION()
+	void ModuleBeginPlay();
 
 
 
 public:
-	/* 입력을 처리합니다. */
+	/* ToolBase로부터 상속됨 */
 	virtual UCommandBase* HandleInput(FHighLevelInputData Input) override;
+
+	/* ToolBase로부터 상속됨 */
+	virtual bool HasTriggerableCommand(FHighLevelInputData Input) override;
+
+protected:
+	/* 커맨드들을 바인드합니다. */
+	virtual void RegisterCommands() override;
+
+
+
+
+
+private:
+	/* 유저의 상호작용에 대한 정보를 기록하는 블랙보드입니다. */
+	UPROPERTY(BlueprintReadOnly, Category="Tool", meta=(AllowPrivateAccess=true),
+				BlueprintGetter=GetUserBlackBoard)
+	AUserBlackBoard * UserBlackBoard;
 };

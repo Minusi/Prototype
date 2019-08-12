@@ -14,6 +14,9 @@ class UActorInfoModuleManager;
 class UCommandModuleManager;
 class UToolModuleManager;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FModuleBeginPlayEventDispatcher);
+
+
 
 
 /**
@@ -36,7 +39,7 @@ protected:
 
 public:
 	/* EditorModulesManager를 반환합니다(전역 접근 가능). */
-	UFUNCTION(BlueprintCallable, Category = "Core|World", meta = (UnsafeDuringActorConstruction = "true"))
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Core|World", meta = (UnsafeDuringActorConstruction = "true"))
 	static UEditorModulesManager* GetGlobalEditorModulesManager();
 	
 
@@ -70,11 +73,19 @@ public:
 	}
 
 	/* ToolModuleManager를 반환합니다 */
-	//UFUNCTION(BlueprintGetter, Category = "Core|World")
-	//FORCEINLINE UToolModuleManager* GetToolModuleManager() const
-	//{
-	//	return ToolModuleManager;
-	//}
+	UFUNCTION(BlueprintGetter, Category = "Core|World")
+	FORCEINLINE UToolModuleManager* GetToolModuleManager() const
+	{
+		return ToolModuleManager;
+	}
+
+
+
+	/* ModuleBeginPlayEventDispatcher의 Getter입니다. */
+	FORCEINLINE FModuleBeginPlayEventDispatcher& OnModuleBeginPlay()
+	{
+		return ModuleBeginPlayEventDispatcher;
+	}
 
 
 
@@ -104,9 +115,14 @@ private:
 	UCommandModuleManager* CommandModuleManager;
 
 	/* ToolModuleManager입니다 */
-	//UPROPERTY(BlueprintReadOnly, Category = "Core|World", meta = (AllowPrivateAccess = true),
-	//BlueprintGetter = GetToolModuleManager)
-	//UToolModuleManager* ToolModuleManager;
+	UPROPERTY(BlueprintReadOnly, Category = "Core|World", meta = (AllowPrivateAccess = true),
+	BlueprintGetter = GetToolModuleManager)
+	UToolModuleManager* ToolModuleManager;
 
+
+
+	/* BeginPlay 시에 등록된 함수들을 브로드캐스트하는 이벤트 디스패처입니다. */
+	UPROPERTY(BlueprintAssignable, Category = "Core|World", meta = (AllowPrivateAccess = true))
+	FModuleBeginPlayEventDispatcher ModuleBeginPlayEventDispatcher;
 };
 

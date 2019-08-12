@@ -5,9 +5,11 @@
 #include "UObjectIterator.h"
 #include "MinusiFrameworkLibrary.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "Core/UserBlackBoard.h"
 #include "PhysicsEngine/PhysicsSettings.h"
 #include "DrawDebugHelpers.h"
+
+#include "Core/UserBlackBoard.h"
+#include "Tool/ToolManager.h"
 
 #include "Components/CapsuleComponent.h"
 #include "Components/SceneComponent.h"
@@ -103,6 +105,13 @@ void AVPDirectorPawn::BeginPlay()
 
 	/* 유저 블랙보드를 업데이트하기 위해 캐시합니다, */
 	UserBlackBoardCache = AUserBlackBoard::GetGlobalUserBlackBoard(this);
+
+	/* 도구 매니저를 캐시합니다. */
+	ToolManager = UToolManager::GetGlobalToolManager();
+	if (IsValid(ToolManager) == false)
+	{
+		return;
+	}
 }
 
 

@@ -47,6 +47,7 @@ enum class EDrawSegment : uint8
 
 class AUserBlackBoard;
 class USceneComponent;
+class UToolManager;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUserFocusEventDispatcher, AActor*, Target, float, DeltaTime);
 
@@ -259,9 +260,14 @@ private:
 
 
 private:
-	/* UserBlackBoard입니다. */
+	/* 유저 상호작용을 저장하는 블랙보드입니다. */
 	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
 	AUserBlackBoard * UserBlackBoardCache;
+
+	/* 도구들을 관리하는 매니저입니다. */
+	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
+	UToolManager* ToolManager;
+
 
 
 	/* 플레이어 콜리전 */

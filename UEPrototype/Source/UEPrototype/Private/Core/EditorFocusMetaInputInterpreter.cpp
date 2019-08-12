@@ -22,7 +22,10 @@ UEditorFocusMetaInputInterpreter::UEditorFocusMetaInputInterpreter()
 	
 	/* 초기화를 수행합니다 */
 	FocusedActor = nullptr;
-	FocusTime = 0.f;
+	if (FocusTime <= 0.f)
+	{
+		FocusTime = 0.f;
+	}
 	if (TimeToHighlight == 0.f)
 	{
 		TimeToHighlight = 1.5f;
@@ -95,8 +98,6 @@ void UEditorFocusMetaInputInterpreter::InterpreteFocus(AActor* Target, float Del
 
 	if (IsValid(FocusedActor) == true && IsValid(Target) == true)
 	{
-
-	
 		/* 같은 대상을 포커싱하면 시간을 갱신합니다 */
 		if (FocusedActor == Target)
 		{
@@ -123,10 +124,6 @@ void UEditorFocusMetaInputInterpreter::InterpreteFocus(AActor* Target, float Del
 			FocusTime = 0.f;
 			MetadataResult.FocusedActor = FocusedActor;
 			MetadataResult.FocusMetadata = EFocusMetadata::META_ChangeFocus;
-
 		}
 	}
-
-	
-
 }

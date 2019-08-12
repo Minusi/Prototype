@@ -46,7 +46,7 @@ public:
 
 	
 	/* ModuleEndInitEventDispatcher의 Getter함수입니다 */
-	FORCEINLINE FModuleEndInitEventDispatcher& OnModuleEntInit()
+	FORCEINLINE FModuleEndInitEventDispatcher& OnModuleEndInit()
 	{
 		return ModuleEndInitEventDispatcher;
 	}
@@ -69,7 +69,7 @@ public:
 		적으로 이벤트를 트리거할 수 있도록 하는 것이 이 함수의 목표입니다 */
 	UFUNCTION(BlueprintCallable, Category="Module")
 	virtual void RegisterIf(FEventToRegister EventToRegister);
-	
+
 
 
 
