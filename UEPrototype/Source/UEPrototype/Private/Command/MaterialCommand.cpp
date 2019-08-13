@@ -10,10 +10,29 @@
 
 UActorConstraintMarker* UMaterialCommand::ActorConstraintMarker = nullptr;
 
+UVPMaterial* UMaterialCommand::VPMaterial = nullptr;
+
 UMaterialCommand::UMaterialCommand()
 {
 	VP_CTOR;
 
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
+
+	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()))return;
+
+	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
+	if (IsValid(ActivateConstraint) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
+		return;
+	}
+	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
+	if (ConstraintInterface == nullptr)
+	{
+		VP_LOG(Warning, TEXT(";;;"));
+		return;
+	}
+	Constraints.Add(ActivateConstraint);
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
@@ -34,29 +53,23 @@ UMaterialCommand::UMaterialCommand()
 	}
 
 
-	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
-	if (IsValid(ActivateConstraint) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
-		return;
-	}
-	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
-	if (ConstraintInterface == nullptr)
-	{
-		VP_LOG(Warning, TEXT(";;;"));
-		return;
-	}
-	Constraints.Add(ActivateConstraint);
+	
 
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
+	VPMaterial = UVPMaterial::GetGlobalMaterial();
 
 
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
+	
+	if (IsValid(VPMaterial) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UVPMaterial::StaticClass()->GetName());
+		return;
+	}
 
 	if (IsValid(ActorConstraintMarker) == false)
 	{
@@ -112,17 +125,23 @@ void UMaterialCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
 	Target = TargetInfo;
 }
 
-void UMaterialCommand::SetParamVector(AActor * Target, FVector Vector, FName Name)
+void UMaterialCommand::SetParamsVector(UStaticMeshComponent * Actor, FVector Vector, FName Name)
 {
-	VPMaterial->SetMaterialVectorParam(Target, Vector, Name);
+	VPMaterial->SetMaterialVectorParam(Actor, Vector, Name);
 }
 
-void UMaterialCommand::SetParamTexture(AActor * Target, UTexture2D * Texture, FName Name)
+void UMaterialCommand::SetParamsTexture(UStaticMeshComponent * Actor, UTexture2D * Texture, FName Name)
 {
-	VPMaterial->SetMaterialUTexture2DParam(Target, Texture, Name);
+	VPMaterial->SetMaterialUTexture2DParam(Actor, Texture, Name);
 }
 
-void UMaterialCommand::SetParamColor(AActor * Target, FLinearColor Color, FName Name)
+void UMaterialCommand::SetParamsColor(UStaticMeshComponent * Actor, FLinearColor Color, FName Name)
 {
-	VPMaterial->SetMaterialLinearColor(Target, Color, Name);
+	VPMaterial->SetMaterialLinearColor(Actor, Color, Name);
+	
+}
+
+void UMaterialCommand::SetParamsScalar(UStaticMeshComponent * Actor, float Value, FName Name)
+{
+	VPMaterial->SetMaterialScalarParam(Actor, Value, Name);
 }

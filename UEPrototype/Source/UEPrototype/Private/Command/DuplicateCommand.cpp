@@ -129,8 +129,11 @@ void UDuplicateCommand::Duplicate()
 
 	//Actor를 복제하는 과정. 복제이기 때문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
 	//if (!IsValid(GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(),Target.Target->GetActorTransform(),ASParam))) return;
-	AActor* SpawnActor = Target.Target->GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(), Target.Target->GetActorTransform());
+	FTransform Transform;
+	Transform.SetLocation(Target.Target->GetActorLocation() + FVector(0, 250, 250));
+	AActor* SpawnActor = Target.Target->GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(), Transform);
 	
+
 
 	
 

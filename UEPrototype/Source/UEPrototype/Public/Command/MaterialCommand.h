@@ -8,7 +8,7 @@
 
 class UActorConstraintMarker;
 class UVPMaterial;
-
+class AActor;
 
 
 enum class FParamType : uint8
@@ -34,18 +34,22 @@ public:
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 public:
-	void SetParamVector(AActor* Target, FVector Vector, FName Name);
 
-	void SetParamTexture(AActor* Target, UTexture2D* Texture, FName Name);
-
-	void SetParamColor(AActor* Target, FLinearColor Color, FName Name);
+	UFUNCTION(BlueprintCallable,Category = "Command")
+	void SetParamsVector(UStaticMeshComponent* Actor, FVector Vector, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "Command")
+	void SetParamsTexture(UStaticMeshComponent* Actor, UTexture2D* Texture, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "Command")
+	void SetParamsColor(UStaticMeshComponent* Actor, FLinearColor Color, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "Command")
+	void SetParamsScalar(UStaticMeshComponent* Actor, float Value, FName Name);
 
 private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
 
-	UPROPERTY()
-	UVPMaterial* VPMaterial;
+	
+	static UVPMaterial* VPMaterial;
 
 	FParamType ParamType;
 };
