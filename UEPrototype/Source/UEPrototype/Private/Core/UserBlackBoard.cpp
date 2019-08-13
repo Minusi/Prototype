@@ -57,6 +57,42 @@ AUserBlackBoard* AUserBlackBoard::GetGlobalUserBlackBoard(UObject * WorldContext
 
 
 
+EActorConstraintState AUserBlackBoard::GetPointedActorConstraintState() const
+{
+	return PlayerTaskManager->GetActorConstraintState(PointedActor);
+}
+
+
+
+FActorPlaceContent AUserBlackBoard::GetPointedActorPlaceContent() const
+{
+	FActorPlaceContent ActorPlaceContent;
+	EditorWorldManager->GetActorPlaceContent(PointedActor, ActorPlaceContent);
+	return ActorPlaceContent;
+}
+
+
+
+EActorConstraintState AUserBlackBoard::GetFocusedActorConstraintState() const
+{
+	return PlayerTaskManager->GetActorConstraintState(FocusedActor);
+}
+
+
+
+FActorPlaceContent AUserBlackBoard::GetFocusedActorPlaceContent() const
+{
+	FActorPlaceContent ActorPlaceContent;
+	EditorWorldManager->GetActorPlaceContent(FocusedActor, ActorPlaceContent);
+	return ActorPlaceContent;
+}
+
+
+
+
+
+
+
 void AUserBlackBoard::SetTeleportPosition(FVector InPosition)
 {
 	TeleportPosition = InPosition;
@@ -66,29 +102,12 @@ void AUserBlackBoard::SetTeleportPosition(FVector InPosition)
 
 void AUserBlackBoard::SetPointedActor(AActor * InActor)
 {
-	if (IsValid(EditorWorldManager) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *AEditorWorldManager::StaticClass()->GetName());
-		return;
-	}
-	if (IsValid(PlayerTaskManager) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UPlayerTaskManager::StaticClass()->GetName());
-		return;
-	}
-	
-
 	PointedActor = InActor;
-	/* Actor가 유효하지 않으면, 디폴트로 초기화합니다. */
-	if (IsValid(PointedActor) == false)
-	{
-		ActorConstraintState = EActorConstraintState::CSTR_None;
-		ActorPlaceContent = FActorPlaceContent(); 
-		return;
-	}
+}
 
-	/* Actor가 유효하면, 캐시로부터 정보를 받아와서 저장합니다. */
-	ActorConstraintState = PlayerTaskManager->GetConstraintState(PointedActor);
-	EditorWorldManager->GetActorPlaceContent(PointedActor, ActorPlaceContent);
 
+
+void AUserBlackBoard::SetFocusedActor(AActor * InActor)
+{
+	FocusedActor = InActor;
 }

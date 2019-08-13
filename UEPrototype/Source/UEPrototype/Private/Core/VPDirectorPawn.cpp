@@ -67,6 +67,10 @@ AVPDirectorPawn::AVPDirectorPawn()
 	RMotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("RMotionController"));
 	RMotionController->SetupAttachment(VRRootTransform);
 
+	/* RAttachedSocket 초기화 */
+	RAttachedSocket = CreateDefaultSubobject<USceneComponent>(TEXT("RAttachedSocket"));
+	RAttachedSocket->SetupAttachment(RMotionController);
+
 	/* RWidgetComponent 초기화 */
 	RMotionWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("RMotionWidget"));
 	RMotionWidget->SetupAttachment(RMotionController);
@@ -76,6 +80,8 @@ AVPDirectorPawn::AVPDirectorPawn()
 	FloatingPawnMovement->UpdatedComponent = RootComponent;
 
 
+
+	bIsPickingActor = false;
 
 	/* EMoveType 초기화 */
 	CurrentMoveType = EMoveType::MT_LOCALAXIS;
@@ -141,7 +147,7 @@ void AVPDirectorPawn::Focus(float DeltaTime)
 	FCollisionQueryParams CollisionQueryParams;
 
 	// DEBUG : 라인트레이스 라인을 그립니다.
-	// DrawDebugLine(GetWorld(), Start, End, FColor::Red, false);
+	// DrawDebugLine(GetWorld(), LineTraceStart, LineTraceEnd, FColor::Red, false);
 
 	//자기자신은 raycast 충돌을 무시합니다.
 	CollisionQueryParams.AddIgnoredActor(this);
@@ -165,14 +171,19 @@ void AVPDirectorPawn::Focus(float DeltaTime)
 				
 			/* 라인트레이스 결과를 브로드캐스트합니다 */
 			UserFocusEventDispatcher.Broadcast(OutHit.Actor.Get(), DeltaTime);
-				
+
+			/* 블랙보드에 기록합니다. */
+			UserBlackBoardCache->SetFocusedActor(OutHit.Actor.Get());
 			return;
 		}
 	}
 	else
 	{
-		//라인트레이서가 어떤 액터도 가리키지 않을 때 nullptr을 넘겨준다.
+		/* 라인트레이스가 어떤 액터도 가리키지 않을 때 nullptr을 넘겨줍니다. */
 		UserFocusEventDispatcher.Broadcast(nullptr, 0.0f);
+
+		/* 블랙보드에 기록합니다. */
+		UserBlackBoardCache->SetFocusedActor(nullptr);
 		return;
 	}
 }
@@ -189,28 +200,28 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, FVector& OutPoin
 
 
 
-	FVector Start = InComponent->GetComponentLocation();
+	LineTraceStart = InComponent->GetComponentLocation();
 	FVector Forward = InComponent->GetForwardVector();
-	FVector End = (Start + (Forward * LineTraceLength));
+	LineTraceEnd = (LineTraceStart + (Forward * LineTraceLength));
 
 	FCollisionQueryParams CollisionQueryParams;
 
 
 
 	/* 결과값을 반환합니다. */
-	OutPoint1 = Start;
-	OutPoint2 = End;
+	OutPoint1 = LineTraceStart;
+	OutPoint2 = LineTraceEnd;
 
 
 
 	// DEBUG : 라인트레이스 라인을 그립니다.
-	// DrawDebugLine(GetWorld(), Start, End, FColor::Blue, false);
+	// DrawDebugLine(GetWorld(), LineTraceStart, LineTraceEnd, FColor::Blue, false);
 
 	/* 자기자신은 raycast 충돌을 무시합니다. */
 	CollisionQueryParams.AddIgnoredActor(this);
 
 	/* 결과값을 반환합니다.(OutHit) */
-	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility,
+	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, LineTraceStart, LineTraceEnd, ECC_Visibility,
 		CollisionQueryParams);
 
 	/* 결과값을 반환합니다. */
@@ -351,6 +362,11 @@ void AVPDirectorPawn::SetLineTraceLength(float InLength)
 	{
 		LineTraceLength  = 100 * 1000;
 	}
+}
+
+void AVPDirectorPawn::SetIsPickingActor(bool IsPicking)
+{
+	bIsPickingActor = IsPicking;
 }
 
 
