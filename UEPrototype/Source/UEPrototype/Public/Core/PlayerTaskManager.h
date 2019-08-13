@@ -50,7 +50,7 @@ public:
 	
 	/* 입력받은 액터의 상태를 반환합니다 */
 	UFUNCTION(BlueprintCallable, Category="Core|Player")
-	EActorConstraintState GetConstraintState(AActor* Target) const;
+	EActorConstraintState GetActorConstraintState(AActor* Target) const;
 	
 
 

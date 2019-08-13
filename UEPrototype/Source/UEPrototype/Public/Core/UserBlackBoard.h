@@ -43,6 +43,8 @@ public:
 		return TeleportPosition;
 	}
 
+
+
 	/* PointedActor의 Getter입니다. */
 	UFUNCTION(BlueprintGetter, Category="Core|Player")
 	FORCEINLINE AActor* GetPointedActor() const
@@ -50,19 +52,30 @@ public:
 		return PointedActor;
 	}
 
-	/* ActorConstraintState Getter입니다. */
-	UFUNCTION(BlueprintGetter, Category="Core|Player")
-	FORCEINLINE EActorConstraintState GetActorConstraintState() const
+	/* PointedActor의 ActorConstraintState를 반환합니다. */
+	UFUNCTION(BlueprintPure, BlueprintCallable, Category="Core|Player")
+	EActorConstraintState GetPointedActorConstraintState() const;
+
+	/* PointedActor의 ActorPlaceContent를 반환합니다. */
+	UFUNCTION(BlueprintPure, BlueprintCallable, Category="Core|Player")
+	FActorPlaceContent GetPointedActorPlaceContent() const;
+
+
+
+	/* FocusedActor의 Getter입니다. */
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+	FORCEINLINE AActor* GetFocusedActor() const
 	{
-		return ActorConstraintState;
+		return FocusedActor;
 	}
 
-	/* ActorPlaceContent Getter입니다. */
-	UFUNCTION(BlueprintGetter, Category="Core|Player")
-	FORCEINLINE FActorPlaceContent GetActorPlaceContent() const
-	{
-		return ActorPlaceContent;
-	}
+	/* FocusedActor의 ActorConstraintState를 반환합니다. */
+	UFUNCTION(BlueprintPure, BlueprintCallable, Category = "Core|Player")
+	FORCEINLINE EActorConstraintState GetFocusedActorConstraintState() const;
+
+	/* FocusedActor의 ActorPlaceContent를 반환합니다. */
+	UFUNCTION(BlueprintPure, BlueprintCallable, Category = "Core|Player")
+	FORCEINLINE FActorPlaceContent GetFocusedActorPlaceContent() const;
 
 
 
@@ -73,6 +86,10 @@ public:
 	/* PoitnedActor의 Setter입니다. */
 	UFUNCTION(BlueprintSetter, Category = "Core|Player")
 	void SetPointedActor(AActor* InActor);
+
+	/* FocusedActor의 Setter입니다. */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetFocusedActor(AActor* InActor);
 
 
 
@@ -86,21 +103,17 @@ private:
 
 	/* 현재 지목되고 있는 액터입니다. */
 	UPROPERTY(BlueprintReadWrite, Category="Core|Player", meta=(AllowPrivateAccess=true),
-				BlueprintGetter=GetPointedActor, BlueprintSetter=SetPointedActor)
+				BlueprintGetter = GetPointedActor, BlueprintSetter = SetPointedActor)
 	AActor * PointedActor;
 
-	/* 지목되고 있는 액터의 제약 상태입니다. */
-	UPROPERTY(BlueprintReadOnly, Category = "Core|Player", meta = (AllowPrivateAccess=true),
-				BlueprintGetter=GetActorConstraintState)
-	EActorConstraintState ActorConstraintState;
-
-	/* 지목되고 있는 액터의 월드 정보입니다. */
-	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true),
-				BlueprintGetter=GetActorPlaceContent)
-	FActorPlaceContent ActorPlaceContent;
+	/* 현재 응시되고 있는 액터입니다. */
+	UPROPERTY(BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = true),
+				BlueprintGetter = GetFocusedActor, BlueprintSetter = SetFocusedActor)
+	AActor* FocusedActor;
 
 
 
+private:
 	/* 월드에 배치된 액터 정보 컨테이너에 대한 읽기 전용 캐시입니다. */
 	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
 	AEditorWorldManager* EditorWorldManager;

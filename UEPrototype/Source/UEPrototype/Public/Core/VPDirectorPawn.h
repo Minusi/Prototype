@@ -154,14 +154,21 @@ public:
 		return VRCamera;
 	}
 
-	//RMotionController의 Getter
+	/* RMotionController의 Getter */
 	UFUNCTION(BlueprintGetter, Category = "Core|Player")
 		FORCEINLINE UMotionControllerComponent* GetRMotionController() const
 	{
 		return RMotionController;
 	}
 
-	//LMotionController의 Getter
+	/* RAttachedSocket의 Getter */
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+		FORCEINLINE USceneComponent* GetRAttachedSocket() const
+	{
+		return RAttachedSocket;
+	}
+
+	/* LMotionController의 Getter */
 	UFUNCTION(BlueprintGetter, Category = "Core|Player")
 		FORCEINLINE UMotionControllerComponent* GetLMotionController() const
 	{
@@ -223,6 +230,19 @@ public:
 	FORCEINLINE float GetLineTraceLength() const
 	{
 		return LineTraceLength;
+	}
+
+	
+
+	/* bIsPickingActor의 Setter 함수입니다. */
+	UFUNCTION(BlueprintSetter, Category = "Core|Player")
+	void SetIsPickingActor(bool IsPicking);
+	
+	/* bIsPickingActor의 Getter 함수입니다. */
+	UFUNCTION(BlueprintGetter, Category = "Core|Player")
+	FORCEINLINE bool IsPickingActor() const
+	{
+		return bIsPickingActor;
 	}
 
 
@@ -293,7 +313,7 @@ private:
 		BlueprintGetter=GetLMotionController)
 	class UMotionControllerComponent* LMotionController;
 
-	// 플레이어 좌측 모션 컨트롤러 위젯
+	/* 플레이어 좌측 모션 컨트롤러 위젯 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
 	class UWidgetComponent* LMotionWidget;
 
@@ -301,6 +321,12 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
 		BlueprintGetter=GetRMotionController)
 	class UMotionControllerComponent* RMotionController;
+
+	/* 우측 모션 컨트롤러의 라인트레이스에서 충돌 지점을 가리키는 씬 컴포넌트입니다.
+		주 목적은 무언가를 집는데 사용됩니다. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
+		BlueprintGetter = GetRAttachedSocket)
+	class USceneComponent* RAttachedSocket;
 	
 	// 플레이어 좌측 모션 컨트롤러 위젯
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
@@ -335,10 +361,26 @@ private:
 		BlueprintSetter = SetPitchRotSpeed, BlueprintGetter = GetPitchRotSpeed)
 	float PitchRotSpeed;
 
+
+
+private:
 	/* 라인트레이싱할 길이입니다 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
 		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
 	float LineTraceLength;
+
+	/* 직선 라인트레이스 시작점 */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
+	FVector LineTraceStart;
+
+	/* 직선 라인트레이스 종료점 */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
+	FVector LineTraceEnd;
+	
+	/* 현재 액터를 픽업하고 있는지 여부입니다. */
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true),
+		BlueprintSetter=SetIsPickingActor, BlueprintGetter=IsPickingActor)
+	bool bIsPickingActor;
 
 
 

@@ -286,7 +286,7 @@ void UPlayerTaskManager::ChangeActorInteracted(FActorConstraintInfo Target)
 
 
 
-EActorConstraintState UPlayerTaskManager::GetConstraintState(AActor * Target) const
+EActorConstraintState UPlayerTaskManager::GetActorConstraintState(AActor * Target) const
 {
 	if (IsValid(Target) == false)
 	{
