@@ -81,6 +81,7 @@ void UVPTexturer::InitEditMaterial(AActor * Actor, FName DrawLocationName,UTextu
 		if (thisComp)
 		{
 			DynamicPaintMat = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), Actor);
+			DynamicPaintMat->SetTextureParameterValue("PaintName", MyRenderTarget);
 			thisComp->SetMaterial(0, thisComp->GetMaterial(0));
 		}
 		

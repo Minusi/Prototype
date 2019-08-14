@@ -50,6 +50,9 @@ public:
 	
 	}
 
+	/*2019-8-14 수요일 급하게 추가.*/
+	UFUNCTION(BlueprintCallable,Category = "Command")
+	void ClearPaint();
 
 
 private:

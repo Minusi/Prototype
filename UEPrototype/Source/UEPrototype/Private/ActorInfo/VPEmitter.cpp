@@ -100,7 +100,14 @@ void AVPEmitter::SetEmitterVectorParam(UParticleSystemComponent * Target, FVecto
 
 void AVPEmitter::SetEmitterLinearColor(UParticleSystemComponent * Target, FLinearColor Color, FName Name)
 {
-	Target->SetColorParameter(Name, Color);
+	FColor NewColor;
+
+	NewColor.R = Color.R;
+	NewColor.G = Color.G;
+	NewColor.B = Color.B;
+
+	Target->SetColorParameter(Name, NewColor);
+
 }
 
 void AVPEmitter::SetEmitterScalarParam(UParticleSystemComponent * Target, float Value, FName Name)
