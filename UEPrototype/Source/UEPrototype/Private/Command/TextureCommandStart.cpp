@@ -128,8 +128,19 @@ void UTextureCommandStart::InitVPTexture(AActor * Actor, FName DrawLocationName,
 {
 	if (!IsValid(VPTextureEditor))
 	{
+		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다."));
 		return;
 	}
 	VPTextureEditor->InitEditMaterial(Actor, DrawLocationName, CanvasRT);
+}
+
+void UTextureCommandStart::ClearPaint()
+{
+	if (!IsValid(VPTextureEditor))
+	{
+		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다."));
+		return;
+	}
+	VPTextureEditor->EraseTarget();
 }
 
