@@ -46,15 +46,15 @@ public:
 
 private:
 	/* 키 입력에 대한 메타데이터 처리기입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
 	UEditorActionMetaInputInterpreter * EditorActionMetaInputInterpreter;
 
 	/* 포커스 입력에 대한 메타데이터 처리기입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
 	UEditorFocusMetaInputInterpreter* EditorFocusMetaInputInterpreter;
 
 	/* 멀티키 입력에 대한 메타데이터 처리기입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
+	UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category="Core|Player", meta=(AllowPrivateAccess=true))
 	UEditorActionMultInputInterpreter* EditorActionMultInputInterpreter;
 
 

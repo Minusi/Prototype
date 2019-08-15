@@ -12,6 +12,7 @@
 
 UToolKit::UToolKit()
 {
+	// DEBUG : 생성자 로그
 	VP_CTOR;
 
 	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
@@ -52,7 +53,7 @@ UToolKit * UToolKit::GetGlobalToolKit()
 
 
 
-void UToolKit::BindsToEvents()
+void UToolKit::BindToEvents()
 {
 	UToolManager* ToolManager = UToolManager::GetGlobalToolManager();
 	if (IsValid(ToolManager) == false)

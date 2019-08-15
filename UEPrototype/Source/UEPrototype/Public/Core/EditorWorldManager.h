@@ -36,6 +36,9 @@ public:
 	/* 생성자 */
 	AEditorWorldManager();
 
+protected:
+	/* AActor로부터 상속됨 */
+	virtual void BeginPlay() override;
 
 
 public:

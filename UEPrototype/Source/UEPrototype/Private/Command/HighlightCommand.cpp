@@ -18,24 +18,33 @@ UOutliner* UHighlightCommand::Outliner = nullptr;
 
 UHighlightCommand::UHighlightCommand()
 {
+	// DEBUG : 생성자 로깅
 	VP_CTOR;
-	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
 
-	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()))return;
+	/* 컨스트레인트르를 가져오기 위해 제약 조건 매니저를 가져옵니다.
+	엔진이 처음 로드될 때 에러를 유발하지만, 모듈 초기화 시에 같이 초기화될 필요
+	없으므로 무시해도 됩니다. */
+	UCommandConstraintManager* CommandConstraintManager = UCommandConstraintManager::GetGlobalCommandConstraintManager();
+	if (IsValid(CommandConstraintManager)==false)
+	{
+		return;
+	}
 
-	UCmdFocusedConstraint* FocusedConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint();
+	/* 포커스 제약조건의 유효성을 검사합니다. */
+	UCmdFocusedConstraint* FocusedConstraint = CommandConstraintManager->GetCmdFocusedConstraint();
 	if (IsValid(FocusedConstraint) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdFocusedConstraint()->GetName());
 		return;
 	}
-	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(FocusedConstraint);
-	if (ConstraintInterface == nullptr)
-	{
-		VP_LOG(Warning, TEXT(";;;"));
-		return;
-	}
+
+	/* 포커스 제약 조건을 추가합니다. */
 	Constraints.Add(FocusedConstraint);
+
+
+
+
+
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
@@ -44,7 +53,7 @@ UHighlightCommand::UHighlightCommand()
 		VP_LOG(Log, TEXT("HighlightCommand의 멤버가 유효하다네요?"));
 		return;
 	}
-	VP_LOG(Log, TEXT("HighlightCommand의 멤버가 유효하지 않다네요?"));
+	VP_LOG(Log, TEXT("%s의 멤버가 유효하지 않으므로 초기화를 수행합니다."), *UHighlightCommand::StaticClass()->GetName());
 
 	/* 초기화하는 데 필요한 객체를 가지고 있는 모듈의 유효성을 검사합니다 */
 	UEditorModulesManager* EditorModulesManager =
@@ -60,7 +69,6 @@ UHighlightCommand::UHighlightCommand()
 
 
 	/* 초기화를 수행합니다 */
-	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	Outliner = UOutliner::GetGlobalOutliner();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
 	
@@ -80,13 +88,9 @@ UHighlightCommand::UHighlightCommand()
 	}
 	if (Constraints.Num() == 0)
 	{
-		VP_LOG(Warning, TEXT("제약 조건이 올바르게 설정되지 않았습니다."));
+		VP_LOG(Warning, TEXT("제약 조건이 설정되지 않았습니다. 등록된 제약 조건 갯수 : %d"), Constraints.Num());
 		return;
 	}
-
-	// DEBUG
-	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *Outliner->GetName(), Outliner->GetUniqueID(), &Outliner);
-	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *ActorConstraintMarker->GetName(), ActorConstraintMarker->GetUniqueID(), &ActorConstraintMarker);
 }
 
 
@@ -114,21 +118,15 @@ void UHighlightCommand::ExecuteIf()
 	}
 
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
-	VP_LOG(Warning, TEXT("asdasdasdasasd %d."),Constraints.Num());
 	for (const auto& it : Constraints)
 	{
 		if (it->CheckConstraint(Target) == true)
 		{
-			
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Highlighted);
 			Outliner->DrawActorOutline(Target.Target,true);
 			return;
 		}
 	}
-
-
-
-	
 }
 
 

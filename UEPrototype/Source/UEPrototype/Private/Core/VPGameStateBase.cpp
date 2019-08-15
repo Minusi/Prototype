@@ -23,8 +23,8 @@ AVPGameStateBase::AVPGameStateBase()
 		VP_LOG(Warning, TEXT("[Marked] 월드가 유효하지 않습니다."));
 		return;
 	}
-	auto Spawned = GetWorld()->SpawnActor<AEditorWorldManager>(SpawnParams);
 
+	AEditorWorldManager* Spawned = GetWorld()->SpawnActor<AEditorWorldManager>(SpawnParams);
 	if (IsValid(Spawned) == false)
 	{
 		VP_LOG(Error, TEXT("[Marked] 액터 %s를 스폰하는 데 실패하였습니다."), *AEditorWorldManager::StaticClass()->GetName());

@@ -77,6 +77,7 @@ public:
 
 private:
 	/* 모듈로부터 필요한 컴포넌트들을 받아 초기화합니다. */
+	UFUNCTION()
 	void BindToEvents();
 
 	

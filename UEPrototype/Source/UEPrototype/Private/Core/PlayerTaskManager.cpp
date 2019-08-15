@@ -286,7 +286,7 @@ void UPlayerTaskManager::ChangeActorInteracted(FActorConstraintInfo Target)
 
 
 
-EActorConstraintState UPlayerTaskManager::GetConstraintState(AActor * Target) const
+EActorConstraintState UPlayerTaskManager::GetActorConstraintState(AActor * Target) const
 {
 	if (IsValid(Target) == false)
 	{
@@ -305,6 +305,5 @@ EActorConstraintState UPlayerTaskManager::GetConstraintState(AActor * Target) co
 		}
 	}
 	
-	VP_LOG(Warning, TEXT("상호작용 중이지 않은 액터입니다 : %s"));
 	return EActorConstraintState::CSTR_None;
 }

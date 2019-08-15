@@ -58,6 +58,23 @@ UEditorActionMetaInputInterpreter::UEditorActionMetaInputInterpreter()
 	{
 		ActionMetaInputs.Add(it, -1.f);
 	}
+
+	/* 액션 메타데이터 결정 시간에 대한 초기화를 수행합니다. */
+	if (TriggerThreshold < 0.f)
+	{
+		TriggerThreshold = 0.2f;
+	}
+	if (ClickThreshold <= TriggerThreshold)
+	{
+		if (TriggerThreshold >= 0.8f)
+		{
+			ClickThreshold = TriggerThreshold + 0.5f;
+		}
+		else
+		{
+			ClickThreshold = 0.9f;
+		}
+	}
 }
 
 
