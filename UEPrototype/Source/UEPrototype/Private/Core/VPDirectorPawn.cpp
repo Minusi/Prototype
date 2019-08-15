@@ -20,6 +20,7 @@
 #include "MotionControllerComponent.h"
 #include "MotionTrackedDeviceFunctionLibrary.h"
 
+#include "Kismet/KismetMathLibrary.h"
 
 
 // Sets default values
@@ -51,10 +52,14 @@ AVPDirectorPawn::AVPDirectorPawn()
 	VRCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("VRCamera"));
 	VRCamera->SetupAttachment(VRRootTransform);
 
-	// WidgetAnchor 초기화
+	/* WidgetAnchor 초기화 */
 	WidgetAnchor = CreateDefaultSubobject<USceneComponent>(TEXT("WidgetAnchor"));
 	WidgetAnchor->SetupAttachment(VRCamera);
 	
+	/* GizmoWidgetAnchor 초기화 */
+	GizmoWidgetAnchor = CreateDefaultSubobject<USceneComponent>(TEXT("GizmoWidgetAnchor"));
+	GizmoWidgetAnchor->SetupAttachment(VRCamera);
+
 	/* LMotionController 초기화 */
 	LMotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("LMotionController"));
 	LMotionController->SetupAttachment(VRRootTransform);
@@ -190,7 +195,7 @@ void AVPDirectorPawn::Focus(float DeltaTime)
 
 
 
-void AVPDirectorPawn::Point(const USceneComponent* InComponent, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit)
+void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ignore, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit)
 {
 	if (IsValid(UserBlackBoardCache) == false)
 	{
@@ -200,7 +205,7 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, FVector& OutPoin
 
 
 
-	LineTraceStart = InComponent->GetComponentLocation();
+	LineTraceStart = InComponent->GetComponentLocation() + (LineTraceZOffset * (InComponent->GetUpVector()));
 	FVector Forward = InComponent->GetForwardVector();
 	LineTraceEnd = (LineTraceStart + (Forward * LineTraceLength));
 
@@ -219,6 +224,7 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, FVector& OutPoin
 
 	/* 자기자신은 raycast 충돌을 무시합니다. */
 	CollisionQueryParams.AddIgnoredActor(this);
+	CollisionQueryParams.AddIgnoredActor(Ignore);
 
 	/* 결과값을 반환합니다.(OutHit) */
 	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, LineTraceStart, LineTraceEnd, ECC_Visibility,
@@ -352,7 +358,7 @@ void AVPDirectorPawn::SetPitchRotSpeed(float InPitchRotSpeed)
 
 
 
-void AVPDirectorPawn::SetLineTraceLength(float InLength)
+void AVPDirectorPawn::SetLineTraceLength(int32 InLength)
 {
 	if (InLength > 0)
 	{
@@ -360,7 +366,7 @@ void AVPDirectorPawn::SetLineTraceLength(float InLength)
 	}
 	else
 	{
-		LineTraceLength  = 100 * 1000;
+		LineTraceLength  = 100 * 10000;
 	}
 }
 
@@ -408,7 +414,8 @@ void AVPDirectorPawn::MoveFixedAxis(float InX, float InY, float InZ)
 
 void AVPDirectorPawn::MoveLocalAxis(float InX, float InY, float InZ)
 {
-	FRotator InRot = GetControlRotation();
+	FRotator InRot = VRCamera->GetComponentRotation();
+	//	GetControlRotation();
 
 	// UKismetMathLibrary::GetForwardVector(FRotator InRot)의 구현
 	FVector TargetDirectionX = FRotationMatrix(InRot).GetScaledAxis(EAxis::X);

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "ActorConstraintMarker.generated.h"
 
 
