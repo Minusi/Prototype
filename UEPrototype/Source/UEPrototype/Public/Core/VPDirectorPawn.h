@@ -82,7 +82,7 @@ public:
 
 	/* 주 모션 컨트롤러의 포인팅을 수행합니다. */
 	UFUNCTION(BlueprintCallable, Category = "Core|Player")
-	void Point(const USceneComponent* InComponent, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit);
+	void Point(const USceneComponent* InComponent, const AActor* Ignore, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit);
 	
 
 
@@ -223,11 +223,11 @@ public:
 
 	/* LineTraceLength의 Setter 함수입니다 */
 	UFUNCTION(BlueprintSetter, Category = "Core|Player")
-	void SetLineTraceLength(float InLength);
+	void SetLineTraceLength(int32 InLength);
 
 	/* LineTraceLength의 Getter 함수입니다 */
 	UFUNCTION(BlueprintGetter, Category = "Core|Player")
-	FORCEINLINE float GetLineTraceLength() const
+	FORCEINLINE int32 GetLineTraceLength() const
 	{
 		return LineTraceLength;
 	}
@@ -303,10 +303,15 @@ private:
 		BlueprintGetter=GetVRCamera)
 	class UCameraComponent* VRCamera;
 
-	//위젯 생성되는 앵커
+	/* 위젯 생성되는 위치를 위한 앵커 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
 		BlueprintGetter = GetWidgetAnchor)
 	class USceneComponent* WidgetAnchor;
+
+	/* 기즈모 사용시 나타나는 위젯의 위치를 위한 앵커 */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"))
+	class USceneComponent* GizmoWidgetAnchor;
+
 
 	/* 플레이어 좌측 모션 컨트롤러 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Core|Player", meta = (AllowPrivateAccess = "true"),
@@ -367,7 +372,24 @@ private:
 	/* 라인트레이싱할 길이입니다 */
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true),
 		BlueprintSetter = SetLineTraceLength, BlueprintGetter = GetLineTraceLength)
-	float LineTraceLength;
+	int32 LineTraceLength;
+
+	/* 직선 라인트레이스 오프셋. (모션컨트롤러의 트리거 버튼에서 레이저가 나가도록 설계합니다. */
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Core|Player", meta = (AllowPrivateAccess = true))
+	float LineTraceZOffset;
+
+	/* 직선 라인트레이스 시작점 */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
+	FVector LineTraceStart;
+
+	/* 직선 라인트레이스 종료점 */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
+	FVector LineTraceEnd;
+	
+	/* 현재 액터를 픽업하고 있는지 여부입니다. */
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true),
+		BlueprintSetter=SetIsPickingActor, BlueprintGetter=IsPickingActor)
+	bool bIsPickingActor;
 
 	/* 직선 라인트레이스 시작점 */
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
