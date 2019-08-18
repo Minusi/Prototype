@@ -76,10 +76,10 @@ class UEPROTOTYPE_API UDynamicListWidget : public UUserWidget
 	
 public:
 	/* Text 배열을 입력받아 동적으로 UI를 구성합니다. */
-	UFUNCTION(BlueprintImplementableEvent, Category="ActorInfo")
+	UFUNCTION(BlueprintImplementableEvent,BlueprintCallable , Category="ActorInfo")
 	void ConstructDynamicListText(const FDynamicListText& InTextList);
 
 	/* Property 컨테이너를 입력받아 동적으로 UI를 구성합니다 */
-	UFUNCTION(BlueprintImplementableEvent, Category="ActorInfo")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="ActorInfo")
 	void ConstructDynamicListProperpty(const FDynamicListProperty& InPropertyList);
 };

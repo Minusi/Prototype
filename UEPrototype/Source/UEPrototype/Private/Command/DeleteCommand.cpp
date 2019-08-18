@@ -19,6 +19,21 @@ UDeleteCommand::UDeleteCommand()
 
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()))return;
 
+	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
+	if (IsValid(ActivateConstraint) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
+		return;
+	}
+	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
+	if (ConstraintInterface == nullptr)
+	{
+		VP_LOG(Warning, TEXT(";;;"));
+		return;
+	}
+	Constraints.Add(ActivateConstraint);
+
+
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel()))
 	{
@@ -37,19 +52,7 @@ UDeleteCommand::UDeleteCommand()
 	}
 
 
-	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
-	if (IsValid(ActivateConstraint) == false)
-	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()->GetName());
-		return;
-	}
-	IActorCmdConstraint* ConstraintInterface = Cast<IActorCmdConstraint>(ActivateConstraint);
-	if (ConstraintInterface == nullptr)
-	{
-		VP_LOG(Warning, TEXT(";;;"));
-		return;
-	}
-	Constraints.Add(ActivateConstraint);
+
 
 	if (Outliner != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
 		ActorConstraintMarker->IsValidLowLevel())
@@ -119,8 +122,10 @@ void UDeleteCommand::ExecuteIf()
 				Target.Target->SetActorTickEnabled(false);
 
 				Outliner->EraseActorOutline();
-
 			}
+				
+
+			
 			
 
 			return;

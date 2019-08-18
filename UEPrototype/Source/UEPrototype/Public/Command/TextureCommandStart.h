@@ -26,34 +26,42 @@ public:
 	/* UActorCommandBase로부터 상속됨 */
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
-	UFUNCTION(BlueprintCallable,Category ="Command")
-	void InitVPTexture(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT);
-	
 	UFUNCTION(BlueprintCallable, Category = "Command")
-	void EditPaintParam(float DrawSize, FColor Color, float ForceStrength)
+
+		void InitVPTexture(AActor * Actor, FName DrawLocationName, UTextureRenderTarget2D * CanvasRT);
+
+
+
+
+	UFUNCTION(BlueprintCallable, Category = "Command")
+		void EditPaintParam(float DrawSize, FColor Color, float ForceStrength, UTextureRenderTarget2D *CanvasRT)
 	{
 		PaintParam.DrawSize = DrawSize;
 		PaintParam.Color = Color;
 		PaintParam.ForceStrength = ForceStrength;
-		VPTextureEditor->EditPaintParameter(DrawSize, Color, ForceStrength);
+		VPTextureEditor->EditPaintParameter(DrawSize, Color, ForceStrength, CanvasRT);
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Command")
-	void SetDrawParam(FVector2D LocationToDraw, FName PaintMarkParam, bool isHit)
+		void SetDrawParam(FVector2D LocationToDraw, FName PaintMarkParam)
 	{
 		DrawParam.LocationToDraw = LocationToDraw;
 		DrawParam.PaintMarkParam = PaintMarkParam;
-		DrawParam.isHit = isHit;
-		
-	}
 	
+	}
+
+	/*2019-8-14 수요일 급하게 추가.*/
+	UFUNCTION(BlueprintCallable,Category = "Command")
+	void ClearPaint();
+
+
 private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
-	
+
 	static UVPTexturer* VPTextureEditor;
 	UPROPERTY()
-	FPaintParameter PaintParam;
+		FPaintParameter PaintParam;
 	UPROPERTY()
-	FDrawParameter DrawParam;
+		FDrawParameter DrawParam;
 };

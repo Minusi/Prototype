@@ -1,8 +1,46 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPEmitter.h"
+#include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
+#include "UObjectGlobals.h"
+#include "UObjectIterator.h"
+#include "Engine/World.h"
+#include "EngineUtils.h"
+#include "EditorWorldManager.h"
 #include <Particles/ParticleSystemComponent.h>
 #include <Particles/ParticleEmitter.h>
+
+
+
+
+AVPEmitter::AVPEmitter()
+{
+	VP_CTOR;
+
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
+	{
+		return;
+	}
+}
+
+AVPEmitter* AVPEmitter::GetGlobalEmitter()
+{
+	for (const auto& it : TObjectRange<AVPEmitter>())
+	{
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
+		{
+			return it;
+		}
+	}
+
+
+
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다 */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *AVPEmitter::StaticClass()->GetName());
+	return nullptr;
+}
 
 //파티클 컴포넌트 부착, 초기 트랜스폼, 부모가 있는지에 대한 Init
 void AVPEmitter::InitEmitter(UParticleSystem* ParticleSystem, FTransform Transform, AActor* Parent = nullptr)
@@ -54,6 +92,30 @@ void AVPEmitter::SettingEmitter(const FEmitterParam EmitterParam, const FTransfo
 	//파티클이 무한정 생성되는게아니라 일정 주기의 딜레이를 가지고 생성됩니다.
 	CachedParticleSystem->EmitterDelay = EmitterParam.EmitterDelay;
 }
+
+void AVPEmitter::SetEmitterVectorParam(UParticleSystemComponent * Target, FVector Vector, FName Name)
+{
+	Target->SetVectorParameter(Name, Vector);
+}
+
+void AVPEmitter::SetEmitterLinearColor(UParticleSystemComponent * Target, FLinearColor Color, FName Name)
+{
+	FColor NewColor;
+
+	NewColor.R = Color.R;
+	NewColor.G = Color.G;
+	NewColor.B = Color.B;
+
+	Target->SetColorParameter(Name, NewColor);
+
+}
+
+void AVPEmitter::SetEmitterScalarParam(UParticleSystemComponent * Target, float Value, FName Name)
+{
+	Target->SetFloatParameter(Name, Value);
+}
+
+
 
 void AVPEmitter::ActivateEmitter()
 {

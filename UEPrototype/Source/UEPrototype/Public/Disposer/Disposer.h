@@ -33,6 +33,7 @@ public:
 
 private:
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	class UStaticMeshComponent* GhostObject;
 
 };

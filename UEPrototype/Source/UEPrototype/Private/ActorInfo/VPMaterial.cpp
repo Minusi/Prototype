@@ -1,6 +1,10 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "VPMaterial.h"
+#include "UEPrototype.h"
+#include "VPFrameworkLibrary.h"
+#include "UObjectGlobals.h"
+#include "UObjectIterator.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/Material.h"
@@ -12,106 +16,97 @@
 #include "VPFrameworkLibrary.h"
 #include "UObjectGlobals.h"
 #include "UObjectIterator.h"
-
+#include "VPMaterial.h"
 
 
 
 UVPMaterial::UVPMaterial()
 {
+	VP_CTOR;
 
-}
-
-void UVPMaterial::SetMaterialVectorParam(AActor* Target, FVector Vector,FName Name)
-{
-
-	//actor(혹은 자식)의 material에 접근하기위해 staticmeshcomponent 사용
-	TArray<UStaticMeshComponent*> SM_Comp;
-	Target->GetComponents(SM_Comp);
-	
-	//Material을 설정하는 과정. 해당 액터의 모든 Component들을 순회하여 StaticMeshComponent가 있다면 그 Component의 material을
-	//미리 만들어놓은 material로 대체함.
-	for (auto SMIter = SM_Comp.CreateConstIterator(); SMIter; ++SMIter)
+	/* 유효하지 않은 싱글톤 CDO는 더이상 초기화를 진행하지 않습니다 */
+	if (UVPFrameworkLibrary::IsValidSingletonCDO(this) == false)
 	{
-		
-		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
-		if (thisComp)
-		{
-			UMaterialInstanceDynamic* DynamicInst = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), NULL);
-			DynamicInst->SetVectorParameterValue(Name, Vector);
-			thisComp->SetMaterial(0, DynamicInst);
-
-		}
-	}
-
-	
-	
-
-}
-
-void UVPMaterial::SetMaterialUTexture2DParam(AActor* Target,UTexture2D* Texture, FName Name)
-{
-	
-	//actor(혹은 자식)의 material에 접근하기위해 staticmeshcomponent 사용
-	TArray<UStaticMeshComponent*> SM_Comp;
-	Target->GetComponents(SM_Comp);
-	
-	//Material을 설정하는 과정. 해당 액터의 모든 Component들을 순회하여 StaticMeshComponent가 있다면 그 Component의 material을
-	//미리 만들어놓은 material로 대체함.
-	for (auto SMIter = SM_Comp.CreateConstIterator(); SMIter; ++SMIter)
-	{
-		
-		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
-		if (thisComp)
-		{
-			UMaterialInstanceDynamic* DynamicInst = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), NULL);
-			DynamicInst->SetTextureParameterValue(Name, Texture);
-			thisComp->SetMaterial(0, DynamicInst);
-
-		}
+		return;
 	}
 }
 
-void UVPMaterial::SetMaterialLinearColor(AActor* Target,FLinearColor Color, FName Name)
+UVPMaterial * UVPMaterial::GetGlobalMaterial()
 {
-	
-	//actor(혹은 자식)의 material에 접근하기위해 staticmeshcomponent 사용
-	TArray<UStaticMeshComponent*> SM_Comp;
-	Target->GetComponents(SM_Comp);
-	
-	//Material을 설정하는 과정. 해당 액터의 모든 Component들을 순회하여 StaticMeshComponent가 있다면 그 Component의 material을
-	//미리 만들어놓은 material로 대체함.
-	for (auto SMIter = SM_Comp.CreateConstIterator(); SMIter; ++SMIter)
+	for (const auto& it : TObjectRange<UVPMaterial>())
 	{
-		
-		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
-		if (thisComp)
+		if (UVPFrameworkLibrary::IsValidSingletonCDO(it))
 		{
-			UMaterialInstanceDynamic* DynamicInst = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), NULL);
-			DynamicInst->SetVectorParameterValue(Name, Color);
-			thisComp->SetMaterial(0, DynamicInst);
-			
+			return it;
 		}
 	}
+	/* 반복자에서 찾지 못하면 시스템에 큰 결함이 있는 것입니다 */
+	VP_LOG(Error, TEXT("%s가 유효하지 않습니다."), *UVPMaterial::StaticClass()->GetName());
+	return nullptr;
 }
 
-void UVPMaterial::SetMaterialScalarParam(AActor * Target, float Value, FName Name)
+void UVPMaterial::SetMaterialVectorParam(UStaticMeshComponent* Target, FVector Vector, FName Name)
 {
-	//actor(혹은 자식)의 material에 접근하기위해 staticmeshcomponent 사용
-	TArray<UStaticMeshComponent*> SM_Comp;
-	Target->GetComponents(SM_Comp);
 
-	//Material을 설정하는 과정. 해당 액터의 모든 Component들을 순회하여 StaticMeshComponent가 있다면 그 Component의 material을
-	//미리 만들어놓은 material로 대체함.
-	for (auto SMIter = SM_Comp.CreateConstIterator(); SMIter; ++SMIter)
+	// TODO : 여러 개의 머티리얼을 수정할 수 있도록 해야함.
+	UMaterialInterface* TargetMaterial = Target->GetMaterial(0);
+	UMaterialInstanceDynamic* DynamicInstance;
+
+	if ((DynamicInstance = Cast<UMaterialInstanceDynamic>(TargetMaterial)) == nullptr)
 	{
-
-		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
-		if (thisComp)
-		{
-			UMaterialInstanceDynamic* DynamicInst = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), NULL);
-			DynamicInst->SetScalarParameterValue(Name, Value);
-			thisComp->SetMaterial(0, DynamicInst);
-
-		}
+		DynamicInstance = UMaterialInstanceDynamic::Create(TargetMaterial, NULL);
+		Target->SetMaterial(0, DynamicInstance);
 	}
+
+	DynamicInstance->SetVectorParameterValue(Name, Vector);
+
+	
+	
+
+}
+
+void UVPMaterial::SetMaterialUTexture2DParam(UStaticMeshComponent* Target,UTexture2D* Texture, FName Name)
+{
+	
+	// TODO : 여러 개의 머티리얼을 수정할 수 있도록 해야함.
+	UMaterialInterface* TargetMaterial = Target->GetMaterial(0);
+	UMaterialInstanceDynamic* DynamicInstance;
+
+	if ((DynamicInstance = Cast<UMaterialInstanceDynamic>(TargetMaterial)) == nullptr)
+	{
+		DynamicInstance = UMaterialInstanceDynamic::Create(TargetMaterial, NULL);
+		Target->SetMaterial(0, DynamicInstance);
+	}
+
+	DynamicInstance->SetTextureParameterValue(Name, Texture);
+}
+
+void UVPMaterial::SetMaterialLinearColor(UStaticMeshComponent* Target, FLinearColor Color, FName Name)
+{
+	// TODO : 여러 개의 머티리얼을 수정할 수 있도록 해야함.
+	UMaterialInterface* TargetMaterial = Target->GetMaterial(0);
+	UMaterialInstanceDynamic* DynamicInstance;
+
+	if ((DynamicInstance = Cast<UMaterialInstanceDynamic>(TargetMaterial)) == nullptr)
+	{
+		DynamicInstance = UMaterialInstanceDynamic::Create(TargetMaterial, NULL);
+		Target->SetMaterial(0, DynamicInstance);
+	}
+
+	DynamicInstance->SetVectorParameterValue(Name, Color);
+}
+
+void UVPMaterial::SetMaterialScalarParam(UStaticMeshComponent * Target, float Value, FName Name)
+{
+	// TODO : 여러 개의 머티리얼을 수정할 수 있도록 해야함.
+	UMaterialInterface* TargetMaterial = Target->GetMaterial(0);
+	UMaterialInstanceDynamic* DynamicInstance;
+
+	if ((DynamicInstance = Cast<UMaterialInstanceDynamic>(TargetMaterial)) == nullptr)
+	{
+		DynamicInstance = UMaterialInstanceDynamic::Create(TargetMaterial, NULL);
+		Target->SetMaterial(0, DynamicInstance);
+	}
+
+	DynamicInstance->SetScalarParameterValue(Name, Value);
 }

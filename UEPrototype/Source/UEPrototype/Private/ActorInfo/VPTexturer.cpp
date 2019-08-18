@@ -46,18 +46,9 @@ UVPTexturer* UVPTexturer::GetGlobalTexturer()
 	return nullptr;
 }
 
-void UVPTexturer::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT)
+void UVPTexturer::InitEditMaterial(AActor * Actor, FName DrawLocationName,UTextureRenderTarget2D * CanvasRT)
 {
-	if(PaintMarkMat == nullptr)
-	{
-		VP_LOG(Error, TEXT("PaintMarkMat이 유효하지 않습니다."));
-		return;
-	}
-	if (PaintMat == nullptr)
-	{
-		VP_LOG(Error, TEXT("PaintMat이 유효하지 않습니다."));
-		return;
-	}
+	
 	if (CanvasRT == nullptr)
 	{
 		VP_LOG(Error, TEXT("CanvasRT가 유효하지 않습니다."));
@@ -69,8 +60,8 @@ void UVPTexturer::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName D
 		return;
 	}
 
-	//사용자가 미리 만들어놓은 머테리얼 생성
-	DynamicPaintMat = UMaterialInstanceDynamic::Create(PaintMat, Actor);
+	UMaterial* PaintMarkMat = LoadObject<UMaterial>(nullptr, TEXT("/Game/Material/M_PaintMarker"));
+
 
 	//사용자가 미리 만들어놓은 머테리얼 생성
 	DynamicPaintMarkerMat = UMaterialInstanceDynamic::Create(PaintMarkMat, Actor);
@@ -89,8 +80,9 @@ void UVPTexturer::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName D
 		UStaticMeshComponent* thisComp = Cast<UStaticMeshComponent>((*SMIter));
 		if (thisComp)
 		{
-			//DynamicPaintMat = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), Actor);
-			thisComp->SetMaterial(0, DynamicPaintMat);
+			DynamicPaintMat = UMaterialInstanceDynamic::Create(thisComp->GetMaterial(0), Actor);
+			DynamicPaintMat->SetTextureParameterValue("PaintName", MyRenderTarget);
+			thisComp->SetMaterial(0, thisComp->GetMaterial(0));
 		}
 		
 	}
@@ -99,10 +91,9 @@ void UVPTexturer::InitEditMaterial(AActor * Actor, UMaterial * PaintMat, FName D
 
 }
 
-void UVPTexturer::PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam, bool isHit)
+void UVPTexturer::PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam)
 {
-	if (!isHit) return;
-
+	
 	// 페인팅 될 위치에 대한 벡터 변수
 	FVector LocationVector = FVector(LocationToDraw, 0);
 
@@ -113,7 +104,7 @@ void UVPTexturer::PaintTexture(FVector2D LocationToDraw, FName PaintMarkParam, b
 	UKismetRenderingLibrary::DrawMaterialToRenderTarget(GetWorld(), MyRenderTarget, DynamicPaintMarkerMat);
 }
 
-void UVPTexturer::EditPaintParameter(float DrawSize, FColor Color, float ForceStrength)
+void UVPTexturer::EditPaintParameter(float DrawSize, FColor Color, float ForceStrength, UTextureRenderTarget2D* CanvasRT)
 {
 	// 그려질 머테리얼의 색을 받아옴.
 	FLinearColor C = FLinearColor(Color.R, Color.G, Color.B, Color.A);
