@@ -391,6 +391,19 @@ private:
 		BlueprintSetter=SetIsPickingActor, BlueprintGetter=IsPickingActor)
 	bool bIsPickingActor;
 
+	/* 직선 라인트레이스 시작점 */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
+	FVector LineTraceStart;
+
+	/* 직선 라인트레이스 종료점 */
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true))
+	FVector LineTraceEnd;
+	
+	/* 현재 액터를 픽업하고 있는지 여부입니다. */
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Core|Player", meta=(AllowPrivateAccess = true),
+		BlueprintSetter=SetIsPickingActor, BlueprintGetter=IsPickingActor)
+	bool bIsPickingActor;
+
 
 
 private:

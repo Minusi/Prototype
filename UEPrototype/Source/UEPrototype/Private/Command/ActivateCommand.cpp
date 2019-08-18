@@ -23,10 +23,9 @@ UActivateCommand::UActivateCommand()
 	UCommandConstraintManager* CommandConstraintManager = UCommandConstraintManager::GetGlobalCommandConstraintManager();
 	if (IsValid(CommandConstraintManager) == false)
 	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetName());
 		return;
 	}
-	
-
 
 	/* 포커스 제약조건들의 유효성을 검사합니다. */
 	UCmdUnfocusedConstraint* UnfocusedConstraint = CommandConstraintManager->GetCmdUnfocusedConstraint();
