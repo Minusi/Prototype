@@ -14,7 +14,8 @@ class UActorConstraintMarker;
 class UActorPlaceInfoMarker;
 class UHUDWorldPositioner;
 class AContextor;
-
+class UVPMaterial;
+class AVPEmitter;
 
 /**
  *	ActorInfo 모듈을 관리하는 관리자 클래스입니다.
@@ -79,6 +80,19 @@ public:
 		return Contextor;
 	}
 
+	/*Material을 반환합니다.*/
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE UVPMaterial* GetMaterial()const
+	{
+		return Material;
+	}
+
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+	FORCEINLINE AVPEmitter* GetEmitter()const
+	{
+		return Emitter;
+	}
+
 
 
 protected:
@@ -118,5 +132,13 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetContextor)
 	AContextor* Contextor;
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetMaterial)
+	UVPMaterial* Material;
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetEmitter)
+		AVPEmitter* Emitter;
 
 };

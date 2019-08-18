@@ -42,6 +42,15 @@ class UEPROTOTYPE_API AVPEmitter : public AEmitter
 	GENERATED_BODY()
 	
 public:
+	AVPEmitter();
+	/* UOutliner를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static AVPEmitter* GetGlobalEmitter();
+
+
+
+
+
 	//생성된 이미터액터의 초기화
 	UFUNCTION(BlueprintCallable,Category = "VPEmitter")
 	void InitEmitter(UParticleSystem* ParticleSystem, FTransform Transform ,AActor* Parent);
@@ -49,6 +58,16 @@ public:
 	//사용자가 파라미터를 조정하도록 해주는 함수
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")
 	void SettingEmitter(const FEmitterParam EmitterParam , const FTransform RelativeTrasnform);
+
+	
+
+	//TODO : 영상 처리용 편집 함수들. 나중에 쓸모없어지면 삭제 바람.
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetEmitterVectorParam(UParticleSystemComponent* Target, FVector Vector, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetEmitterLinearColor(UParticleSystemComponent* Target, FLinearColor Color, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetEmitterScalarParam(UParticleSystemComponent* Target, float Value, FName Name);
 
 	//명령을 위해 만들어둠. Emitter를 활성화시킨다.
 	UFUNCTION(BlueprintCallable, Category = "VPEmitter")

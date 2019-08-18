@@ -20,14 +20,20 @@ public:
 	
 	UVPMaterial();
 	
-	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
-	void SetMaterialVectorParam(AActor* Target,FVector Vector, FName Name);
-	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
-	void SetMaterialUTexture2DParam(AActor* Target,UTexture2D* Texture2D, FName Name);
-	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
-	void SetMaterialLinearColor(AActor* Target,FLinearColor Color, FName Name);
-	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
-	void SetMaterialScalarParam(AActor* Target, float Value, FName Name);
+	/* UOutliner를 반환합니다(전역 접근 가능). */
+	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
+	static UVPMaterial* GetGlobalMaterial();
 
-	
+
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetMaterialVectorParam(UStaticMeshComponent* Target,FVector Vector, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetMaterialUTexture2DParam(UStaticMeshComponent* Target,UTexture2D* Texture2D, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetMaterialLinearColor(UStaticMeshComponent* Target, FLinearColor Color, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetMaterialScalarParam(UStaticMeshComponent* Target, float Value, FName Name);
+
+private:
+
 };

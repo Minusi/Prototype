@@ -5,12 +5,19 @@
 #include "EditorModulesManager.h"
 #include "Command/CommandConstraintManager.h"
 #include "Command/CmdActivatedConstraint.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "GameFramework/Actor.h"
 #include "ActorInfo/ActorConstraintMarker.h"
+#include "Engine/StaticMeshActor.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/MeshComponent.h"
+#include "Materials/Material.h"
+#include "Materials/MaterialInstanceDynamic.h"
 
 
 UActorConstraintMarker* UDuplicateCommand::ActorConstraintMarker = nullptr;
 
-UDuplicateCommand::UDuplicateCommand() 
+UDuplicateCommand::UDuplicateCommand()
 {
 	VP_CTOR;
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
@@ -50,7 +57,7 @@ UDuplicateCommand::UDuplicateCommand()
 	}
 
 
-	
+
 
 
 	/* 초기화를 수행합니다 */
@@ -98,9 +105,9 @@ void UDuplicateCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			Duplicate();
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_None);
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
 			
+			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
+
 			return;
 		}
 	}
@@ -116,23 +123,29 @@ void UDuplicateCommand::Duplicate()
 {
 	if (Target.Target == nullptr) return;
 
-	FActorSpawnParameters ASParam;
-	{
-		ASParam.Template = Target.Target;
-		//ASParam.Owner = Target.Target->GetOwner();
-		//ASParam.Instigator = Target.Target->GetInstigator();
-		//ASParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	}
 
 
-	
+
+
 
 	//Actor를 복제하는 과정. 복제이기 때문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
 	//if (!IsValid(GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(),Target.Target->GetActorTransform(),ASParam))) return;
-	AActor* SpawnActor = Target.Target->GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(), Target.Target->GetActorTransform());
-	
+	FTransform Transform = Target.Target->GetActorTransform();
+	FVector Location;
+
+	FVector BoxExtend;
+
+	Target.Target->GetActorBounds(false, Location, BoxExtend);
+	float MaxExtend = FMath::Max3(BoxExtend.X, BoxExtend.Y, BoxExtend.Z);
+
+
+	Transform.SetLocation(Location + FVector(0, MaxExtend, 0));
+	AActor* SpawnActor = Target.Target->GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(), Transform);
 
 	
+
+
+
 
 
 }

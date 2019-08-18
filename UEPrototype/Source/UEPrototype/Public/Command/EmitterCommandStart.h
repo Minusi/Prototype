@@ -25,16 +25,23 @@ public:
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 	UFUNCTION(BlueprintCallable)
-	void SetVPAmbientSound(AVPEmitter* Emit) { VPEmitter = Emit; }
-
+	void SetVPEmitter(AVPEmitter* Emit) { VPEmitter = Emit; }
+	UFUNCTION(BlueprintCallable)
 	void SetEmitter(UParticleSystem* ParticleSystem, FTransform Transform, AActor* Parent = nullptr);
+	UFUNCTION(BlueprintCallable)
 	void SetEmitterParam(const FEmitterParam EmitterParam, const FTransform RelativeTrasnform);
 
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetEmitterVectorParam(UParticleSystemComponent* ParticleSystemComp, FVector Vector, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetEmitterLinearColor(UParticleSystemComponent* ParticleSystemComp, FLinearColor Color, FName Name);
+	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
+	void SetEmitterScalarParam(UParticleSystemComponent* ParticleSystemComp, float Value, FName Name);
 
 
 private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
 
-	AVPEmitter* VPEmitter;
+	static AVPEmitter* VPEmitter;
 };

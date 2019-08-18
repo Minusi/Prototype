@@ -23,7 +23,7 @@ UActivateCommand::UActivateCommand()
 	UCommandConstraintManager* CommandConstraintManager = UCommandConstraintManager::GetGlobalCommandConstraintManager();
 	if (IsValid(CommandConstraintManager) == false)
 	{
-		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetName());
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::StaticClass()->GetName());
 		return;
 	}
 

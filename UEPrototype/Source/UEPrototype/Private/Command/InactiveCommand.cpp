@@ -27,7 +27,7 @@ UInactiveCommand::UInactiveCommand()
 	엔진이 처음 로드될 때 에러를 유발하지만, 모듈 초기화 시에 같이 초기화될 필요
 	없으므로 무시해도 됩니다. */
 	UCommandConstraintManager* CommandConstraintManager = UCommandConstraintManager::GetGlobalCommandConstraintManager();
-	if (IsValid(CommandConstraintManager))
+	if (IsValid(CommandConstraintManager) == false)
 	{
 		return;
 	}

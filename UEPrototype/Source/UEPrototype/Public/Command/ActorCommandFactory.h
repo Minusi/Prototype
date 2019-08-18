@@ -27,6 +27,8 @@
 #include "TextureCommandEnd.h"
 #include "ShowContextCommand.h"
 #include "CloseContextCommand.h"
+#include "MaterialCommand.h"
+#include "EmitterCommandStart.h"
 #include "ActorCommandFactory.generated.h"
 
 
@@ -324,5 +326,29 @@ public:
 		return ActorCommand;
 	}
 
-	
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UMaterialCommand* testCreateActorCommand_Material(const FActorConstraintInfo Target)
+	{
+		UMaterialCommand* ActorCommand = NewObject<UMaterialCommand>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
+
+	UFUNCTION(BlueprintCallable, Category = "ASD")
+	static UEmitterCommandStart* testCreateActorCommand_EmitterStart(const FActorConstraintInfo Target)
+	{
+		UEmitterCommandStart* ActorCommand = NewObject<UEmitterCommandStart>();
+		if (IsValid(ActorCommand) == false)
+		{
+			VP_LOG(Warning, TEXT("유효하지 않은 템플릿 타입입니다."));
+			return nullptr;
+		}
+		ActorCommand->InitActorCommand(Target);
+		return ActorCommand;
+	}
 };

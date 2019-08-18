@@ -13,7 +13,7 @@ UVPTexturer* UTextureCommandStart::VPTextureEditor = nullptr;
 
 UTextureCommandStart::UTextureCommandStart()
 {
-	
+
 	VP_CTOR;
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
 
@@ -35,7 +35,7 @@ UTextureCommandStart::UTextureCommandStart()
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
-		||(VPTextureEditor !=nullptr && VPTextureEditor->IsValidLowLevel()))
+		|| (VPTextureEditor != nullptr && VPTextureEditor->IsValidLowLevel()))
 	{
 		VP_LOG(Log, TEXT("TextureCommandStart의 멤버가 유효하다네요?"));
 		return;
@@ -52,15 +52,15 @@ UTextureCommandStart::UTextureCommandStart()
 	}
 
 
-	
+
 
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	VPTextureEditor = UVPTexturer::GetGlobalTexturer();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-	
-	
+
+
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 
 	if (IsValid(ActorConstraintMarker) == false)
@@ -110,7 +110,10 @@ void UTextureCommandStart::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Blocked);
-			VPTextureEditor->PaintTexture(DrawParam.LocationToDraw, DrawParam.PaintMarkParam, DrawParam.isHit);
+
+			VPTextureEditor->PaintTexture(DrawParam.LocationToDraw, DrawParam.PaintMarkParam);
+
+
 			return;
 		}
 	}
@@ -121,13 +124,23 @@ void UTextureCommandStart::InitActorCommand(FActorConstraintInfo TargetInfo)
 	Target = TargetInfo;
 }
 
-void UTextureCommandStart::InitVPTexture(AActor * Actor, UMaterial * PaintMat, FName DrawLocationName, UMaterial * PaintMarkMat, UTextureRenderTarget2D * CanvasRT)
+void UTextureCommandStart::InitVPTexture(AActor * Actor, FName DrawLocationName, UTextureRenderTarget2D * CanvasRT)
 {
 	if (!IsValid(VPTextureEditor))
 	{
-		VP_LOG(Warning, TEXT("한상훈의 실패."));
+		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다."));
 		return;
-		
 	}
-	VPTextureEditor->InitEditMaterial(Target.Target, PaintMat, DrawLocationName, PaintMarkMat, CanvasRT);
+	VPTextureEditor->InitEditMaterial(Actor, DrawLocationName, CanvasRT);
 }
+
+void UTextureCommandStart::ClearPaint()
+{
+	if (!IsValid(VPTextureEditor))
+	{
+		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다."));
+		return;
+	}
+	VPTextureEditor->EraseTarget();
+}
+

@@ -10,6 +10,8 @@
 
 UActorConstraintMarker* UEmitterCommandStart::ActorConstraintMarker = nullptr;
 
+AVPEmitter* UEmitterCommandStart::VPEmitter = nullptr;
+
 UEmitterCommandStart::UEmitterCommandStart()
 {
 	VP_CTOR;
@@ -51,7 +53,7 @@ UEmitterCommandStart::UEmitterCommandStart()
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
+	VPEmitter = AVPEmitter::GetGlobalEmitter();
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 
@@ -91,7 +93,7 @@ void UEmitterCommandStart::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Blocked);
-			VPEmitter->ActivateEmitter();
+			
 			return;
 		}
 	}
@@ -110,4 +112,19 @@ void UEmitterCommandStart::SetEmitter(UParticleSystem * ParticleSystem, FTransfo
 void UEmitterCommandStart::SetEmitterParam(const FEmitterParam EmitterParam, const FTransform RelativeTrasnform)
 {
 	VPEmitter->SettingEmitter(EmitterParam, RelativeTrasnform);
+}
+
+void UEmitterCommandStart::SetEmitterVectorParam(UParticleSystemComponent * ParticleSystemComp, FVector Vector, FName Name)
+{
+	VPEmitter->SetEmitterVectorParam(ParticleSystemComp, Vector, Name);
+}
+
+void UEmitterCommandStart::SetEmitterLinearColor(UParticleSystemComponent * ParticleSystemComp, FLinearColor Color, FName Name)
+{
+	VPEmitter->SetEmitterLinearColor(ParticleSystemComp, Color, Name);
+}
+
+void UEmitterCommandStart::SetEmitterScalarParam(UParticleSystemComponent * ParticleSystemComp, float Value, FName Name)
+{
+	VPEmitter->SetEmitterScalarParam(ParticleSystemComp, Value, Name);
 }
