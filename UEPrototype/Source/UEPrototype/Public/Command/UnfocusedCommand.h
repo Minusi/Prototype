@@ -9,6 +9,7 @@
 class AActor;
 class UOutliner;
 class UActorConstraintMarker;
+class UPlayerTaskManager;
 
 UCLASS()
 class UEPROTOTYPE_API UUnfocusedCommand : public UActorCommandBase
@@ -24,11 +25,13 @@ public:
 
 	/* UActorCommandBase로부터 상속됨 */
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
-	
+
 private:
 
 	/* 물체에 윤곽선을 그려줍니다 */
 	static UOutliner* Outliner;
 
 	static UActorConstraintMarker* ActorConstraintMarker;
+
+	static UPlayerTaskManager* PlayerTaskManager;
 };

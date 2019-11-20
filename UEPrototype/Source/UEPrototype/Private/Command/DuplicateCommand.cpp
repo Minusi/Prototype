@@ -5,6 +5,7 @@
 #include "EditorModulesManager.h"
 #include "Command/CommandConstraintManager.h"
 #include "Command/CmdActivatedConstraint.h"
+#include "Command/ActorCommandFactory.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/Actor.h"
 #include "ActorInfo/ActorConstraintMarker.h"
@@ -13,9 +14,11 @@
 #include "Components/MeshComponent.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceDynamic.h"
-
+#include "Core/PlayerTaskManager.h"
 
 UActorConstraintMarker* UDuplicateCommand::ActorConstraintMarker = nullptr;
+
+UPlayerTaskManager* UDuplicateCommand::PlayerTaskManager = nullptr;
 
 UDuplicateCommand::UDuplicateCommand()
 {
@@ -38,14 +41,13 @@ UDuplicateCommand::UDuplicateCommand()
 	}
 	Constraints.Add(ActivateConstraint);
 
-
 	/* 이미 초기화되어 있으면 생략합니다 */
-	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel()))
+	if (PlayerTaskManager != nullptr && (ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel()))
 	{
-		VP_LOG(Log, TEXT("UDeleteCommand의 멤버가 유효하다네요?"));
+		VP_LOG(Log, TEXT("UDuplicateCommand의 멤버가 유효하다네요?"));
 		return;
 	}
-	VP_LOG(Log, TEXT("UdeleteCommand의 멤버가 유효하지 않다네요?"));
+	VP_LOG(Log, TEXT("UDuplicateCommand의 멤버가 유효하지 않다네요?"));
 
 	/* 초기화하는 데 필요한 객체를 가지고 있는 모듈의 유효성을 검사합니다 */
 	UEditorModulesManager* EditorModulesManager =
@@ -56,19 +58,17 @@ UDuplicateCommand::UDuplicateCommand()
 		return;
 	}
 
-
-
-
-
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
-
-
+	PlayerTaskManager = UPlayerTaskManager::GetGlobalPlayerTaskManager();
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
-
+	if (IsValid(PlayerTaskManager) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UPlayerTaskManager::StaticClass()->GetName());
+		return;
+	}
 	if (IsValid(ActorConstraintMarker) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UActorConstraintMarker::StaticClass()->GetName());
@@ -102,16 +102,14 @@ void UDuplicateCommand::ExecuteIf()
 
 	for (const auto& it : Constraints)
 	{
-		if (it->CheckConstraint(Target) == true)
+		for (const auto & t : PlayerTaskManager->GetInteractedActorsInfo())
 		{
-			Duplicate();
-			
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
-
-			return;
+			if (it->CheckConstraint(t) == true)
+			{
+				Duplicate(t.Target);
+			}
 		}
 	}
-
 }
 
 void UDuplicateCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
@@ -119,33 +117,30 @@ void UDuplicateCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
 	Target = TargetInfo;
 }
 
-void UDuplicateCommand::Duplicate()
+void UDuplicateCommand::Duplicate(AActor* Target)
 {
-	if (Target.Target == nullptr) return;
+	if (Target == nullptr)
+	{
+		VP_LOG(Warning, TEXT("Duplicate 될 타겟이 유효하지 않습니다"));
+		return;
+	}
 
-
-
-
-
-
-	//Actor를 복제하는 과정. 복제이기 때문에 spawn과정에 필요한 parameter는 모두 해당 Actor에 관한 것들.
-	//if (!IsValid(GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(),Target.Target->GetActorTransform(),ASParam))) return;
-	FTransform Transform = Target.Target->GetActorTransform();
-	FVector Location;
-
+	FTransform Transform = Target->GetActorTransform();
+	FVector Location = Target->GetTargetLocation();
 	FVector BoxExtend;
+	FActorSpawnParameters SpawnParam;
 
-	Target.Target->GetActorBounds(false, Location, BoxExtend);
+
+	Target->GetActorBounds(false, Location, BoxExtend);
 	float MaxExtend = FMath::Max3(BoxExtend.X, BoxExtend.Y, BoxExtend.Z);
 
+	// TODO : 아웃라인 객체만 손보고 거리는 손보지말자 나중에.
 
-	Transform.SetLocation(Location + FVector(0, MaxExtend, 0));
-	AActor* SpawnActor = Target.Target->GetWorld()->SpawnActor<AActor>(Target.Target->GetClass(), Transform);
+	/* Duplicate는 템플릿 이용하여 작성
+		카메라와 액터사이의 거리를 구해서 거리에 비례하게 복제된 액터가 생성되도록 설정 */
+	Transform.SetLocation(FVector(0, MaxExtend, 0));
+	SpawnParam.Template = Target;
+	SpawnParam.Owner = Target;
 
-	
-
-
-
-
-
+	Target->GetWorld()->SpawnActor<AActor>(Target->GetClass(), Transform, SpawnParam);
 }

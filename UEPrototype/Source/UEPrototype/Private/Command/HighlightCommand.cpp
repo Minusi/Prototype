@@ -9,12 +9,8 @@
 #include "ActorInfo/Outliner.h"
 #include "ActorInfo/ActorConstraintMarker.h"
 
-
-
 UActorConstraintMarker* UHighlightCommand::ActorConstraintMarker = nullptr;
 UOutliner* UHighlightCommand::Outliner = nullptr;
-
-
 
 UHighlightCommand::UHighlightCommand()
 {
@@ -25,7 +21,7 @@ UHighlightCommand::UHighlightCommand()
 	엔진이 처음 로드될 때 에러를 유발하지만, 모듈 초기화 시에 같이 초기화될 필요
 	없으므로 무시해도 됩니다. */
 	UCommandConstraintManager* CommandConstraintManager = UCommandConstraintManager::GetGlobalCommandConstraintManager();
-	if (IsValid(CommandConstraintManager)==false)
+	if (IsValid(CommandConstraintManager) == false)
 	{
 		return;
 	}
@@ -40,11 +36,6 @@ UHighlightCommand::UHighlightCommand()
 
 	/* 포커스 제약 조건을 추가합니다. */
 	Constraints.Add(FocusedConstraint);
-
-
-
-
-
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
@@ -64,16 +55,9 @@ UHighlightCommand::UHighlightCommand()
 		return;
 	}
 
-
-	
-
-
 	/* 초기화를 수행합니다 */
 	Outliner = UOutliner::GetGlobalOutliner();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-	
-	
-
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 	if (IsValid(Outliner) == false)
@@ -92,10 +76,6 @@ UHighlightCommand::UHighlightCommand()
 		return;
 	}
 }
-
-
-
-
 
 void UHighlightCommand::ExecuteIf()
 {
@@ -123,15 +103,11 @@ void UHighlightCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Highlighted);
-			Outliner->DrawActorOutline(Target.Target,true);
+			Outliner->AddHighlightedOutline(Target.Target, TEXT("/Game/Material/MI_Outliner_2"));
 			return;
 		}
 	}
 }
-
-
-
-
 
 void UHighlightCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
 {

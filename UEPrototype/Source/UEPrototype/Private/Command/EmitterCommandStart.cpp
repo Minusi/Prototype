@@ -34,7 +34,6 @@ UEmitterCommandStart::UEmitterCommandStart()
 		return;
 	}
 
-
 	UCmdActivatedConstraint* ActivateConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint();
 	if (IsValid(ActivateConstraint) == false)
 	{
@@ -49,11 +48,9 @@ UEmitterCommandStart::UEmitterCommandStart()
 	}
 	Constraints.Add(ActivateConstraint);
 
-
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-	VPEmitter = AVPEmitter::GetGlobalEmitter();
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 
@@ -85,18 +82,6 @@ void UEmitterCommandStart::ExecuteIf()
 	{
 		VP_LOG(Warning, TEXT("명령의 대상 액터가 유효하지 않습니다."));
 	}
-
-	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
-
-	for (const auto& it : Constraints)
-	{
-		if (it->CheckConstraint(Target) == true)
-		{
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Blocked);
-			
-			return;
-		}
-	}
 }
 
 void UEmitterCommandStart::InitActorCommand(FActorConstraintInfo TargetInfo)
@@ -106,7 +91,7 @@ void UEmitterCommandStart::InitActorCommand(FActorConstraintInfo TargetInfo)
 
 void UEmitterCommandStart::SetEmitter(UParticleSystem * ParticleSystem, FTransform Transform, AActor * Parent)
 {
-	VPEmitter->InitEmitter(ParticleSystem, Transform, Parent);
+	//VPEmitter->InitEmitter(ParticleSystem, Transform, Parent);
 }
 
 void UEmitterCommandStart::SetEmitterParam(const FEmitterParam EmitterParam, const FTransform RelativeTrasnform)

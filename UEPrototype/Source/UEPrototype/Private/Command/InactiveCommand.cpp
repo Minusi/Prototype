@@ -9,14 +9,13 @@
 #include "Command/CmdActivatedConstraint.h"
 #include "ActorInfo/Outliner.h"
 #include "ActorInfo/ActorConstraintMarker.h"
-#include "Core/UserBlackBoard.h"
-
-
+#include "Core/PlayerTaskManager.h"
+//#include "Core/UserBlackBoard.h"
 
 UActorConstraintMarker* UInactiveCommand::ActorConstraintMarker = nullptr;
 UOutliner* UInactiveCommand::Outliner = nullptr;
-AUserBlackBoard* UInactiveCommand::UserBlackBoard = nullptr;
-
+UPlayerTaskManager* UInactiveCommand::PlayerTaskManager = nullptr;
+//AUserBlackBoard* UInactiveCommand::UserBlackBoard = nullptr;
 
 UInactiveCommand::UInactiveCommand()
 {
@@ -43,16 +42,11 @@ UInactiveCommand::UInactiveCommand()
 	/* 포커스 제약 조건을 추가합니다. */
 	Constraints.Add(ActivatedConstraint);
 
-
-
-
-
-
 	/* 이미 초기화되어 있으면 생략합니다 */
-	if ((ActorConstraintMarker->IsValidLowLevel())
+	if (Outliner != nullptr  && PlayerTaskManager != nullptr && (ActorConstraintMarker->IsValidLowLevel())
 		&& Outliner->IsValidLowLevel())
 	{
-		VP_LOG(Log, TEXT("HighlightCommand의 이미 유효합니다."));
+		VP_LOG(Log, TEXT("InActiveCommand의 이미 유효합니다."));
 		return;
 	}
 	VP_LOG(Log, TEXT("%s의 멤버가 유효하지 않으므로 초기화를 수행합니다."), *UInactiveCommand::StaticClass()->GetName());
@@ -66,16 +60,11 @@ UInactiveCommand::UInactiveCommand()
 		return;
 	}
 
-
-
-
-
 	/* 초기화를 수행합니다. */
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
 	Outliner = UOutliner::GetGlobalOutliner();
-	UserBlackBoard = AUserBlackBoard::GetGlobalUserBlackBoard(this);
-
-
+	PlayerTaskManager = UPlayerTaskManager::GetGlobalPlayerTaskManager();
+	//UserBlackBoard = AUserBlackBoard::GetGlobalUserBlackBoard(this);
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다. */
 	if (IsValid(ActorConstraintMarker) == false)
@@ -88,21 +77,22 @@ UInactiveCommand::UInactiveCommand()
 		VP_INVALID_WARNING(UOutliner);
 		return;
 	}
-	if (IsValid(UserBlackBoard) == false)
+	if (IsValid(PlayerTaskManager) == false)
+	{
+		VP_INVALID_WARNING(UPlayerTaskManager);
+		return;
+	}
+	/*if (IsValid(UserBlackBoard) == false)
 	{
 		VP_INVALID_WARNING(AUserBlackBoard);
 		return;
-	}
+	}*/
 	if (Constraints.Num() == 0)
 	{
 		VP_LOG(Warning, TEXT("제약 조건이 설정되지 않았습니다. 제약 조건의 수 : %d"), Constraints.Num());
 		return;
 	}
 }
-
-
-
-
 
 void UInactiveCommand::ExecuteIf()
 {
@@ -117,37 +107,42 @@ void UInactiveCommand::ExecuteIf()
 		VP_INVALID_WARNING(UOutliner);
 		return;
 	}
+	/*if (IsValid(UserBlackBoard) == false)
+	{
+		VP_INVALID_WARNING(AUserBlackBoard);
+		return;
+	}*/
 
 	/* 대상에 대한 유효성을 검사합니다. */
 	if (IsValid(Target.Target) == false)
 	{
 		VP_LOG(Warning, TEXT("명령의 대상 액터가 유효하지 않습니다."));
-		return;
 	}
 
 	/* 명령이 제약조건을 만족하면 싪행합니다. */
 	for (const auto& it : Constraints)
 	{
-		if (it->CheckConstraint(Target) == true)
+		for (const auto & t : PlayerTaskManager->GetInteractedActorsInfo())
 		{
-			/* 사용자가 이 액터를 보고 있으면, Focused 명령을 호출합니다. */
-			if (UserBlackBoard->GetFocusedActor() == Target.Target)
+			if (it->CheckConstraint(t) == true)
 			{
-				Outliner->EraseActorOutline();
-				UActorCommandFactory::CreateActorCommand<UFocusCommand>(Target)->ExecuteIf();
-			}
-			else
-			{
-				ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
-				Outliner->EraseActorOutline();
+				//현재 가리키고 있는 상대가 상호작용중인 상대라면 FOCUS상태로 바뀐다.
+				if (t.Target == Target.Target)
+				{
+					Outliner->RemoveHighlightedOutline(t.Target);
+					Outliner->AddFocusedOutline(t.Target);
+					ActorConstraintMarker->MarkActor(t.Target, EActorConstraintState::CSTR_Focused);
+				}
+				//현재 가리키고 있는 상대가 상호작용중인 상대가 아니라면 Activate상태를 유지한다.
+				else
+				{
+					Outliner->RemoveHighlightedOutline(t.Target);
+					ActorConstraintMarker->MarkActor(t.Target, EActorConstraintState::CSTR_Activated);
+				}
 			}
 		}
 	}
 }
-
-
-
-
 
 void UInactiveCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
 {

@@ -9,15 +9,13 @@
 // DEBUG
 #include "Command/HighlightCommand.h"
 
-
-
 // Sets default values
 AEditorWorldManager::AEditorWorldManager()
 {
 	// DEBUG
 	VP_CTOR;
 
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 	/* 모듈 최상위 관리자를 생성합니다 */
@@ -35,21 +33,13 @@ AEditorWorldManager::AEditorWorldManager()
 	BindToEvents();
 }
 
-
-
-
-
 void AEditorWorldManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	/* 모듈의 BeginPlay 이벤트를 브로드캐스트합니다. */
 	EditorModulesManager->OnModuleBeginPlay().Broadcast();
 }
-
-
-
-
 
 bool AEditorWorldManager::IsActorBlocked(const AActor * InTarget) const
 {
@@ -80,10 +70,6 @@ bool AEditorWorldManager::IsActorBlocked(const AActor * InTarget) const
 	return false;
 }
 
-
-
-
-
 void AEditorWorldManager::GetActorPlaceContent(const AActor * InTarget, FActorPlaceContent& OutContent) const
 {
 	/* 액터 인자의 유효성을 검사합니다 */
@@ -104,10 +90,6 @@ void AEditorWorldManager::GetActorPlaceContent(const AActor * InTarget, FActorPl
 	}
 }
 
-
-
-
-
 void AEditorWorldManager::BindToEvents()
 {
 	/* ActorConstraintMarker를 얻어옵니다 */
@@ -117,11 +99,9 @@ void AEditorWorldManager::BindToEvents()
 	{
 		return;
 	}
-	
+
 	/* 이벤트에 함수를 바인딩합니다 */
 	ActorConstraintMarker->OnActorConstraintChanged().AddDynamic(this, &AEditorWorldManager::UpdateBlockedActors);
-
-
 
 	/* ActorPlaceInfoMarker를 얻어옵니다 */
 	UActorPlaceInfoMarker* ActorPlaceInfoMarker =
@@ -135,8 +115,6 @@ void AEditorWorldManager::BindToEvents()
 	ActorPlaceInfoMarker->OnActorPlaceInfoMark().AddDynamic(this, &AEditorWorldManager::UpdateActorsPlaceInfo);
 }
 
-
-
 void AEditorWorldManager::UpdateBlockedActors(FActorConstraintInfo ChangedInfo)
 {
 	if (IsValid(ChangedInfo.Target) == false)
@@ -144,13 +122,11 @@ void AEditorWorldManager::UpdateBlockedActors(FActorConstraintInfo ChangedInfo)
 		VP_LOG(Warning, TEXT("브로드캐스트된 액터가 유효하지 않습니다."));
 		return;
 	}
-	
+
 	/* BlockedActor 컨테이너에 쿼리를 던지기 위해 새로 구성합니다 */
 	FActorConstraintInfo QueryBlocked;
 	QueryBlocked.Target = ChangedInfo.Target;
 	QueryBlocked.TargetState = EActorConstraintState::CSTR_Blocked;
-	
-
 
 	/* 해당 액터가 컨테이너에 존재하고 Blocked가 아니게 된다는 이벤트를 수신
 		받았다면, 삭제합니다 */
@@ -164,9 +140,6 @@ void AEditorWorldManager::UpdateBlockedActors(FActorConstraintInfo ChangedInfo)
 		return;
 	}
 
-
-
-	
 	/* 해당 액터가 컨테이너에 존재하지 않고 Blocked이게 된다는 이벤트를 수신
 		받았다면, 추가합니다 */
 	if (BlockedActors.Contains(QueryBlocked) == false
@@ -179,14 +152,12 @@ void AEditorWorldManager::UpdateBlockedActors(FActorConstraintInfo ChangedInfo)
 		return;
 	}
 
-
 	/* 이번 이벤트는 EditorWorldManager에서 무시해도 되는 이벤트입니다 */
-	VP_LOG(Log, TEXT("해당 액터는 처리 대상이 아닙니다 : Actor(%s), State(%d)"),
-		*ChangedInfo.Target->GetName(), (uint8)(ChangedInfo.TargetState));
+	// TODO : 나중에 주석을 풀어주세요
+	/*VP_LOG(Log, TEXT("해당 액터는 처리 대상이 아닙니다 : Actor(%s), State(%d)"),
+		*ChangedInfo.Target->GetName(), (uint8)(ChangedInfo.TargetState));*/
 	return;
 }
-
-
 
 void AEditorWorldManager::UpdateActorsPlaceInfo(FActorPlaceInfo ChangedPlaceInfo)
 {
@@ -197,8 +168,6 @@ void AEditorWorldManager::UpdateActorsPlaceInfo(FActorPlaceInfo ChangedPlaceInfo
 		return;
 	}
 
-
-	
 	/* 해당 액터가 월드에 배치되어 있는지 확인합니다. */
 	for (auto& it : ActorsPlaceInfo)
 	{
@@ -223,10 +192,6 @@ void AEditorWorldManager::UpdateActorsPlaceInfo(FActorPlaceInfo ChangedPlaceInfo
 	/* 액터과 월드에 존재하지 않는다면, 해당 액터의 정보를 추가합니다. */
 	ActorsPlaceInfo.Add(ChangedPlaceInfo);
 }
-
-
-
-
 
 AEditorWorldManager * AEditorWorldManager::GetGlobalEditorWorldManager(const UObject* WorldContextObject)
 {

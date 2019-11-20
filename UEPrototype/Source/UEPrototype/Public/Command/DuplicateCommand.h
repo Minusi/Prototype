@@ -7,12 +7,14 @@
 #include "DuplicateCommand.generated.h"
 
 class UActorConstraintMarker;
+class UPlayerTaskManager;
+class AActor;
 
 UCLASS()
 class UEPROTOTYPE_API UDuplicateCommand : public UActorCommandBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	/* 생성자 */
 	UDuplicateCommand();
@@ -25,11 +27,12 @@ public:
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 private:
-	UFUNCTION(BlueprintCallable,Category = "Command")
-	void Duplicate();
+
+	void Duplicate(AActor* Target);
 
 private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
 
+	static UPlayerTaskManager* PlayerTaskManager;
 };

@@ -2,15 +2,11 @@
 
 #include "ActorCommandFactory.h"
 
-
-
 UActorCommandBase * CreateActorCommandWithClass(const FActorConstraintInfo Target, const TSubclassOf<UCommandBase> CommandClass)
 {
 	// TODO : 새로운 명령 클래스를 생성할 때마다 이곳에 추가할 것
 	UActorCommandBase* ActorCommand;
 
-
-	
 	/* 액터 상호작용 커맨드 구간 */
 	if (CommandClass.Get() == UHighlightCommand::StaticClass())
 	{
@@ -32,31 +28,7 @@ UActorCommandBase * CreateActorCommandWithClass(const FActorConstraintInfo Targe
 	{
 		ActorCommand = UActorCommandFactory::CreateActorCommand<UBlockedCommand>(Target);
 	}
-	/* 액터 트랜스폼 커맨드 구간 */
-	else if (CommandClass.Get() == UTranslateStartCommand::StaticClass())
-	{
-		ActorCommand = UActorCommandFactory::CreateActorCommand<UTranslateStartCommand>(Target);
-	}
-	else if (CommandClass.Get() == UTranslateEndCommand::StaticClass())
-	{
-		ActorCommand = UActorCommandFactory::CreateActorCommand<UTranslateEndCommand>(Target);
-	}
-	else if (CommandClass.Get() == URotateStartCommand::StaticClass())
-	{
-		ActorCommand = UActorCommandFactory::CreateActorCommand<URotateStartCommand>(Target);
-	}
-	else if (CommandClass.Get() == UTranslateEndCommand::StaticClass())
-	{
-		ActorCommand = UActorCommandFactory::CreateActorCommand<URotateEndCommand>(Target);
-	}
-	else if (CommandClass.Get() == UScaleStartCommand::StaticClass())
-	{
-		ActorCommand = UActorCommandFactory::CreateActorCommand<UScaleStartCommand>(Target);
-	}
-	else if (CommandClass.Get() == UScaleEndCommand::StaticClass())
-	{
-		ActorCommand = UActorCommandFactory::CreateActorCommand<UScaleEndCommand>(Target);
-	}
+
 	/* 컨텍스트 커맨드 구간 */
 	else if (CommandClass.Get() == UDuplicateCommand::StaticClass())
 	{
@@ -73,10 +45,6 @@ UActorCommandBase * CreateActorCommandWithClass(const FActorConstraintInfo Targe
 		return nullptr;
 	}
 
-
-
-
-	
 	/* 생성된 커맨드가 유효한지 확인합니다. */
 	if (IsValid(ActorCommand) == false)
 	{

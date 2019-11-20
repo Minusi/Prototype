@@ -25,7 +25,7 @@ public:
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 	UFUNCTION(BlueprintCallable)
-	void SetVPAmbientSound(AVPEmitter* Emit) { VPEmitter = Emit; }
+		void SetVPEmitter(AVPEmitter* Emit) { VPEmitter = Emit; }
 
 private:
 	/* 하이라이트로 표시할 마커입니다 */
