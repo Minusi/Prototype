@@ -102,13 +102,18 @@ void UDuplicateCommand::ExecuteIf()
 
 	for (const auto& it : Constraints)
 	{
-		for (const auto & t : PlayerTaskManager->GetInteractedActorsInfo())
+		Duplicate(Target.Target);
+		/* TODO : 해당 코드는 마우스로 테스트할 때 사용되었습니다. VR환경에서는 버튼에 의해
+			ACTOR가 정해지기 때문에 이런 방식으로 접근하지 않습니다.
+			복수 액터에 대한 처리를 할 수 없으므로 Duplicate와 마찬가지로 따로 로직을 생성해야합니다.
+		*/
+		/*for (const auto & t : PlayerTaskManager->GetInteractedActorsInfo())
 		{
 			if (it->CheckConstraint(t) == true)
 			{
 				Duplicate(t.Target);
 			}
-		}
+		}*/
 	}
 }
 

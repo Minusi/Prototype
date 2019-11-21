@@ -28,5 +28,4 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "DynamicParameter")
 	static void ParseParticleSystem(const UParticleSystemComponent* ParticleSystemComp, FDynamicParamList & DynamicParamList);
 
-	
 };

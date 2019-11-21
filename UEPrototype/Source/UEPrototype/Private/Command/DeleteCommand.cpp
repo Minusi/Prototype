@@ -117,14 +117,21 @@ void UDeleteCommand::ExecuteIf()
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
 	for (const auto& it : Constraints)
 	{
-		for (auto & t : PlayerTaskManager->GetInteractedActorsInfo())
+		ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
+		Delete(Target.Target);
+
+		/* TODO : 해당 작업은 마우스로 플레이시 적용되는 코드입니다. VR환경에서는 버튼을 눌렀을 때 제거되므로
+				  선택된 ACTOR가 존재합니다. 다만, 복수 ACTOR에 대해서 제거를 원할 때는 FOCUS된 ACTOR들을
+				  담을 배열과 그 배열을 가지고 있는 클래스가 Global로 접근될 수 있도록 하는 것이 좋을 것 같습니다.
+		*/
+		/*for (auto & t : PlayerTaskManager->GetInteractedActorsInfo())
 		{
 			if (it->CheckConstraint(t) == true)
 			{
 				ActorConstraintMarker->MarkActor(t.Target, EActorConstraintState::CSTR_Unfocused);
 				Delete(t.Target);
 			}
-		}
+		}*/
 	}
 }
 

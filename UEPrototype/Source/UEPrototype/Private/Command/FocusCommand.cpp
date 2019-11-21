@@ -128,7 +128,7 @@ void UFocusCommand::ExecuteIf()
 	}
 
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
-	// 포커스커맨드 호크포크 플레이어테스크이용
+	
 	for (const auto& it : Constraints)
 	{
 		// TODO : 모든 액터는 생성시 CSTR_None상태. 나중에 PlayerTaskManager 부분을 손 봐야할듯

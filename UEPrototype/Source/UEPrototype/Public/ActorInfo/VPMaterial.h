@@ -31,6 +31,6 @@ public:
 	void SetMaterialLinearColor(UStaticMeshComponent* Target, FLinearColor Color, FName Name);
 	UFUNCTION(BlueprintCallable, Category = "VPMaterial")
 	void SetMaterialScalarParam(UStaticMeshComponent* Target, float Value, FName Name);
-
+	
 
 };

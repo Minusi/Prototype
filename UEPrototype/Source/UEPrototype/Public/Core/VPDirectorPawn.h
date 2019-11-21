@@ -73,7 +73,7 @@ public:
 
 	/* 주 모션 컨트롤러의 포인팅을 수행합니다. */
 	UFUNCTION(BlueprintCallable, Category = "Core|Player")
-		void Point(const USceneComponent* InComponent, const AActor* Ignore, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit);
+		void Point(const USceneComponent* InComponent, const TArray<AActor*> Ignores, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit);
 
 public:
 	/* Called to bind functionality to input */

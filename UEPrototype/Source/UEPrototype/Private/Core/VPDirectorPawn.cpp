@@ -171,7 +171,7 @@ void AVPDirectorPawn::Focus(float DeltaTime, FHitResult & OutHit, TArray<AActor*
 	}
 }
 
-void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ignore, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit)
+void AVPDirectorPawn::Point(const USceneComponent* InComponent, const TArray<AActor*> Ignores, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit)
 {
 	if (IsValid(UserBlackBoardCache) == false)
 	{
@@ -194,7 +194,11 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ig
 
 	/* 자기자신은 raycast 충돌을 무시합니다. */
 	CollisionQueryParams.AddIgnoredActor(this);
-	CollisionQueryParams.AddIgnoredActor(Ignore);
+	for (const auto & it : Ignores)
+	{
+		CollisionQueryParams.AddIgnoredActor(it);
+	}
+	
 
 	/* 결과값을 반환합니다.(OutHit) */
 	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, LineTraceStart, LineTraceEnd, ECC_Visibility,
@@ -209,6 +213,7 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ig
 		{
 			// DEBUG : 엔진의 디스플레이에 로그를 남깁니다.
 			if (GEngine)
+				GEngine->AddOnScreenDebugMessage(4, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
 				//{
 				//	GEngine->AddOnScreenDebugMessage(4, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
 				//	GEngine->AddOnScreenDebugMessage(5, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
