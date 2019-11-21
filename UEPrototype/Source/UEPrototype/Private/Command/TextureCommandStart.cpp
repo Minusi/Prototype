@@ -6,7 +6,9 @@
 #include "Command/CommandConstraintManager.h"
 #include "Command/CmdActivatedConstraint.h"
 #include "ActorInfo/ActorConstraintMarker.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "ActorInfo/VPTexturer.h"
+
 
 UActorConstraintMarker* UTextureCommandStart::ActorConstraintMarker = nullptr;
 UVPTexturer* UTextureCommandStart::VPTextureEditor = nullptr;
@@ -14,7 +16,7 @@ UVPTexturer* UTextureCommandStart::VPTextureEditor = nullptr;
 UTextureCommandStart::UTextureCommandStart()
 {
 
-	VP_CTOR;
+	//VP_CTOR;
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
 
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdActivatedConstraint()))return;
@@ -37,10 +39,10 @@ UTextureCommandStart::UTextureCommandStart()
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel())
 		|| (VPTextureEditor != nullptr && VPTextureEditor->IsValidLowLevel()))
 	{
-		VP_LOG(Log, TEXT("TextureCommandStart의 멤버가 유효하다네요?"));
+		//VP_LOG(Log, TEXT("TextureCommandStart의 멤버가 유효하다네요?"));
 		return;
 	}
-	VP_LOG(Log, TEXT("TextureCommandStart의 멤버가 유효하지 않다네요?"));
+
 
 	/* 초기화하는 데 필요한 객체를 가지고 있는 모듈의 유효성을 검사합니다 */
 	UEditorModulesManager* EditorModulesManager =
@@ -50,10 +52,6 @@ UTextureCommandStart::UTextureCommandStart()
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UEditorModulesManager::StaticClass()->GetName());
 		return;
 	}
-
-
-
-
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
@@ -75,11 +73,12 @@ UTextureCommandStart::UTextureCommandStart()
 	}
 	if (IsValid(VPTextureEditor) == false)
 	{
-		VP_LOG(Warning, TEXT("초기화 제대로 안하냐"));
+		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다"));
 
 	}
 
 	// DEBUG
+	
 	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *ActorConstraintMarker->GetName(), ActorConstraintMarker->GetUniqueID(), &ActorConstraintMarker);
 }
 
@@ -109,11 +108,8 @@ void UTextureCommandStart::ExecuteIf()
 	{
 		if (it->CheckConstraint(Target) == true)
 		{
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Blocked);
-
+			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
 			VPTextureEditor->PaintTexture(DrawParam.LocationToDraw, DrawParam.PaintMarkParam);
-
-
 			return;
 		}
 	}
@@ -126,12 +122,24 @@ void UTextureCommandStart::InitActorCommand(FActorConstraintInfo TargetInfo)
 
 void UTextureCommandStart::InitVPTexture(AActor * Actor, FName DrawLocationName, UTextureRenderTarget2D * CanvasRT)
 {
-	if (!IsValid(VPTextureEditor))
+	if (IsValid(VPTextureEditor) == false)
 	{
 		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다."));
 		return;
 	}
 	VPTextureEditor->InitEditMaterial(Actor, DrawLocationName, CanvasRT);
+}
+
+void UTextureCommandStart::TestInitVPTexture(UTextureRenderTarget2D* RenderTarget)
+{
+	if (IsValid(Target.Target) == false)
+	{
+		VP_LOG(Warning, TEXT("Target.Target가 유효하지 않습니다."));
+		return;
+	}
+
+	VPTextureEditor->TestInitEditMaterial(Target.Target, RenderTarget);
+	
 }
 
 void UTextureCommandStart::ClearPaint()
@@ -142,5 +150,20 @@ void UTextureCommandStart::ClearPaint()
 		return;
 	}
 	VPTextureEditor->EraseTarget();
+}
+
+void UTextureCommandStart::TestClearPaint(AActor * Actor)
+{
+	if (IsValid(Actor) == false)
+	{
+		VP_LOG(Warning, TEXT("Actor가 유효하지 않습니다."));
+		return;
+	}
+	if (IsValid(VPTextureEditor) == false)
+	{
+		VP_LOG(Warning, TEXT("VPTextureEditor가 유효하지 않습니다."));
+		return;
+	}
+	VPTextureEditor->TestEraseTarget(Actor);
 }
 

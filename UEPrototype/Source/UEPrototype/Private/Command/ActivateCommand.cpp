@@ -10,8 +10,6 @@
 #include "ActorInfo/Outliner.h"
 #include "ActorInfo/ActorConstraintMarker.h"
 
-
-
 UActorConstraintMarker* UActivateCommand::ActorConstraintMarker = nullptr;
 UOutliner* UActivateCommand::Outliner = nullptr;
 
@@ -28,14 +26,14 @@ UActivateCommand::UActivateCommand()
 	}
 
 	/* 포커스 제약조건들의 유효성을 검사합니다. */
-	UCmdUnfocusedConstraint* UnfocusedConstraint = CommandConstraintManager->GetCmdUnfocusedConstraint();
+	//UCmdUnfocusedConstraint* UnfocusedConstraint = CommandConstraintManager->GetCmdUnfocusedConstraint();
 	UCmdFocusedConstraint* FocusedConstraint = CommandConstraintManager->GetCmdFocusedConstraint();
 	UCmdHighlightedConstraint* HighlightedConstraint = CommandConstraintManager->GetCmdHighlightedConstraint();
-	if (IsValid(UnfocusedConstraint) == false)
+	/*if (IsValid(UnfocusedConstraint) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCmdUnfocusedConstraint::StaticClass()->GetName());
 		return;
-	}
+	}*/
 	if (IsValid(FocusedConstraint) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCmdFocusedConstraint::StaticClass()->GetName());
@@ -48,19 +46,15 @@ UActivateCommand::UActivateCommand()
 	}
 
 	/* OR 제약 조건을 추가합니다. */
-	Constraints.Add(UnfocusedConstraint);
+	//Constraints.Add(UnfocusedConstraint);
 	Constraints.Add(FocusedConstraint);
-	Constraints.Add(HighlightedConstraint);
-
-
-
-
+	//Constraints.Add(HighlightedConstraint);
 
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if (ActorConstraintMarker->IsValidLowLevel()
 		&& Outliner->IsValidLowLevel())
 	{
-		VP_LOG(Log, TEXT("UnFocusedCommand의 멤버가 이미 유효합니다."));
+		VP_LOG(Log, TEXT("ActivateCommand의 멤버가 이미 유효합니다."));
 		return;
 	}
 	VP_LOG(Log, TEXT("%s의 멤버가 유효하지 않으므로 초기화를 수행합니다."), *UActivateCommand::StaticClass()->GetName());
@@ -74,15 +68,9 @@ UActivateCommand::UActivateCommand()
 		return;
 	}
 
-
-
-
-
 	/* 초기화를 수행합니다 */
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
 	Outliner = UOutliner::GetGlobalOutliner();
-
-
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 	if (IsValid(Outliner) == false)
@@ -101,10 +89,6 @@ UActivateCommand::UActivateCommand()
 		return;
 	}
 }
-
-
-
-
 
 void UActivateCommand::ExecuteIf()
 {
@@ -127,14 +111,10 @@ void UActivateCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Activated);
-			Outliner->DrawActorOutline(Target.Target, true);
+			Outliner->AddHighlightedOutline(Target.Target, TEXT("/Game/Material/MI_Outliner_2"));
 		}
 	}
 }
-
-
-
-
 
 void UActivateCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
 {

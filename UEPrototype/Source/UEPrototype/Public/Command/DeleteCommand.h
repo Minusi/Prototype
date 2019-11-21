@@ -8,6 +8,7 @@
 
 class UActorConstraintMarker;
 class UOutliner;
+class UPlayerTaskManager;
 
 UCLASS()
 class UEPROTOTYPE_API UDeleteCommand : public UActorCommandBase
@@ -24,11 +25,12 @@ public:
 	/* UActorCommandBase로부터 상속됨 */
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
-
-
+	void Delete(class AActor* Target);
 private:
 	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
 
 	static UOutliner* Outliner;
+
+	static UPlayerTaskManager* PlayerTaskManager;
 };

@@ -17,8 +17,6 @@ UTextureCommandEnd::UTextureCommandEnd()
 
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdBlockedConstraint()))return;
 
-
-
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel()))
 	{
@@ -36,7 +34,6 @@ UTextureCommandEnd::UTextureCommandEnd()
 		return;
 	}
 
-
 	UCmdBlockedConstraint* BlockedConstraint = UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetCmdBlockedConstraint();
 	if (IsValid(BlockedConstraint) == false)
 	{
@@ -51,13 +48,9 @@ UTextureCommandEnd::UTextureCommandEnd()
 	}
 	Constraints.Add(BlockedConstraint);
 
-
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
-
-
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 

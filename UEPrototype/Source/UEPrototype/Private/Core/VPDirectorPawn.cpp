@@ -21,7 +21,7 @@
 #include "MotionTrackedDeviceFunctionLibrary.h"
 
 #include "Kismet/KismetMathLibrary.h"
-
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AVPDirectorPawn::AVPDirectorPawn()
@@ -29,16 +29,13 @@ AVPDirectorPawn::AVPDirectorPawn()
 	// DEBUG : 생성자 로그
 	VP_CTOR;
 
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 
 	/* Pawn 프로퍼티 초기화 */
 	bUseControllerRotationRoll = true;
 	bUseControllerRotationPitch = true;
 	bUseControllerRotationYaw = true;
-
-
 
 	// RootCollision 초기화
 	RootCollision = CreateDefaultSubobject<UCapsuleComponent>(TEXT("SphereCollision"));
@@ -55,7 +52,7 @@ AVPDirectorPawn::AVPDirectorPawn()
 	/* WidgetAnchor 초기화 */
 	WidgetAnchor = CreateDefaultSubobject<USceneComponent>(TEXT("WidgetAnchor"));
 	WidgetAnchor->SetupAttachment(VRCamera);
-	
+
 	/* GizmoWidgetAnchor 초기화 */
 	GizmoWidgetAnchor = CreateDefaultSubobject<USceneComponent>(TEXT("GizmoWidgetAnchor"));
 	GizmoWidgetAnchor->SetupAttachment(VRCamera);
@@ -84,15 +81,11 @@ AVPDirectorPawn::AVPDirectorPawn()
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
 	FloatingPawnMovement->UpdatedComponent = RootComponent;
 
-
-
 	bIsPickingActor = false;
 
 	/* EMoveType 초기화 */
 	CurrentMoveType = EMoveType::MT_LOCALAXIS;
 	FixedAxis = FRotator(0, 0, 0);
-
-
 
 	/* 라인트레이스 길이가 에디터에 의해 초기홛되지 않았다면 초기화합니다 */
 	if (LineTraceLength == 0)
@@ -101,13 +94,11 @@ AVPDirectorPawn::AVPDirectorPawn()
 	}
 }
 
-
-
 // Called when the game starts or when spawned
 void AVPDirectorPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	// DEBUG : 월드의 고유성 및 객체의 고유성 확인
 	for (const auto& it : TObjectRange<AVPDirectorPawn>())
 	{
@@ -125,25 +116,21 @@ void AVPDirectorPawn::BeginPlay()
 	}
 }
 
-
-
-
-
 void AVPDirectorPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	/* 포커스하는 대상을 알아냅니다. 
+	/* 포커스하는 대상을 알아냅니다.
 	현재 블루프린트에서 구현되어 있습니다. */
 	//Focus(DeltaTime);
 	//Point(DeltaTime);
 	//DrawCurvedTrajectory();
+
+	
 }
-
-
-
-void AVPDirectorPawn::Focus(float DeltaTime)
+// 혹시 병합시 충돌이난다면 제 코드를 지워주세요. IgnoreActors가 추가되었을것입니다. 블루프린트 코드 테스트용
+void AVPDirectorPawn::Focus(float DeltaTime, FHitResult & OutHit, TArray<AActor*> IgnoreActors)
 {
-	FHitResult OutHit;
+	//FHitResult OutHit;
 
 	FVector Start = VRCamera->GetComponentLocation();
 	FVector Forward = VRCamera->GetForwardVector();
@@ -156,24 +143,15 @@ void AVPDirectorPawn::Focus(float DeltaTime)
 
 	//자기자신은 raycast 충돌을 무시합니다.
 	CollisionQueryParams.AddIgnoredActor(this);
+	CollisionQueryParams.AddIgnoredActors(IgnoreActors);
 
 	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility,
 		CollisionQueryParams);
-
-
 
 	if (HitResult == true)
 	{
 		if (OutHit.bBlockingHit)
 		{
-			// DEBUG : 엔진의 디스플레이에 로그를 남깁니다.
-			//if (GEngine)
-			//{
-			//	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
-			//	GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Red, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
-			//	GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Red, FString::Printf(TEXT("Hit Normal : %s"), *OutHit.ImpactNormal.ToString()));
-			//}
-				
 			/* 라인트레이스 결과를 브로드캐스트합니다 */
 			UserFocusEventDispatcher.Broadcast(OutHit.Actor.Get(), DeltaTime);
 
@@ -193,9 +171,7 @@ void AVPDirectorPawn::Focus(float DeltaTime)
 	}
 }
 
-
-
-void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ignore, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit)
+void AVPDirectorPawn::Point(const USceneComponent* InComponent, const TArray<AActor*> Ignores, FVector& OutPoint1, FVector& OutPoint2, FHitResult& OutHit, bool& bHit)
 {
 	if (IsValid(UserBlackBoardCache) == false)
 	{
@@ -203,28 +179,26 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ig
 		return;
 	}
 
-
-
 	LineTraceStart = InComponent->GetComponentLocation() + (LineTraceZOffset * (InComponent->GetUpVector()));
 	FVector Forward = InComponent->GetForwardVector();
 	LineTraceEnd = (LineTraceStart + (Forward * LineTraceLength));
 
 	FCollisionQueryParams CollisionQueryParams;
 
-
-
 	/* 결과값을 반환합니다. */
 	OutPoint1 = LineTraceStart;
 	OutPoint2 = LineTraceEnd;
-
-
 
 	// DEBUG : 라인트레이스 라인을 그립니다.
 	// DrawDebugLine(GetWorld(), LineTraceStart, LineTraceEnd, FColor::Blue, false);
 
 	/* 자기자신은 raycast 충돌을 무시합니다. */
 	CollisionQueryParams.AddIgnoredActor(this);
-	CollisionQueryParams.AddIgnoredActor(Ignore);
+	for (const auto & it : Ignores)
+	{
+		CollisionQueryParams.AddIgnoredActor(it);
+	}
+	
 
 	/* 결과값을 반환합니다.(OutHit) */
 	bool HitResult = GetWorld()->LineTraceSingleByChannel(OutHit, LineTraceStart, LineTraceEnd, ECC_Visibility,
@@ -239,44 +213,34 @@ void AVPDirectorPawn::Point(const USceneComponent* InComponent, const AActor* Ig
 		{
 			// DEBUG : 엔진의 디스플레이에 로그를 남깁니다.
 			if (GEngine)
-			//{
-			//	GEngine->AddOnScreenDebugMessage(4, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
-			//	GEngine->AddOnScreenDebugMessage(5, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
-			//	GEngine->AddOnScreenDebugMessage(6, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Normal : %s"), *OutHit.ImpactNormal.ToString()));
-			//}
+				GEngine->AddOnScreenDebugMessage(4, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
+				//{
+				//	GEngine->AddOnScreenDebugMessage(4, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Actor : %s"), *OutHit.GetActor()->GetName()));
+				//	GEngine->AddOnScreenDebugMessage(5, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Point : %s"), *OutHit.ImpactPoint.ToString()));
+				//	GEngine->AddOnScreenDebugMessage(6, 1.f, FColor::Blue, FString::Printf(TEXT("Hit Normal : %s"), *OutHit.ImpactNormal.ToString()));
+				//}
 
-			/* 포인트 결과를 블랙보드에 기록합니다. */			
-			UserBlackBoardCache->SetPointedActor(OutHit.GetActor());
+			/* 포인트 결과를 블랙보드에 기록합니다. */
+				UserBlackBoardCache->SetPointedActor(OutHit.GetActor());
 			return;
 		}
 	}
 	else
 	{
-		/* 포인트 결과를 블랙보드에 기록합니다. */			
+		/* 포인트 결과를 블랙보드에 기록합니다. */
 		UserBlackBoardCache->SetPointedActor(nullptr);
 		return;
 	}
 }
 
-
-
-
-
-
 // Called to bind functionality to input
 void AVPDirectorPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
-
-
-
-
 
 void AVPDirectorPawn::MoveAround(EMoveType InMoveType, float InX, float InY, float InZ, AActor const * InOrbitTarget)
 {
-	
 	if (InMoveType == EMoveType::MT_LOCALAXIS)
 	{
 		MoveLocalAxis(InX, InY, InZ);
@@ -299,8 +263,6 @@ void AVPDirectorPawn::MoveAround(EMoveType InMoveType, float InX, float InY, flo
 	}
 }
 
-
-
 void AVPDirectorPawn::LookSide(float Value)
 {
 	if (bUseControllerRotationRoll == true)
@@ -308,8 +270,6 @@ void AVPDirectorPawn::LookSide(float Value)
 		AddControllerYawInput(Value);
 	}
 }
-
-
 
 void AVPDirectorPawn::LookUpSide(float Value)
 {
@@ -319,16 +279,10 @@ void AVPDirectorPawn::LookUpSide(float Value)
 	}
 }
 
-
-
-
-
 void AVPDirectorPawn::SetMoveType(EMoveType InMoveType)
 {
 	CurrentMoveType = InMoveType;
 }
-
-
 
 void AVPDirectorPawn::SetYawRotSpeed(float InYawRotSpeed)
 {
@@ -342,8 +296,6 @@ void AVPDirectorPawn::SetYawRotSpeed(float InYawRotSpeed)
 	}
 }
 
-
-
 void AVPDirectorPawn::SetPitchRotSpeed(float InPitchRotSpeed)
 {
 	if (InPitchRotSpeed > 0.f)
@@ -356,8 +308,6 @@ void AVPDirectorPawn::SetPitchRotSpeed(float InPitchRotSpeed)
 	}
 }
 
-
-
 void AVPDirectorPawn::SetLineTraceLength(int32 InLength)
 {
 	if (InLength > 0)
@@ -366,7 +316,7 @@ void AVPDirectorPawn::SetLineTraceLength(int32 InLength)
 	}
 	else
 	{
-		LineTraceLength  = 100 * 10000;
+		LineTraceLength = 100 * 10000;
 	}
 }
 
@@ -374,10 +324,6 @@ void AVPDirectorPawn::SetIsPickingActor(bool IsPicking)
 {
 	bIsPickingActor = IsPicking;
 }
-
-
-
-
 
 void AVPDirectorPawn::MoveAbsoluteAxis(float InX, float InY, float InZ)
 {
@@ -387,8 +333,6 @@ void AVPDirectorPawn::MoveAbsoluteAxis(float InX, float InY, float InZ)
 
 	CurrentMoveType = EMoveType::MT_ABSOLUTEAXIS;
 }
-
-
 
 void AVPDirectorPawn::MoveFixedAxis(float InX, float InY, float InZ)
 {
@@ -410,8 +354,6 @@ void AVPDirectorPawn::MoveFixedAxis(float InX, float InY, float InZ)
 	CurrentMoveType = EMoveType::MT_FIXEDAXIS;
 }
 
-
-
 void AVPDirectorPawn::MoveLocalAxis(float InX, float InY, float InZ)
 {
 	FRotator InRot = VRCamera->GetComponentRotation();
@@ -429,8 +371,6 @@ void AVPDirectorPawn::MoveLocalAxis(float InX, float InY, float InZ)
 	CurrentMoveType = EMoveType::MT_LOCALAXIS;
 }
 
-
-
 void AVPDirectorPawn::MoveOrbitAxis(float InX, float InY, float InZ, AActor const * InOrbitTarget)
 {
 	if (InOrbitTarget == nullptr)
@@ -441,8 +381,3 @@ void AVPDirectorPawn::MoveOrbitAxis(float InX, float InY, float InZ, AActor cons
 
 	FVector TargetLocation = InOrbitTarget->GetActorLocation();
 }
-
-
-
-
-

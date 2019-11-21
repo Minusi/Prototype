@@ -18,8 +18,6 @@
 #include "UObjectIterator.h"
 #include "VPMaterial.h"
 
-
-
 UVPMaterial::UVPMaterial()
 {
 	VP_CTOR;
@@ -47,7 +45,6 @@ UVPMaterial * UVPMaterial::GetGlobalMaterial()
 
 void UVPMaterial::SetMaterialVectorParam(UStaticMeshComponent* Target, FVector Vector, FName Name)
 {
-
 	// TODO : 여러 개의 머티리얼을 수정할 수 있도록 해야함.
 	UMaterialInterface* TargetMaterial = Target->GetMaterial(0);
 	UMaterialInstanceDynamic* DynamicInstance;
@@ -57,17 +54,11 @@ void UVPMaterial::SetMaterialVectorParam(UStaticMeshComponent* Target, FVector V
 		DynamicInstance = UMaterialInstanceDynamic::Create(TargetMaterial, NULL);
 		Target->SetMaterial(0, DynamicInstance);
 	}
-
 	DynamicInstance->SetVectorParameterValue(Name, Vector);
-
-	
-	
-
 }
 
-void UVPMaterial::SetMaterialUTexture2DParam(UStaticMeshComponent* Target,UTexture2D* Texture, FName Name)
+void UVPMaterial::SetMaterialUTexture2DParam(UStaticMeshComponent* Target, UTexture2D* Texture, FName Name)
 {
-	
 	// TODO : 여러 개의 머티리얼을 수정할 수 있도록 해야함.
 	UMaterialInterface* TargetMaterial = Target->GetMaterial(0);
 	UMaterialInstanceDynamic* DynamicInstance;
@@ -77,7 +68,6 @@ void UVPMaterial::SetMaterialUTexture2DParam(UStaticMeshComponent* Target,UTextu
 		DynamicInstance = UMaterialInstanceDynamic::Create(TargetMaterial, NULL);
 		Target->SetMaterial(0, DynamicInstance);
 	}
-
 	DynamicInstance->SetTextureParameterValue(Name, Texture);
 }
 

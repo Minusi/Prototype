@@ -7,7 +7,6 @@
 #include "EditorWorldManager.h"
 #include "EditorModulesManager.h"
 
-
 UPlayerTaskManager::UPlayerTaskManager()
 {
 	// DEBUG
@@ -18,8 +17,6 @@ UPlayerTaskManager::UPlayerTaskManager()
 	{
 		return;
 	}
-
-	
 
 	/* 상위 모듈을 받아, 이벤트 바인딩을 수행합니다 */
 	UEditorModulesManager* EditorModulesManager =
@@ -32,10 +29,6 @@ UPlayerTaskManager::UPlayerTaskManager()
 	Event.BindUFunction(this, "BindToEvents");
 	EditorModulesManager->RegisterIf(Event);
 }
-
-
-
-
 
 UPlayerTaskManager * UPlayerTaskManager::GetGlobalPlayerTaskManager()
 {
@@ -52,10 +45,6 @@ UPlayerTaskManager * UPlayerTaskManager::GetGlobalPlayerTaskManager()
 	return nullptr;
 }
 
-
-
-
-
 bool UPlayerTaskManager::IsInteractedActor(AActor * Target) const
 {
 	if (IsValid(Target) == false)
@@ -63,8 +52,6 @@ bool UPlayerTaskManager::IsInteractedActor(AActor * Target) const
 		VP_LOG(Warning, TEXT("유효하지 않은 액터입니다"));
 		return false;
 	}
-
-
 
 	/* 컨테이너에 Actor가 있으면 반환합니다 */
 	for (const auto& it : InteractedActorsInfo)
@@ -77,10 +64,6 @@ bool UPlayerTaskManager::IsInteractedActor(AActor * Target) const
 
 	return false;
 }
-
-
-
-
 
 void UPlayerTaskManager::BindToEvents()
 {
@@ -95,11 +78,7 @@ void UPlayerTaskManager::BindToEvents()
 	/* 이벤트에 함수를 바인딩합니다 */
 	ActorConstraintMarker->OnActorConstraintChanged().AddDynamic(this, &UPlayerTaskManager::UpdateActorInteracted);
 }
-
-
-
-
-
+// TODO : 고쳐야 할게 많은 함수입니다. Unfocus 부분과 highlight된 상태의 actor에대해 focus상태도 적용됩니다.
 void UPlayerTaskManager::UpdateActorInteracted(FActorConstraintInfo Target)
 {
 	/* 액터의 유효성을 검사합니다 */
@@ -109,10 +88,37 @@ void UPlayerTaskManager::UpdateActorInteracted(FActorConstraintInfo Target)
 		return;
 	}
 
+	// TODO : 두 개 일떄는 나중에처리하는걸로
+
+	for (auto& it : InteractedActorsInfo)
+	{
+		if ((it.TargetState == EActorConstraintState::CSTR_Focused) && (it.Target != Target.Target))
+		{
+			VP_LOG(Warning, TEXT("t.target(PlayerTask) : %s , t.targetState(PlayerTask) : %d"),
+				*it.Target->GetName(), (int)it.TargetState);
+			it.TargetState = EActorConstraintState::CSTR_Unfocused;
+			RemoveActorInteracted(it);
+		}
+
+		if (it.TargetState == EActorConstraintState::CSTR_Activated)
+		{
+			if (Target.TargetState == EActorConstraintState::CSTR_Unfocused)
+			{
+				it.TargetState = EActorConstraintState::CSTR_Unfocused;
+				RemoveActorInteracted(it);
+			}
+			else if (Target.TargetState == EActorConstraintState::CSTR_Focused)
+			{
+				it.TargetState = EActorConstraintState::CSTR_Focused;
+				ChangeActorInteracted(it);
+			}
+		}
+	}
+
 	bool bInteracted = InteractedActorsInfo.Contains(Target);
 
 	/* 액터의 제약조건의 유효성을 검사합니다 */
-	if(Target.TargetState == EActorConstraintState::CSTR_None)
+	if (Target.TargetState == EActorConstraintState::CSTR_None)
 	{
 		VP_LOG(Warning, TEXT("상호작용 중이지 않은 액터에 유효하지 않은 제약 조건입니다 : %s"), *Target.Target->GetName());
 		return;
@@ -122,11 +128,10 @@ void UPlayerTaskManager::UpdateActorInteracted(FActorConstraintInfo Target)
 	if (bInteracted == false)
 	{
 		AddActorInteracted(Target);
-		return;
 	}
 
 	/* 컨테이너에 존재하면서, Unfocused가 아닌 경우 변경합니다 */
-	if(bInteracted == true && Target.TargetState != EActorConstraintState::CSTR_Unfocused)
+	if (bInteracted == true && Target.TargetState != EActorConstraintState::CSTR_Unfocused)
 	{
 		ChangeActorInteracted(Target);
 	}
@@ -137,8 +142,6 @@ void UPlayerTaskManager::UpdateActorInteracted(FActorConstraintInfo Target)
 		RemoveActorInteracted(Target);
 	}
 }
-
-
 
 void UPlayerTaskManager::AddActorInteracted(FActorConstraintInfo Target)
 {
@@ -159,7 +162,8 @@ void UPlayerTaskManager::AddActorInteracted(FActorConstraintInfo Target)
 	/* 액터의 상태가 Unfocued인지 검사합니다 */
 	if (Target.TargetState == EActorConstraintState::CSTR_Unfocused)
 	{
-		VP_LOG(Warning, TEXT("상호작용 중이지 않은 Unfocused 액터를 추가할 수 없습니다 : %s."), *Target.Target->GetName());
+		// TODO : 나중에 주석을 풀어주세요
+		//VP_LOG(Warning, TEXT("상호작용 중이지 않은 Unfocused 액터를 추가할 수 없습니다 : %s."), *Target.Target->GetName());
 		return;
 	}
 
@@ -175,8 +179,6 @@ void UPlayerTaskManager::AddActorInteracted(FActorConstraintInfo Target)
 	InteractedActorsInfo.Add(Target);
 	InteractedActorAddedEventDispatcher.Broadcast(Target);
 }
-
-
 
 void UPlayerTaskManager::RemoveActorInteracted(FActorConstraintInfo Target)
 {
@@ -209,11 +211,10 @@ void UPlayerTaskManager::RemoveActorInteracted(FActorConstraintInfo Target)
 	}
 
 	/* 삭제합니다. */
+
 	InteractedActorsInfo.Remove(Target);
 	InteractedActorRemovedEventDispatcher.Broadcast(Target.Target);
 }
-
-
 
 void UPlayerTaskManager::RemoveActorInteractedWithoutState(AActor * Target)
 {
@@ -240,8 +241,6 @@ void UPlayerTaskManager::RemoveActorInteractedWithoutState(AActor * Target)
 	VP_LOG(Warning, TEXT("삭제하려는 액터가 컨테이너에 존재하지 않습니다 : %s."), *Target->GetName());
 	return;
 }
-
-
 
 void UPlayerTaskManager::ChangeActorInteracted(FActorConstraintInfo Target)
 {
@@ -273,6 +272,7 @@ void UPlayerTaskManager::ChangeActorInteracted(FActorConstraintInfo Target)
 		if (it == Target)
 		{
 			it.TargetState = Target.TargetState;
+
 			return;
 		}
 	}
@@ -282,19 +282,14 @@ void UPlayerTaskManager::ChangeActorInteracted(FActorConstraintInfo Target)
 	return;
 }
 
-
-
-
-
 EActorConstraintState UPlayerTaskManager::GetActorConstraintState(AActor * Target) const
 {
 	if (IsValid(Target) == false)
 	{
-		VP_LOG(Warning, TEXT("유효하지 않은 액터입니다"));
+		// TODO : 나중에 주석을 풀어주세요. 너무 방해되서 지어놓음.
+		//VP_LOG(Warning, TEXT("유효하지 않은 액터입니다"));
 		return EActorConstraintState::CSTR_None;
 	}
-
-
 
 	/* 컨테이너에 Actor가 있으면 상태를 반환합니다 */
 	for (const auto& it : InteractedActorsInfo)
@@ -302,8 +297,9 @@ EActorConstraintState UPlayerTaskManager::GetActorConstraintState(AActor * Targe
 		if (it.Target == Target)
 		{
 			return it.TargetState;
+			InteractedActorsInfo;
 		}
 	}
-	
+
 	return EActorConstraintState::CSTR_None;
 }

@@ -8,12 +8,12 @@
 
 class UOutliner;
 class UActorConstraintMarker;
-
+class UPlayerTaskManager;
 UCLASS()
 class UEPROTOTYPE_API UFocusCommand : public UActorCommandBase
 {
 	GENERATED_BODY()
-	
+
 public:
 	UFocusCommand();
 
@@ -29,4 +29,6 @@ private:
 	static UOutliner* Outliner;
 
 	static UActorConstraintMarker* ActorConstraintMarker;
+
+	static UPlayerTaskManager* PlayerTaskManager;
 };

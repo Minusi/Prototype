@@ -9,13 +9,15 @@
 #include "Command/CmdUnfocusedConstraint.h"
 #include "ActorInfo/Outliner.h"
 #include "ActorInfo/ActorConstraintMarker.h"
+#include "Core/PlayerTaskManager.h"
 
 UOutliner* UUnfocusedCommand::Outliner = nullptr;
 UActorConstraintMarker* UUnfocusedCommand::ActorConstraintMarker = nullptr;
-
+UPlayerTaskManager* UUnfocusedCommand::PlayerTaskManager = nullptr;
 UUnfocusedCommand::UUnfocusedCommand()
 {
-	VP_CTOR;
+	// TODO : 나중에 주석을 풀어주세요
+	//VP_CTOR;
 
 	if (!IsValid(UCommandConstraintManager::GetGlobalCommandConstraintManager())) return;
 
@@ -46,12 +48,13 @@ UUnfocusedCommand::UUnfocusedCommand()
 		return;
 	}
 	Constraints.Add(FocusedConstraint);
-	Constraints.Add(HighlightedConstraint);
+	//Constraints.Add(HighlightedConstraint);
 
-	if (Outliner != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
+	if (Outliner != nullptr && PlayerTaskManager != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
 		ActorConstraintMarker->IsValidLowLevel())
 	{
-		VP_LOG(Log, TEXT("UnFocusedCommand의 멤버가 유효하다네요?"));
+		// TODO : 나중에 주석풀어주세요. 테스트 할 때 너무 번거로워서 잠시 지워놓음
+		//VP_LOG(Log, TEXT("UnFocusedCommand의 멤버가 유효하다네요?"));
 		return;
 	}
 
@@ -70,21 +73,21 @@ UUnfocusedCommand::UUnfocusedCommand()
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다."), *UCommandConstraintManager::GetGlobalCommandConstraintManager()->GetName());
 		return;
 	}
-	
-
 
 	/* 초기화를 수행합니다 */
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	Outliner = UOutliner::GetGlobalOutliner();
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
-
-
-
-
+	PlayerTaskManager = UPlayerTaskManager::GetGlobalPlayerTaskManager();
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 	if (IsValid(Outliner) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UOutliner::StaticClass()->GetName());
+		return;
+	}
+	if (IsValid(PlayerTaskManager) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UPlayerTaskManager::StaticClass()->GetName());
 		return;
 	}
 	if (IsValid(ActorConstraintMarker) == false)
@@ -100,8 +103,8 @@ UUnfocusedCommand::UUnfocusedCommand()
 
 	// DEBUG
 	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *Outliner->GetName(), Outliner->GetUniqueID(), &Outliner);
+	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *PlayerTaskManager->GetName(), PlayerTaskManager->GetUniqueID(), &PlayerTaskManager);
 	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *ActorConstraintMarker->GetName(), ActorConstraintMarker->GetUniqueID(), &ActorConstraintMarker);
-
 }
 
 void UUnfocusedCommand::ExecuteIf()
@@ -118,19 +121,19 @@ void UUnfocusedCommand::ExecuteIf()
 		return;
 	}
 
-	
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
-	
 	for (const auto& it : Constraints)
 	{
-		if (it->CheckConstraint(Target) == false)
+		for (auto & t : PlayerTaskManager->GetInteractedActorsInfo())
 		{
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
-			Outliner->EraseActorOutline();
-			return;
+			if (it->CheckConstraint(t) == true)
+			{
+				ActorConstraintMarker->MarkActor(t.Target, EActorConstraintState::CSTR_Unfocused);
+				Outliner->ClearFocusedOutline();
+				return;
+			}
 		}
 	}
-	
 }
 
 void UUnfocusedCommand::InitActorCommand(FActorConstraintInfo TargetInfo)

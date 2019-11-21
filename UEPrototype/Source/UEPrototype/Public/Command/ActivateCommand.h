@@ -6,12 +6,8 @@
 #include "Command/ActorCommandBase.h"
 #include "ActivateCommand.generated.h"
 
-
-
 class UActorConstraintMarker;
 class UOutliner;
-
-
 
 /*
  *
@@ -29,10 +25,6 @@ public:
 
 	/* UActorCommandBase로부터 상속됨 */
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
-
-
-
-
 
 private:
 	/* 오브젝트를 활성화 상태로 변경하기 위한 마커입니다. */

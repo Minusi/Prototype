@@ -7,10 +7,13 @@
 #include "Command/CmdActivatedConstraint.h"
 #include "ActorInfo/ActorConstraintMarker.h"
 #include "ActorInfo/Outliner.h"
+#include "Core/PlayerTaskManager.h"
 
 UActorConstraintMarker* UDeleteCommand::ActorConstraintMarker = nullptr;
 
 UOutliner* UDeleteCommand::Outliner = nullptr;
+
+UPlayerTaskManager* UDeleteCommand::PlayerTaskManager = nullptr;
 
 UDeleteCommand::UDeleteCommand()
 {
@@ -33,7 +36,6 @@ UDeleteCommand::UDeleteCommand()
 	}
 	Constraints.Add(ActivateConstraint);
 
-
 	/* 이미 초기화되어 있으면 생략합니다 */
 	if ((ActorConstraintMarker != nullptr && ActorConstraintMarker->IsValidLowLevel()))
 	{
@@ -44,17 +46,14 @@ UDeleteCommand::UDeleteCommand()
 
 	/* 초기화하는 데 필요한 객체를 가지고 있는 모듈의 유효성을 검사합니다 */
 	UEditorModulesManager* EditorModulesManager =
-	UEditorModulesManager::GetGlobalEditorModulesManager();
+		UEditorModulesManager::GetGlobalEditorModulesManager();
 	if (IsValid(EditorModulesManager) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UEditorModulesManager::StaticClass()->GetName());
 		return;
 	}
 
-
-
-
-	if (Outliner != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
+	if (Outliner != nullptr && PlayerTaskManager != nullptr && Outliner->IsValidLowLevel() && ActorConstraintMarker != nullptr &&
 		ActorConstraintMarker->IsValidLowLevel())
 	{
 		VP_LOG(Log, TEXT("DelectCommand의 멤버가 유효하다네요?"));
@@ -65,11 +64,20 @@ UDeleteCommand::UDeleteCommand()
 	VP_LOG(Warning, TEXT("[DEBUG] 에디터 모듈이 초기화가 되어있습니다."));
 	ActorConstraintMarker = UActorConstraintMarker::GetGlobalActorConstraintMarker();
 	Outliner = UOutliner::GetGlobalOutliner();
-
-
+	PlayerTaskManager = UPlayerTaskManager::GetGlobalPlayerTaskManager();
 
 	/* 초기화된 객체들에 대한 유효성 검사를 실행합니다 */
 
+	if (IsValid(Outliner) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UOutliner::StaticClass()->GetName());
+		return;
+	}
+	if (IsValid(PlayerTaskManager) == false)
+	{
+		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UPlayerTaskManager::StaticClass()->GetName());
+		return;
+	}
 	if (IsValid(ActorConstraintMarker) == false)
 	{
 		VP_LOG(Warning, TEXT("%s가 유효하지 않습니다"), *UActorConstraintMarker::StaticClass()->GetName());
@@ -85,7 +93,7 @@ UDeleteCommand::UDeleteCommand()
 	VP_LOG(Warning, TEXT("[DEBUG] %s : %d, Pointer Address : %x"), *ActorConstraintMarker->GetName(), ActorConstraintMarker->GetUniqueID(), &ActorConstraintMarker);
 }
 
-
+#include "Engine.h"
 void UDeleteCommand::ExecuteIf()
 {
 	if (IsValid(Outliner) == false)
@@ -107,34 +115,43 @@ void UDeleteCommand::ExecuteIf()
 	}
 
 	/* 명령이 제약 조건을 만족하는 지 확인합니다 */
-
 	for (const auto& it : Constraints)
 	{
-		if (it->CheckConstraint(Target) == true)
+		ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
+		Delete(Target.Target);
+
+		/* TODO : 해당 작업은 마우스로 플레이시 적용되는 코드입니다. VR환경에서는 버튼을 눌렀을 때 제거되므로
+				  선택된 ACTOR가 존재합니다. 다만, 복수 ACTOR에 대해서 제거를 원할 때는 FOCUS된 ACTOR들을
+				  담을 배열과 그 배열을 가지고 있는 클래스가 Global로 접근될 수 있도록 하는 것이 좋을 것 같습니다.
+		*/
+		/*for (auto & t : PlayerTaskManager->GetInteractedActorsInfo())
 		{
-			//TODO:나중에 제대로 Delete 되도록 조정해야함. 일단 SetActive를 이용해 화면상에 보이지않게할것.
-			ActorConstraintMarker->MarkActor(Target.Target, EActorConstraintState::CSTR_Unfocused);
-
-			if (!Target.Target->bHidden)
+			if (it->CheckConstraint(t) == true)
 			{
-				Target.Target->SetActorHiddenInGame(true);
-				Target.Target->SetActorEnableCollision(false);
-				Target.Target->SetActorTickEnabled(false);
-
-				Outliner->EraseActorOutline();
+				ActorConstraintMarker->MarkActor(t.Target, EActorConstraintState::CSTR_Unfocused);
+				Delete(t.Target);
 			}
-				
-
-			
-			
-
-			return;
-		}
+		}*/
 	}
-
 }
 
 void UDeleteCommand::InitActorCommand(FActorConstraintInfo TargetInfo)
 {
 	Target = TargetInfo;
+}
+
+void UDeleteCommand::Delete(AActor * Target)
+{
+	if (Target == nullptr)
+	{
+		VP_LOG(Warning, TEXT("Delete 될 타겟이 유효하지 않습니다"));
+		return;
+	}
+	// 삭제할 액터에 대한 디버그 로그
+	GEngine->AddOnScreenDebugMessage(1, 5.0F, FColor::Yellow, FString::Printf(TEXT("Actor : %s"), *Target->GetName()));
+
+	Outliner->RemoveHighlightedOutline(Target);
+	Target->SetActorHiddenInGame(true);
+	Target->SetActorEnableCollision(false);
+	Target->SetActorTickEnabled(false);
 }

@@ -114,7 +114,6 @@ void UMaterialCommand::ExecuteIf()
 		if (it->CheckConstraint(Target) == true)
 		{
 			ActorConstraintMarker->MarkActor(Target.Target, Target.TargetState);
-			
 			return;
 		}
 	}

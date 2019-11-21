@@ -11,7 +11,7 @@ class UActorConstraintMarker;
 class UTextureRenderTarget2D;
 class UMaterial;
 
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class UEPROTOTYPE_API UTextureCommandStart : public UActorCommandBase
 {
 	GENERATED_BODY()
@@ -27,14 +27,14 @@ public:
 	virtual void InitActorCommand(FActorConstraintInfo TargetInfo) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Command")
+	void InitVPTexture(AActor * Actor, FName DrawLocationName, UTextureRenderTarget2D * CanvasRT);
 
-		void InitVPTexture(AActor * Actor, FName DrawLocationName, UTextureRenderTarget2D * CanvasRT);
-
-
-
+	// TODO : 2019.11.18작성됨 테스트용. 11.22일 이후에 존재한다면 삭제 바람.
+	UFUNCTION(BlueprintCallable, Category = "Command")
+	void TestInitVPTexture(UTextureRenderTarget2D* RenderTarget);
 
 	UFUNCTION(BlueprintCallable, Category = "Command")
-		void EditPaintParam(float DrawSize, FColor Color, float ForceStrength, UTextureRenderTarget2D *CanvasRT)
+	void EditPaintParam(float DrawSize, FColor Color, float ForceStrength, UTextureRenderTarget2D *CanvasRT)
 	{
 		PaintParam.DrawSize = DrawSize;
 		PaintParam.Color = Color;
@@ -43,25 +43,25 @@ public:
 	}
 
 	UFUNCTION(BlueprintCallable, Category = "Command")
-		void SetDrawParam(FVector2D LocationToDraw, FName PaintMarkParam)
+	void SetDrawParam(FVector2D LocationToDraw, FName PaintMarkParam)
 	{
 		DrawParam.LocationToDraw = LocationToDraw;
 		DrawParam.PaintMarkParam = PaintMarkParam;
-	
 	}
 
 	/*2019-8-14 수요일 급하게 추가.*/
-	UFUNCTION(BlueprintCallable,Category = "Command")
+	UFUNCTION(BlueprintCallable, Category = "Command")
 	void ClearPaint();
 
+	// TODO : 2019.11.18작성됨 테스트용. 11.22일 이후에 존재한다면 삭제 바람.
+	UFUNCTION(BlueprintCallable, Category = "Command")
+	void TestClearPaint(AActor* Actor);
 
 private:
-	/* 하이라이트로 표시할 마커입니다 */
 	static UActorConstraintMarker* ActorConstraintMarker;
-
 	static UVPTexturer* VPTextureEditor;
 	UPROPERTY()
-		FPaintParameter PaintParam;
+	FPaintParameter PaintParam;
 	UPROPERTY()
-		FDrawParameter DrawParam;
+	FDrawParameter DrawParam;
 };

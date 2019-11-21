@@ -6,8 +6,6 @@
 #include "Module/ModuleManagerBase.h"
 #include "ActorInfoModuleManager.generated.h"
 
-
-
 class UOutliner;
 class UVPTexturer;
 class UActorConstraintMarker;
@@ -26,119 +24,109 @@ UCLASS()
 class UEPROTOTYPE_API UActorInfoModuleManager : public UModuleManagerBase
 {
 	GENERATED_BODY()
-	
-	
+
 public:
 	/* 생성자 */
 	UActorInfoModuleManager();
 
-
-
 	/* ActorInfoModuleManager를 반환합니다(전역 접근 가능). */
 	UFUNCTION(BlueprintCallable, Category = "ActorInfo", meta = (UnsafeDuringActorConstruction = "true"))
-	static UActorInfoModuleManager* GetGlobalActorInfoModuleManager();
-	
+		static UActorInfoModuleManager* GetGlobalActorInfoModuleManager();
+
 	/* UOutliner를 반환합니다 */
-	UFUNCTION(BlueprintGetter, Category="ActorInfo")
-	FORCEINLINE UVPTexturer* GetTexturer() const
+	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
+		FORCEINLINE UVPTexturer* GetTexturer() const
 	{
 		return VPTexturer;
 	}
 
 	/* UOutliner를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE UOutliner* GetOutliner() const
+		FORCEINLINE UOutliner* GetOutliner() const
 	{
 		return Outliner;
 	}
 
 	/* ActorConstarintInfoMarker를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE UActorConstraintMarker* GetActorConstraintMarker() const
+		FORCEINLINE UActorConstraintMarker* GetActorConstraintMarker() const
 	{
 		return ActorConstraintMarker;
 	}
 
 	/* ActorPlaceInfoMarker를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE UActorPlaceInfoMarker* GetActorPlaceInfoMarker() const
+		FORCEINLINE UActorPlaceInfoMarker* GetActorPlaceInfoMarker() const
 	{
 		return ActorPlaceInfoMarker;
 	}
 
 	/* HUDWorldPositioner를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE UHUDWorldPositioner* GetHUDWorldPositioner() const
+		FORCEINLINE UHUDWorldPositioner* GetHUDWorldPositioner() const
 	{
 		return HUDWorldPositioner;
 	}
 
 	/* Contextor를 반환합니다 */
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE AContextor* GetContextor()const
+		FORCEINLINE AContextor* GetContextor()const
 	{
 		return Contextor;
 	}
 
 	/*Material을 반환합니다.*/
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE UVPMaterial* GetMaterial()const
+		FORCEINLINE UVPMaterial* GetMaterial()const
 	{
 		return Material;
 	}
 
 	UFUNCTION(BlueprintGetter, Category = "ActorInfo")
-	FORCEINLINE AVPEmitter* GetEmitter()const
+		FORCEINLINE AVPEmitter* GetEmitter()const
 	{
 		return Emitter;
 	}
-
-
 
 protected:
 	/* 모듈 컴포넌트들을 초기화합니다 */
 	virtual void Initialized() override;
 
-
-
-
-
 private:
 	/* 윤곽선을 그려주는 Outliner입니다 */
-	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),
-				BlueprintGetter=GetOutliner)
-	UOutliner * Outliner;
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetOutliner)
+		UOutliner * Outliner;
 
 	/* 윤곽선을 그려주는 Outliner입니다 */
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetTexturer)
-	UVPTexturer * VPTexturer;
+		UVPTexturer * VPTexturer;
 
 	/* 액터의 Constraint 상태의 변경을 알립니다 */
-	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),
-				BlueprintGetter=GetActorConstraintMarker)
-	UActorConstraintMarker* ActorConstraintMarker;
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetActorConstraintMarker)
+		UActorConstraintMarker* ActorConstraintMarker;
 
 	/* 액터의 PlaceInfo 상태의 변경을 알립니다 */
-	UPROPERTY(BlueprintReadOnly, Category="ActorInfo", meta=(AllowPrivateAccess=true),
-				BlueprintGetter=GetActorPlaceInfoMarker)
-	UActorPlaceInfoMarker* ActorPlaceInfoMarker;
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
+		BlueprintGetter = GetActorPlaceInfoMarker)
+		UActorPlaceInfoMarker* ActorPlaceInfoMarker;
 
 	/* 액터에 대한 정보를 띄워줄 위젯의 위치를 결정합니다 */
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetHUDWorldPositioner)
-	UHUDWorldPositioner* HUDWorldPositioner;
+		UHUDWorldPositioner* HUDWorldPositioner;
 
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetContextor)
-	AContextor* Contextor;
+		AContextor* Contextor;
 
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetMaterial)
-	UVPMaterial* Material;
+		UVPMaterial* Material;
 
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo", meta = (AllowPrivateAccess = true),
 		BlueprintGetter = GetEmitter)
 		AVPEmitter* Emitter;
-
 };
